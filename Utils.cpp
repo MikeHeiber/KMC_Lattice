@@ -87,7 +87,7 @@ void createExponentialDOSVector(vector<float>& data,const double mode,const doub
     }
 }
 
-void createGaussianVector(vector<float>& data,const double mean,const double stdev,const int seed){
+void createGaussianDOSVector(vector<float>& data,const double mean,const double stdev,const int seed){
     boost::mt19937 gen;
     gen.seed(time(0)*seed);
     boost::normal_distribution<> dist(mean,stdev);

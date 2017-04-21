@@ -4,6 +4,11 @@ Simulation::~Simulation(){
     //dtor
 }
 
+list<unique_ptr<Event>>::iterator Simulation::addEvent(unique_ptr<Event>& event_ptr){
+    events.push_back(move(event_ptr));
+    return --events.end();
+}
+
 void Simulation::addObject(unique_ptr<Object>& object_ptr){
     // Add an event for the object to the event list and link the event to the object
     events.push_back(unique_ptr<Event>(nullptr));
@@ -13,6 +18,11 @@ void Simulation::addObject(unique_ptr<Object>& object_ptr){
     // Update counters
     N_objects++;
     N_objects_created++;
+    N_events_executed++;
+}
+
+void Simulation::addSite(unique_ptr<Site>& site_ptr){
+    lattice.push_back(move(site_ptr));
 }
 
 //  This function calculates the coordinate adjustment term needed to account for periodic boundaries in the x-direction.
@@ -70,6 +80,7 @@ int Simulation::calculateDZ(const int z,const int k){
 }
 
 list<unique_ptr<Event>>::iterator Simulation::chooseNextEvent(){
+    cout << "There are " << events.size() << " events in the queue." << endl;
     list<unique_ptr<Event>>::iterator event_it;
     list<unique_ptr<Event>>::iterator event_it_target = events.begin();
     for(event_it=++events.begin();event_it!=events.end();++event_it){
@@ -128,6 +139,20 @@ int Simulation::getN_events_executed(){
     return N_events_executed;
 }
 
+Coords Simulation::getRandomCoords(){
+    Coords coords;
+    static boost::uniform_int<> distx(0,Length-1);
+    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randx(gen, distx);
+    static boost::uniform_int<> disty(0,Width-1);
+    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randy(gen, disty);
+    static boost::uniform_int<> distz(0,Height-1);
+    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randz(gen, distz);
+    coords.x = randx();
+    coords.y = randy();
+    coords.z = randz();
+    return coords;
+}
+
 int Simulation::getSiteIndex(const Coords& coords){
     return coords.x*Width*Height+coords.y*Height+coords.z;
 }
@@ -157,7 +182,8 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     // Clear all remaining data structures
     events.clear();
     objects.clear();
-    gen.seed(time(0)*id);
+    gen.seed(time(0)*(id+1));
+    Event::seedGenerator(id);
     // General Parameters
     Enable_logging = params.Enable_logging;
     Enable_periodic_x = params.Enable_periodic_x;
@@ -173,6 +199,34 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     Recalc_cutoff = params.Recalc_cutoff;
     // Output files
     Logfile = params.Logfile;
+}
+
+void Simulation::incrementTime(const double added_time){
+    Time += added_time;
+}
+
+bool Simulation::isOccupied(const Coords& coords){
+    return (*getSiteIt(coords))->isOccupied();
+}
+
+bool Simulation::loggingEnabled(){
+    return Enable_logging;
+}
+
+void Simulation::logMSG(const stringstream& msg){
+    *Logfile << msg.str();
+}
+
+void Simulation::moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords){
+    (*getSiteIt((*object_it)->getCoords()))->clearOccupancy();
+    (*object_it)->setCoords(dest_coords);
+    (*getSiteIt(dest_coords))->setOccupied();
+    N_events_executed++;
+}
+
+void Simulation::removeObject(const list<unique_ptr<Object>>::iterator object_it){
+    N_objects--;
+    N_events_executed++;
 }
 
 void Simulation::removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its){

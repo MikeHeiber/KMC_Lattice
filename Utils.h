@@ -1,6 +1,5 @@
 #ifndef UTILS_H
 #define UTILS_H
-#define _USE_MATH_DEFINES
 
 #include "mpi.h"
 #include <vector>
@@ -29,7 +28,7 @@ double array_stdev(const double data[],const int size);
 vector<double> calculateAverageVector(const vector<double>& input_vector,const int procid,const int nproc);
 void createExponentialDOSVector(vector<float>& data,const double mode,const double urbach_energy,const int seed);
 void createGaussianDOSVector(vector<float>& data,const double mean,const double stdev,const int seed);
-inline double intpow(const double base,const int exponent);
+double intpow(const double base,const int exponent);
 double vector_avg(const vector<int>& dataset);
 double vector_avg(const vector<double>& dataset);
 double vector_stdev(const vector<int>& dataset);

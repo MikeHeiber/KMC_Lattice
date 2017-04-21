@@ -14,12 +14,13 @@ class Object{
     public:
         virtual ~Object();
         Object();
+        Object(const double time,const int tag_num,const Coords& start_coords);
         double calculateDisplacement();
-        virtual void calculateEvents();
         Coords getCoords();
         double getCreationTime();
         list<unique_ptr<Event>>::iterator getEventIt();
         int getTag();
+        void setCoords(const Coords& new_coords);
         void setEventIt(const list<unique_ptr<Event>>::iterator it);
     private:
         double time_created;

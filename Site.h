@@ -12,7 +12,9 @@ class Site{
     public:
         virtual ~Site();
         Site();
+        void clearOccupancy();
         bool isOccupied();
+        void setOccupied();
     private:
         list<unique_ptr<Object>>::iterator object_it;
         bool occupied;

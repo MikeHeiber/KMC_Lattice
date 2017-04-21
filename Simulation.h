@@ -37,27 +37,32 @@ class Simulation{
         // Functions
         virtual ~Simulation();
         //Simulation(const Parameters_Simulation& params,const int id);
-        void addObject(unique_ptr<Object>& object_ptr);
-        virtual void calculateEvents();
-        virtual bool checkFinished();
-        list<unique_ptr<Event>>::iterator chooseNextEvent();
-        virtual bool executeNextEvent();
-        int getNumSites();
+        virtual bool checkFinished()=0;
+        virtual bool executeNextEvent()=0;
         int getN_events_executed();
         int getId();
-        int getTemperature();
         double getTime();
-        double getUnitSize();
         void initializeSimulation(const Parameters_Simulation& params,const int id);
-        void removeObject(const list<unique_ptr<Object>>::iterator object_it);
     protected:
-        vector<unique_ptr<Site>> lattice;
-        list<unique_ptr<Event>> events;
-        list<unique_ptr<Object>> objects;
-        inline int calculateDX(const int x,const int i);
-        inline int calculateDY(const int y,const int j);
-        inline int calculateDZ(const int z,const int k);
-        inline vector<unique_ptr<Site>>::iterator getSiteIt(const Coords& coords);
+        // Functions
+        list<unique_ptr<Event>>::iterator addEvent(unique_ptr<Event>& event_ptr);
+        void addObject(unique_ptr<Object>& object_ptr);
+        void addSite(unique_ptr<Site>& site_ptr);
+        int calculateDX(const int x,const int i);
+        int calculateDY(const int y,const int j);
+        int calculateDZ(const int z,const int k);
+        list<unique_ptr<Event>>::iterator chooseNextEvent();
+        int getNumSites();
+        Coords getRandomCoords();
+        vector<unique_ptr<Site>>::iterator getSiteIt(const Coords& coords);
+        int getTemperature();
+        double getUnitSize();
+        void incrementTime(const double added_time);
+        bool isOccupied(const Coords& coords);
+        bool loggingEnabled();
+        void logMSG(const stringstream& msg);
+        void moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords);
+        void removeObject(const list<unique_ptr<Object>>::iterator object_it);
         void setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event> event_ptr);
     private:
         int Id;
@@ -77,6 +82,9 @@ class Simulation{
         // Output Files
         ofstream * Logfile;
         // Data Structures
+        vector<unique_ptr<Site>> lattice;
+        list<unique_ptr<Event>> events;
+        list<unique_ptr<Object>> objects;
         // Counters
         double Time;
         int N_objects;

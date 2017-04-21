@@ -1,19 +1,30 @@
 #include "Event.h"
 
+// Initialize static class members
+const string Event::name_base = "Event";
+boost::mt19937 Event::gen{static_cast<std::uint32_t>(0)};
+
 Event::~Event(){
 
 }
 
 Event::Event(){
     wait_time = 0;
-    //e_delta = 0;
     coords_dest.x = 0;
     coords_dest.y = 0;
     coords_dest.z = 0;
 }
 
+Coords Event::getDestCoords(){
+    return coords_dest;
+}
+
 double Event::getWaitTime(){
     return wait_time;
+}
+
+string Event::getName(){
+    return name_base;
 }
 
 list<unique_ptr<Object>>::iterator Event::getObjectIt(){
@@ -30,7 +41,7 @@ double Event::rand01(){
 }
 
 void Event::seedGenerator(const int id){
-    gen.seed(time(0)*id);
+    gen.seed(time(0)*(id+1));
 }
 
 void Event::setDestCoords(const Coords& coords){

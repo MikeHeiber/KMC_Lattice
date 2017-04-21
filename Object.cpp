@@ -18,6 +18,16 @@ Object::Object(){
     dz = 0;
 }
 
+Object::Object(const double time,const int tag_num,const Coords& start_coords){
+    time_created = time;
+    tag = tag_num;
+    coords = start_coords;
+    coords_initial = start_coords;
+    dx = 0;
+    dy = 0;
+    dz = 0;
+}
+
 double Object::calculateDisplacement(){
     return sqrt((double)(coords.x+dx-coords_initial.x)*(coords.x+dx-coords_initial.x)+(coords.y+dy-coords_initial.y)*(coords.y+dy-coords_initial.y)+(coords.z+dz-coords_initial.z)*(coords.z+dz-coords_initial.z));
 }
@@ -36,6 +46,10 @@ list<unique_ptr<Event>>::iterator Object::getEventIt(){
 
 int Object::getTag(){
     return tag;
+}
+
+void Object::setCoords(const Coords& new_coords){
+    coords = new_coords;
 }
 
 void Object::setEventIt(const list<unique_ptr<Event>>::iterator it){
