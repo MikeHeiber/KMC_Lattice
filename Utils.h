@@ -29,6 +29,7 @@ vector<double> calculateAverageVector(const vector<double>& input_vector,const i
 void createExponentialDOSVector(vector<float>& data,const double mode,const double urbach_energy,const int seed);
 void createGaussianDOSVector(vector<float>& data,const double mean,const double stdev,const int seed);
 double intpow(const double base,const int exponent);
+float intpow(const float base,const int exponent);
 double vector_avg(const vector<int>& dataset);
 double vector_avg(const vector<double>& dataset);
 double vector_stdev(const vector<int>& dataset);

@@ -19,7 +19,7 @@ Coords Event::getDestCoords(){
     return coords_dest;
 }
 
-double Event::getWaitTime(){
+float Event::getWaitTime(){
     return wait_time;
 }
 
@@ -50,7 +50,7 @@ void Event::setDestCoords(const Coords& coords){
     coords_dest.z = coords.z;
 }
 
-void Event::setWaitTime(const double time){
+void Event::setWaitTime(const float time){
     wait_time = time;
 }
 

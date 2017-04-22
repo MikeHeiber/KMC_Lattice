@@ -21,10 +21,10 @@ class Event{
         virtual string getName();
         list<unique_ptr<Object>>::iterator getObjectIt();
         list<unique_ptr<Object>>::iterator getObjectTargetIt();
-        double getWaitTime();
+        float getWaitTime();
         static void seedGenerator(const int id);
         void setDestCoords(const Coords& coords);
-        void setWaitTime(const double time);
+        void setWaitTime(const float time);
         void setObjectIt(const list<unique_ptr<Object>>::iterator it);
     protected:
         // Variables
@@ -34,7 +34,7 @@ class Event{
     private:
         // Variables and objects
         static const string name_base;
-        double wait_time;
+        float wait_time;
         list<unique_ptr<Object>>::iterator object_it;
         list<unique_ptr<Object>>::iterator object_target_it;
         Coords coords_dest;

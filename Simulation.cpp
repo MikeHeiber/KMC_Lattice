@@ -9,7 +9,7 @@ list<unique_ptr<Event>>::iterator Simulation::addEvent(unique_ptr<Event>& event_
     return --events.end();
 }
 
-void Simulation::addObject(unique_ptr<Object>& object_ptr){
+list<unique_ptr<Object>>::iterator Simulation::addObject(unique_ptr<Object>& object_ptr){
     // Add an event for the object to the event list and link the event to the object
     events.push_back(unique_ptr<Event>(nullptr));
     object_ptr->setEventIt(--events.end());
@@ -19,10 +19,12 @@ void Simulation::addObject(unique_ptr<Object>& object_ptr){
     N_objects++;
     N_objects_created++;
     N_events_executed++;
+    return --objects.end();
 }
 
 void Simulation::addSite(unique_ptr<Site>& site_ptr){
     lattice.push_back(move(site_ptr));
+    //cout << "There are now " << lattice.size() << " sites in the lattice." << endl;
 }
 
 //  This function calculates the coordinate adjustment term needed to account for periodic boundaries in the x-direction.
@@ -80,7 +82,6 @@ int Simulation::calculateDZ(const int z,const int k){
 }
 
 list<unique_ptr<Event>>::iterator Simulation::chooseNextEvent(){
-    cout << "There are " << events.size() << " events in the queue." << endl;
     list<unique_ptr<Event>>::iterator event_it;
     list<unique_ptr<Event>>::iterator event_it_target = events.begin();
     for(event_it=++events.begin();event_it!=events.end();++event_it){
@@ -127,8 +128,16 @@ vector<list<unique_ptr<Object>>::iterator> Simulation::findRecalcNeighbors(const
     return object_its;
 }
 
+int Simulation::getHeight(){
+    return Height;
+}
+
 int Simulation::getId(){
     return Id;
+}
+
+int Simulation::getLength(){
+    return Length;
 }
 
 int Simulation::getNumSites(){
@@ -158,7 +167,9 @@ int Simulation::getSiteIndex(const Coords& coords){
 }
 
 vector<unique_ptr<Site>>::iterator Simulation::getSiteIt(const Coords& coords){
-    return lattice.begin()+getSiteIndex(coords);
+    vector<unique_ptr<Site>>::iterator site_it = lattice.begin();
+    advance(site_it,getSiteIndex(coords));
+    return site_it;
 }
 
 int Simulation::getTemperature(){
@@ -173,6 +184,10 @@ double Simulation::getUnitSize(){
     return Unit_size;
 }
 
+int Simulation::getWidth(){
+    return Width;
+}
+
 void Simulation::initializeSimulation(const Parameters_Simulation& params,const int id){
     Id = id;
     Time = 0;
@@ -182,6 +197,7 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     // Clear all remaining data structures
     events.clear();
     objects.clear();
+    lattice.clear();
     gen.seed(time(0)*(id+1));
     Event::seedGenerator(id);
     // General Parameters
@@ -201,7 +217,7 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     Logfile = params.Logfile;
 }
 
-void Simulation::incrementTime(const double added_time){
+void Simulation::incrementTime(const float added_time){
     Time += added_time;
 }
 
@@ -213,8 +229,9 @@ bool Simulation::loggingEnabled(){
     return Enable_logging;
 }
 
-void Simulation::logMSG(const stringstream& msg){
+void Simulation::logMSG(const ostringstream& msg){
     *Logfile << msg.str();
+    Logfile->flush();
 }
 
 void Simulation::moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords){
@@ -225,6 +242,11 @@ void Simulation::moveObject(const list<unique_ptr<Object>>::iterator object_it,c
 }
 
 void Simulation::removeObject(const list<unique_ptr<Object>>::iterator object_it){
+    // remove event pointer
+    events.erase((*object_it)->getEventIt());
+    // remove object pointer
+    objects.erase(object_it);
+    // Update counters
     N_objects--;
     N_events_executed++;
 }

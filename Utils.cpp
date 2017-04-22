@@ -70,7 +70,7 @@ vector<double> calculateAverageVector(const vector<double>& input_vector,const i
 
 void createExponentialDOSVector(vector<float>& data,const double mode,const double urbach_energy,const int seed){
     boost::mt19937 gen;
-    gen.seed(time(0)*seed);
+    gen.seed(time(0)*(1+seed));
     boost::exponential_distribution<> dist_exp(1/urbach_energy);
     boost::variate_generator<boost::mt19937&, boost::exponential_distribution<> > rand_exp(gen,dist_exp);
     boost::normal_distribution<> dist_gaus(0,2*urbach_energy/sqrt(2*Pi));
@@ -89,7 +89,7 @@ void createExponentialDOSVector(vector<float>& data,const double mode,const doub
 
 void createGaussianDOSVector(vector<float>& data,const double mean,const double stdev,const int seed){
     boost::mt19937 gen;
-    gen.seed(time(0)*seed);
+    gen.seed(time(0)*(1+seed));
     boost::normal_distribution<> dist(mean,stdev);
     boost::variate_generator<boost::mt19937&, boost::normal_distribution<> > rand_gaus(gen,dist);
     for(int i=0;i<(int)data.size();i++){
@@ -99,6 +99,14 @@ void createGaussianDOSVector(vector<float>& data,const double mean,const double 
 
 double intpow(const double base,const int exponent){
     double result = base;
+    for(int i=1;i<exponent;i++){
+        result *= base;
+    }
+    return result;
+}
+
+float intpow(const float base,const int exponent){
+    float result = base;
     for(int i=1;i<exponent;i++){
         result *= base;
     }

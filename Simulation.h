@@ -29,7 +29,7 @@ struct Parameters_Simulation{
     bool Enable_recalc;
     int Recalc_cutoff;
     // Output files
-    ofstream * Logfile;
+    ofstream* Logfile;
 };
 
 class Simulation{
@@ -46,21 +46,25 @@ class Simulation{
     protected:
         // Functions
         list<unique_ptr<Event>>::iterator addEvent(unique_ptr<Event>& event_ptr);
-        void addObject(unique_ptr<Object>& object_ptr);
+        list<unique_ptr<Object>>::iterator addObject(unique_ptr<Object>& object_ptr);
         void addSite(unique_ptr<Site>& site_ptr);
         int calculateDX(const int x,const int i);
         int calculateDY(const int y,const int j);
         int calculateDZ(const int z,const int k);
         list<unique_ptr<Event>>::iterator chooseNextEvent();
+        int getHeight();
+        int getLength();
         int getNumSites();
         Coords getRandomCoords();
+        int getSiteIndex(const Coords& coords);
         vector<unique_ptr<Site>>::iterator getSiteIt(const Coords& coords);
         int getTemperature();
         double getUnitSize();
-        void incrementTime(const double added_time);
+        int getWidth();
+        void incrementTime(const float added_time);
         bool isOccupied(const Coords& coords);
         bool loggingEnabled();
-        void logMSG(const stringstream& msg);
+        void logMSG(const ostringstream& msg);
         void moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords);
         void removeObject(const list<unique_ptr<Object>>::iterator object_it);
         void setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event> event_ptr);
@@ -86,7 +90,7 @@ class Simulation{
         list<unique_ptr<Event>> events;
         list<unique_ptr<Object>> objects;
         // Counters
-        double Time;
+        float Time;
         int N_objects;
         int N_objects_created;
         int N_events_executed;
@@ -94,7 +98,6 @@ class Simulation{
         boost::mt19937 gen;
         // Functions
         vector<list<unique_ptr<Object>>::iterator> findRecalcNeighbors(const Coords& coords);
-        inline int getSiteIndex(const Coords& coords);
         inline void removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its);
 };
 
