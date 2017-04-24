@@ -1,3 +1,8 @@
+// Copyright (c) 2017 Michael C. Heiber
+// This source file is part of the KMC_Lattice project, which is subject to the MIT License.
+// For more information, see the LICENSE file that accompanies this software.
+// The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
+
 #include "Simulation.h"
 
 Simulation::~Simulation(){
@@ -24,7 +29,6 @@ list<unique_ptr<Object>>::iterator Simulation::addObject(unique_ptr<Object>& obj
 
 void Simulation::addSite(unique_ptr<Site>& site_ptr){
     lattice.push_back(move(site_ptr));
-    //cout << "There are now " << lattice.size() << " sites in the lattice." << endl;
 }
 
 //  This function calculates the coordinate adjustment term needed to account for periodic boundaries in the x-direction.
@@ -82,9 +86,8 @@ int Simulation::calculateDZ(const int z,const int k){
 }
 
 list<unique_ptr<Event>>::iterator Simulation::chooseNextEvent(){
-    list<unique_ptr<Event>>::iterator event_it;
     list<unique_ptr<Event>>::iterator event_it_target = events.begin();
-    for(event_it=++events.begin();event_it!=events.end();++event_it){
+    for(auto event_it=++events.begin();event_it!=events.end();++event_it){
         if((*event_it)->getWaitTime() < (*event_it_target)->getWaitTime()){
             event_it_target = event_it;
         }
@@ -95,12 +98,11 @@ list<unique_ptr<Event>>::iterator Simulation::chooseNextEvent(){
 vector<list<unique_ptr<Object>>::iterator> Simulation::findRecalcNeighbors(const Coords& coords){
     vector<list<unique_ptr<Object>>::iterator> object_its;
     object_its.reserve(10);
-    list<unique_ptr<Object>>::iterator object_it;
     Coords coords2;
     int dx,dy,dz;
     const static int recalc_cutoff_sq_lat = (Recalc_cutoff/Unit_size)*(Recalc_cutoff/Unit_size);
     int distance_sq_lat;
-    for(object_it=objects.begin();object_it!=objects.end();++object_it){
+    for(auto object_it=objects.begin();object_it!=objects.end();++object_it){
         coords2 = (*object_it)->getCoords();
         if(Enable_periodic_x && abs(coords2.x-coords.x)>Length/2){
             dx = -Length;
@@ -167,7 +169,7 @@ int Simulation::getSiteIndex(const Coords& coords){
 }
 
 vector<unique_ptr<Site>>::iterator Simulation::getSiteIt(const Coords& coords){
-    vector<unique_ptr<Site>>::iterator site_it = lattice.begin();
+    auto site_it = lattice.begin();
     advance(site_it,getSiteIndex(coords));
     return site_it;
 }
@@ -190,16 +192,6 @@ int Simulation::getWidth(){
 
 void Simulation::initializeSimulation(const Parameters_Simulation& params,const int id){
     Id = id;
-    Time = 0;
-    N_events_executed = 0;
-    N_objects_created = 0;
-    N_objects = 0;
-    // Clear all remaining data structures
-    events.clear();
-    objects.clear();
-    lattice.clear();
-    gen.seed(time(0)*(id+1));
-    Event::seedGenerator(id);
     // General Parameters
     Enable_logging = params.Enable_logging;
     Enable_periodic_x = params.Enable_periodic_x;
@@ -211,8 +203,18 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     Unit_size = params.Unit_size;
     Temperature = params.Temperature;
     // First reaction method parameters
-    Enable_recalc = params.Enable_recalc;
     Recalc_cutoff = params.Recalc_cutoff;
+    // Initialize counters
+    Time = 0;
+    N_events_executed = 0;
+    N_objects_created = 0;
+    N_objects = 0;
+    // Initialize data structures
+    lattice.clear();
+    objects.clear();
+    events.clear();
+    gen.seed(time(0)*(id+1));
+    Event::seedGenerator(id);
     // Output files
     Logfile = params.Logfile;
 }
@@ -225,6 +227,18 @@ bool Simulation::isOccupied(const Coords& coords){
     return (*getSiteIt(coords))->isOccupied();
 }
 
+bool Simulation::isXPeriodic(){
+    return Enable_periodic_x;
+}
+
+bool Simulation::isYPeriodic(){
+    return Enable_periodic_y;
+}
+
+bool Simulation::isZPeriodic(){
+    return Enable_periodic_z;
+}
+
 bool Simulation::loggingEnabled(){
     return Enable_logging;
 }
@@ -235,14 +249,54 @@ void Simulation::logMSG(const ostringstream& msg){
 }
 
 void Simulation::moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords){
+    // clear occupancy of initial site
     (*getSiteIt((*object_it)->getCoords()))->clearOccupancy();
+    // check for periodic boundary crossing
+    if(Enable_periodic_x){
+        if(2*(dest_coords.x-(*object_it)->getCoords().x)<-Length){
+            (*object_it)->incrementDX(Length);
+        }
+        else if(2*(dest_coords.x-(*object_it)->getCoords().x)>Length){
+            (*object_it)->incrementDX(-Length);
+        }
+    }
+    if(Enable_periodic_y){
+        if(2*(dest_coords.y-(*object_it)->getCoords().y)<-Width){
+            (*object_it)->incrementDY(Width);
+        }
+        else if(2*(dest_coords.y-(*object_it)->getCoords().y)>Width){
+            (*object_it)->incrementDY(-Width);
+        }
+    }
+    if(Enable_periodic_z){
+        if(2*(dest_coords.z-(*object_it)->getCoords().z)<-Height){
+            (*object_it)->incrementDZ(Height);
+        }
+        else if(2*(dest_coords.z-(*object_it)->getCoords().z)>Height){
+            (*object_it)->incrementDZ(-Height);
+        }
+    }
+    // set object coords to new site
     (*object_it)->setCoords(dest_coords);
+    // set occupancy of new site
     (*getSiteIt(dest_coords))->setOccupied();
+    // update counter
     N_events_executed++;
 }
 
+void Simulation::outputLatticeOccupancy(){
+    for(auto site_it=lattice.begin();site_it!=lattice.end();++site_it){
+        if((*site_it)->isOccupied()){
+            cout << "Site " << distance(lattice.begin(),site_it) << " is occupied." << endl;
+        }
+    }
+}
+
 void Simulation::removeObject(const list<unique_ptr<Object>>::iterator object_it){
-    // remove event pointer
+    // clear occupancy of site
+    (*getSiteIt((*object_it)->getCoords()))->clearOccupancy();
+    // release and then delete event pointer
+    ((*object_it)->getEventIt())->release();
     events.erase((*object_it)->getEventIt());
     // remove object pointer
     objects.erase(object_it);
@@ -252,10 +306,8 @@ void Simulation::removeObject(const list<unique_ptr<Object>>::iterator object_it
 }
 
 void Simulation::removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its){
-    vector<list<unique_ptr<Object>>::iterator>::iterator it1;
-    vector<list<unique_ptr<Object>>::iterator>::iterator it2;
-    for(it1=object_its.begin();it1!=object_its.end(); ++it1){
-        for(it2=it1+1;it2!=object_its.end(); ++it2){
+    for(auto it1=object_its.begin();it1!=object_its.end(); ++it1){
+        for(auto it2=it1+1;it2!=object_its.end(); ++it2){
             if((it2!=it1) && (*it2==*it1)){
                 it2 = object_its.erase(it2);
                 it2--;
@@ -264,9 +316,11 @@ void Simulation::removeObjectItDuplicates(vector<list<unique_ptr<Object>>::itera
     }
 }
 
-void Simulation::setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event> event_ptr){
+void Simulation::setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event>& event_ptr){
     // Update events list
+    // Clear current pointer
     event_it->release();
+    // Assign new pointer
     *event_it = move(event_ptr);
 }
 

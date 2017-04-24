@@ -1,3 +1,8 @@
+// Copyright (c) 2017 Michael C. Heiber
+// This source file is part of the KMC_Lattice project, which is subject to the MIT License.
+// For more information, see the LICENSE file that accompanies this software.
+// The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
+
 #ifndef OBJECT_H
 #define OBJECT_H
 
@@ -20,6 +25,9 @@ class Object{
         double getCreationTime();
         list<unique_ptr<Event>>::iterator getEventIt();
         int getTag();
+        void incrementDX(const int num);
+        void incrementDY(const int num);
+        void incrementDZ(const int num);
         void setCoords(const Coords& new_coords);
         void setEventIt(const list<unique_ptr<Event>>::iterator it);
     private:

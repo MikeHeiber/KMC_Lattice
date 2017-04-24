@@ -1,3 +1,8 @@
+// Copyright (c) 2017 Michael C. Heiber
+// This source file is part of the KMC_Lattice project, which is subject to the MIT License.
+// For more information, see the LICENSE file that accompanies this software.
+// The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
+
 #include "Utils.h"
 
 double array_avg(const double data[],const int array_size){
@@ -139,8 +144,7 @@ double vector_stdev(const vector<int>& dataset){
     double sum = 0;
     double avg, dev;
     avg = vector_avg(dataset);
-    vector<int>::const_iterator it;
-    for(it=dataset.begin();it!=dataset.end();++it){
+    for(auto it=dataset.begin();it!=dataset.end();++it){
         sum += (*it-avg)*(*it-avg);
     }
     dev = sqrt(sum/(dataset.size()-1));
@@ -151,8 +155,7 @@ double vector_stdev(const vector<double>& dataset){
     double sum = 0;
     double avg, dev;
     avg = vector_avg(dataset);
-    vector<double>::const_iterator it;
-    for(it=dataset.begin();it!=dataset.end();++it){
+    for(auto it=dataset.begin();it!=dataset.end();++it){
         sum += (*it-avg)*(*it-avg);
     }
     dev = sqrt(sum/(dataset.size()-1));

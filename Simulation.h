@@ -1,3 +1,8 @@
+// Copyright (c) 2017 Michael C. Heiber
+// This source file is part of the KMC_Lattice project, which is subject to the MIT License.
+// For more information, see the LICENSE file that accompanies this software.
+// The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
+
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
@@ -26,7 +31,6 @@ struct Parameters_Simulation{
     double Unit_size; // nm
     int Temperature; // Kelvin
     // First reaction method parameters
-    bool Enable_recalc;
     int Recalc_cutoff;
     // Output files
     ofstream* Logfile;
@@ -36,7 +40,6 @@ class Simulation{
     public:
         // Functions
         virtual ~Simulation();
-        //Simulation(const Parameters_Simulation& params,const int id);
         virtual bool checkFinished()=0;
         virtual bool executeNextEvent()=0;
         int getN_events_executed();
@@ -52,6 +55,7 @@ class Simulation{
         int calculateDY(const int y,const int j);
         int calculateDZ(const int z,const int k);
         list<unique_ptr<Event>>::iterator chooseNextEvent();
+        vector<list<unique_ptr<Object>>::iterator> findRecalcNeighbors(const Coords& coords);
         int getHeight();
         int getLength();
         int getNumSites();
@@ -63,11 +67,16 @@ class Simulation{
         int getWidth();
         void incrementTime(const float added_time);
         bool isOccupied(const Coords& coords);
+        bool isXPeriodic();
+        bool isYPeriodic();
+        bool isZPeriodic();
         bool loggingEnabled();
         void logMSG(const ostringstream& msg);
         void moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords);
+        void outputLatticeOccupancy();
         void removeObject(const list<unique_ptr<Object>>::iterator object_it);
-        void setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event> event_ptr);
+        void removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its);
+        void setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event>& event_ptr);
     private:
         int Id;
         // General Parameters
@@ -81,14 +90,13 @@ class Simulation{
         double Unit_size; // nm
         int Temperature; // Kelvin
         // First Reaction Method Parameters
-        bool Enable_recalc;
         int Recalc_cutoff;
         // Output Files
         ofstream * Logfile;
         // Data Structures
         vector<unique_ptr<Site>> lattice;
-        list<unique_ptr<Event>> events;
         list<unique_ptr<Object>> objects;
+        list<unique_ptr<Event>> events;
         // Counters
         float Time;
         int N_objects;
@@ -97,8 +105,6 @@ class Simulation{
         // Random number generator
         boost::mt19937 gen;
         // Functions
-        vector<list<unique_ptr<Object>>::iterator> findRecalcNeighbors(const Coords& coords);
-        inline void removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its);
 };
 
 #endif // SIMULATION_H
