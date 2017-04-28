@@ -31,6 +31,14 @@ void Simulation::addSite(unique_ptr<Site>& site_ptr){
     lattice.push_back(move(site_ptr));
 }
 
+Coords Simulation::calculateDestinationCoords(const Coords& coords_initial,const int i,const int j,const int k){
+    Coords dest_coords;
+    dest_coords.x = coords_initial.x+i+calculateDX(coords_initial.x,i);
+    dest_coords.y = coords_initial.y+j+calculateDY(coords_initial.y,j);
+    dest_coords.z = coords_initial.z+k+calculateDZ(coords_initial.z,k);
+    return dest_coords;
+}
+
 //  This function calculates the coordinate adjustment term needed to account for periodic boundaries in the x-direction.
 int Simulation::calculateDX(const int x,const int i){
     if(!Enable_periodic_x){
@@ -83,6 +91,22 @@ int Simulation::calculateDZ(const int z,const int k){
             return 0;
         }
     }
+}
+
+bool Simulation::checkMoveEventValidity(const Coords& coords_initial,const int i,const int j,const int k){
+    if(i==0 && j==0 && k==0){
+        return false;
+    }
+    if(!isXPeriodic() && (coords_initial.x+i>=getLength() || coords_initial.x+i<0)){
+        return false;
+    }
+    if(!isYPeriodic() && (coords_initial.y+j>=getWidth() || coords_initial.y+j<0)){
+        return false;
+    }
+    if(!isZPeriodic() && (coords_initial.z+k>=getHeight() || coords_initial.z+k<0)){
+        return false;
+    }
+    return true;
 }
 
 list<unique_ptr<Event>>::iterator Simulation::chooseNextEvent(){
