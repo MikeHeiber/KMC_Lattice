@@ -24,6 +24,7 @@ class Object{
         Coords getCoords();
         double getCreationTime();
         list<unique_ptr<Event>>::iterator getEventIt();
+        virtual string getName();
         int getTag();
         void incrementDX(const int num);
         void incrementDY(const int num);
