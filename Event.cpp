@@ -7,7 +7,8 @@
 
 // Initialize static class members
 const string Event::name_base = "Event";
-boost::mt19937 Event::gen{static_cast<std::uint32_t>(0)};
+random_device random;
+mt19937 Event::gen(random());
 
 Event::~Event(){
 
@@ -24,7 +25,7 @@ Coords Event::getDestCoords(){
     return coords_dest;
 }
 
-float Event::getWaitTime(){
+double Event::getWaitTime(){
     return wait_time;
 }
 
@@ -41,19 +42,14 @@ list<unique_ptr<Object>>::iterator Event::getObjectTargetIt(){
 }
 
 double Event::rand01(){
-    static boost::uniform_01<boost::mt19937> randn(gen);
-    return randn();
-}
-
-void Event::seedGenerator(const int id){
-    gen.seed(time(0)*(id+1));
+    return generate_canonical<double,std::numeric_limits<double>::digits>(gen);
 }
 
 void Event::setDestCoords(const Coords& coords){
     coords_dest = coords;
 }
 
-void Event::setWaitTime(const float time){
+void Event::setWaitTime(const double time){
     wait_time = time;
 }
 

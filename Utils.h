@@ -8,8 +8,9 @@
 
 #include "mpi.h"
 #include <vector>
-#include <boost/random.hpp>
+#include <random>
 #include <cmath>
+#include <memory>
 
 using namespace std;
 
@@ -31,10 +32,9 @@ static constexpr double Pi = 3.14159265359;
 double array_avg(const double data[],const int size);
 double array_stdev(const double data[],const int size);
 vector<double> calculateAverageVector(const vector<double>& input_vector,const int procid,const int nproc);
-void createExponentialDOSVector(vector<float>& data,const double mode,const double urbach_energy,const int seed);
-void createGaussianDOSVector(vector<float>& data,const double mean,const double stdev,const int seed);
+void createExponentialDOSVector(vector<double>& data,const double mode,const double urbach_energy);
+void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev);
 double intpow(const double base,const int exponent);
-float intpow(const float base,const int exponent);
 double vector_avg(const vector<int>& dataset);
 double vector_avg(const vector<double>& dataset);
 double vector_stdev(const vector<int>& dataset);

@@ -8,9 +8,9 @@
 
 #include "Utils.h"
 #include "Object.h"
-#include <boost/random.hpp>
 #include <list>
 #include <memory>
+#include <random>
 
 using namespace std;
 
@@ -18,7 +18,7 @@ class Object;
 
 class Event{
     public:
-        static boost::mt19937 gen;
+        static mt19937 gen;
         virtual ~Event();
         Event();
         virtual void calculateEvent(const Coords& dest_coords,const double distance,const double E_delta,const int temperature, const double prefactor) = 0;
@@ -26,10 +26,9 @@ class Event{
         virtual string getName();
         list<unique_ptr<Object>>::iterator getObjectIt();
         list<unique_ptr<Object>>::iterator getObjectTargetIt();
-        float getWaitTime();
-        static void seedGenerator(const int id);
+        double getWaitTime();
         void setDestCoords(const Coords& coords);
-        void setWaitTime(const float time);
+        void setWaitTime(const double time);
         void setObjectIt(const list<unique_ptr<Object>>::iterator it);
     protected:
         // Variables
@@ -39,7 +38,7 @@ class Event{
     private:
         // Variables and objects
         static const string name_base;
-        float wait_time;
+        double wait_time;
         list<unique_ptr<Object>>::iterator object_it;
         list<unique_ptr<Object>>::iterator object_target_it;
         Coords coords_dest;

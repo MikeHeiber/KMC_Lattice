@@ -176,12 +176,12 @@ int Simulation::getN_events_executed(){
 
 Coords Simulation::getRandomCoords(){
     Coords coords;
-    static boost::uniform_int<> distx(0,Length-1);
-    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randx(gen, distx);
-    static boost::uniform_int<> disty(0,Width-1);
-    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randy(gen, disty);
-    static boost::uniform_int<> distz(0,Height-1);
-    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randz(gen, distz);
+    static uniform_int_distribution<int> distx(0,Length-1);
+    static auto randx = bind(distx,gen);
+    static uniform_int_distribution<int> disty(0,Width-1);
+    static auto randy = bind(disty,gen);
+    static uniform_int_distribution<int> distz(0,Height-1);
+    static auto randz = bind(distz,gen);
     coords.x = randx();
     coords.y = randy();
     coords.z = randz();
@@ -237,13 +237,13 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     lattice.clear();
     objects.clear();
     events.clear();
-    gen.seed(time(0)*(id+1));
-    Event::seedGenerator(id);
+    random_device random;
+    gen.seed(random());
     // Output files
     Logfile = params.Logfile;
 }
 
-void Simulation::incrementTime(const float added_time){
+void Simulation::incrementTime(const double added_time){
     Time += added_time;
 }
 

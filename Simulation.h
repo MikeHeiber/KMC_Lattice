@@ -13,9 +13,11 @@
 #include <list>
 #include <vector>
 #include <memory>
+#include <random>
+#include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cmath>
-#include <boost/random.hpp>
 
 using namespace std;
 
@@ -47,6 +49,8 @@ class Simulation{
         double getTime();
         void initializeSimulation(const Parameters_Simulation& params,const int id);
     protected:
+        // Random number generator
+        mt19937 gen;
         // Functions
         list<unique_ptr<Event>>::iterator addEvent(unique_ptr<Event>& event_ptr);
         list<unique_ptr<Object>>::iterator addObject(unique_ptr<Object>& object_ptr);
@@ -67,7 +71,7 @@ class Simulation{
         int getTemperature();
         double getUnitSize();
         int getWidth();
-        void incrementTime(const float added_time);
+        void incrementTime(const double added_time);
         bool isOccupied(const Coords& coords);
         bool isXPeriodic();
         bool isYPeriodic();
@@ -100,12 +104,10 @@ class Simulation{
         list<unique_ptr<Object>> objects;
         list<unique_ptr<Event>> events;
         // Counters
-        float Time;
+        double Time;
         int N_objects;
         int N_objects_created;
         int N_events_executed;
-        // Random number generator
-        boost::mt19937 gen;
         // Functions
 };
 

@@ -32,6 +32,7 @@ class Object{
         void setCoords(const Coords& new_coords);
         void setEventIt(const list<unique_ptr<Event>>::iterator it);
     private:
+        static const string name_base;
         double time_created;
         int tag;
         // Current coords

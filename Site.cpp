@@ -17,8 +17,16 @@ void Site::clearOccupancy(){
     occupied = false;
 }
 
+list<unique_ptr<Object>>::iterator Site::getObjectIt(){
+    return object_it;
+}
+
 bool Site::isOccupied(){
     return occupied;
+}
+
+void Site::setObjectIt(list<unique_ptr<Object>>::iterator it){
+    object_it = it;
 }
 
 void Site::setOccupied(){

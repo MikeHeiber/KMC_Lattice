@@ -5,6 +5,8 @@
 
 #include "Object.h"
 
+const string Object::name_base = "Object";
+
 Object::~Object(){
     //dtor
 }
@@ -47,6 +49,10 @@ double Object::getCreationTime(){
 
 list<unique_ptr<Event>>::iterator Object::getEventIt(){
     return event_it;
+}
+
+string Object::getName(){
+    return name_base;
 }
 
 int Object::getTag(){

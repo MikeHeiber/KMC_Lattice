@@ -73,13 +73,13 @@ vector<double> calculateAverageVector(const vector<double>& input_vector,const i
     return output_vector;
 }
 
-void createExponentialDOSVector(vector<float>& data,const double mode,const double urbach_energy,const int seed){
-    boost::mt19937 gen;
-    gen.seed(time(0)*(1+seed));
-    boost::exponential_distribution<> dist_exp(1/urbach_energy);
-    boost::variate_generator<boost::mt19937&, boost::exponential_distribution<> > rand_exp(gen,dist_exp);
-    boost::normal_distribution<> dist_gaus(0,2*urbach_energy/sqrt(2*Pi));
-    boost::variate_generator<boost::mt19937&, boost::normal_distribution<> > rand_gaus(gen,dist_gaus);
+void createExponentialDOSVector(vector<double>& data,const double mode,const double urbach_energy){
+    random_device random;
+    mt19937 gen(random());
+    exponential_distribution<double> dist_exp(1/urbach_energy);
+    auto rand_exp = bind(dist_exp,gen);
+    normal_distribution<double> dist_gaus(0,2*urbach_energy/sqrt(2*Pi));
+    auto rand_gaus = bind(dist_gaus,gen);
     double energy;
     for(int i=0;i<(int)data.size();i++){
         energy = rand_gaus();
@@ -92,11 +92,11 @@ void createExponentialDOSVector(vector<float>& data,const double mode,const doub
     }
 }
 
-void createGaussianDOSVector(vector<float>& data,const double mean,const double stdev,const int seed){
-    boost::mt19937 gen;
-    gen.seed(time(0)*(1+seed));
-    boost::normal_distribution<> dist(mean,stdev);
-    boost::variate_generator<boost::mt19937&, boost::normal_distribution<> > rand_gaus(gen,dist);
+void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev){
+    random_device random;
+    mt19937 gen(random());
+    normal_distribution<double> dist(mean,stdev);
+    auto rand_gaus = (dist,gen);
     for(int i=0;i<(int)data.size();i++){
         data[i] = rand_gaus();
     }
@@ -104,14 +104,6 @@ void createGaussianDOSVector(vector<float>& data,const double mean,const double 
 
 double intpow(const double base,const int exponent){
     double result = base;
-    for(int i=1;i<exponent;i++){
-        result *= base;
-    }
-    return result;
-}
-
-float intpow(const float base,const int exponent){
-    float result = base;
     for(int i=1;i<exponent;i++){
         result *= base;
     }
