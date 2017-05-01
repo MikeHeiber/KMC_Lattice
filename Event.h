@@ -22,11 +22,11 @@ class Event{
         virtual ~Event();
         Event();
         virtual void calculateEvent(const Coords& dest_coords,const double distance,const double E_delta,const int temperature, const double prefactor) = 0;
-        Coords getDestCoords();
-        virtual string getName();
-        list<unique_ptr<Object>>::iterator getObjectIt();
-        list<unique_ptr<Object>>::iterator getObjectTargetIt();
-        double getWaitTime();
+        Coords getDestCoords() const;
+        virtual string getName() const;
+        list<unique_ptr<Object>>::iterator getObjectIt() const;
+        list<unique_ptr<Object>>::iterator getObjectTargetIt() const;
+        double getWaitTime() const;
         void setDestCoords(const Coords& coords);
         void setWaitTime(const double time);
         void setObjectIt(const list<unique_ptr<Object>>::iterator it);

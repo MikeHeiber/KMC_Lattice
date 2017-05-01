@@ -52,20 +52,25 @@ class Simulation{
         // Random number generator
         mt19937 gen;
         // Functions
-        list<unique_ptr<Event>>::iterator addEvent(unique_ptr<Event>& event_ptr);
-        list<unique_ptr<Object>>::iterator addObject(unique_ptr<Object>& object_ptr);
-        void addSite(unique_ptr<Site>& site_ptr);
+        list<unique_ptr<Event>>::iterator addEvent(Event* event_ptr);
+        list<unique_ptr<Object>>::iterator addObject(Object* object_ptr);
+        void addSite(Site* site_ptr);
         Coords calculateDestinationCoords(const Coords& coords_initial,const int i,const int j,const int k);
         int calculateDX(const int x,const int i);
         int calculateDY(const int y,const int j);
         int calculateDZ(const int z,const int k);
+        int calculateLatticeDistanceSquared(const Coords& coords_start,const Object& object_target);
         bool checkMoveEventValidity(const Coords& coords_initial,const int i,const int j,const int k);
         list<unique_ptr<Event>>::iterator chooseNextEvent();
         vector<list<unique_ptr<Object>>::iterator> findRecalcNeighbors(const Coords& coords);
+        vector<list<unique_ptr<Object>>::iterator> getAllObjectIts();
         int getHeight();
         int getLength();
         int getNumSites();
         Coords getRandomCoords();
+        int getRandomX();
+        int getRandomY();
+        int getRandomZ();
         int getSiteIndex(const Coords& coords);
         vector<unique_ptr<Site>>::iterator getSiteIt(const Coords& coords);
         int getTemperature();
@@ -82,7 +87,7 @@ class Simulation{
         void outputLatticeOccupancy();
         void removeObject(const list<unique_ptr<Object>>::iterator object_it);
         void removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its);
-        void setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event>& event_ptr);
+        void setEvent(const list<unique_ptr<Event>>::iterator event_it,Event* event_ptr);
     private:
         int Id;
         // General Parameters

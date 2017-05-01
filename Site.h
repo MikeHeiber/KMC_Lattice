@@ -17,7 +17,7 @@ class Site{
         virtual ~Site();
         Site();
         void clearOccupancy();
-        list<unique_ptr<Object>>::iterator getObjectIt();
+        list<unique_ptr<Object>>::iterator getObjectIt() const;
         bool isOccupied();
         void setObjectIt(list<unique_ptr<Object>>::iterator it);
         void setOccupied();

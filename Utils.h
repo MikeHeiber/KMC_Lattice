@@ -21,13 +21,13 @@ struct Coords{
 };
 
 // Useful Constants
-static constexpr double K_b = 8.6173325e-5;
-static constexpr double Elementary_charge = 1.6021766e-19; // C
-static constexpr double Vacuum_permittivity =  8.8541878e-12; // C/Vm
-static constexpr double J_to_eV = 6.2415097e18; // eV/J
-static constexpr double Plank = 6.6260696e-34;
-static constexpr double Light_speed = 2.9979246e8;
+static constexpr double K_b = 8.61733035e-5;
+static constexpr double Elementary_charge = 1.602176621e-19; // C
+static constexpr double Vacuum_permittivity =  8.854187818e-12; // C/Vm
+static constexpr double Plank = 6.626070040e-34;
+static constexpr double Light_speed = 2.99792458e8;
 static constexpr double Pi = 3.14159265359;
+static constexpr double Coulomb_constant = 8.987551787e9; // N m^2 C^-2
 
 double array_avg(const double data[],const int size);
 double array_stdev(const double data[],const int size);

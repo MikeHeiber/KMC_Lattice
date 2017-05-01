@@ -21,23 +21,23 @@ Event::Event(){
     coords_dest.z = 0;
 }
 
-Coords Event::getDestCoords(){
+Coords Event::getDestCoords() const{
     return coords_dest;
 }
 
-double Event::getWaitTime(){
+double Event::getWaitTime() const{
     return wait_time;
 }
 
-string Event::getName(){
+string Event::getName() const{
     return name_base;
 }
 
-list<unique_ptr<Object>>::iterator Event::getObjectIt(){
+list<unique_ptr<Object>>::iterator Event::getObjectIt() const{
     return object_it;
 }
 
-list<unique_ptr<Object>>::iterator Event::getObjectTargetIt(){
+list<unique_ptr<Object>>::iterator Event::getObjectTargetIt() const{
     return object_target_it;
 }
 

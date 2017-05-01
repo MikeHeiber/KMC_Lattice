@@ -21,11 +21,11 @@ class Object{
         Object();
         Object(const double time,const int tag_num,const Coords& start_coords);
         double calculateDisplacement();
-        Coords getCoords();
-        double getCreationTime();
-        list<unique_ptr<Event>>::iterator getEventIt();
-        virtual string getName();
-        int getTag();
+        Coords getCoords() const;
+        double getCreationTime() const;
+        list<unique_ptr<Event>>::iterator getEventIt() const;
+        virtual string getName() const;
+        int getTag() const;
         void incrementDX(const int num);
         void incrementDY(const int num);
         void incrementDZ(const int num);
