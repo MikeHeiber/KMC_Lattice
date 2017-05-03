@@ -18,6 +18,7 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <ctime>
 
 using namespace std;
 
@@ -51,6 +52,8 @@ class Simulation{
     protected:
         // Random number generator
         mt19937 gen;
+        // Output Files
+        ofstream * Logfile;
         // Functions
         list<unique_ptr<Event>>::iterator addEvent(Event* event_ptr);
         list<unique_ptr<Object>>::iterator addObject(Object* object_ptr);
@@ -82,7 +85,6 @@ class Simulation{
         bool isYPeriodic();
         bool isZPeriodic();
         bool loggingEnabled();
-        void logMSG(const ostringstream& msg);
         void moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords);
         void outputLatticeOccupancy();
         void removeObject(const list<unique_ptr<Object>>::iterator object_it);
@@ -102,8 +104,6 @@ class Simulation{
         int Temperature; // Kelvin
         // First Reaction Method Parameters
         int Recalc_cutoff;
-        // Output Files
-        ofstream * Logfile;
         // Data Structures
         vector<unique_ptr<Site>> lattice;
         list<unique_ptr<Object>> objects;

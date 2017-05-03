@@ -21,7 +21,7 @@ class Event{
         static mt19937 gen;
         virtual ~Event();
         Event();
-        virtual void calculateEvent(const Coords& dest_coords,const double distance,const double E_delta,const int temperature, const double prefactor) = 0;
+        virtual void calculateEvent(const Coords& dest_coords, const double rate) = 0;
         Coords getDestCoords() const;
         virtual string getName() const;
         list<unique_ptr<Object>>::iterator getObjectIt() const;
@@ -30,9 +30,9 @@ class Event{
         void setDestCoords(const Coords& coords);
         void setWaitTime(const double time);
         void setObjectIt(const list<unique_ptr<Object>>::iterator it);
+        void setObjectTargetIt(const list<unique_ptr<Object>>::iterator it);
     protected:
         // Variables
-        static constexpr double K_b = 8.6173325e-5;
         // Functions
         double rand01();
     private:

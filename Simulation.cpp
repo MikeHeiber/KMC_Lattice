@@ -139,13 +139,15 @@ bool Simulation::checkMoveEventValidity(const Coords& coords_initial,const int i
 }
 
 list<unique_ptr<Event>>::iterator Simulation::chooseNextEvent(){
-    list<unique_ptr<Event>>::iterator event_it_target = events.begin();
-    for(auto event_it=++events.begin();event_it!=events.end();++event_it){
-        if((*event_it)->getWaitTime() < (*event_it_target)->getWaitTime()){
-            event_it_target = event_it;
+    auto event_target_it = events.begin();
+    if(events.size()>1){
+        for(auto it=++events.begin();it!=events.end();++it){
+            if((*it)->getWaitTime() < (*event_target_it)->getWaitTime()){
+                event_target_it = it;
+            }
         }
     }
-    return event_it_target;
+    return event_target_it;
 }
 
 vector<list<unique_ptr<Object>>::iterator> Simulation::findRecalcNeighbors(const Coords& coords){
@@ -221,20 +223,20 @@ Coords Simulation::getRandomCoords(){
 }
 
 int Simulation::getRandomX(){
-    static uniform_int_distribution<int> distx(0,Length-1);
-    static auto randx = bind(distx,gen);
+    uniform_int_distribution<int> distx(0,Length-1);
+    auto randx = bind(distx,ref(gen));
     return randx();
 }
 
 int Simulation::getRandomY(){
-    static uniform_int_distribution<int> disty(0,Width-1);
-    static auto randy = bind(disty,gen);
+    uniform_int_distribution<int> disty(0,Width-1);
+    auto randy = bind(disty,ref(gen));
     return randy();
 }
 
 int Simulation::getRandomZ(){
-    static uniform_int_distribution<int> distz(0,Height-1);
-    static auto randz = bind(distz,gen);
+    uniform_int_distribution<int> distz(0,Height-1);
+    auto randz = bind(distz,ref(gen));
     return randz();
 }
 
@@ -287,8 +289,7 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     lattice.clear();
     objects.clear();
     events.clear();
-    random_device random;
-    gen.seed(random());
+    gen.seed(time(0)*(id+1));
     // Output files
     Logfile = params.Logfile;
 }
@@ -315,11 +316,6 @@ bool Simulation::isZPeriodic(){
 
 bool Simulation::loggingEnabled(){
     return Enable_logging;
-}
-
-void Simulation::logMSG(const ostringstream& msg){
-    *Logfile << msg.str();
-    Logfile->flush();
 }
 
 void Simulation::moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords){

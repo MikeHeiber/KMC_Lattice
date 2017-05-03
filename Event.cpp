@@ -56,3 +56,7 @@ void Event::setWaitTime(const double time){
 void Event::setObjectIt(const list<unique_ptr<Object>>::iterator it){
     object_it = it;
 }
+
+void Event::setObjectTargetIt(const list<unique_ptr<Object>>::iterator it){
+    object_target_it = it;
+}

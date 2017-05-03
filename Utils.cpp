@@ -73,13 +73,11 @@ vector<double> calculateAverageVector(const vector<double>& input_vector,const i
     return output_vector;
 }
 
-void createExponentialDOSVector(vector<double>& data,const double mode,const double urbach_energy){
-    random_device random;
-    mt19937 gen(random());
+void createExponentialDOSVector(vector<double>& data,const double mode,const double urbach_energy,mt19937& gen){
     exponential_distribution<double> dist_exp(1/urbach_energy);
-    auto rand_exp = bind(dist_exp,gen);
+    auto rand_exp = bind(dist_exp,ref(gen));
     normal_distribution<double> dist_gaus(0,2*urbach_energy/sqrt(2*Pi));
-    auto rand_gaus = bind(dist_gaus,gen);
+    auto rand_gaus = bind(dist_gaus,ref(gen));
     double energy;
     for(int i=0;i<(int)data.size();i++){
         energy = rand_gaus();
@@ -92,11 +90,9 @@ void createExponentialDOSVector(vector<double>& data,const double mode,const dou
     }
 }
 
-void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev){
-    random_device random;
-    mt19937 gen(random());
+void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev,mt19937& gen){
     normal_distribution<double> dist(mean,stdev);
-    auto rand_gaus = (dist,gen);
+    auto rand_gaus = bind(dist,ref(gen));
     for(int i=0;i<(int)data.size();i++){
         data[i] = rand_gaus();
     }
