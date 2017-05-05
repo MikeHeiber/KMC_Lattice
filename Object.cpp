@@ -47,7 +47,7 @@ double Object::getCreationTime() const{
     return time_created;
 }
 
-list<unique_ptr<Event>>::iterator Object::getEventIt() const{
+list<Event*>::iterator Object::getEventIt() const{
     return event_it;
 }
 
@@ -75,7 +75,7 @@ void Object::setCoords(const Coords& new_coords){
     coords = new_coords;
 }
 
-void Object::setEventIt(const list<unique_ptr<Event>>::iterator it){
+void Object::setEventIt(const list<Event*>::iterator it){
     event_it = it;
 }
 

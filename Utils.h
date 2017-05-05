@@ -6,7 +6,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "mpi.h"
+#include <mpi.h>
 #include <vector>
 #include <random>
 #include <cmath>
@@ -31,10 +31,13 @@ static constexpr double Coulomb_constant = 8.987551787e9; // N m^2 C^-2
 
 double array_avg(const double data[],const int size);
 double array_stdev(const double data[],const int size);
-vector<double> calculateAverageVector(const vector<double>& input_vector,const int procid,const int nproc);
 void createExponentialDOSVector(vector<double>& data,const double mode,const double urbach_energy,mt19937& gen);
 void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev,mt19937& gen);
 double intpow(const double base,const int exponent);
+vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector,const int procid,const int nproc);
+vector<double> MPI_calculateVectorSum(const vector<double>& input_vector,const int procid,const int nproc);
+vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int procid,const int nproc);
+vector<double> MPI_gatherData(const vector<double>& input_vector,const int procid,const int nproc);
 double vector_avg(const vector<int>& dataset);
 double vector_avg(const vector<double>& dataset);
 double vector_stdev(const vector<int>& dataset);

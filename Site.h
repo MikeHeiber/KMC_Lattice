@@ -17,13 +17,13 @@ class Site{
         virtual ~Site();
         Site();
         void clearOccupancy();
-        list<unique_ptr<Object>>::iterator getObjectIt() const;
+        list<Object*>::iterator getObjectIt() const;
         bool isOccupied();
-        void setObjectIt(list<unique_ptr<Object>>::iterator it);
+        void setObjectIt(list<Object*>::iterator it);
         void setOccupied();
     private:
         bool occupied;
-        list<unique_ptr<Object>>::iterator object_it;
+        list<Object*>::iterator object_it;
 };
 
 #endif // SITE_H

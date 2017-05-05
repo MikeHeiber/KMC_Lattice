@@ -23,14 +23,14 @@ class Object{
         double calculateDisplacement();
         Coords getCoords() const;
         double getCreationTime() const;
-        list<unique_ptr<Event>>::iterator getEventIt() const;
+        list<Event*>::iterator getEventIt() const;
         virtual string getName() const;
         int getTag() const;
         void incrementDX(const int num);
         void incrementDY(const int num);
         void incrementDZ(const int num);
         void setCoords(const Coords& new_coords);
-        void setEventIt(const list<unique_ptr<Event>>::iterator it);
+        void setEventIt(const list<Event*>::iterator it);
     private:
         static const string name_base;
         double time_created;
@@ -39,7 +39,7 @@ class Object{
         Coords coords;
         // Initial coords
         Coords coords_initial;
-        list<unique_ptr<Event>>::iterator event_it;
+        list<Event*>::iterator event_it;
         // Accounts for passes across periodic boundaries
         int dx;
         int dy;

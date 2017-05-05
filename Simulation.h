@@ -53,10 +53,10 @@ class Simulation{
         // Random number generator
         mt19937 gen;
         // Output Files
-        ofstream * Logfile;
+        ofstream* Logfile;
         // Functions
-        list<unique_ptr<Event>>::iterator addEvent(Event* event_ptr);
-        list<unique_ptr<Object>>::iterator addObject(Object* object_ptr);
+        list<Event*>::iterator addEvent(Event* event_ptr);
+        list<Object*>::iterator addObject(Object* object_ptr);
         void addSite(Site* site_ptr);
         Coords calculateDestinationCoords(const Coords& coords_initial,const int i,const int j,const int k);
         int calculateDX(const int x,const int i);
@@ -64,9 +64,9 @@ class Simulation{
         int calculateDZ(const int z,const int k);
         int calculateLatticeDistanceSquared(const Coords& coords_start,const Object& object_target);
         bool checkMoveEventValidity(const Coords& coords_initial,const int i,const int j,const int k);
-        list<unique_ptr<Event>>::iterator chooseNextEvent();
-        vector<list<unique_ptr<Object>>::iterator> findRecalcNeighbors(const Coords& coords);
-        vector<list<unique_ptr<Object>>::iterator> getAllObjectIts();
+        list<Event*>::iterator chooseNextEvent();
+        vector<list<Object*>::iterator> findRecalcNeighbors(const Coords& coords);
+        vector<list<Object*>::iterator> getAllObjectIts();
         int getHeight();
         int getLength();
         int getNumSites();
@@ -75,7 +75,7 @@ class Simulation{
         int getRandomY();
         int getRandomZ();
         int getSiteIndex(const Coords& coords);
-        vector<unique_ptr<Site>>::iterator getSiteIt(const Coords& coords);
+        vector<Site*>::iterator getSiteIt(const Coords& coords);
         int getTemperature();
         double getUnitSize();
         int getWidth();
@@ -85,11 +85,11 @@ class Simulation{
         bool isYPeriodic();
         bool isZPeriodic();
         bool loggingEnabled();
-        void moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords);
+        void moveObject(const list<Object*>::iterator object_it,const Coords& dest_coords);
         void outputLatticeOccupancy();
-        void removeObject(const list<unique_ptr<Object>>::iterator object_it);
-        void removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its);
-        void setEvent(const list<unique_ptr<Event>>::iterator event_it,Event* event_ptr);
+        void removeObject(const list<Object*>::iterator object_it);
+        void removeObjectItDuplicates(vector<list<Object*>::iterator>& object_its);
+        void setEvent(const list<Event*>::iterator event_it,Event* event_ptr);
     private:
         int Id;
         // General Parameters
@@ -105,9 +105,9 @@ class Simulation{
         // First Reaction Method Parameters
         int Recalc_cutoff;
         // Data Structures
-        vector<unique_ptr<Site>> lattice;
-        list<unique_ptr<Object>> objects;
-        list<unique_ptr<Event>> events;
+        vector<Site*> lattice;
+        list<Object*> objects;
+        list<Event*> events;
         // Counters
         double Time;
         int N_objects;

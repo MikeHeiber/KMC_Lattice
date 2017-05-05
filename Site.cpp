@@ -17,7 +17,7 @@ void Site::clearOccupancy(){
     occupied = false;
 }
 
-list<unique_ptr<Object>>::iterator Site::getObjectIt() const{
+list<Object*>::iterator Site::getObjectIt() const{
     return object_it;
 }
 
@@ -25,7 +25,7 @@ bool Site::isOccupied(){
     return occupied;
 }
 
-void Site::setObjectIt(list<unique_ptr<Object>>::iterator it){
+void Site::setObjectIt(list<Object*>::iterator it){
     object_it = it;
 }
 

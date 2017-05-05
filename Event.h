@@ -24,13 +24,13 @@ class Event{
         virtual void calculateEvent(const Coords& dest_coords, const double rate) = 0;
         Coords getDestCoords() const;
         virtual string getName() const;
-        list<unique_ptr<Object>>::iterator getObjectIt() const;
-        list<unique_ptr<Object>>::iterator getObjectTargetIt() const;
+        list<Object*>::iterator getObjectIt() const;
+        list<Object*>::iterator getObjectTargetIt() const;
         double getWaitTime() const;
         void setDestCoords(const Coords& coords);
         void setWaitTime(const double time);
-        void setObjectIt(const list<unique_ptr<Object>>::iterator it);
-        void setObjectTargetIt(const list<unique_ptr<Object>>::iterator it);
+        void setObjectIt(const list<Object*>::iterator it);
+        void setObjectTargetIt(const list<Object*>::iterator it);
     protected:
         // Variables
         // Functions
@@ -39,8 +39,8 @@ class Event{
         // Variables and objects
         static const string name_base;
         double wait_time;
-        list<unique_ptr<Object>>::iterator object_it;
-        list<unique_ptr<Object>>::iterator object_target_it;
+        list<Object*>::iterator object_it;
+        list<Object*>::iterator object_target_it;
         Coords coords_dest;
 };
 

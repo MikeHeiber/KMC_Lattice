@@ -33,11 +33,11 @@ string Event::getName() const{
     return name_base;
 }
 
-list<unique_ptr<Object>>::iterator Event::getObjectIt() const{
+list<Object*>::iterator Event::getObjectIt() const{
     return object_it;
 }
 
-list<unique_ptr<Object>>::iterator Event::getObjectTargetIt() const{
+list<Object*>::iterator Event::getObjectTargetIt() const{
     return object_target_it;
 }
 
@@ -53,10 +53,10 @@ void Event::setWaitTime(const double time){
     wait_time = time;
 }
 
-void Event::setObjectIt(const list<unique_ptr<Object>>::iterator it){
+void Event::setObjectIt(const list<Object*>::iterator it){
     object_it = it;
 }
 
-void Event::setObjectTargetIt(const list<unique_ptr<Object>>::iterator it){
+void Event::setObjectTargetIt(const list<Object*>::iterator it){
     object_target_it = it;
 }
