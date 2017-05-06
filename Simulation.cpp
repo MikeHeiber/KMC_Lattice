@@ -289,6 +289,7 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     lattice.clear();
     objects.clear();
     events.clear();
+    Event::seedGenerator(id);
     gen.seed(time(0)*(id+1));
     // Output files
     Logfile = params.Logfile;

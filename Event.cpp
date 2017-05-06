@@ -7,8 +7,7 @@
 
 // Initialize static class members
 const string Event::name_base = "Event";
-random_device random;
-mt19937 Event::gen(random());
+mt19937 Event::gen(0);
 
 Event::~Event(){
 
@@ -43,6 +42,10 @@ list<Object*>::iterator Event::getObjectTargetIt() const{
 
 double Event::rand01(){
     return generate_canonical<double,std::numeric_limits<double>::digits>(gen);
+}
+
+void Event::seedGenerator(const int seed){
+    gen.seed(time(0)*(seed+1));
 }
 
 void Event::setDestCoords(const Coords& coords){
