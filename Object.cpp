@@ -5,6 +5,8 @@
 
 #include "Object.h"
 
+const string Object::name_base = "Object";
+
 Object::~Object(){
     //dtor
 }
@@ -37,19 +39,23 @@ double Object::calculateDisplacement(){
     return sqrt((double)(coords.x+dx-coords_initial.x)*(coords.x+dx-coords_initial.x)+(coords.y+dy-coords_initial.y)*(coords.y+dy-coords_initial.y)+(coords.z+dz-coords_initial.z)*(coords.z+dz-coords_initial.z));
 }
 
-Coords Object::getCoords(){
+Coords Object::getCoords() const{
     return coords;
 }
 
-double Object::getCreationTime(){
+double Object::getCreationTime() const{
     return time_created;
 }
 
-list<unique_ptr<Event>>::iterator Object::getEventIt(){
+list<Event*>::iterator Object::getEventIt() const{
     return event_it;
 }
 
-int Object::getTag(){
+string Object::getName() const{
+    return name_base;
+}
+
+int Object::getTag() const{
     return tag;
 }
 
@@ -69,7 +75,7 @@ void Object::setCoords(const Coords& new_coords){
     coords = new_coords;
 }
 
-void Object::setEventIt(const list<unique_ptr<Event>>::iterator it){
+void Object::setEventIt(const list<Event*>::iterator it){
     event_it = it;
 }
 

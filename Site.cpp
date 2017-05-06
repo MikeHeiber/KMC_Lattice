@@ -17,8 +17,16 @@ void Site::clearOccupancy(){
     occupied = false;
 }
 
+list<Object*>::iterator Site::getObjectIt() const{
+    return object_it;
+}
+
 bool Site::isOccupied(){
     return occupied;
+}
+
+void Site::setObjectIt(list<Object*>::iterator it){
+    object_it = it;
 }
 
 void Site::setOccupied(){

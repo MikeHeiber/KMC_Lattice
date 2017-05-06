@@ -7,56 +7,56 @@
 
 // Initialize static class members
 const string Event::name_base = "Event";
-boost::mt19937 Event::gen{static_cast<std::uint32_t>(0)};
+random_device random;
+mt19937 Event::gen(random());
 
 Event::~Event(){
 
 }
 
 Event::Event(){
-    wait_time = 0;
+    execution_time = 0;
     coords_dest.x = 0;
     coords_dest.y = 0;
     coords_dest.z = 0;
 }
 
-Coords Event::getDestCoords(){
+Coords Event::getDestCoords() const{
     return coords_dest;
 }
 
-float Event::getWaitTime(){
-    return wait_time;
+double Event::getExecutionTime() const{
+    return execution_time;
 }
 
-string Event::getName(){
+string Event::getName() const{
     return name_base;
 }
 
-list<unique_ptr<Object>>::iterator Event::getObjectIt(){
+list<Object*>::iterator Event::getObjectIt() const{
     return object_it;
 }
 
-list<unique_ptr<Object>>::iterator Event::getObjectTargetIt(){
+list<Object*>::iterator Event::getObjectTargetIt() const{
     return object_target_it;
 }
 
 double Event::rand01(){
-    static boost::uniform_01<boost::mt19937> randn(gen);
-    return randn();
-}
-
-void Event::seedGenerator(const int id){
-    gen.seed(time(0)*(id+1));
+    return generate_canonical<double,std::numeric_limits<double>::digits>(gen);
 }
 
 void Event::setDestCoords(const Coords& coords){
     coords_dest = coords;
 }
 
-void Event::setWaitTime(const float time){
-    wait_time = time;
+void Event::setExecutionTime(const double time){
+    execution_time = time;
 }
 
-void Event::setObjectIt(const list<unique_ptr<Object>>::iterator it){
+void Event::setObjectIt(const list<Object*>::iterator it){
     object_it = it;
+}
+
+void Event::setObjectTargetIt(const list<Object*>::iterator it){
+    object_target_it = it;
 }

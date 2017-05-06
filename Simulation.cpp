@@ -6,20 +6,23 @@
 #include "Simulation.h"
 
 Simulation::~Simulation(){
-    //dtor
+
 }
 
-list<unique_ptr<Event>>::iterator Simulation::addEvent(unique_ptr<Event>& event_ptr){
-    events.push_back(move(event_ptr));
+list<Event*>::iterator Simulation::addEvent(Event* event_ptr){
+    events.push_back(event_ptr);
     return --events.end();
 }
 
-list<unique_ptr<Object>>::iterator Simulation::addObject(unique_ptr<Object>& object_ptr){
+list<Object*>::iterator Simulation::addObject(Object* object_ptr){
     // Add an event for the object to the event list and link the event to the object
-    events.push_back(unique_ptr<Event>(nullptr));
+    events.push_back(nullptr);
     object_ptr->setEventIt(--events.end());
     // Add new object to the object vector and link the object to the event
-    objects.push_back(move(object_ptr));
+    objects.push_back(object_ptr);
+    // Set occupancy of site
+    (*getSiteIt(object_ptr->getCoords()))->setOccupied();
+    (*getSiteIt(object_ptr->getCoords()))->setObjectIt(--objects.end());
     // Update counters
     N_objects++;
     N_objects_created++;
@@ -27,8 +30,16 @@ list<unique_ptr<Object>>::iterator Simulation::addObject(unique_ptr<Object>& obj
     return --objects.end();
 }
 
-void Simulation::addSite(unique_ptr<Site>& site_ptr){
-    lattice.push_back(move(site_ptr));
+void Simulation::addSite(Site* site_ptr){
+    lattice.push_back(site_ptr);
+}
+
+Coords Simulation::calculateDestinationCoords(const Coords& coords_initial,const int i,const int j,const int k){
+    Coords dest_coords;
+    dest_coords.x = coords_initial.x+i+calculateDX(coords_initial.x,i);
+    dest_coords.y = coords_initial.y+j+calculateDY(coords_initial.y,j);
+    dest_coords.z = coords_initial.z+k+calculateDZ(coords_initial.z,k);
+    return dest_coords;
 }
 
 //  This function calculates the coordinate adjustment term needed to account for periodic boundaries in the x-direction.
@@ -85,18 +96,62 @@ int Simulation::calculateDZ(const int z,const int k){
     }
 }
 
-list<unique_ptr<Event>>::iterator Simulation::chooseNextEvent(){
-    list<unique_ptr<Event>>::iterator event_it_target = events.begin();
-    for(auto event_it=++events.begin();event_it!=events.end();++event_it){
-        if((*event_it)->getWaitTime() < (*event_it_target)->getWaitTime()){
-            event_it_target = event_it;
-        }
+int Simulation::calculateLatticeDistanceSquared(const Coords& coords_start,const Object& object_target){
+    int absx = abs(object_target.getCoords().x-coords_start.x);
+    int absy = abs(object_target.getCoords().y-coords_start.y);
+    int absz = abs(object_target.getCoords().z-coords_start.z);
+    int dx,dy,dz;
+    if(Enable_periodic_x && 2*absx>Length){
+        dx = -Length;
     }
-    return event_it_target;
+    else{
+        dx = 0;
+    }
+    if(Enable_periodic_y && 2*absy>Width){
+        dy = -Width;
+    }
+    else{
+        dy = 0;
+    }
+    if(Enable_periodic_z && 2*absz>Height){
+        dz = -Height;
+    }
+    else{
+        dz = 0;
+    }
+    return (absx+dx)*(absx+dx)+(absy+dy)*(absy+dy)+(absz+dz)*(absz+dz);
 }
 
-vector<list<unique_ptr<Object>>::iterator> Simulation::findRecalcNeighbors(const Coords& coords){
-    vector<list<unique_ptr<Object>>::iterator> object_its;
+bool Simulation::checkMoveEventValidity(const Coords& coords_initial,const int i,const int j,const int k){
+    if(i==0 && j==0 && k==0){
+        return false;
+    }
+    if(!isXPeriodic() && (coords_initial.x+i>=getLength() || coords_initial.x+i<0)){
+        return false;
+    }
+    if(!isYPeriodic() && (coords_initial.y+j>=getWidth() || coords_initial.y+j<0)){
+        return false;
+    }
+    if(!isZPeriodic() && (coords_initial.z+k>=getHeight() || coords_initial.z+k<0)){
+        return false;
+    }
+    return true;
+}
+
+list<Event*>::iterator Simulation::chooseNextEvent(){
+    auto event_target_it = events.begin();
+    if(events.size()>1){
+        for(auto it=++events.begin();it!=events.end();++it){
+            if((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()){
+                event_target_it = it;
+            }
+        }
+    }
+    return event_target_it;
+}
+
+vector<list<Object*>::iterator> Simulation::findRecalcNeighbors(const Coords& coords){
+    vector<list<Object*>::iterator> object_its;
     object_its.reserve(10);
     Coords coords2;
     int dx,dy,dz;
@@ -104,19 +159,19 @@ vector<list<unique_ptr<Object>>::iterator> Simulation::findRecalcNeighbors(const
     int distance_sq_lat;
     for(auto object_it=objects.begin();object_it!=objects.end();++object_it){
         coords2 = (*object_it)->getCoords();
-        if(Enable_periodic_x && abs(coords2.x-coords.x)>Length/2){
+        if(Enable_periodic_x && 2*abs(coords2.x-coords.x)>Length){
             dx = -Length;
         }
         else{
             dx = 0;
         }
-        if(Enable_periodic_y && abs(coords2.y-coords.y)>Width/2){
+        if(Enable_periodic_y && 2*abs(coords2.y-coords.y)>Width){
             dy = -Width;
         }
         else{
             dy = 0;
         }
-        if(Enable_periodic_z && abs(coords2.z-coords.z)>Height/2){
+        if(Enable_periodic_z && 2*abs(coords2.z-coords.z)>Height){
             dz = -Height;
         }
         else{
@@ -126,6 +181,15 @@ vector<list<unique_ptr<Object>>::iterator> Simulation::findRecalcNeighbors(const
         if(distance_sq_lat<=recalc_cutoff_sq_lat){
             object_its.push_back(object_it);
         }
+    }
+    return object_its;
+}
+
+vector<list<Object*>::iterator> Simulation::getAllObjectIts(){
+    vector<list<Object*>::iterator> object_its;
+    object_its.reserve(objects.size());
+    for(auto object_it=objects.begin();object_it!=objects.end();++object_it){
+        object_its.push_back(object_it);
     }
     return object_its;
 }
@@ -152,23 +216,35 @@ int Simulation::getN_events_executed(){
 
 Coords Simulation::getRandomCoords(){
     Coords coords;
-    static boost::uniform_int<> distx(0,Length-1);
-    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randx(gen, distx);
-    static boost::uniform_int<> disty(0,Width-1);
-    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randy(gen, disty);
-    static boost::uniform_int<> distz(0,Height-1);
-    static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > randz(gen, distz);
-    coords.x = randx();
-    coords.y = randy();
-    coords.z = randz();
+    coords.x = getRandomX();
+    coords.y = getRandomY();
+    coords.z = getRandomZ();
     return coords;
+}
+
+int Simulation::getRandomX(){
+    uniform_int_distribution<int> distx(0,Length-1);
+    auto randx = bind(distx,ref(gen));
+    return randx();
+}
+
+int Simulation::getRandomY(){
+    uniform_int_distribution<int> disty(0,Width-1);
+    auto randy = bind(disty,ref(gen));
+    return randy();
+}
+
+int Simulation::getRandomZ(){
+    uniform_int_distribution<int> distz(0,Height-1);
+    auto randz = bind(distz,ref(gen));
+    return randz();
 }
 
 int Simulation::getSiteIndex(const Coords& coords){
     return coords.x*Width*Height+coords.y*Height+coords.z;
 }
 
-vector<unique_ptr<Site>>::iterator Simulation::getSiteIt(const Coords& coords){
+vector<Site*>::iterator Simulation::getSiteIt(const Coords& coords){
     auto site_it = lattice.begin();
     advance(site_it,getSiteIndex(coords));
     return site_it;
@@ -214,13 +290,8 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     objects.clear();
     events.clear();
     gen.seed(time(0)*(id+1));
-    Event::seedGenerator(id);
     // Output files
     Logfile = params.Logfile;
-}
-
-void Simulation::incrementTime(const float added_time){
-    Time += added_time;
 }
 
 bool Simulation::isOccupied(const Coords& coords){
@@ -243,15 +314,10 @@ bool Simulation::loggingEnabled(){
     return Enable_logging;
 }
 
-void Simulation::logMSG(const ostringstream& msg){
-    *Logfile << msg.str();
-    Logfile->flush();
-}
-
-void Simulation::moveObject(const list<unique_ptr<Object>>::iterator object_it,const Coords& dest_coords){
-    // clear occupancy of initial site
+void Simulation::moveObject(const list<Object*>::iterator object_it,const Coords& dest_coords){
+    // Clear occupancy of initial site
     (*getSiteIt((*object_it)->getCoords()))->clearOccupancy();
-    // check for periodic boundary crossing
+    // Check for periodic boundary crossing
     if(Enable_periodic_x){
         if(2*(dest_coords.x-(*object_it)->getCoords().x)<-Length){
             (*object_it)->incrementDX(Length);
@@ -276,11 +342,12 @@ void Simulation::moveObject(const list<unique_ptr<Object>>::iterator object_it,c
             (*object_it)->incrementDZ(-Height);
         }
     }
-    // set object coords to new site
+    // Set object coords to new site
     (*object_it)->setCoords(dest_coords);
-    // set occupancy of new site
+    // Set occupancy of new site
     (*getSiteIt(dest_coords))->setOccupied();
-    // update counter
+    (*getSiteIt(dest_coords))->setObjectIt(object_it);
+    // Update counter
     N_events_executed++;
 }
 
@@ -292,20 +359,23 @@ void Simulation::outputLatticeOccupancy(){
     }
 }
 
-void Simulation::removeObject(const list<unique_ptr<Object>>::iterator object_it){
-    // clear occupancy of site
+void Simulation::removeEvent(Event* event_ptr){
+    events.remove(event_ptr);
+}
+
+void Simulation::removeObject(const list<Object*>::iterator object_it){
+    // Clear occupancy of site
     (*getSiteIt((*object_it)->getCoords()))->clearOccupancy();
-    // release and then delete event pointer
-    ((*object_it)->getEventIt())->release();
+    // Delete the event pointer
     events.erase((*object_it)->getEventIt());
-    // remove object pointer
+    // Delete the object pointer
     objects.erase(object_it);
     // Update counters
     N_objects--;
     N_events_executed++;
 }
 
-void Simulation::removeObjectItDuplicates(vector<list<unique_ptr<Object>>::iterator>& object_its){
+void Simulation::removeObjectItDuplicates(vector<list<Object*>::iterator>& object_its){
     for(auto it1=object_its.begin();it1!=object_its.end(); ++it1){
         for(auto it2=it1+1;it2!=object_its.end(); ++it2){
             if((it2!=it1) && (*it2==*it1)){
@@ -316,11 +386,12 @@ void Simulation::removeObjectItDuplicates(vector<list<unique_ptr<Object>>::itera
     }
 }
 
-void Simulation::setEvent(const list<unique_ptr<Event>>::iterator event_it,unique_ptr<Event>& event_ptr){
-    // Update events list
-    // Clear current pointer
-    event_it->release();
+void Simulation::setEvent(const list<Event*>::iterator event_it,Event* event_ptr){
     // Assign new pointer
-    *event_it = move(event_ptr);
+    *event_it = event_ptr;
+}
+
+void Simulation::updateTime(const double new_time){
+    Time = new_time;
 }
 

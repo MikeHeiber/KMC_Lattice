@@ -6,6 +6,10 @@
 #ifndef SITE_H
 #define SITE_H
 
+#include <list>
+#include <memory>
+#include "Object.h"
+
 using namespace std;
 
 class Site{
@@ -13,10 +17,13 @@ class Site{
         virtual ~Site();
         Site();
         void clearOccupancy();
+        list<Object*>::iterator getObjectIt() const;
         bool isOccupied();
+        void setObjectIt(list<Object*>::iterator it);
         void setOccupied();
     private:
         bool occupied;
+        list<Object*>::iterator object_it;
 };
 
 #endif // SITE_H
