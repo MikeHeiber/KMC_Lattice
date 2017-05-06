@@ -15,7 +15,7 @@ Event::~Event(){
 }
 
 Event::Event(){
-    wait_time = 0;
+    execution_time = 0;
     coords_dest.x = 0;
     coords_dest.y = 0;
     coords_dest.z = 0;
@@ -25,8 +25,8 @@ Coords Event::getDestCoords() const{
     return coords_dest;
 }
 
-double Event::getWaitTime() const{
-    return wait_time;
+double Event::getExecutionTime() const{
+    return execution_time;
 }
 
 string Event::getName() const{
@@ -49,8 +49,8 @@ void Event::setDestCoords(const Coords& coords){
     coords_dest = coords;
 }
 
-void Event::setWaitTime(const double time){
-    wait_time = time;
+void Event::setExecutionTime(const double time){
+    execution_time = time;
 }
 
 void Event::setObjectIt(const list<Object*>::iterator it){

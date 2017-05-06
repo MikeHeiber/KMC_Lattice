@@ -79,7 +79,6 @@ class Simulation{
         int getTemperature();
         double getUnitSize();
         int getWidth();
-        void incrementTime(const double added_time);
         bool isOccupied(const Coords& coords);
         bool isXPeriodic();
         bool isYPeriodic();
@@ -87,9 +86,11 @@ class Simulation{
         bool loggingEnabled();
         void moveObject(const list<Object*>::iterator object_it,const Coords& dest_coords);
         void outputLatticeOccupancy();
+        void removeEvent(Event* event_ptr);
         void removeObject(const list<Object*>::iterator object_it);
         void removeObjectItDuplicates(vector<list<Object*>::iterator>& object_its);
         void setEvent(const list<Event*>::iterator event_it,Event* event_ptr);
+        void updateTime(const double new_time);
     private:
         int Id;
         // General Parameters

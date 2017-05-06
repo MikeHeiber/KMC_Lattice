@@ -21,14 +21,14 @@ class Event{
         static mt19937 gen;
         virtual ~Event();
         Event();
-        virtual void calculateEvent(const Coords& dest_coords, const double rate) = 0;
+        virtual void calculateEvent(const Coords& dest_coords, const double rate,const double current_time) = 0;
         Coords getDestCoords() const;
         virtual string getName() const;
         list<Object*>::iterator getObjectIt() const;
         list<Object*>::iterator getObjectTargetIt() const;
-        double getWaitTime() const;
+        double getExecutionTime() const;
         void setDestCoords(const Coords& coords);
-        void setWaitTime(const double time);
+        void setExecutionTime(const double time);
         void setObjectIt(const list<Object*>::iterator it);
         void setObjectTargetIt(const list<Object*>::iterator it);
     protected:
@@ -38,7 +38,7 @@ class Event{
     private:
         // Variables and objects
         static const string name_base;
-        double wait_time;
+        double execution_time;
         list<Object*>::iterator object_it;
         list<Object*>::iterator object_target_it;
         Coords coords_dest;

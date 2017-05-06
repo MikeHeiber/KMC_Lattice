@@ -11,6 +11,7 @@
 #include <random>
 #include <cmath>
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
@@ -37,7 +38,7 @@ double intpow(const double base,const int exponent);
 vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector,const int procid,const int nproc);
 vector<double> MPI_calculateVectorSum(const vector<double>& input_vector,const int procid,const int nproc);
 vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int procid,const int nproc);
-vector<double> MPI_gatherData(const vector<double>& input_vector,const int procid,const int nproc);
+vector<double> MPI_gatherVectors(const vector<double>& input_vector,const int procid,const int nproc);
 double vector_avg(const vector<int>& dataset);
 double vector_avg(const vector<double>& dataset);
 double vector_stdev(const vector<int>& dataset);

@@ -142,7 +142,7 @@ list<Event*>::iterator Simulation::chooseNextEvent(){
     auto event_target_it = events.begin();
     if(events.size()>1){
         for(auto it=++events.begin();it!=events.end();++it){
-            if((*it)->getWaitTime() < (*event_target_it)->getWaitTime()){
+            if((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()){
                 event_target_it = it;
             }
         }
@@ -294,10 +294,6 @@ void Simulation::initializeSimulation(const Parameters_Simulation& params,const 
     Logfile = params.Logfile;
 }
 
-void Simulation::incrementTime(const double added_time){
-    Time += added_time;
-}
-
 bool Simulation::isOccupied(const Coords& coords){
     return (*getSiteIt(coords))->isOccupied();
 }
@@ -363,6 +359,10 @@ void Simulation::outputLatticeOccupancy(){
     }
 }
 
+void Simulation::removeEvent(Event* event_ptr){
+    events.remove(event_ptr);
+}
+
 void Simulation::removeObject(const list<Object*>::iterator object_it){
     // Clear occupancy of site
     (*getSiteIt((*object_it)->getCoords()))->clearOccupancy();
@@ -389,5 +389,9 @@ void Simulation::removeObjectItDuplicates(vector<list<Object*>::iterator>& objec
 void Simulation::setEvent(const list<Event*>::iterator event_it,Event* event_ptr){
     // Assign new pointer
     *event_it = event_ptr;
+}
+
+void Simulation::updateTime(const double new_time){
+    Time = new_time;
 }
 

@@ -123,7 +123,7 @@ vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int pro
     return output_vector;
 }
 
-vector<double> MPI_gatherData(const vector<double>& input_vector,const int procid,const int nproc){
+vector<double> MPI_gatherVectors(const vector<double>& input_vector,const int procid,const int nproc){
     int data_size = 0;
     int data_count = 0;
     double *data = NULL;
