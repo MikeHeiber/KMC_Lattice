@@ -47,6 +47,18 @@ double Object::getCreationTime() const{
     return time_created;
 }
 
+int Object::getDX() const{
+    return dx;
+}
+
+int Object::getDY() const{
+    return dy;
+}
+
+int Object::getDZ() const{
+    return dz;
+}
+
 list<Event*>::iterator Object::getEventIt() const{
     return event_it;
 }

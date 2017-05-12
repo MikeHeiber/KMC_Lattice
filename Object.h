@@ -23,6 +23,9 @@ class Object{
         double calculateDisplacement();
         Coords getCoords() const;
         double getCreationTime() const;
+        int getDX() const;
+        int getDY() const;
+        int getDZ() const;
         list<Event*>::iterator getEventIt() const;
         virtual string getName() const;
         int getTag() const;
