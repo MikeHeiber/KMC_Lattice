@@ -22,7 +22,7 @@ class Event{
         static mt19937 gen;
         virtual ~Event();
         Event();
-        virtual void calculateEvent(const Coords& dest_coords, const double rate,const double current_time) = 0;
+        void calculateExecutionTime(const double rate,const double current_time);
         Coords getDestCoords() const;
         virtual string getName() const;
         list<Object*>::iterator getObjectIt() const;

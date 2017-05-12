@@ -20,6 +20,10 @@ Event::Event(){
     coords_dest.z = 0;
 }
 
+void Event::calculateExecutionTime(const double rate,const double current_time){
+    execution_time = current_time-(1/rate)*log(rand01());
+}
+
 Coords Event::getDestCoords() const{
     return coords_dest;
 }
