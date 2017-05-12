@@ -18,7 +18,7 @@ class Site{
         Site();
         void clearOccupancy();
         list<Object*>::iterator getObjectIt() const;
-        bool isOccupied();
+        bool isOccupied() const;
         void setObjectIt(list<Object*>::iterator it);
         void setOccupied();
     private:

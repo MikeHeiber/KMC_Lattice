@@ -11,6 +11,7 @@
 #include <list>
 #include <memory>
 #include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -27,6 +28,7 @@ class Event{
         list<Object*>::iterator getObjectIt() const;
         list<Object*>::iterator getObjectTargetIt() const;
         double getExecutionTime() const;
+        static void seedGenerator(const int seed);
         void setDestCoords(const Coords& coords);
         void setExecutionTime(const double time);
         void setObjectIt(const list<Object*>::iterator it);

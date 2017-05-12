@@ -21,7 +21,7 @@ list<Object*>::iterator Site::getObjectIt() const{
     return object_it;
 }
 
-bool Site::isOccupied(){
+bool Site::isOccupied() const{
     return occupied;
 }
 
