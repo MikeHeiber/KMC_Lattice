@@ -5,23 +5,6 @@
 
 #include "Utils.h"
 
-double array_avg(const double data[],const int array_size){
-    double sum = 0;
-    for(int i=0;i<array_size;i++){
-        sum += data[i];
-    }
-    return sum/array_size;
-}
-
-double array_stdev(const double data[],const int array_size){
-    double sum = 0;
-    double avg = array_avg(data,array_size);
-    for(int i=0;i<array_size;i++){
-        sum += (data[i]-avg)*(data[i]-avg);
-    }
-    return sqrt(sum/(array_size-1));
-}
-
 vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector,const int procid,const int nproc){
     int data_size = 0;
     int data_count = 0;
@@ -123,6 +106,20 @@ vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int pro
     return output_vector;
 }
 
+bool importBooleanParam(const string& input,bool& error_status){
+    if(input.compare("true")==0){
+        return true;
+    }
+    else if(input.compare("false")==0){
+        return false;
+    }
+    else{
+        cout << "Error importing boolean parameter." << endl;
+        error_status = true;
+        return false;
+    }
+}
+
 vector<double> MPI_gatherVectors(const vector<double>& input_vector,const int procid,const int nproc){
     int data_size = 0;
     int data_count = 0;
@@ -189,57 +186,5 @@ void createGaussianDOSVector(vector<double>& data,const double mean,const double
     for(int i=0;i<(int)data.size();i++){
         data[i] = rand_gaus();
     }
-}
-
-double intpow(const double base,const int exponent){
-    double result = base;
-    for(int i=1;i<exponent;i++){
-        result *= base;
-    }
-    return result;
-}
-
-double vector_avg(const vector<int>& dataset){
-    double sum = 0;
-    double avg;
-    vector<int>::const_iterator it;
-    for(it=dataset.begin();it!=dataset.end();++it){
-        sum += *it;
-    }
-    avg = sum/dataset.size();
-    return avg;
-}
-
-double vector_avg(const vector<double>& dataset){
-    double sum = 0;
-    double avg;
-    vector<double>::const_iterator it;
-    for(it=dataset.begin();it!=dataset.end();++it){
-        sum += *it;
-    }
-    avg = sum/dataset.size();
-    return avg;
-}
-
-double vector_stdev(const vector<int>& dataset){
-    double sum = 0;
-    double avg, dev;
-    avg = vector_avg(dataset);
-    for(auto it=dataset.begin();it!=dataset.end();++it){
-        sum += (*it-avg)*(*it-avg);
-    }
-    dev = sqrt(sum/(dataset.size()-1));
-    return dev;
-}
-
-double vector_stdev(const vector<double>& dataset){
-    double sum = 0;
-    double avg, dev;
-    avg = vector_avg(dataset);
-    for(auto it=dataset.begin();it!=dataset.end();++it){
-        sum += (*it-avg)*(*it-avg);
-    }
-    dev = sqrt(sum/(dataset.size()-1));
-    return dev;
 }
 

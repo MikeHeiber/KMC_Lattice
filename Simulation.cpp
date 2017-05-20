@@ -142,7 +142,7 @@ list<Event*>::iterator Simulation::chooseNextEvent(){
     auto event_target_it = events.begin();
     if(events.size()>1){
         for(auto it=++events.begin();it!=events.end();++it){
-            if((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()){
+            if((*it)!=nullptr && ((*event_target_it)==nullptr || ((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()))){
                 event_target_it = it;
             }
         }
