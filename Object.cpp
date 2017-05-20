@@ -14,12 +14,8 @@ Object::~Object(){
 Object::Object(){
     time_created = 0;
     tag = 0;
-    coords.x = 0;
-    coords.y = 0;
-    coords.z = 0;
-    coords_initial.x = 0;
-    coords_initial.y = 0;
-    coords_initial.z = 0;
+    coords.setXYZ(0,0,0);
+    coords_initial.setXYZ(0,0,0);
     dx = 0;
     dy = 0;
     dz = 0;
