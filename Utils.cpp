@@ -5,6 +5,45 @@
 
 #include "Utils.h"
 
+void createExponentialDOSVector(vector<double>& data,const double mode,const double urbach_energy,mt19937& gen){
+    exponential_distribution<double> dist_exp(1/urbach_energy);
+    auto rand_exp = bind(dist_exp,ref(gen));
+    normal_distribution<double> dist_gaus(0,2*urbach_energy/sqrt(2*Pi));
+    auto rand_gaus = bind(dist_gaus,ref(gen));
+    double energy;
+    for(int i=0;i<(int)data.size();i++){
+        energy = rand_gaus();
+        if(energy>0){
+            data[i] = mode+energy;
+        }
+        else{
+            data[i] = mode-rand_exp();
+        }
+    }
+}
+
+void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev,mt19937& gen){
+    normal_distribution<double> dist(mean,stdev);
+    auto rand_gaus = bind(dist,ref(gen));
+    for(int i=0;i<(int)data.size();i++){
+        data[i] = rand_gaus();
+    }
+}
+
+bool importBooleanParam(const string& input,bool& error_status){
+    if(input.compare("true")==0){
+        return true;
+    }
+    else if(input.compare("false")==0){
+        return false;
+    }
+    else{
+        cout << "Error importing boolean parameter." << endl;
+        error_status = true;
+        return false;
+    }
+}
+
 vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector,const int procid,const int nproc){
     int data_size = 0;
     int data_count = 0;
@@ -60,9 +99,8 @@ vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector,const i
     return output_vector;
 }
 
-vector<double> MPI_calculateVectorSum(const vector<double>& input_vector,const int procid,const int nproc){
+vector<double> MPI_calculateVectorSum(const vector<double>& input_vector,const int procid){
     int data_size = 0;
-    int data_count = 0;
     double *data = NULL;
     double *sum = NULL;
     vector<double> output_vector;
@@ -83,9 +121,8 @@ vector<double> MPI_calculateVectorSum(const vector<double>& input_vector,const i
     return output_vector;
 }
 
-vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int procid,const int nproc){
+vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int procid){
     int data_size = 0;
-    int data_count = 0;
     int *data = NULL;
     int *sum = NULL;
     vector<int> output_vector;
@@ -106,20 +143,6 @@ vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int pro
     return output_vector;
 }
 
-bool importBooleanParam(const string& input,bool& error_status){
-    if(input.compare("true")==0){
-        return true;
-    }
-    else if(input.compare("false")==0){
-        return false;
-    }
-    else{
-        cout << "Error importing boolean parameter." << endl;
-        error_status = true;
-        return false;
-    }
-}
-
 vector<double> MPI_gatherVectors(const vector<double>& input_vector,const int procid,const int nproc){
     int data_size = 0;
     int data_count = 0;
@@ -127,8 +150,6 @@ vector<double> MPI_gatherVectors(const vector<double>& input_vector,const int pr
     double *data_all = NULL;
     int *data_sizes = NULL;
     int *data_displacement = NULL;
-    int max_data_size = 0;
-    double average = 0;
     vector<double> output_vector;
     if(procid==0){
         data_sizes = (int *)malloc(sizeof(int)*nproc);
@@ -161,30 +182,5 @@ vector<double> MPI_gatherVectors(const vector<double>& input_vector,const int pr
     delete data_sizes;
     delete data_displacement;
     return output_vector;
-}
-
-void createExponentialDOSVector(vector<double>& data,const double mode,const double urbach_energy,mt19937& gen){
-    exponential_distribution<double> dist_exp(1/urbach_energy);
-    auto rand_exp = bind(dist_exp,ref(gen));
-    normal_distribution<double> dist_gaus(0,2*urbach_energy/sqrt(2*Pi));
-    auto rand_gaus = bind(dist_gaus,ref(gen));
-    double energy;
-    for(int i=0;i<(int)data.size();i++){
-        energy = rand_gaus();
-        if(energy>0){
-            data[i] = mode+energy;
-        }
-        else{
-            data[i] = mode-rand_exp();
-        }
-    }
-}
-
-void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev,mt19937& gen){
-    normal_distribution<double> dist(mean,stdev);
-    auto rand_gaus = bind(dist,ref(gen));
-    for(int i=0;i<(int)data.size();i++){
-        data[i] = rand_gaus();
-    }
 }
 

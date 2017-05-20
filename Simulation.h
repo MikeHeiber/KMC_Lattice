@@ -45,7 +45,7 @@ class Simulation{
         virtual ~Simulation();
         virtual bool checkFinished()=0;
         virtual bool executeNextEvent()=0;
-        int getN_events_executed();
+        long int getN_events_executed();
         int getId();
         double getTime();
         void initializeSimulation(const Parameters_Simulation& params,const int id);
@@ -113,7 +113,7 @@ class Simulation{
         double Time;
         int N_objects;
         int N_objects_created;
-        int N_events_executed;
+        long int N_events_executed;
         // Functions
 };
 

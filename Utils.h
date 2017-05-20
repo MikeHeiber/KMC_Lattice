@@ -39,8 +39,8 @@ void createExponentialDOSVector(vector<double>& data,const double mode,const dou
 void createGaussianDOSVector(vector<double>& data,const double mean,const double stdev,mt19937& gen);
 bool importBooleanParam(const string& input,bool& error_status);
 vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector,const int procid,const int nproc);
-vector<double> MPI_calculateVectorSum(const vector<double>& input_vector,const int procid,const int nproc);
-vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int procid,const int nproc);
+vector<double> MPI_calculateVectorSum(const vector<double>& input_vector,const int procid);
+vector<int> MPI_calculateVectorSum(const vector<int>& input_vector,const int procid);
 vector<double> MPI_gatherVectors(const vector<double>& input_vector,const int procid,const int nproc);
 
 

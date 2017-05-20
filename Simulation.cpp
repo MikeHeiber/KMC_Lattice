@@ -210,7 +210,7 @@ int Simulation::getNumSites(){
     return Length*Width*Height;
 }
 
-int Simulation::getN_events_executed(){
+long int Simulation::getN_events_executed(){
     return N_events_executed;
 }
 
