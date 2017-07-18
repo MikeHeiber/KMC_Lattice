@@ -12,6 +12,7 @@
 #include <cmath>
 #include <memory>
 #include <iostream>
+#include <functional>
 
 using namespace std;
 
@@ -66,10 +67,25 @@ double array_stdev(const T data[],const int array_size){
 
 template<typename base_type>
 base_type intpow(const base_type base,const int exponent){
-    base_type result = base;
-    for(int i=1;i<exponent;i++){
+	base_type result;
+	if (exponent == 0) {
+		result = 1;
+		return result;
+	}
+	int exponent_abs;
+	if (exponent < 0) {
+		exponent_abs = -exponent;
+	}
+	else {
+		exponent_abs = exponent;
+	}
+	result = base;
+    for(int i=1;i<exponent_abs;i++){
         result *= base;
     }
+	if (exponent < 0) {
+		result = 1.0 / result;
+	}
     return result;
 }
 
