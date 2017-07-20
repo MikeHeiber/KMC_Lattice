@@ -6,29 +6,27 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include "Simulation.h"
 #include "Utils.h"
-#include "Object.h"
 #include <list>
 #include <memory>
-#include <random>
 #include <ctime>
 
 using namespace std;
 
 class Object;
+class Simulation;
 
 class Event{
     public:
-        static mt19937 gen;
         virtual ~Event();
         Event();
-        void calculateExecutionTime(const double rate,const double current_time);
+        void calculateExecutionTime(const double rate, Simulation* sim_ptr);
         Coords getDestCoords() const;
         virtual string getName() const;
         list<Object*>::iterator getObjectIt() const;
         list<Object*>::iterator getObjectTargetIt() const;
         double getExecutionTime() const;
-        static void seedGenerator(const int seed);
         void setDestCoords(const Coords& coords);
         void setExecutionTime(const double time);
         void setObjectIt(const list<Object*>::iterator it);
@@ -36,7 +34,6 @@ class Event{
     protected:
         // Variables
         // Functions
-        double rand01();
     private:
         // Variables and objects
         static const string name_base;

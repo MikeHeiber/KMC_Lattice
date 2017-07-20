@@ -48,8 +48,9 @@ class Simulation{
         virtual bool executeNextEvent()=0;
         long int getN_events_executed();
         int getId();
+		int getTemp();
         double getTime();
-        
+		double rand01();
     protected:
         // Random number generator
         mt19937 gen;
@@ -62,7 +63,6 @@ class Simulation{
         list<Event*>::iterator chooseNextEvent();
         vector<list<Object*>::iterator> findRecalcNeighbors(const Coords& coords);
         vector<list<Object*>::iterator> getAllObjectIts();
-        int getTemperature();
         bool loggingEnabled();
         void moveObject(const list<Object*>::iterator object_it,const Coords& dest_coords);
         void removeEvent(Event* event_ptr);
@@ -83,10 +83,10 @@ class Simulation{
         list<Object*> objects;
         list<Event*> events;
         // Counters
-        double Time;
-        int N_objects;
-        int N_objects_created;
-        long int N_events_executed;
+        double Time = 0;
+        int N_objects = 0;
+        int N_objects_created = 0;
+        long int N_events_executed = 0;
         // Functions
 };
 

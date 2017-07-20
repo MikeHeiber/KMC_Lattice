@@ -7,7 +7,6 @@
 #define OBJECT_H
 
 #include "Utils.h"
-#include "Event.h"
 #include <list>
 #include <memory>
 

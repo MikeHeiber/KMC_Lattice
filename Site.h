@@ -8,9 +8,10 @@
 
 #include <list>
 #include <memory>
-#include "Object.h"
 
 using namespace std;
+
+class Object;
 
 class Site{
     public:

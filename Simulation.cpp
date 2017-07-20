@@ -29,16 +29,10 @@ void Simulation::init(const Parameters_Simulation& params, const int id) {
 	Temperature = params.Temperature;
 	// First reaction method parameters
 	Recalc_cutoff = params.Recalc_cutoff;
-	// Initialize counters
-	Time = 0;
-	N_events_executed = 0;
-	N_objects_created = 0;
-	N_objects = 0;
 	// Initialize data structures
 	lattice.init(params_lattice, &gen);
 	objects.clear();
 	events.clear();
-	Event::seedGenerator(id);
 	gen.seed(time(0)*(id + 1));
 	// Output files
 	Logfile = params.Logfile;
@@ -146,7 +140,7 @@ long int Simulation::getN_events_executed(){
     return N_events_executed;
 }
 
-int Simulation::getTemperature(){
+int Simulation::getTemp(){
     return Temperature;
 }
 
@@ -173,6 +167,10 @@ void Simulation::moveObject(const list<Object*>::iterator object_it,const Coords
     (*lattice.getSiteIt(coords_dest))->setObjectIt(object_it);
     // Update counter
     N_events_executed++;
+}
+
+double Simulation::rand01() {
+	return generate_canonical<double, std::numeric_limits<double>::digits>(gen);
 }
 
 void Simulation::removeEvent(Event* event_ptr){
