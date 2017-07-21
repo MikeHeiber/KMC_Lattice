@@ -132,23 +132,23 @@ vector<list<Object*>::iterator> Simulation::getAllObjectIts(){
     return object_its;
 }
 
-int Simulation::getId(){
+int Simulation::getId() const{
     return Id;
 }
 
-long int Simulation::getN_events_executed(){
+long int Simulation::getN_events_executed() const{
     return N_events_executed;
 }
 
-int Simulation::getTemp(){
+int Simulation::getTemp() const{
     return Temperature;
 }
 
-double Simulation::getTime(){
+double Simulation::getTime() const{
     return Time;
 }
 
-bool Simulation::loggingEnabled(){
+bool Simulation::isLoggingEnabled() const{
     return Enable_logging;
 }
 
@@ -157,9 +157,9 @@ void Simulation::moveObject(const list<Object*>::iterator object_it,const Coords
     // Clear occupancy of initial site
 	lattice.clearOccupancy(coords_initial);
     // Check for periodic boundary crossing
-	(*object_it)->incrementDX(lattice.calculateXPeriodicCrossing(coords_initial,coords_dest)*lattice.getLength());
-	(*object_it)->incrementDX(lattice.calculateYPeriodicCrossing(coords_initial,coords_dest)*lattice.getWidth());
-	(*object_it)->incrementDX(lattice.calculateZPeriodicCrossing(coords_initial,coords_dest)*lattice.getHeight());
+	(*object_it)->incrementDX(-lattice.calculateDX(coords_initial,coords_dest));
+	(*object_it)->incrementDY(-lattice.calculateDY(coords_initial,coords_dest));
+	(*object_it)->incrementDZ(-lattice.calculateDZ(coords_initial,coords_dest));
     // Set object coords to new site
     (*object_it)->setCoords(coords_dest);
     // Set occupancy of new site
@@ -203,6 +203,10 @@ void Simulation::removeObjectItDuplicates(vector<list<Object*>::iterator>& objec
 void Simulation::setEvent(const list<Event*>::iterator event_it,Event* event_ptr){
     // Assign new pointer
     *event_it = event_ptr;
+}
+
+void Simulation::setGeneratorSeed(int seed) {
+	gen.seed(seed);
 }
 
 void Simulation::updateTime(const double new_time){

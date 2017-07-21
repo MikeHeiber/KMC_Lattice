@@ -1,6 +1,6 @@
 // Copyright (c) 2017 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
-// For more information, see the LICENSE file that accompanies this software.
+// For more information, see the LICENSE file that accompanies this software package.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
 
 #ifndef LATTICE_H
@@ -12,48 +12,192 @@
 
 using namespace std;
 
+//! This struct contains all of the main input parameters needed by the Lattice class.
+//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
+//! \author Michael C. Heiber
+//! \date 2017
 struct Parameters_Lattice{
+	//! This parameter determines whether the x-direction periodic boundaries will be enabled. 
 	bool Enable_periodic_x;
+	//! This parameter determines whether the y-direction periodic boundaries will be enabled. 
 	bool Enable_periodic_y;
+	//! This parameter determines whether the z-direction periodic boundaries will be enabled. 
 	bool Enable_periodic_z;
+	//! This parameter defines the x-direction size of the lattice.
 	int Length;
+	//! This parameter defines the y-direction size of the lattice.
 	int Width;
+	//! This parameter defines the z-direction size of the lattice.
 	int Height;
+	//! This parameter defines the lattice unit size, which is used to convert lattice units into real space units.
 	double Unit_size; // nm
 };
 
+//! \brief This class contains the properties of a lattice and the functions needed to interact with it.
+//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
+//! \author Michael C. Heiber
+//! \date 2017
 class Lattice{
     public:
-        virtual ~Lattice();
+		//! Default constructor that creates an empty Lattice object.
 		Lattice();
-        void init(const Parameters_Lattice& params, mt19937* gen);
-		Coords calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k);
-		int calculateDX(const int x, const int i);
-		int calculateDY(const int y, const int j);
-		int calculateDZ(const int z, const int k);
-		int calculateLatticeDistanceSquared(const Coords& coords_start, const Coords& coords_dest);
-		int calculateXPeriodicCrossing(const Coords& coords_initial, const Coords& coords_dest);
-		int calculateYPeriodicCrossing(const Coords& coords_initial, const Coords& coords_dest);
-		int calculateZPeriodicCrossing(const Coords& coords_initial, const Coords& coords_dest);
+
+		//! \brief Initializes the Lattice object.
+		//! \param params is a Parameters_Lattice struct, which contains all of the required
+		//! parameters to initialize the Lattice object. 
+		//! \param generator_ptr is a pointer to a Mersenne twister number generator.
+        void init(const Parameters_Lattice& params, mt19937* generator_ptr);
+
+		//! \brief Calculates the destination coordinates when given the starting coordinates and the step sizes in the x-, y-, and z- directions.
+		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
+		//! the function detemines the destination coordinates across the periodic boundary.
+		//! \param coords_initial designates the starting coordinates.
+		//! \param i is the step size in the x-direction.
+		//! \param j is the step size in the y-direction.
+		//! \param k is the step size in the z-direction.
+		//! \return The destination coordinates as a Coords struct.
+		Coords calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k) const;
+
+		//! \brief Calculates a coordinate adjustment factor if the x-direction periodic boundary is crossed.
+		//! \param x is the starting x coordinate.
+		//! \param i is the step size in the x-direction.
+		//! \return Length if the x periodic boundary is crossed in the negative direction.
+		//! \return -Length if the x periodic boundary is crossed in the positive direction.
+		//! \return 0 if the x periodic boundary is not enabled or if the x periodic boundary is not crossed.
+		int calculateDX(const int x, const int i) const;
+
+		//! \brief Calculates a coordinate adjustment factor if the x-direction periodic boundary is crossed.
+		//! \param coords_initial is the starting coordinates.
+		//! \param coords_dest is the destination coordinates.
+		//! \return Length if the x periodic boundary is crossed in the negative direction.
+		//! \return -Length if the x periodic boundary is crossed in the positive direction.
+		//! \return 0 if the x periodic boundary is not enabled or if the x periodic boundary is not crossed.
+		int calculateDX(const Coords& coords_initial, const Coords& coords_dest) const;
+
+		//! \brief Calculates a coordinate adjustment factor if the y-direction periodic boundary is crossed.
+		//! \param y is the starting x coordinate.
+		//! \param j is the step size in the y-direction.
+		//! \return Width if the y periodic boundary is crossed in the negative direction.
+		//! \return -Width if the y periodic boundary is crossed in the positive direction.
+		//! \return 0 if the y periodic boundary is not enabled or if the y periodic boundary is not crossed.
+		int calculateDY(const int y, const int j) const;
+
+		//! \brief Calculates a coordinate adjustment factor if the y-direction periodic boundary is crossed.
+		//! \param coords_initial is the starting coordinates.
+		//! \param coords_dest is the destination coordinates.
+		//! \return Width if the y periodic boundary is crossed in the negative direction.
+		//! \return -Width if the y periodic boundary is crossed in the positive direction.
+		//! \return 0 if the y periodic boundary is not enabled or if the y periodic boundary is not crossed.
+		int calculateDY(const Coords& coords_initial, const Coords& coords_dest) const;
+
+		//! \brief Calculates a coordinate adjustment factor if the z-direction periodic boundary is crossed.
+		//! \param z is the starting x coordinate.
+		//! \param k is the step size in the y-direction.
+		//! \return Height if the z periodic boundary is crossed in the negative direction.
+		//! \return -Height if the z periodic boundary is crossed in the positive direction.
+		//! \return 0 if the z periodic boundary is not enabled or if the z periodic boundary is not crossed.
+		int calculateDZ(const int z, const int k) const;
+
+		//! \brief Calculates a coordinate adjustment factor if the z-direction periodic boundary is crossed.
+		//! \param coords_initial is the starting coordinates.
+		//! \param coords_dest is the destination coordinates.
+		//! \return Height if the z periodic boundary is crossed in the negative direction.
+		//! \return -Height if the z periodic boundary is crossed in the positive direction.
+		//! \return 0 if the z periodic boundary is not enabled or if the z periodic boundary is not crossed.
+		int calculateDZ(const Coords& coords_initial, const Coords& coords_dest) const;
+
+		//! \brief Calculates the shortest distance between a pair of coordinates in squared lattice units.
+		//! \param coords_start is the starting coordinates.
+		//! \param coords_dest is the destination coordinates.
+		//! \return The distance between the two sets of coordinates in squared lattice units.
+		int calculateLatticeDistanceSquared(const Coords& coords_start, const Coords& coords_dest) const;
+
+		//! \brief Clears the occupancy of the site located at the specified coordinates.
+		//! \param coords is the coordinates of the site to be cleared.
 		void clearOccupancy(const Coords& coords);
-		int getHeight();
-		int getLength();
-		int getNumSites();
-		Coords getRandomCoords();
-		int getRandomX();
-		int getRandomY();
-		int getRandomZ();
-		int getSiteIndex(const Coords& coords);
+
+		//! \brief Generates the coordinates for a randomly selected site in the lattice.
+		//! \return The coordinates for a randomly selected site in the lattice.
+		Coords generateRandomCoords();
+
+		//! \brief Generates a random x coordinate that lies within the x-dimension size of the lattice.
+		//! \return
+		//! A randomly selected x coordinate value from 0 and Length-1.
+		int generateRandomX();
+
+		//! \brief Generates a random y coordinate that lies within the y-dimension size of the lattice.
+		//! \return
+		//! A randomly selected y coordinate value from 0 and Width-1.
+		int generateRandomY();
+
+		//! \brief Generates a random z coordinate that lies within the z-dimension size of the lattice.
+		//! \return
+		//! A randomly selected z coordinate value from 0 and Height-1.
+		int generateRandomZ();
+
+		//! \brief Gets the z-direction size of the lattice, the height.
+		//! \return The Height property of the lattice, which is the z-direction size.
+		int getHeight() const;
+
+		//! \brief Gets the x-direction size of the lattice, the length.
+		//! \return The Length property of the lattice, which is the x-direction size.
+		int getLength() const;
+
+		//! \brief Gets the number of sites contained in the lattice.
+		//! \return The number of sites in the lattice.
+		int getNumSites() const;
+
+		//! \brief Gets the vector index for the site corresponding to the input coordinates.
+		//! \param coords is the input coordinates.
+		//! \return The vector index for the sites vector that is associated with the site located at the input coordinates.
+		int getSiteIndex(const Coords& coords) const;
+
+		//! \brief Gets the vector iterator for the site corresponding to the input coordinates.
+		//! \param coords is the input coordinates.
+		//! \return The vector iterator for the sites vector that is associated with the site located at the input coordinates.
 		vector<Site*>::iterator getSiteIt(const Coords& coords);
-		double getUnitSize();
-		int getWidth();
-		bool isOccupied(const Coords& coords);
-		bool isXPeriodic();
-		bool isYPeriodic();
-		bool isZPeriodic();
+
+		//! \brief Gets the lattice unit size, which is used to convert lattice units into real space units.
+		//! \return The unit size property of the lattice.
+		double getUnitSize() const;
+
+		//! \brief Gets the y-direction size of the lattice, the width.
+		//! \return The Width property of the lattice, which is the y-direction size.
+		int getWidth() const;
+
+		//! \brief Checks whether the site located at the input coordinates is occupied or not.
+		//! \param coords is the input coordinates.
+		//! \return true if the specificed site is occupied
+		//! \return false if the specified site is unoccupied
+		bool isOccupied(const Coords& coords) const;
+
+		//! \brief Checks whether the x-direction periodic boundary is enabled or not.
+		//! \return true if periodic boundaries are enabled in the x-direction.
+		//! \return false if periodic boundaries are disabled in the x-direction.
+		bool isXPeriodic() const;
+
+		//! \brief Checks whether the y-direction periodic boundary is enabled or not.
+		//! \return true if periodic boundaries are enabled in the y-direction.
+		//! \return false if periodic boundaries are disabled in the y-direction.
+		bool isYPeriodic() const;
+
+		//! \brief Checks whether the z-direction periodic boundary is enabled or not.
+		//! \return true if periodic boundaries are enabled in the z-direction.
+		//! \return false if periodic boundaries are disabled in the z-direction.
+		bool isZPeriodic() const;
+
+		//! Prints to the command line which sites are occupied.
 		void outputLatticeOccupancy();
+
+		//! \brief Sets the site located at the input coordinates to the occupied state.
+		//! \param coords is the input coordinates.
 		void setOccupied(const Coords& coords);
-		bool setSitePointers(vector<Site*> input_ptrs);
+
+		//! \brief Sets the member site pointer vector to the input site pointer vector
+		//! \param input_ptrs is the input site pointer vector
+		//! \return false to indicate an error when the sizes of the input site pointer vector and the member site pointer vector are not equal.
+		//! \return true when no error occurs.
+		bool setSitePointers(const vector<Site*>& input_ptrs);
     protected:
 
     private:
@@ -65,7 +209,7 @@ class Lattice{
 		int Height; // nm
 		double Unit_size; // nm
 		vector<Site*> site_ptrs;
-		mt19937* gen;
+		mt19937* gen_ptr;
 };
 
 #endif // LATTICE_H
