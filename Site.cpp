@@ -10,23 +10,25 @@ Site::~Site(){
 }
 
 Site::Site(){
-    occupied = false;
+
 }
 
 void Site::clearOccupancy(){
     occupied = false;
+	object_ptr = nullptr;
 }
 
-list<Object*>::iterator Site::getObjectIt() const{
-    return object_it;
+Object* Site::getObjectPtr() const{
+    return object_ptr;
 }
 
 bool Site::isOccupied() const{
     return occupied;
 }
 
-void Site::setObjectIt(list<Object*>::iterator it){
-    object_it = it;
+void Site::setObjectPtr(Object* input_ptr){
+    object_ptr = input_ptr;
+	occupied = true;
 }
 
 void Site::setOccupied(){

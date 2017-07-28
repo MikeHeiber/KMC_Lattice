@@ -21,12 +21,10 @@ void Lattice::init(const Parameters_Lattice& params, mt19937* generator_ptr) {
 	gen_ptr = generator_ptr;
 }
 
-Coords Lattice::calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k) const{
-	Coords dest_coords;
-	dest_coords.x = coords_initial.x + i + calculateDX(coords_initial.x, i);
-	dest_coords.y = coords_initial.y + j + calculateDY(coords_initial.y, j);
-	dest_coords.z = coords_initial.z + k + calculateDZ(coords_initial.z, k);
-	return dest_coords;
+void Lattice::calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k, Coords& coords_dest) const{
+	coords_dest.x = coords_initial.x + i + calculateDX(coords_initial.x, i);
+	coords_dest.y = coords_initial.y + j + calculateDY(coords_initial.y, j);
+	coords_dest.z = coords_initial.z + k + calculateDZ(coords_initial.z, k);
 }
 
 int Lattice::calculateDX(const int x, const int i) const{
@@ -106,25 +104,41 @@ int Lattice::calculateLatticeDistanceSquared(const Coords& coords_start, const C
 	int absy = abs(coords_dest.y - coords_start.y);
 	int absz = abs(coords_dest.z - coords_start.z);
 	int dx, dy, dz;
-	if (Enable_periodic_x && 2 * absx>Length) {
+	if (Enable_periodic_x && 2*absx > Length) {
 		dx = -Length;
 	}
 	else {
 		dx = 0;
 	}
-	if (Enable_periodic_y && 2 * absy>Width) {
+	if (Enable_periodic_y && 2*absy > Width) {
 		dy = -Width;
 	}
 	else {
 		dy = 0;
 	}
-	if (Enable_periodic_z && 2 * absz>Height) {
+	if (Enable_periodic_z && 2*absz > Height) {
 		dz = -Height;
 	}
 	else {
 		dz = 0;
 	}
 	return (absx + dx)*(absx + dx) + (absy + dy)*(absy + dy) + (absz + dz)*(absz + dz);
+}
+
+bool Lattice::checkMoveValidity(const Coords& coords_initial, const int i, const int j, const int k) const {
+	if (i == 0 && j == 0 && k == 0) {
+		return false;
+	}
+	if (!Enable_periodic_x && (coords_initial.x + i >= Length || coords_initial.x + i<0)) {
+		return false;
+	}
+	if (!Enable_periodic_y && (coords_initial.y + j >= Width || coords_initial.y + j<0)) {
+		return false;
+	}
+	if (!Enable_periodic_z && (coords_initial.z + k >= Height || coords_initial.z + k<0)) {
+		return false;
+	}
+	return true;
 }
 
 void Lattice::clearOccupancy(const Coords& coords) {
@@ -203,7 +217,7 @@ bool Lattice::isZPeriodic() const{
 	return Enable_periodic_z;
 }
 
-void Lattice::outputLatticeOccupancy() {
+void Lattice::outputLatticeOccupancy() const{
 	for (auto site_it = site_ptrs.begin(); site_it != site_ptrs.end(); ++site_it) {
 		if ((*site_it)->isOccupied()) {
 			cout << "Site " << distance(site_ptrs.begin(), site_it) << " is occupied." << endl;

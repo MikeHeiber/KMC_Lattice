@@ -13,10 +13,7 @@ Event::~Event(){
 }
 
 Event::Event(){
-    execution_time = 0;
-    coords_dest.x = 0;
-    coords_dest.y = 0;
-    coords_dest.z = 0;
+
 }
 
 void Event::calculateExecutionTime(const double rate,Simulation* sim_ptr){
@@ -35,26 +32,32 @@ string Event::getName() const{
     return name_base;
 }
 
-list<Object*>::iterator Event::getObjectIt() const{
-    return object_it;
+Object* Event::getObjectPtr() const{
+    return object_ptr;
 }
 
-list<Object*>::iterator Event::getObjectTargetIt() const{
-    return object_target_it;
+Object* Event::getObjectTargetPtr() const{
+    return object_target_ptr;
 }
 
 void Event::setDestCoords(const Coords& coords){
     coords_dest = coords;
 }
 
-void Event::setExecutionTime(const double time){
-    execution_time = time;
+bool Event::setExecutionTime(const double time){
+	if (time < 0) {
+		return false;
+	}
+	else {
+		execution_time = time;
+		return true;
+	}
 }
 
-void Event::setObjectIt(const list<Object*>::iterator it){
-    object_it = it;
+void Event::setObjectPtr(Object* input_ptr){
+    object_ptr = input_ptr;
 }
 
-void Event::setObjectTargetIt(const list<Object*>::iterator it){
-    object_target_it = it;
+void Event::setObjectTargetPtr(Object* input_ptr){
+	object_target_ptr = input_ptr;
 }

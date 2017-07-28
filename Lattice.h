@@ -12,7 +12,7 @@
 
 using namespace std;
 
-//! This struct contains all of the main input parameters needed by the Lattice class.
+//! \brief This struct contains all of the main input parameters needed by the Lattice class.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
 //! \date 2017
@@ -42,8 +42,8 @@ class Lattice{
 		//! Default constructor that creates an empty Lattice object.
 		Lattice();
 
-		//! \brief Initializes the Lattice object.
-		//! \param params is a Parameters_Lattice struct, which contains all of the required
+		//! \brief Initializes the Lattice object using the provided input parameters.
+		//! \param params is a Parameters_Lattice struct that contains all of the required
 		//! parameters to initialize the Lattice object. 
 		//! \param generator_ptr is a pointer to a Mersenne twister number generator.
         void init(const Parameters_Lattice& params, mt19937* generator_ptr);
@@ -51,12 +51,12 @@ class Lattice{
 		//! \brief Calculates the destination coordinates when given the starting coordinates and the step sizes in the x-, y-, and z- directions.
 		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
 		//! the function detemines the destination coordinates across the periodic boundary.
-		//! \param coords_initial designates the starting coordinates.
+		//! \param coords_initial is the Coords struct tht designates the starting coordinates.
 		//! \param i is the step size in the x-direction.
 		//! \param j is the step size in the y-direction.
 		//! \param k is the step size in the z-direction.
-		//! \return The destination coordinates as a Coords struct.
-		Coords calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k) const;
+		//! \param coords_dest is Coords struct that indicates the output destination coordinates.
+		void calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k, Coords& coords_dest) const;
 
 		//! \brief Calculates a coordinate adjustment factor if the x-direction periodic boundary is crossed.
 		//! \param x is the starting x coordinate.
@@ -67,8 +67,8 @@ class Lattice{
 		int calculateDX(const int x, const int i) const;
 
 		//! \brief Calculates a coordinate adjustment factor if the x-direction periodic boundary is crossed.
-		//! \param coords_initial is the starting coordinates.
-		//! \param coords_dest is the destination coordinates.
+		//! \param coords_initial is the Coords struct that represents the starting coordinates.
+		//! \param coords_dest is the Coords struct that represents the destination coordinates.
 		//! \return Length if the x periodic boundary is crossed in the negative direction.
 		//! \return -Length if the x periodic boundary is crossed in the positive direction.
 		//! \return 0 if the x periodic boundary is not enabled or if the x periodic boundary is not crossed.
@@ -83,8 +83,8 @@ class Lattice{
 		int calculateDY(const int y, const int j) const;
 
 		//! \brief Calculates a coordinate adjustment factor if the y-direction periodic boundary is crossed.
-		//! \param coords_initial is the starting coordinates.
-		//! \param coords_dest is the destination coordinates.
+		//! \param coords_initial is the Coords struct that represents the starting coordinates.
+		//! \param coords_dest is the Coords struct that represents the destination coordinates.
 		//! \return Width if the y periodic boundary is crossed in the negative direction.
 		//! \return -Width if the y periodic boundary is crossed in the positive direction.
 		//! \return 0 if the y periodic boundary is not enabled or if the y periodic boundary is not crossed.
@@ -99,21 +99,32 @@ class Lattice{
 		int calculateDZ(const int z, const int k) const;
 
 		//! \brief Calculates a coordinate adjustment factor if the z-direction periodic boundary is crossed.
-		//! \param coords_initial is the starting coordinates.
-		//! \param coords_dest is the destination coordinates.
+		//! \param coords_initial is the Coords struct that represents the starting coordinates.
+		//! \param coords_dest is the Coords struct that represents the destination coordinates.
 		//! \return Height if the z periodic boundary is crossed in the negative direction.
 		//! \return -Height if the z periodic boundary is crossed in the positive direction.
 		//! \return 0 if the z periodic boundary is not enabled or if the z periodic boundary is not crossed.
 		int calculateDZ(const Coords& coords_initial, const Coords& coords_dest) const;
 
 		//! \brief Calculates the shortest distance between a pair of coordinates in squared lattice units.
-		//! \param coords_start is the starting coordinates.
-		//! \param coords_dest is the destination coordinates.
+		//! \param coords_start is the Coords struct that represents the starting coordinates.
+		//! \param coords_dest is the Coords struct that represents the destination coordinates.
 		//! \return The distance between the two sets of coordinates in squared lattice units.
 		int calculateLatticeDistanceSquared(const Coords& coords_start, const Coords& coords_dest) const;
 
+		//! \brief Checks to see if a generic move operation from the designated initial coordinates to a destination
+		//! position specified by the displacement vector (i,j,k) is possible.
+		//! \details The main use of this function is used to check if a proposed move event crosses a non-periodic boundary.
+		//! \param coords_initial is the Coords struct that represents the starting coordinates.
+		//! \param i is the displacement in the x-direction.
+		//! \param j is the displacement in the y-direction.
+		//! \param k is the displacement in the z-direction.
+		//! \return true if a move event is possible.
+		//! \return false if a move event is not possible.
+		bool checkMoveValidity(const Coords& coords_initial, const int i, const int j, const int k) const;
+
 		//! \brief Clears the occupancy of the site located at the specified coordinates.
-		//! \param coords is the coordinates of the site to be cleared.
+		//! \param coords is the Coords struct that represents the coordinates of the site to be cleared.
 		void clearOccupancy(const Coords& coords);
 
 		//! \brief Generates the coordinates for a randomly selected site in the lattice.
@@ -148,12 +159,12 @@ class Lattice{
 		int getNumSites() const;
 
 		//! \brief Gets the vector index for the site corresponding to the input coordinates.
-		//! \param coords is the input coordinates.
+		//! \param coords is the Coords struct that represents the input coordinates.
 		//! \return The vector index for the sites vector that is associated with the site located at the input coordinates.
 		int getSiteIndex(const Coords& coords) const;
 
 		//! \brief Gets the vector iterator for the site corresponding to the input coordinates.
-		//! \param coords is the input coordinates.
+		//! \param coords is the Coords struct that represents the input coordinates.
 		//! \return The vector iterator for the sites vector that is associated with the site located at the input coordinates.
 		vector<Site*>::iterator getSiteIt(const Coords& coords);
 
@@ -166,7 +177,7 @@ class Lattice{
 		int getWidth() const;
 
 		//! \brief Checks whether the site located at the input coordinates is occupied or not.
-		//! \param coords is the input coordinates.
+		//! \param coords is a Coords struct that represents the input coordinates.
 		//! \return true if the specificed site is occupied
 		//! \return false if the specified site is unoccupied
 		bool isOccupied(const Coords& coords) const;
@@ -187,10 +198,10 @@ class Lattice{
 		bool isZPeriodic() const;
 
 		//! Prints to the command line which sites are occupied.
-		void outputLatticeOccupancy();
+		void outputLatticeOccupancy() const;
 
 		//! \brief Sets the site located at the input coordinates to the occupied state.
-		//! \param coords is the input coordinates.
+		//! \param coords is the Coords struct that represents the input coordinates.
 		void setOccupied(const Coords& coords);
 
 		//! \brief Sets the member site pointer vector to the input site pointer vector
