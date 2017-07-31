@@ -12,13 +12,7 @@ Object::~Object(){
 }
 
 Object::Object(){
-    time_created = 0;
-    tag = 0;
-    coords.setXYZ(0,0,0);
-    coords_initial.setXYZ(0,0,0);
-    dx = 0;
-    dy = 0;
-    dz = 0;
+
 }
 
 Object::Object(const double time,const int tag_num,const Coords& start_coords){
@@ -26,12 +20,9 @@ Object::Object(const double time,const int tag_num,const Coords& start_coords){
     tag = tag_num;
     coords = start_coords;
     coords_initial = start_coords;
-    dx = 0;
-    dy = 0;
-    dz = 0;
 }
 
-double Object::calculateDisplacement(){
+double Object::calculateDisplacement() const{
     return sqrt((double)(coords.x+dx-coords_initial.x)*(coords.x+dx-coords_initial.x)+(coords.y+dy-coords_initial.y)*(coords.y+dy-coords_initial.y)+(coords.z+dz-coords_initial.z)*(coords.z+dz-coords_initial.z));
 }
 
@@ -41,18 +32,6 @@ Coords Object::getCoords() const{
 
 double Object::getCreationTime() const{
     return time_created;
-}
-
-int Object::getDX() const{
-    return dx;
-}
-
-int Object::getDY() const{
-    return dy;
-}
-
-int Object::getDZ() const{
-    return dz;
 }
 
 list<Event*>::iterator Object::getEventIt() const{
@@ -79,11 +58,11 @@ void Object::incrementDZ(const int num){
     dz += num;
 }
 
-void Object::setCoords(const Coords& new_coords){
-    coords = new_coords;
+void Object::setCoords(const Coords& input_coords){
+    coords = input_coords;
 }
 
-void Object::setEventIt(const list<Event*>::iterator it){
-    event_it = it;
+void Object::setEventIt(const list<Event*>::iterator input_it){
+    event_it = input_it;
 }
 

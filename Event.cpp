@@ -7,21 +7,17 @@
 
 // Initialize static class members
 const string Event::name_base = "Event";
-mt19937 Event::gen(0);
 
 Event::~Event(){
 
 }
 
 Event::Event(){
-    execution_time = 0;
-    coords_dest.x = 0;
-    coords_dest.y = 0;
-    coords_dest.z = 0;
+
 }
 
-void Event::calculateExecutionTime(const double rate,const double current_time){
-    execution_time = current_time-(1/rate)*log(rand01());
+void Event::calculateExecutionTime(const double rate,Simulation* sim_ptr){
+    execution_time = sim_ptr->getTime()-(log(sim_ptr->rand01())/rate);
 }
 
 Coords Event::getDestCoords() const{
@@ -36,34 +32,32 @@ string Event::getName() const{
     return name_base;
 }
 
-list<Object*>::iterator Event::getObjectIt() const{
-    return object_it;
+Object* Event::getObjectPtr() const{
+    return object_ptr;
 }
 
-list<Object*>::iterator Event::getObjectTargetIt() const{
-    return object_target_it;
-}
-
-double Event::rand01(){
-    return generate_canonical<double,std::numeric_limits<double>::digits>(gen);
-}
-
-void Event::seedGenerator(const int seed){
-    gen.seed(time(0)*(seed+1));
+Object* Event::getObjectTargetPtr() const{
+    return object_target_ptr;
 }
 
 void Event::setDestCoords(const Coords& coords){
     coords_dest = coords;
 }
 
-void Event::setExecutionTime(const double time){
-    execution_time = time;
+bool Event::setExecutionTime(const double time){
+	if (time < 0) {
+		return false;
+	}
+	else {
+		execution_time = time;
+		return true;
+	}
 }
 
-void Event::setObjectIt(const list<Object*>::iterator it){
-    object_it = it;
+void Event::setObjectPtr(Object* input_ptr){
+    object_ptr = input_ptr;
 }
 
-void Event::setObjectTargetIt(const list<Object*>::iterator it){
-    object_target_it = it;
+void Event::setObjectTargetPtr(Object* input_ptr){
+	object_target_ptr = input_ptr;
 }

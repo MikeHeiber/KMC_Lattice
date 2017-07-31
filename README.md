@@ -17,10 +17,12 @@ If you would like to contribute to the development of this project or would like
 
 Object class - This base class can be extended to represent any entity that one would like to simulate.  It could represent an electron, atom, molecule, organism, etc. depending on the application. The Object class contains the fundamental properties and backend operations that any given entity simulation would require.
 
+Lattice class - This class implements a three-dimensional lattice, its boundary conditions, and keeps track of its occupancy.
+
 Event class - This base class can be extended to represent any process/mechanism/transition that one would like to simulate.  It could represent a hopping motion event, a reaction event, etc. depending on the application.  Typically, derived events are associated with a particular derived object.  The Event class contains the fundamental properties and backend operations that any given state transition would require.
 
 Site class - This base class can be extended to represent the lattice sites that make up the simulation medium/evironment. Added site properties can be used to implement interactions between the simulation environment and the objects, which then affect the events.  For example, site energies can be assigned to derived site classes to account for inhomogenous systems.
 
-Simulation class - This base class can be extended to implement the lattice of sites and manage all derived objects and their associated events. The Simulation class contains the fundamental properties and backend operations that any given simulation would require.
+Simulation class - This base class can be extended to manage all derived objects and their associated events. The Simulation class contains the fundamental properties and backend operations that most simulations would require.
 
 Utils - This file contain a number of useful utility functions, scientific constants, etc. that can then be used throughout the software package.
