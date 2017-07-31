@@ -12,7 +12,8 @@ using namespace std;
 class Object;
 
 //! \brief This base class contains the basic properties of a lattice site and the functions needed to interact with it.
-//! \details This base class is designed to be used by the Lattice class to construct a lattice that will be used by a KMC simulation.
+//! \details This base class is designed to be used by the Lattice class to construct a lattice that will be used by a KMC simulation. 
+//! This class is designed to for sites to have single occupancy, but multiple occupancy could potentially be implemented in a derived class.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
 //! \date 2017
@@ -28,7 +29,7 @@ class Site{
 		//! \details This function also sets the Object pointer to nullptr.
         void clearOccupancy();
 
-		//! Gets the pointer to an Object object that occupies the site.
+		//! Gets the pointer to the Object object that occupies the site.
         Object* getObjectPtr() const;
 
 		//! \brief Checks whether the site is occupied or not.

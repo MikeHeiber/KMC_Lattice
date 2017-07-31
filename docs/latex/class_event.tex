@@ -43,7 +43,7 @@ void \hyperlink{class_event_a2e868dc951b6fec86703dcd7776680e0}{set\+Object\+Targ
 \subsection{Detailed Description}
 This base class contains the basic properties of a K\+MC simulation event and the functions needed to interact with it. 
 
-This base class is designed to work with the \hyperlink{class_simulation}{Simulation} class to construct a K\+MC simulation. \begin{DoxyCopyright}{Copyright}
+This base class is designed to work with the \hyperlink{class_simulation}{Simulation} class to construct a K\+MC simulation. This base class is intended to be extended to create classes that represent specific types of events. \begin{DoxyCopyright}{Copyright}
 M\+IT License. For more information, see the L\+I\+C\+E\+N\+SE file that accompanies this software package. 
 \end{DoxyCopyright}
 \begin{DoxyAuthor}{Author}
@@ -65,7 +65,7 @@ Michael C. Heiber
 
 Calculates and sets the execution time of the event. 
 
-The function accesses the random number generator and current simulation time from the \hyperlink{class_simulation}{Simulation} object in order to to calculate the execution time. 
+The function accesses the random number generator and current simulation time from the \hyperlink{class_simulation}{Simulation} object in order to calculate the execution time. When creating a new derived event class, one will often write a new calculate\+Execution\+Time function that contains additional factors needed to calculate the rate. This base class function can then be called within the new function to calculate the final execution time. 
 \begin{DoxyParams}{Parameters}
 {\em rate} & is the rate of the process represented by the event in units of 1/s. \\
 \hline
@@ -82,6 +82,9 @@ The function accesses the random number generator and current simulation time fr
 
 Gets the coordinates of the event destination site. 
 
+\begin{DoxyWarning}{Warning}
+Some events may not have a destination site determined until execution and will thus not have a valid set of coordinates defined. 
+\end{DoxyWarning}
 \begin{DoxyReturn}{Returns}
 The coordinates of the destination site if valid coordinates have been set. 
 
@@ -99,6 +102,8 @@ Gets the currently planned execution time of the event.
 
 \begin{DoxyReturn}{Returns}
 0 if the event execution time has not yet been calculated. 
+
+the currently planned execution time of the event in units of seconds. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_event_a8c38a406d844d05eac1ef007bad2487f}\label{class_event_a8c38a406d844d05eac1ef007bad2487f}} 
 \index{Event@{Event}!get\+Name@{get\+Name}}
@@ -123,6 +128,9 @@ Gets the name of event class.
 
 Gets a pointer to the \hyperlink{class_object}{Object} object that is designated as the subject of the event. 
 
+\begin{DoxyWarning}{Warning}
+Some events may not operate on an object and will thus not have a subject object associated with them. 
+\end{DoxyWarning}
 \begin{DoxyReturn}{Returns}
 nullptr if a valid \hyperlink{class_object}{Object} object has not been designated as the subject of the event. 
 \end{DoxyReturn}
@@ -136,6 +144,9 @@ nullptr if a valid \hyperlink{class_object}{Object} object has not been designat
 
 Gets a pointer to the \hyperlink{class_object}{Object} object that is designated as the target of the event. 
 
+\begin{DoxyWarning}{Warning}
+Some events may not have a valid target object assigned. A target object will only be defined when the event represent a reaction of some type between two objects. 
+\end{DoxyWarning}
 \begin{DoxyReturn}{Returns}
 nullptr if a valid \hyperlink{class_object}{Object} object has not been designated as the target of the event. 
 \end{DoxyReturn}
@@ -172,7 +183,7 @@ Sets the execution time of the event.
 \begin{DoxyReturn}{Returns}
 true if the input time non-\/negative. 
 
-false if the input is negative to indicating an error. 
+false if the input is negative to indicate an error. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_event_a078cadde679fc042486ef065a097c7af}\label{class_event_a078cadde679fc042486ef065a097c7af}} 
 \index{Event@{Event}!set\+Object\+Ptr@{set\+Object\+Ptr}}
@@ -186,7 +197,7 @@ Sets the pointer to the \hyperlink{class_object}{Object} object that is designat
 
 
 \begin{DoxyParams}{Parameters}
-{\em input\+\_\+ptr} & is the input \hyperlink{class_object}{Object} pointer \\
+{\em input\+\_\+ptr} & is the input \hyperlink{class_object}{Object} pointer. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{class_event_a2e868dc951b6fec86703dcd7776680e0}\label{class_event_a2e868dc951b6fec86703dcd7776680e0}} 
@@ -201,7 +212,7 @@ Sets the pointer to the \hyperlink{class_object}{Object} object that is designat
 
 
 \begin{DoxyParams}{Parameters}
-{\em input\+\_\+ptr} & is the input \hyperlink{class_object}{Object} pointer \\
+{\em input\+\_\+ptr} & is the input \hyperlink{class_object}{Object} pointer. \\
 \hline
 \end{DoxyParams}
 

@@ -8,9 +8,9 @@
 namespace Utils {
 
 	void createExponentialDOSVector(vector<double>& data, const double mode, const double urbach_energy, mt19937& gen) {
-		exponential_distribution<double> dist_exp(1 / urbach_energy);
+		exponential_distribution<double> dist_exp(1.0 / urbach_energy);
 		auto rand_exp = bind(dist_exp, ref(gen));
-		normal_distribution<double> dist_gaus(0, 2 * urbach_energy / sqrt(2 * Pi));
+		normal_distribution<double> dist_gaus(0, 2.0*urbach_energy / sqrt(2.0 * Pi));
 		auto rand_gaus = bind(dist_gaus, ref(gen));
 		double energy;
 		for (int i = 0; i < (int)data.size(); i++) {
@@ -33,10 +33,11 @@ namespace Utils {
 	}
 
 	bool importBooleanParam(const string& input, bool& error_status) {
-		if (input.compare("true") == 0) {
+		string str = removeWhitespace(input);
+		if (str.compare("true") == 0) {
 			return true;
 		}
-		else if (input.compare("false") == 0) {
+		else if (str.compare("false") == 0) {
 			return false;
 		}
 		else {
@@ -196,6 +197,13 @@ namespace Utils {
 		delete data_sizes;
 		delete data_displacement;
 		return output_vector;
+	}
+
+	string removeWhitespace(const string& str) {
+		auto strBegin = str.find_first_not_of(" ");
+		auto strEnd = str.find_last_not_of(" ");
+		auto range = strEnd - strBegin + 1;
+		return str.substr(strBegin, range);
 	}
 
 }

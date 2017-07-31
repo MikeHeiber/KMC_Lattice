@@ -17,51 +17,55 @@ using namespace std;
 //! \author Michael C. Heiber
 //! \date 2017
 struct Parameters_Lattice{
-	//! This parameter determines whether the x-direction periodic boundaries will be enabled. 
+	//! Determines whether the x-direction periodic boundaries will be enabled. 
 	bool Enable_periodic_x;
-	//! This parameter determines whether the y-direction periodic boundaries will be enabled. 
+	//! Determines whether the y-direction periodic boundaries will be enabled. 
 	bool Enable_periodic_y;
-	//! This parameter determines whether the z-direction periodic boundaries will be enabled. 
+	//! Determines whether the z-direction periodic boundaries will be enabled. 
 	bool Enable_periodic_z;
-	//! This parameter defines the x-direction size of the lattice.
+	//! Defines the desired x-direction size of the lattice.
 	int Length;
-	//! This parameter defines the y-direction size of the lattice.
+	//! Defines the desired y-direction size of the lattice.
 	int Width;
-	//! This parameter defines the z-direction size of the lattice.
+	//! Defines the desired z-direction size of the lattice.
 	int Height;
-	//! This parameter defines the lattice unit size, which is used to convert lattice units into real space units.
+	//! Defines the desired lattice unit size, which is used to convert lattice units into real space units.
 	double Unit_size; // nm
 };
 
-//! \brief This class contains the properties of a lattice and the functions needed to interact with it.
+//! \brief This class contains the properties of a three-dimensional lattice and the functions needed to interact with it.
+//! \details The class makes use of the Parameters_Lattice struct to load the neccessary input parameters, the Coords struct
+//! to record the Cartesian coordinates of each lattice site, and the Site class to assign properties to each site.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
 //! \date 2017
 class Lattice{
     public:
-		//! Default constructor that creates an empty Lattice object.
+		//! \brief Default constructor that creates an empty Lattice object.
+		//! \warning An empty lattice object should not be used until initialized using the init function.
 		Lattice();
 
-		//! \brief Initializes the Lattice object using the provided input parameters.
+		//! \brief Initializes the Lattice object using the provided Parameters_Lattice input parameter struct.
 		//! \param params is a Parameters_Lattice struct that contains all of the required
 		//! parameters to initialize the Lattice object. 
 		//! \param generator_ptr is a pointer to a Mersenne twister number generator.
         void init(const Parameters_Lattice& params, mt19937* generator_ptr);
 
-		//! \brief Calculates the destination coordinates when given the starting coordinates and the step sizes in the x-, y-, and z- directions.
+		//! \brief Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).
 		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
-		//! the function detemines the destination coordinates across the periodic boundary.
+		//! the function detemines the destination coordinates across the periodic boundary and assigns the calculated Coords struct to the input
+		//! coords_dest argument.
 		//! \param coords_initial is the Coords struct tht designates the starting coordinates.
-		//! \param i is the step size in the x-direction.
-		//! \param j is the step size in the y-direction.
-		//! \param k is the step size in the z-direction.
+		//! \param i is the displacement in the x-direction.
+		//! \param j is the displacement in the y-direction.
+		//! \param k is the displacement in the z-direction.
 		//! \param coords_dest is Coords struct that indicates the output destination coordinates.
 		void calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k, Coords& coords_dest) const;
 
 		//! \brief Calculates a coordinate adjustment factor if the x-direction periodic boundary is crossed.
 		//! \param x is the starting x coordinate.
-		//! \param i is the step size in the x-direction.
-		//! \return Length if the x periodic boundary is crossed in the negative direction.
+		//! \param i is the displacement in the x-direction.
+		//! \return Length (the x-direction size of the lattice) if the x periodic boundary is crossed in the negative direction.
 		//! \return -Length if the x periodic boundary is crossed in the positive direction.
 		//! \return 0 if the x periodic boundary is not enabled or if the x periodic boundary is not crossed.
 		int calculateDX(const int x, const int i) const;
@@ -69,15 +73,15 @@ class Lattice{
 		//! \brief Calculates a coordinate adjustment factor if the x-direction periodic boundary is crossed.
 		//! \param coords_initial is the Coords struct that represents the starting coordinates.
 		//! \param coords_dest is the Coords struct that represents the destination coordinates.
-		//! \return Length if the x periodic boundary is crossed in the negative direction.
+		//! \return Length (the x-direction size of the lattice) if the x periodic boundary is crossed in the negative direction.
 		//! \return -Length if the x periodic boundary is crossed in the positive direction.
 		//! \return 0 if the x periodic boundary is not enabled or if the x periodic boundary is not crossed.
 		int calculateDX(const Coords& coords_initial, const Coords& coords_dest) const;
 
 		//! \brief Calculates a coordinate adjustment factor if the y-direction periodic boundary is crossed.
-		//! \param y is the starting x coordinate.
-		//! \param j is the step size in the y-direction.
-		//! \return Width if the y periodic boundary is crossed in the negative direction.
+		//! \param y is the starting y coordinate.
+		//! \param j is the displacement in the y-direction.
+		//! \return Width (the y-direction size of the lattice) if the y periodic boundary is crossed in the negative direction.
 		//! \return -Width if the y periodic boundary is crossed in the positive direction.
 		//! \return 0 if the y periodic boundary is not enabled or if the y periodic boundary is not crossed.
 		int calculateDY(const int y, const int j) const;
@@ -85,15 +89,15 @@ class Lattice{
 		//! \brief Calculates a coordinate adjustment factor if the y-direction periodic boundary is crossed.
 		//! \param coords_initial is the Coords struct that represents the starting coordinates.
 		//! \param coords_dest is the Coords struct that represents the destination coordinates.
-		//! \return Width if the y periodic boundary is crossed in the negative direction.
+		//! \return Width (the y-direction size of the lattice) if the y periodic boundary is crossed in the negative direction.
 		//! \return -Width if the y periodic boundary is crossed in the positive direction.
 		//! \return 0 if the y periodic boundary is not enabled or if the y periodic boundary is not crossed.
 		int calculateDY(const Coords& coords_initial, const Coords& coords_dest) const;
 
 		//! \brief Calculates a coordinate adjustment factor if the z-direction periodic boundary is crossed.
-		//! \param z is the starting x coordinate.
-		//! \param k is the step size in the y-direction.
-		//! \return Height if the z periodic boundary is crossed in the negative direction.
+		//! \param z is the starting z coordinate.
+		//! \param k is the displacement in the z-direction.
+		//! \return Height (the z-direction size of the lattice) if the z periodic boundary is crossed in the negative direction.
 		//! \return -Height if the z periodic boundary is crossed in the positive direction.
 		//! \return 0 if the z periodic boundary is not enabled or if the z periodic boundary is not crossed.
 		int calculateDZ(const int z, const int k) const;
@@ -101,7 +105,7 @@ class Lattice{
 		//! \brief Calculates a coordinate adjustment factor if the z-direction periodic boundary is crossed.
 		//! \param coords_initial is the Coords struct that represents the starting coordinates.
 		//! \param coords_dest is the Coords struct that represents the destination coordinates.
-		//! \return Height if the z periodic boundary is crossed in the negative direction.
+		//! \return Height (the z-direction size of the lattice) if the z periodic boundary is crossed in the negative direction.
 		//! \return -Height if the z periodic boundary is crossed in the positive direction.
 		//! \return 0 if the z periodic boundary is not enabled or if the z periodic boundary is not crossed.
 		int calculateDZ(const Coords& coords_initial, const Coords& coords_dest) const;
@@ -128,22 +132,22 @@ class Lattice{
 		void clearOccupancy(const Coords& coords);
 
 		//! \brief Generates the coordinates for a randomly selected site in the lattice.
-		//! \return The coordinates for a randomly selected site in the lattice.
+		//! \return A Coords struct containing the coordinates of a randomly selected site from the lattice.
 		Coords generateRandomCoords();
 
 		//! \brief Generates a random x coordinate that lies within the x-dimension size of the lattice.
 		//! \return
-		//! A randomly selected x coordinate value from 0 and Length-1.
+		//! A randomly selected x coordinate value from in the range from to 0 to Length-1.
 		int generateRandomX();
 
 		//! \brief Generates a random y coordinate that lies within the y-dimension size of the lattice.
 		//! \return
-		//! A randomly selected y coordinate value from 0 and Width-1.
+		//! A randomly selected y coordinate value in the range from 0 to Width-1.
 		int generateRandomY();
 
 		//! \brief Generates a random z coordinate that lies within the z-dimension size of the lattice.
 		//! \return
-		//! A randomly selected z coordinate value from 0 and Height-1.
+		//! A randomly selected z coordinate value in the range from 0 to Height-1.
 		int generateRandomZ();
 
 		//! \brief Gets the z-direction size of the lattice, the height.
@@ -182,17 +186,17 @@ class Lattice{
 		//! \return false if the specified site is unoccupied
 		bool isOccupied(const Coords& coords) const;
 
-		//! \brief Checks whether the x-direction periodic boundary is enabled or not.
+		//! \brief Checks whether the x-direction periodic boundaries are enabled or not.
 		//! \return true if periodic boundaries are enabled in the x-direction.
 		//! \return false if periodic boundaries are disabled in the x-direction.
 		bool isXPeriodic() const;
 
-		//! \brief Checks whether the y-direction periodic boundary is enabled or not.
+		//! \brief Checks whether the y-direction periodic boundaries are enabled or not.
 		//! \return true if periodic boundaries are enabled in the y-direction.
 		//! \return false if periodic boundaries are disabled in the y-direction.
 		bool isYPeriodic() const;
 
-		//! \brief Checks whether the z-direction periodic boundary is enabled or not.
+		//! \brief Checks whether the z-direction periodic boundaries are enabled or not.
 		//! \return true if periodic boundaries are enabled in the z-direction.
 		//! \return false if periodic boundaries are disabled in the z-direction.
 		bool isZPeriodic() const;

@@ -114,7 +114,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This base class contains the basic properties of a KMC simulation event and the functions needed to interact with it. </p>
-<p>This base class is designed to work with the <a class="el" href="class_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> class to construct a KMC simulation. </p><dl class="section copyright"><dt>Copyright</dt><dd>MIT License. For more information, see the LICENSE file that accompanies this software package. </dd></dl>
+<p>This base class is designed to work with the <a class="el" href="class_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> class to construct a KMC simulation. This base class is intended to be extended to create classes that represent specific types of events. </p><dl class="section copyright"><dt>Copyright</dt><dd>MIT License. For more information, see the LICENSE file that accompanies this software package. </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Michael C. Heiber </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -145,7 +145,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 
 <p>Calculates and sets the execution time of the event. </p>
-<p>The function accesses the random number generator and current simulation time from the <a class="el" href="class_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> object in order to to calculate the execution time. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The function accesses the random number generator and current simulation time from the <a class="el" href="class_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> object in order to calculate the execution time. When creating a new derived event class, one will often write a new calculateExecutionTime function that contains additional factors needed to calculate the rate. This base class function can then be called within the new function to calculate the final execution time. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rate</td><td>is the rate of the process represented by the event in units of 1/s. </td></tr>
     <tr><td class="paramname">sim_ptr</td><td>is a pointer to a <a class="el" href="class_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> object. </td></tr>
@@ -171,6 +171,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 
 <p>Gets the coordinates of the event destination site. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Some events may not have a destination site determined until execution and will thus not have a valid set of coordinates defined. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The coordinates of the destination site if valid coordinates have been set. </dd>
 <dd>
 The coordinates (-1,-1,-1) if no valid destination site has been set. </dd></dl>
@@ -193,7 +194,9 @@ The coordinates (-1,-1,-1) if no valid destination site has been set. </dd></dl>
 </div><div class="memdoc">
 
 <p>Gets the currently planned execution time of the event. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 if the event execution time has not yet been calculated. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the event execution time has not yet been calculated. </dd>
+<dd>
+the currently planned execution time of the event in units of seconds. </dd></dl>
 
 </div>
 </div>
@@ -241,6 +244,7 @@ The coordinates (-1,-1,-1) if no valid destination site has been set. </dd></dl>
 </div><div class="memdoc">
 
 <p>Gets a pointer to the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> object that is designated as the subject of the event. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Some events may not operate on an object and will thus not have a subject object associated with them. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>nullptr if a valid <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> object has not been designated as the subject of the event. </dd></dl>
 
 </div>
@@ -261,6 +265,7 @@ The coordinates (-1,-1,-1) if no valid destination site has been set. </dd></dl>
 </div><div class="memdoc">
 
 <p>Gets a pointer to the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> object that is designated as the target of the event. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Some events may not have a valid target object assigned. A target object will only be defined when the event represent a reaction of some type between two objects. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>nullptr if a valid <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> object has not been designated as the target of the event. </dd></dl>
 
 </div>
@@ -316,7 +321,7 @@ The coordinates (-1,-1,-1) if no valid destination site has been set. </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the input time non-negative. </dd>
 <dd>
-false if the input is negative to indicating an error. </dd></dl>
+false if the input is negative to indicate an error. </dd></dl>
 
 </div>
 </div>
@@ -339,7 +344,7 @@ false if the input is negative to indicating an error. </dd></dl>
 <p>Sets the pointer to the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> object that is designated as the subject of the event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input_ptr</td><td>is the input <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> pointer </td></tr>
+    <tr><td class="paramname">input_ptr</td><td>is the input <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> pointer. </td></tr>
   </table>
   </dd>
 </dl>
@@ -365,7 +370,7 @@ false if the input is negative to indicating an error. </dd></dl>
 <p>Sets the pointer to the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> object that is designated as the target of the event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input_ptr</td><td>is the input <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> pointer </td></tr>
+    <tr><td class="paramname">input_ptr</td><td>is the input <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> pointer. </td></tr>
   </table>
   </dd>
 </dl>

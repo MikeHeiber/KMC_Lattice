@@ -2,7 +2,7 @@
 \label{class_lattice}\index{Lattice@{Lattice}}
 
 
-This class contains the properties of a lattice and the functions needed to interact with it.  
+This class contains the properties of a three-\/dimensional lattice and the functions needed to interact with it.  
 
 
 
@@ -12,13 +12,12 @@ This class contains the properties of a lattice and the functions needed to inte
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_lattice_a70a5cebc3c0c5a0f609be0592e7cc117}\label{class_lattice_a70a5cebc3c0c5a0f609be0592e7cc117}} 
 \hyperlink{class_lattice_a70a5cebc3c0c5a0f609be0592e7cc117}{Lattice} ()
 \begin{DoxyCompactList}\small\item\em Default constructor that creates an empty \hyperlink{class_lattice}{Lattice} object. \end{DoxyCompactList}\item 
 void \hyperlink{class_lattice_a4067a9617cc24fa60ca6b47fccb4c123}{init} (const \hyperlink{struct_parameters___lattice}{Parameters\+\_\+\+Lattice} \&params, mt19937 $\ast$generator\+\_\+ptr)
-\begin{DoxyCompactList}\small\item\em Initializes the \hyperlink{class_lattice}{Lattice} object using the provided input parameters. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Initializes the \hyperlink{class_lattice}{Lattice} object using the provided \hyperlink{struct_parameters___lattice}{Parameters\+\_\+\+Lattice} input parameter struct. \end{DoxyCompactList}\item 
 void \hyperlink{class_lattice_aa6b80d6264bfc23ae5fea39abd2557d5}{calculate\+Destination\+Coords} (const \hyperlink{struct_coords}{Coords} \&coords\+\_\+initial, const int i, const int j, const int k, \hyperlink{struct_coords}{Coords} \&coords\+\_\+dest) const
-\begin{DoxyCompactList}\small\item\em Calculates the destination coordinates when given the starting coordinates and the step sizes in the x-\/, y-\/, and z-\/ directions. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k). \end{DoxyCompactList}\item 
 int \hyperlink{class_lattice_a08adb2f412af409d3ec241e60e687c1a}{calculate\+DX} (const int x, const int i) const
 \begin{DoxyCompactList}\small\item\em Calculates a coordinate adjustment factor if the x-\/direction periodic boundary is crossed. \end{DoxyCompactList}\item 
 int \hyperlink{class_lattice_ad89c5473dd37339ede9fb3d0c3db4300}{calculate\+DX} (const \hyperlink{struct_coords}{Coords} \&coords\+\_\+initial, const \hyperlink{struct_coords}{Coords} \&coords\+\_\+dest) const
@@ -62,11 +61,11 @@ int \hyperlink{class_lattice_aeb60d2b8bfb02d9da8bef463f0d41428}{get\+Width} () c
 bool \hyperlink{class_lattice_a4d37afb6ad4c67f4f6462c2f6d5c337d}{is\+Occupied} (const \hyperlink{struct_coords}{Coords} \&coords) const
 \begin{DoxyCompactList}\small\item\em Checks whether the site located at the input coordinates is occupied or not. \end{DoxyCompactList}\item 
 bool \hyperlink{class_lattice_accf3b995e0d0cb422907728a29b1b523}{is\+X\+Periodic} () const
-\begin{DoxyCompactList}\small\item\em Checks whether the x-\/direction periodic boundary is enabled or not. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Checks whether the x-\/direction periodic boundaries are enabled or not. \end{DoxyCompactList}\item 
 bool \hyperlink{class_lattice_ac3192acefb019c5258143a6c758b3e48}{is\+Y\+Periodic} () const
-\begin{DoxyCompactList}\small\item\em Checks whether the y-\/direction periodic boundary is enabled or not. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Checks whether the y-\/direction periodic boundaries are enabled or not. \end{DoxyCompactList}\item 
 bool \hyperlink{class_lattice_ad7dd1b12a253e506aba5cedb57bf86ea}{is\+Z\+Periodic} () const
-\begin{DoxyCompactList}\small\item\em Checks whether the z-\/direction periodic boundary is enabled or not. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Checks whether the z-\/direction periodic boundaries are enabled or not. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_lattice_aa1f65735ecbd750ec04b6413b4d47316}\label{class_lattice_aa1f65735ecbd750ec04b6413b4d47316}} 
 void \hyperlink{class_lattice_aa1f65735ecbd750ec04b6413b4d47316}{output\+Lattice\+Occupancy} () const
 \begin{DoxyCompactList}\small\item\em Prints to the command line which sites are occupied. \end{DoxyCompactList}\item 
@@ -77,9 +76,9 @@ bool \hyperlink{class_lattice_aaa16f46daaf157c155f0e9b378a07b5d}{set\+Site\+Poin
 
 
 \subsection{Detailed Description}
-This class contains the properties of a lattice and the functions needed to interact with it. 
+This class contains the properties of a three-\/dimensional lattice and the functions needed to interact with it. 
 
-\begin{DoxyCopyright}{Copyright}
+The class makes use of the \hyperlink{struct_parameters___lattice}{Parameters\+\_\+\+Lattice} struct to load the neccessary input parameters, the \hyperlink{struct_coords}{Coords} struct to record the Cartesian coordinates of each lattice site, and the \hyperlink{class_site}{Site} class to assign properties to each site. \begin{DoxyCopyright}{Copyright}
 M\+IT License. For more information, see the L\+I\+C\+E\+N\+SE file that accompanies this software package. 
 \end{DoxyCopyright}
 \begin{DoxyAuthor}{Author}
@@ -88,6 +87,22 @@ Michael C. Heiber
 \begin{DoxyDate}{Date}
 2017 
 \end{DoxyDate}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_lattice_a70a5cebc3c0c5a0f609be0592e7cc117}\label{class_lattice_a70a5cebc3c0c5a0f609be0592e7cc117}} 
+\index{Lattice@{Lattice}!Lattice@{Lattice}}
+\index{Lattice@{Lattice}!Lattice@{Lattice}}
+\subsubsection{\texorpdfstring{Lattice()}{Lattice()}}
+{\footnotesize\ttfamily Lattice\+::\+Lattice (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor that creates an empty \hyperlink{class_lattice}{Lattice} object. 
+
+\begin{DoxyWarning}{Warning}
+An empty lattice object should not be used until initialized using the init function. 
+\end{DoxyWarning}
 
 
 \subsection{Member Function Documentation}
@@ -99,17 +114,17 @@ Michael C. Heiber
 
 
 
-Calculates the destination coordinates when given the starting coordinates and the step sizes in the x-\/, y-\/, and z-\/ directions. 
+Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k). 
 
-When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled, the function detemines the destination coordinates across the periodic boundary. 
+When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled, the function detemines the destination coordinates across the periodic boundary and assigns the calculated \hyperlink{struct_coords}{Coords} struct to the input coords\+\_\+dest argument. 
 \begin{DoxyParams}{Parameters}
 {\em coords\+\_\+initial} & is the \hyperlink{struct_coords}{Coords} struct tht designates the starting coordinates. \\
 \hline
-{\em i} & is the step size in the x-\/direction. \\
+{\em i} & is the displacement in the x-\/direction. \\
 \hline
-{\em j} & is the step size in the y-\/direction. \\
+{\em j} & is the displacement in the y-\/direction. \\
 \hline
-{\em k} & is the step size in the z-\/direction. \\
+{\em k} & is the displacement in the z-\/direction. \\
 \hline
 {\em coords\+\_\+dest} & is \hyperlink{struct_coords}{Coords} struct that indicates the output destination coordinates. \\
 \hline
@@ -128,11 +143,11 @@ Calculates a coordinate adjustment factor if the x-\/direction periodic boundary
 \begin{DoxyParams}{Parameters}
 {\em x} & is the starting x coordinate. \\
 \hline
-{\em i} & is the step size in the x-\/direction. \\
+{\em i} & is the displacement in the x-\/direction. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Length if the x periodic boundary is crossed in the negative direction. 
+Length (the x-\/direction size of the lattice) if the x periodic boundary is crossed in the negative direction. 
 
 -\/\+Length if the x periodic boundary is crossed in the positive direction. 
 
@@ -156,7 +171,7 @@ Calculates a coordinate adjustment factor if the x-\/direction periodic boundary
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Length if the x periodic boundary is crossed in the negative direction. 
+Length (the x-\/direction size of the lattice) if the x periodic boundary is crossed in the negative direction. 
 
 -\/\+Length if the x periodic boundary is crossed in the positive direction. 
 
@@ -174,13 +189,13 @@ Calculates a coordinate adjustment factor if the y-\/direction periodic boundary
 
 
 \begin{DoxyParams}{Parameters}
-{\em y} & is the starting x coordinate. \\
+{\em y} & is the starting y coordinate. \\
 \hline
-{\em j} & is the step size in the y-\/direction. \\
+{\em j} & is the displacement in the y-\/direction. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Width if the y periodic boundary is crossed in the negative direction. 
+Width (the y-\/direction size of the lattice) if the y periodic boundary is crossed in the negative direction. 
 
 -\/\+Width if the y periodic boundary is crossed in the positive direction. 
 
@@ -204,7 +219,7 @@ Calculates a coordinate adjustment factor if the y-\/direction periodic boundary
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Width if the y periodic boundary is crossed in the negative direction. 
+Width (the y-\/direction size of the lattice) if the y periodic boundary is crossed in the negative direction. 
 
 -\/\+Width if the y periodic boundary is crossed in the positive direction. 
 
@@ -222,13 +237,13 @@ Calculates a coordinate adjustment factor if the z-\/direction periodic boundary
 
 
 \begin{DoxyParams}{Parameters}
-{\em z} & is the starting x coordinate. \\
+{\em z} & is the starting z coordinate. \\
 \hline
-{\em k} & is the step size in the y-\/direction. \\
+{\em k} & is the displacement in the z-\/direction. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Height if the z periodic boundary is crossed in the negative direction. 
+Height (the z-\/direction size of the lattice) if the z periodic boundary is crossed in the negative direction. 
 
 -\/\+Height if the z periodic boundary is crossed in the positive direction. 
 
@@ -252,7 +267,7 @@ Calculates a coordinate adjustment factor if the z-\/direction periodic boundary
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Height if the z periodic boundary is crossed in the negative direction. 
+Height (the z-\/direction size of the lattice) if the z periodic boundary is crossed in the negative direction. 
 
 -\/\+Height if the z periodic boundary is crossed in the positive direction. 
 
@@ -330,7 +345,7 @@ Clears the occupancy of the site located at the specified coordinates.
 Generates the coordinates for a randomly selected site in the lattice. 
 
 \begin{DoxyReturn}{Returns}
-The coordinates for a randomly selected site in the lattice. 
+A \hyperlink{struct_coords}{Coords} struct containing the coordinates of a randomly selected site from the lattice. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_lattice_ab78435e50e3bf9f376c04fc305785bb4}\label{class_lattice_ab78435e50e3bf9f376c04fc305785bb4}} 
 \index{Lattice@{Lattice}!generate\+RandomX@{generate\+RandomX}}
@@ -343,7 +358,7 @@ The coordinates for a randomly selected site in the lattice.
 Generates a random x coordinate that lies within the x-\/dimension size of the lattice. 
 
 \begin{DoxyReturn}{Returns}
-A randomly selected x coordinate value from 0 and Length-\/1. 
+A randomly selected x coordinate value from in the range from to 0 to Length-\/1. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_lattice_a180a9d79a40b1a0a092c8ab489569700}\label{class_lattice_a180a9d79a40b1a0a092c8ab489569700}} 
 \index{Lattice@{Lattice}!generate\+RandomY@{generate\+RandomY}}
@@ -356,7 +371,7 @@ A randomly selected x coordinate value from 0 and Length-\/1.
 Generates a random y coordinate that lies within the y-\/dimension size of the lattice. 
 
 \begin{DoxyReturn}{Returns}
-A randomly selected y coordinate value from 0 and Width-\/1. 
+A randomly selected y coordinate value in the range from 0 to Width-\/1. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_lattice_a96006397a6ab389fb1eee87fde6e2165}\label{class_lattice_a96006397a6ab389fb1eee87fde6e2165}} 
 \index{Lattice@{Lattice}!generate\+RandomZ@{generate\+RandomZ}}
@@ -369,7 +384,7 @@ A randomly selected y coordinate value from 0 and Width-\/1.
 Generates a random z coordinate that lies within the z-\/dimension size of the lattice. 
 
 \begin{DoxyReturn}{Returns}
-A randomly selected z coordinate value from 0 and Height-\/1. 
+A randomly selected z coordinate value in the range from 0 to Height-\/1. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_lattice_aaa0cba3ab33ac620d9b9f9508c56d1ac}\label{class_lattice_aaa0cba3ab33ac620d9b9f9508c56d1ac}} 
 \index{Lattice@{Lattice}!get\+Height@{get\+Height}}
@@ -480,7 +495,7 @@ The Width property of the lattice, which is the y-\/direction size.
 
 
 
-Initializes the \hyperlink{class_lattice}{Lattice} object using the provided input parameters. 
+Initializes the \hyperlink{class_lattice}{Lattice} object using the provided \hyperlink{struct_parameters___lattice}{Parameters\+\_\+\+Lattice} input parameter struct. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -517,7 +532,7 @@ false if the specified site is unoccupied
 
 
 
-Checks whether the x-\/direction periodic boundary is enabled or not. 
+Checks whether the x-\/direction periodic boundaries are enabled or not. 
 
 \begin{DoxyReturn}{Returns}
 true if periodic boundaries are enabled in the x-\/direction. 
@@ -532,7 +547,7 @@ false if periodic boundaries are disabled in the x-\/direction.
 
 
 
-Checks whether the y-\/direction periodic boundary is enabled or not. 
+Checks whether the y-\/direction periodic boundaries are enabled or not. 
 
 \begin{DoxyReturn}{Returns}
 true if periodic boundaries are enabled in the y-\/direction. 
@@ -547,7 +562,7 @@ false if periodic boundaries are disabled in the y-\/direction.
 
 
 
-Checks whether the z-\/direction periodic boundary is enabled or not. 
+Checks whether the z-\/direction periodic boundaries are enabled or not. 
 
 \begin{DoxyReturn}{Returns}
 true if periodic boundaries are enabled in the z-\/direction. 

@@ -6,25 +6,29 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <mpi.h>
-#include <vector>
-#include <random>
-#include <cmath>
-#include <memory>
-#include <iostream>
-#include <functional>
 #include <algorithm>
+#include <cmath>
+#include <functional>
+#include <iostream>
+#include <memory>
+#include <mpi.h>
+#include <random>
 #include <set>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-//! This simple struct contains Cartesian coordinates specified by integers x,y,z.
+//! \brief This simple struct contains Cartesian coordinates specified by integers x,y,z.
+//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
+//! \author Michael C. Heiber
+//! \date 2017
 struct Coords{
-	//! Defines the x Cartesian coordinate.
+	//! The x Cartesian coordinate.
     int x;
-	//! Defines the y Cartesian coordinate.
+	//! The y Cartesian coordinate.
     int y;
-	//! Defines the z Cartesian coordinate.
+	//! The z Cartesian coordinate.
     int z;
 
 	//! \brief Sets the x,y,z coordinates using the input values xval, yval, and zval.
@@ -37,18 +41,18 @@ struct Coords{
         z = zval;
     }
 	//! \brief Defines the conditions when two Coords structs are deemed to be equal.
-	//! \param rhs is the right hand side Coords struct.
+	//! \param rhs is the right hand side Coords struct of the comparison operator.
 	bool operator==(const Coords& rhs) const{
 		return (x == rhs.x && y == rhs.y && z == rhs.z);
 	}
 	//! \brief Defines the conditions when two Coords structs are deemed to be unequal.
-	//! \param rhs is the right hand side Coords struct.
+	//! \param rhs is the right hand side Coords struct  of the comparison operator.
 	bool operator!=(const Coords& rhs) const {
 		return (x != rhs.x || y != rhs.y || z != rhs.z);
 	}
 };
 
-//! \brief This namespace provides useful constant and utility functions.
+//! \brief This namespace provides useful constants and utility functions.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
 //! \date 2017
@@ -66,15 +70,15 @@ namespace Utils {
 	//! \brief Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.
 	//! \details The created distribution is Gaussian in the positive direction relative to the mode and exponential in 
 	//! the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy
-	//! chose for the exponential size, so that the distribution function is continuous.
-	//! \param data is the data vector where the numbers will be placed, which should be preallocated to the desired size.
+	//! chosen for the exponential side, so that the distribution function is continuous.
+	//! \param data is the data vector where the random numbers will be placed, which must be preallocated to the desired size.
 	//! \param mode is the value of the peak of the distribution.
 	//! \param urbach_energy is the parameter that detemines the shape of the exponential tail side of the distribution.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
 	void createExponentialDOSVector(vector<double>& data, const double mode, const double urbach_energy, mt19937& gen);
 
 	//! \brief Creates a vector of doubles that has a Gaussian distribution.
-	//! \param data is the data vector where the numbers will be placed, which should be preallocated to the desired size.
+	//! \param data is the data vector where the numbers will be placed, which must be preallocated to the desired size.
 	//! \param mean is the position of the peak and center of the distribution.
 	//! \param stdev is the standard deviation of the distribution, which defines the width of the peak.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
@@ -119,6 +123,11 @@ namespace Utils {
 	//! \return An empty vector when called on other processors.
 	vector<double> MPI_gatherVectors(const vector<double>& input_vector);
 
+	//! \brief Removes leading and trailing spaces surrounding a string.
+	//! \param str is the input string
+	//! \returns a new string that will have the surrounding spaces removed.
+	string removeWhitespace(const string& str);
+
 	// Template functions
 
 	//! \brief This template function calculates and returns the average value in double format when given an array of numerical datatypes.
@@ -148,7 +157,7 @@ namespace Utils {
 		return sqrt(sum / (array_size - 1));
 	}
 
-	//! \brief The template function calculates and returns the results of an integer power operation on a base numerical datatype.
+	//! \brief This template function calculates and returns the results of an integer power operation on a base numerical datatype.
 	//! \param base is the base of the integer power operation and can be any numerical type.
 	//! \param exponent is the integer exponent for the integer power operation.
 	//! \return The result of the integer power operation in whichever datatype format was input with the base.
@@ -192,7 +201,7 @@ namespace Utils {
 		vec.resize(distance(vec.begin(), it3));
 	}
 
-	//! This template function calculates and returns the average value in double format when given a vector of numerical datatypes.
+	//! \brief This template function calculates and returns the average value in double format when given a vector of numerical datatypes.
 	//! \param data is the vector of numerical data.
 	//! \return The average of the data set in double format.
 	template<typename T, typename A>
@@ -204,7 +213,7 @@ namespace Utils {
 		return sum / data.size();
 	}
 
-	//! This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.
+	//! \brief This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.
 	//! \param data is the vector of numerical data.
 	//! \return The standard deviation of the data set in double format.
 	template<typename T, typename A>

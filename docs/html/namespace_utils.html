@@ -65,7 +65,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>This namespace provides useful constant and utility functions.  
+<p>This namespace provides useful constants and utility functions.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -91,6 +91,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af9a7e13279f18cd8d36ca98a7943a7e8"><td class="memItemLeft" align="right" valign="top">vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#af9a7e13279f18cd8d36ca98a7943a7e8">MPI_gatherVectors</a> (const vector&lt; double &gt; &amp;input_vector)</td></tr>
 <tr class="memdesc:af9a7e13279f18cd8d36ca98a7943a7e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.  <a href="#af9a7e13279f18cd8d36ca98a7943a7e8">More...</a><br /></td></tr>
 <tr class="separator:af9a7e13279f18cd8d36ca98a7943a7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa3265ae19d2fbd675a9d47d46f62b11"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aaa3265ae19d2fbd675a9d47d46f62b11">removeWhitespace</a> (const string &amp;str)</td></tr>
+<tr class="memdesc:aaa3265ae19d2fbd675a9d47d46f62b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes leading and trailing spaces surrounding a string.  <a href="#aaa3265ae19d2fbd675a9d47d46f62b11">More...</a><br /></td></tr>
+<tr class="separator:aaa3265ae19d2fbd675a9d47d46f62b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa76a204af4dd4c3eb151691825de2eb2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa76a204af4dd4c3eb151691825de2eb2"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aa76a204af4dd4c3eb151691825de2eb2">array_avg</a> (const T data[], const int array_size)</td></tr>
 <tr class="memdesc:aa76a204af4dd4c3eb151691825de2eb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the average value in double format when given an array of numerical datatypes.  <a href="#aa76a204af4dd4c3eb151691825de2eb2">More...</a><br /></td></tr>
@@ -101,7 +104,7 @@ Functions</h2></td></tr>
 <tr class="separator:a25d09c704b5ae03f01cf76b6de10aa19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="memTemplParams" colspan="2">template&lt;typename base_type &gt; </td></tr>
 <tr class="memitem:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="memTemplItemLeft" align="right" valign="top">base_type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#affd19edaa58a3f8425e1f7b4c9233f8a">intpow</a> (const base_type base, const int exponent)</td></tr>
-<tr class="memdesc:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The template function calculates and returns the results of an integer power operation on a base numerical datatype.  <a href="#affd19edaa58a3f8425e1f7b4c9233f8a">More...</a><br /></td></tr>
+<tr class="memdesc:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the results of an integer power operation on a base numerical datatype.  <a href="#affd19edaa58a3f8425e1f7b4c9233f8a">More...</a><br /></td></tr>
 <tr class="separator:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ae6b61a9030cf09d8cba2566a42c871df">removeDuplicates</a> (vector&lt; T &gt; &amp;vec)</td></tr>
@@ -109,13 +112,15 @@ Functions</h2></td></tr>
 <tr class="separator:ae6b61a9030cf09d8cba2566a42c871df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadb08a5b50d04b076f4348a8f752932b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename A &gt; </td></tr>
 <tr class="memitem:aadb08a5b50d04b076f4348a8f752932b"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aadb08a5b50d04b076f4348a8f752932b">vector_avg</a> (const vector&lt; T, A &gt; &amp;data)</td></tr>
+<tr class="memdesc:aadb08a5b50d04b076f4348a8f752932b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the average value in double format when given a vector of numerical datatypes.  <a href="#aadb08a5b50d04b076f4348a8f752932b">More...</a><br /></td></tr>
 <tr class="separator:aadb08a5b50d04b076f4348a8f752932b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename A &gt; </td></tr>
 <tr class="memitem:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a04daea5e4b4bb28117b09e1abae4ec5c">vector_stdev</a> (const vector&lt; T, A &gt; &amp;data)</td></tr>
+<tr class="memdesc:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.  <a href="#a04daea5e4b4bb28117b09e1abae4ec5c">More...</a><br /></td></tr>
 <tr class="separator:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This namespace provides useful constant and utility functions. </p>
+<div class="textblock"><p>This namespace provides useful constants and utility functions. </p>
 <dl class="section copyright"><dt>Copyright</dt><dd>MIT License. For more information, see the LICENSE file that accompanies this software package. </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Michael C. Heiber </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
@@ -239,9 +244,9 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail. </p>
-<p>The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy chose for the exponential size, so that the distribution function is continuous. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy chosen for the exponential side, so that the distribution function is continuous. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>is the data vector where the numbers will be placed, which should be preallocated to the desired size. </td></tr>
+    <tr><td class="paramname">data</td><td>is the data vector where the random numbers will be placed, which must be preallocated to the desired size. </td></tr>
     <tr><td class="paramname">mode</td><td>is the value of the peak of the distribution. </td></tr>
     <tr><td class="paramname">urbach_energy</td><td>is the parameter that detemines the shape of the exponential tail side of the distribution. </td></tr>
     <tr><td class="paramname">gen</td><td>is a Mersenne twister random number generator used to randomly draw numbers from the distribution. </td></tr>
@@ -292,7 +297,7 @@ template&lt;typename T &gt; </div>
 <p>Creates a vector of doubles that has a Gaussian distribution. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>is the data vector where the numbers will be placed, which should be preallocated to the desired size. </td></tr>
+    <tr><td class="paramname">data</td><td>is the data vector where the numbers will be placed, which must be preallocated to the desired size. </td></tr>
     <tr><td class="paramname">mean</td><td>is the position of the peak and center of the distribution. </td></tr>
     <tr><td class="paramname">stdev</td><td>is the standard deviation of the distribution, which defines the width of the peak. </td></tr>
     <tr><td class="paramname">gen</td><td>is a Mersenne twister random number generator used to randomly draw numbers from the distribution. </td></tr>
@@ -370,7 +375,7 @@ template&lt;typename base_type &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>The template function calculates and returns the results of an integer power operation on a base numerical datatype. </p>
+<p>This template function calculates and returns the results of an integer power operation on a base numerical datatype. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">base</td><td>is the base of the integer power operation and can be any numerical type. </td></tr>
@@ -526,6 +531,33 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="aaa3265ae19d2fbd675a9d47d46f62b11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa3265ae19d2fbd675a9d47d46f62b11">&#9670;&nbsp;</a></span>removeWhitespace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Utils::removeWhitespace </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes leading and trailing spaces surrounding a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>is the input string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new string that will have the surrounding spaces removed. </dd></dl>
+
+</div>
+</div>
 <a id="aadb08a5b50d04b076f4348a8f752932b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aadb08a5b50d04b076f4348a8f752932b">&#9670;&nbsp;</a></span>vector_avg()</h2>
 
@@ -543,7 +575,9 @@ template&lt;typename T , typename A &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This template function calculates and returns the average value in double format when given a vector of numerical datatypes. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>This template function calculates and returns the average value in double format when given a vector of numerical datatypes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>is the vector of numerical data. </td></tr>
   </table>
@@ -570,7 +604,9 @@ template&lt;typename T , typename A &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>is the vector of numerical data. </td></tr>
   </table>

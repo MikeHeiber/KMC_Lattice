@@ -22,7 +22,7 @@ void \hyperlink{class_site_a46ff077954e39046b493ee1ea57a9c93}{clear\+Occupancy} 
 \begin{DoxyCompactList}\small\item\em Clears the occupancy of the site. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_site_aecb14e440914b4d3d4aa7294419791e2}\label{class_site_aecb14e440914b4d3d4aa7294419791e2}} 
 \hyperlink{class_object}{Object} $\ast$ \hyperlink{class_site_aecb14e440914b4d3d4aa7294419791e2}{get\+Object\+Ptr} () const
-\begin{DoxyCompactList}\small\item\em Gets the pointer to an \hyperlink{class_object}{Object} object that occupies the site. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Gets the pointer to the \hyperlink{class_object}{Object} object that occupies the site. \end{DoxyCompactList}\item 
 bool \hyperlink{class_site_a30991b768ded0bb441c5bb54a789160a}{is\+Occupied} () const
 \begin{DoxyCompactList}\small\item\em Checks whether the site is occupied or not. \end{DoxyCompactList}\item 
 void \hyperlink{class_site_a9a0d305451d7732dbb193e7fd2f502ca}{set\+Object\+Ptr} (\hyperlink{class_object}{Object} $\ast$input\+\_\+ptr)
@@ -35,7 +35,7 @@ void \hyperlink{class_site_ab85bec20c3a6067a7dca659221d57d25}{set\+Occupied} ()
 \subsection{Detailed Description}
 This base class contains the basic properties of a lattice site and the functions needed to interact with it. 
 
-This base class is designed to be used by the \hyperlink{class_lattice}{Lattice} class to construct a lattice that will be used by a K\+MC simulation. \begin{DoxyCopyright}{Copyright}
+This base class is designed to be used by the \hyperlink{class_lattice}{Lattice} class to construct a lattice that will be used by a K\+MC simulation. This class is designed to for sites to have single occupancy, but multiple occupancy could potentially be implemented in a derived class. \begin{DoxyCopyright}{Copyright}
 M\+IT License. For more information, see the L\+I\+C\+E\+N\+SE file that accompanies this software package. 
 \end{DoxyCopyright}
 \begin{DoxyAuthor}{Author}

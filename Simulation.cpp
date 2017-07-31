@@ -33,7 +33,7 @@ void Simulation::init(const Parameters_Simulation& params, const int id) {
 	lattice.init(params_lattice, &gen);
 	objects.clear();
 	events.clear();
-	gen.seed(time(0)*(id + 1));
+	gen.seed((int)time(0)*(id + 1));
 	// Output files
 	Logfile = params.Logfile;
 }
@@ -54,127 +54,128 @@ void Simulation::addObject(Object* object_ptr){
     lattice.setOccupied(object_ptr->getCoords());
     (*lattice.getSiteIt(object_ptr->getCoords()))->setObjectPtr(*(--objects.end()));
     // Update counters
-    N_objects++;
-    N_objects_created++;
-    N_events_executed++;
+N_objects++;
+N_objects_created++;
+N_events_executed++;
 }
 
-list<Event*>::iterator Simulation::chooseNextEvent(){
-    auto event_target_it = events.begin();
-    if(events.size()>1){
-        for(auto it=++events.begin();it!=events.end();++it){
-            if((*it)!=nullptr && ((*event_target_it)==nullptr || ((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()))){
-                event_target_it = it;
-            }
-        }
-    }
-    return event_target_it;
+list<Event*>::iterator Simulation::chooseNextEvent() {
+	auto event_target_it = events.begin();
+	if (events.size() > 1) {
+		for (auto it = ++events.begin(); it != events.end(); ++it) {
+			if ((*it) != nullptr && ((*event_target_it) == nullptr || ((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()))) {
+				event_target_it = it;
+			}
+		}
+	}
+	return event_target_it;
 }
 
-vector<Object*> Simulation::findRecalcNeighbors(const Coords& coords) const{
-    vector<Object*> object_ptrs;
-    object_ptrs.reserve(10);
-    Coords coords2;
-    int dx,dy,dz;
-    const static int recalc_cutoff_sq_lat = (Recalc_cutoff/lattice.getUnitSize())*(Recalc_cutoff/lattice.getUnitSize());
-    int distance_sq_lat;
-    for(auto object_it=objects.begin();object_it!=objects.end();++object_it){
-        coords2 = (*object_it)->getCoords();
-        if(lattice.isXPeriodic() && 2*abs(coords2.x-coords.x)>lattice.getLength()){
-            dx = -lattice.getLength();
-        }
-        else{
-            dx = 0;
-        }
-        if(lattice.isYPeriodic() && 2*abs(coords2.y-coords.y)>lattice.getWidth()){
-            dy = -lattice.getWidth();
-        }
-        else{
-            dy = 0;
-        }
-        if(lattice.isZPeriodic() && 2*abs(coords2.z-coords.z)>lattice.getHeight()){
-            dz = -lattice.getHeight();
-        }
-        else{
-            dz = 0;
-        }
-        distance_sq_lat = (abs(coords2.x-coords.x)+dx)*(abs(coords2.x-coords.x)+dx)+(abs(coords2.y-coords.y)+dy)*(abs(coords2.y-coords.y)+dy)+(abs(coords2.z-coords.z)+dz)*(abs(coords2.z-coords.z)+dz);
-        if(distance_sq_lat<=recalc_cutoff_sq_lat){
-            object_ptrs.push_back(*object_it);
-        }
-    }
-    return object_ptrs;
+vector<Object*> Simulation::findRecalcNeighbors(const Coords& coords) const {
+	vector<Object*> object_ptrs;
+	object_ptrs.reserve(10);
+	Coords coords2;
+	const static int recalc_cutoff_sq_lat = (int)((Recalc_cutoff / lattice.getUnitSize())*(Recalc_cutoff / lattice.getUnitSize()));
+	int distance_sq_lat;
+	for (auto object_it = objects.begin(); object_it != objects.end(); ++object_it) {
+		coords2 = (*object_it)->getCoords();
+		distance_sq_lat = lattice.calculateLatticeDistanceSquared(coords, coords2);
+		if (distance_sq_lat <= recalc_cutoff_sq_lat) {
+			object_ptrs.push_back(*object_it);
+		}
+	}
+	return object_ptrs;
 }
 
-vector<Object*> Simulation::getAllObjectPtrs() const{
-    vector<Object*> object_ptrs;
-    object_ptrs.reserve(objects.size());
-    for(auto object_it=objects.begin();object_it!=objects.end();++object_it){
-        object_ptrs.push_back(*object_it);
-    }
-    return object_ptrs;
+vector<Object*> Simulation::getAllObjectPtrs() const {
+	vector<Object*> object_ptrs;
+	object_ptrs.reserve(objects.size());
+	for (auto object_it = objects.begin(); object_it != objects.end(); ++object_it) {
+		object_ptrs.push_back(*object_it);
+	}
+	return object_ptrs;
 }
 
-int Simulation::getId() const{
-    return Id;
+int Simulation::getId() const {
+	return Id;
 }
 
-long int Simulation::getN_events_executed() const{
-    return N_events_executed;
+long int Simulation::getN_events_executed() const {
+	return N_events_executed;
 }
 
-int Simulation::getTemp() const{
-    return Temperature;
+int Simulation::getTemp() const {
+	return Temperature;
 }
 
-double Simulation::getTime() const{
-    return Time;
+double Simulation::getTime() const {
+	return Time;
 }
 
-bool Simulation::isLoggingEnabled() const{
-    return Enable_logging;
+bool Simulation::isLoggingEnabled() const {
+	return Enable_logging;
 }
 
-void Simulation::moveObject(Object* object_ptr,const Coords& coords_dest){
+void Simulation::moveObject(Object* object_ptr, const Coords& coords_dest) {
 	Coords coords_initial = object_ptr->getCoords();
-    // Clear occupancy of initial site
+	// Clear occupancy of initial site
 	lattice.clearOccupancy(coords_initial);
-    // Check for periodic boundary crossing
-	object_ptr->incrementDX(-lattice.calculateDX(coords_initial,coords_dest));
-	object_ptr->incrementDY(-lattice.calculateDY(coords_initial,coords_dest));
-	object_ptr->incrementDZ(-lattice.calculateDZ(coords_initial,coords_dest));
-    // Set object coords to new site
-    object_ptr->setCoords(coords_dest);
-    // Set occupancy of new site
+	// Check for periodic boundary crossing
+	object_ptr->incrementDX(-lattice.calculateDX(coords_initial, coords_dest));
+	object_ptr->incrementDY(-lattice.calculateDY(coords_initial, coords_dest));
+	object_ptr->incrementDZ(-lattice.calculateDZ(coords_initial, coords_dest));
+	// Set object coords to new site
+	object_ptr->setCoords(coords_dest);
+	// Set occupancy of new site
 	lattice.setOccupied(coords_dest);
-    (*lattice.getSiteIt(coords_dest))->setObjectPtr(object_ptr);
-    // Update counter
-    N_events_executed++;
+	(*lattice.getSiteIt(coords_dest))->setObjectPtr(object_ptr);
+	// Update counter
+	N_events_executed++;
 }
 
 double Simulation::rand01() {
 	return generate_canonical<double, std::numeric_limits<double>::digits>(gen);
 }
 
-void Simulation::removeEvent(Event* event_ptr){
-    events.remove(event_ptr);
+void Simulation::removeEvent(Event* event_ptr) {
+	bool success = false;
+	for (auto it = events.begin(); it != events.end(); ++it) {
+		if (*it == event_ptr) {
+			events.erase(it);
+			success = true;
+		}
+	}
+	if (!success) {
+		cout << "Error! The Event pointer could not be found in the event list and could not be removed." << endl;
+		Error_found = true;
+	}
 }
 
-void Simulation::removeObject(Object* object_ptr){
-    // Clear occupancy of site
+void Simulation::removeObject(Object* object_ptr) {
+	// Clear occupancy of site
 	lattice.clearOccupancy(object_ptr->getCoords());
-    // Delete the event pointer
-    events.remove(*object_ptr->getEventIt());
-    // Delete the object pointer
-    objects.remove(object_ptr);
+	// Delete the event pointer
+	removeEvent(*object_ptr->getEventIt());
+	// Delete the object pointer
+	bool success = false;
+	for (auto it = objects.begin(); it != objects.end(); ++it){
+		if (*it == object_ptr) {
+			objects.erase(it);
+			success = true;
+		}
+	}
     // Update counters
     N_objects--;
     N_events_executed++;
+	// Error checking
+	if (!success) {
+		cout << "Error! The Object pointer could not be found in the object list and could not be removed." << endl;
+		Error_found = true;
+	}
 }
 
 void Simulation::setEvent(const list<Event*>::iterator event_it,Event* event_ptr){
-    // Assign new pointer
-    *event_it = event_ptr;
+	*event_it = event_ptr;
 }
 
 void Simulation::setGeneratorSeed(int seed) {

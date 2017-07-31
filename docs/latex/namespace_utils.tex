@@ -2,7 +2,7 @@
 \label{namespace_utils}\index{Utils@{Utils}}
 
 
-This namespace provides useful constant and utility functions.  
+This namespace provides useful constants and utility functions.  
 
 
 \subsection*{Functions}
@@ -22,22 +22,24 @@ vector$<$ int $>$ \hyperlink{namespace_utils_a07efe2f58beb35b78d295a0b0dc1f660}{
 \begin{DoxyCompactList}\small\item\em Uses M\+PI to calculate the element-\/wise sum vector from separate vectors coming from different processors. \end{DoxyCompactList}\item 
 vector$<$ double $>$ \hyperlink{namespace_utils_af9a7e13279f18cd8d36ca98a7943a7e8}{M\+P\+I\+\_\+gather\+Vectors} (const vector$<$ double $>$ \&input\+\_\+vector)
 \begin{DoxyCompactList}\small\item\em Uses M\+PI to gather vectors from separate processors to build one big vector containing all of the data. \end{DoxyCompactList}\item 
+string \hyperlink{namespace_utils_aaa3265ae19d2fbd675a9d47d46f62b11}{remove\+Whitespace} (const string \&str)
+\begin{DoxyCompactList}\small\item\em Removes leading and trailing spaces surrounding a string. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\double \hyperlink{namespace_utils_aa76a204af4dd4c3eb151691825de2eb2}{array\+\_\+avg} (const T data\mbox{[}$\,$\mbox{]}, const int array\+\_\+size)
 \begin{DoxyCompactList}\small\item\em This template function calculates and returns the average value in double format when given an array of numerical datatypes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\double \hyperlink{namespace_utils_a25d09c704b5ae03f01cf76b6de10aa19}{array\+\_\+stdev} (const T data\mbox{[}$\,$\mbox{]}, const int array\+\_\+size)
 \begin{DoxyCompactList}\small\item\em This template function calculates and returns the standard deviation in double format when given an array of numerical datatypes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename base\+\_\+type $>$ }\\base\+\_\+type \hyperlink{namespace_utils_affd19edaa58a3f8425e1f7b4c9233f8a}{intpow} (const base\+\_\+type base, const int exponent)
-\begin{DoxyCompactList}\small\item\em The template function calculates and returns the results of an integer power operation on a base numerical datatype. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em This template function calculates and returns the results of an integer power operation on a base numerical datatype. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\void \hyperlink{namespace_utils_ae6b61a9030cf09d8cba2566a42c871df}{remove\+Duplicates} (vector$<$ T $>$ \&vec)
 \begin{DoxyCompactList}\small\item\em This template function efficienctly removes the duplicate entries from an input vector. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T , typename A $>$ }\\double \hyperlink{namespace_utils_aadb08a5b50d04b076f4348a8f752932b}{vector\+\_\+avg} (const vector$<$ T, A $>$ \&data)
-\item 
+\begin{DoxyCompactList}\small\item\em This template function calculates and returns the average value in double format when given a vector of numerical datatypes. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T , typename A $>$ }\\double \hyperlink{namespace_utils_a04daea5e4b4bb28117b09e1abae4ec5c}{vector\+\_\+stdev} (const vector$<$ T, A $>$ \&data)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-This namespace provides useful constant and utility functions. 
+This namespace provides useful constants and utility functions. 
 
 \begin{DoxyCopyright}{Copyright}
 M\+IT License. For more information, see the L\+I\+C\+E\+N\+SE file that accompanies this software package. 
@@ -103,9 +105,9 @@ The standard deviation of the data set in double format.
 
 Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail. 
 
-The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy chose for the exponential size, so that the distribution function is continuous. 
+The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy chosen for the exponential side, so that the distribution function is continuous. 
 \begin{DoxyParams}{Parameters}
-{\em data} & is the data vector where the numbers will be placed, which should be preallocated to the desired size. \\
+{\em data} & is the data vector where the random numbers will be placed, which must be preallocated to the desired size. \\
 \hline
 {\em mode} & is the value of the peak of the distribution. \\
 \hline
@@ -126,7 +128,7 @@ Creates a vector of doubles that has a Gaussian distribution.
 
 
 \begin{DoxyParams}{Parameters}
-{\em data} & is the data vector where the numbers will be placed, which should be preallocated to the desired size. \\
+{\em data} & is the data vector where the numbers will be placed, which must be preallocated to the desired size. \\
 \hline
 {\em mean} & is the position of the peak and center of the distribution. \\
 \hline
@@ -166,7 +168,7 @@ base\+\_\+type Utils\+::intpow (\begin{DoxyParamCaption}\item[{const base\+\_\+t
 
 
 
-The template function calculates and returns the results of an integer power operation on a base numerical datatype. 
+This template function calculates and returns the results of an integer power operation on a base numerical datatype. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -274,6 +276,24 @@ This algorithm allow efficient removal of duplicate vector objects when $>$ or $
 {\em vec} & is the input vector to be operated on. \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{namespace_utils_aaa3265ae19d2fbd675a9d47d46f62b11}\label{namespace_utils_aaa3265ae19d2fbd675a9d47d46f62b11}} 
+\index{Utils@{Utils}!remove\+Whitespace@{remove\+Whitespace}}
+\index{remove\+Whitespace@{remove\+Whitespace}!Utils@{Utils}}
+\subsubsection{\texorpdfstring{remove\+Whitespace()}{removeWhitespace()}}
+{\footnotesize\ttfamily string Utils\+::remove\+Whitespace (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})}
+
+
+
+Removes leading and trailing spaces surrounding a string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & is the input string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a new string that will have the surrounding spaces removed. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{namespace_utils_aadb08a5b50d04b076f4348a8f752932b}\label{namespace_utils_aadb08a5b50d04b076f4348a8f752932b}} 
 \index{Utils@{Utils}!vector\+\_\+avg@{vector\+\_\+avg}}
 \index{vector\+\_\+avg@{vector\+\_\+avg}!Utils@{Utils}}
@@ -281,7 +301,11 @@ This algorithm allow efficient removal of duplicate vector objects when $>$ or $
 {\footnotesize\ttfamily template$<$typename T , typename A $>$ \\
 double Utils\+::vector\+\_\+avg (\begin{DoxyParamCaption}\item[{const vector$<$ T, A $>$ \&}]{data }\end{DoxyParamCaption})}
 
+
+
 This template function calculates and returns the average value in double format when given a vector of numerical datatypes. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em data} & is the vector of numerical data. \\
 \hline
@@ -296,7 +320,11 @@ The average of the data set in double format.
 {\footnotesize\ttfamily template$<$typename T , typename A $>$ \\
 double Utils\+::vector\+\_\+stdev (\begin{DoxyParamCaption}\item[{const vector$<$ T, A $>$ \&}]{data }\end{DoxyParamCaption})}
 
+
+
 This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em data} & is the vector of numerical data. \\
 \hline
