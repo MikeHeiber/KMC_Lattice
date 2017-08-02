@@ -143,6 +143,7 @@ void Simulation::removeEvent(Event* event_ptr) {
 		if (*it == event_ptr) {
 			events.erase(it);
 			success = true;
+			break;
 		}
 	}
 	if (!success) {
@@ -162,6 +163,7 @@ void Simulation::removeObject(Object* object_ptr) {
 		if (*it == object_ptr) {
 			objects.erase(it);
 			success = true;
+			break;
 		}
 	}
     // Update counters

@@ -92,6 +92,15 @@ $(document).ready(function(){initNavTree('namespace_utils.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7ba881f36f5b29cbe039c329a2f5dd5c"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a7ba881f36f5b29cbe039c329a2f5dd5c">calculateProbabilityHist</a> (const vector&lt; double &gt; &amp;data, int num_bins)</td></tr>
+<tr class="memdesc:a7ba881f36f5b29cbe039c329a2f5dd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input number of bins.  <a href="#a7ba881f36f5b29cbe039c329a2f5dd5c">More...</a><br /></td></tr>
+<tr class="separator:a7ba881f36f5b29cbe039c329a2f5dd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0d4a17325f78a263879cdb9f04190d2"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ae0d4a17325f78a263879cdb9f04190d2">calculateProbabilityHist</a> (const vector&lt; double &gt; &amp;data, double bin_size)</td></tr>
+<tr class="memdesc:ae0d4a17325f78a263879cdb9f04190d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size.  <a href="#ae0d4a17325f78a263879cdb9f04190d2">More...</a><br /></td></tr>
+<tr class="separator:ae0d4a17325f78a263879cdb9f04190d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d27dec53fdab98a47fb93852085e9f1"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a8d27dec53fdab98a47fb93852085e9f1">calculateProbabilityHist</a> (const vector&lt; double &gt; &amp;data, const double bin_size, const int num_bins)</td></tr>
+<tr class="memdesc:a8d27dec53fdab98a47fb93852085e9f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size and input number of bins.  <a href="#a8d27dec53fdab98a47fb93852085e9f1">More...</a><br /></td></tr>
+<tr class="separator:a8d27dec53fdab98a47fb93852085e9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad895b1edcec8254af3279938d0ed4ac0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ad895b1edcec8254af3279938d0ed4ac0">createExponentialDOSVector</a> (vector&lt; double &gt; &amp;data, const double mode, const double urbach_energy, mt19937 &amp;gen)</td></tr>
 <tr class="memdesc:ad895b1edcec8254af3279938d0ed4ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.  <a href="#ad895b1edcec8254af3279938d0ed4ac0">More...</a><br /></td></tr>
 <tr class="separator:ad895b1edcec8254af3279938d0ed4ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +137,10 @@ Functions</h2></td></tr>
 <tr class="memitem:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="memTemplItemLeft" align="right" valign="top">base_type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#affd19edaa58a3f8425e1f7b4c9233f8a">intpow</a> (const base_type base, const int exponent)</td></tr>
 <tr class="memdesc:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the results of an integer power operation on a base numerical datatype.  <a href="#affd19edaa58a3f8425e1f7b4c9233f8a">More...</a><br /></td></tr>
 <tr class="separator:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a516ba09eb26dc6f773a26e0aeba2cfbd">outputVectorToFile</a> (vector&lt; T &gt; &amp;vec, string filename)</td></tr>
+<tr class="memdesc:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function outputs the input data vector to a file with the specified filename.  <a href="#a516ba09eb26dc6f773a26e0aeba2cfbd">More...</a><br /></td></tr>
+<tr class="separator:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ae6b61a9030cf09d8cba2566a42c871df">removeDuplicates</a> (vector&lt; T &gt; &amp;vec)</td></tr>
 <tr class="memdesc:ae6b61a9030cf09d8cba2566a42c871df"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function efficienctly removes the duplicate entries from an input vector.  <a href="#ae6b61a9030cf09d8cba2566a42c871df">More...</a><br /></td></tr>
@@ -224,6 +237,127 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The standard deviation of the data set in double format. </dd></dl>
+
+</div>
+</div>
+<a id="a7ba881f36f5b29cbe039c329a2f5dd5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba881f36f5b29cbe039c329a2f5dd5c">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_bins</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the probability histogram for the input data vector using the input number of bins. </p>
+<p>Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">num_bins</td><td>is the desired number of bins. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of x-y pairs consisting of bin-centered x values and probability y values. </dd></dl>
+
+</div>
+</div>
+<a id="ae0d4a17325f78a263879cdb9f04190d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0d4a17325f78a263879cdb9f04190d2">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>bin_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the probability histogram for the input data vector using the input bin size. </p>
+<p>Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. with the specified bin spacing. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">bin_size</td><td>is the desired bin size. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of x-y pairs consisting of bin-centered x values and probability y values. </dd></dl>
+
+</div>
+</div>
+<a id="a8d27dec53fdab98a47fb93852085e9f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d27dec53fdab98a47fb93852085e9f1">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>bin_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>num_bins</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the probability histogram for the input data vector using the input bin size and input number of bins. </p>
+<p>Linearly spaced bins are automatically created starting from the minimum value of the data set. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">num_bins</td><td>is the number of bins that will be created. </td></tr>
+    <tr><td class="paramname">bin_size</td><td>is the input bin size. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of x-y pairs consisting of bin-centered x values and probability y values. </dd></dl>
 
 </div>
 </div>
@@ -522,6 +656,46 @@ An empty vector when called on other processors. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A vector that is a concatenation of all input vectors from each processor, when called on processor 0. </dd>
 <dd>
 An empty vector when called on other processors. </dd></dl>
+
+</div>
+</div>
+<a id="a516ba09eb26dc6f773a26e0aeba2cfbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a516ba09eb26dc6f773a26e0aeba2cfbd">&#9670;&nbsp;</a></span>outputVectorToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Utils::outputVectorToFile </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This template function outputs the input data vector to a file with the specified filename. </p>
+<dl class="section warning"><dt>Warning</dt><dd>This function may overwrite existing files if not used carefully. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">filename</td><td>is the input file name. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

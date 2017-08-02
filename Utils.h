@@ -67,6 +67,31 @@ namespace Utils {
 	static constexpr double Pi = 3.14159265359;
 	static constexpr double Coulomb_constant = 8.987551787e9; // N m^2 C^-2
 
+	//! \brief Calculates the probability histogram for the input data vector using the input number of bins.
+	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. 
+	//! The function outputs bin-centered x values and probability y values in a x-y pair vector.
+	//! \param data is the input data vector.
+	//! \param num_bins is the desired number of bins.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
+	vector<pair<double,double>> calculateProbabilityHist(const vector<double>& data, int num_bins);
+
+	//! \brief Calculates the probability histogram for the input data vector using the input bin size.
+	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. 
+	//! with the specified bin spacing. The function outputs bin-centered x values and probability y values in a x-y pair vector.
+	//! \param data is the input data vector.
+	//! \param bin_size is the desired bin size.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
+	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, double bin_size);
+
+	//! \brief Calculates the probability histogram for the input data vector using the input bin size and input number of bins.
+	//! \details Linearly spaced bins are automatically created starting from the minimum value of the data set. The function
+	//! outputs bin-centered x values and probability y values in a x-y pair vector.
+	//! \param data is the input data vector.
+	//! \param num_bins is the number of bins that will be created.
+	//! \param bin_size is the input bin size.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
+	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, const double bin_size, const int num_bins);
+
 	//! \brief Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.
 	//! \details The created distribution is Gaussian in the positive direction relative to the mode and exponential in 
 	//! the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy
@@ -183,6 +208,20 @@ namespace Utils {
 			result = 1.0 / result;
 		}
 		return result;
+	}
+
+	//! \brief This template function outputs the input data vector to a file with the specified filename.
+	//! \warning This function may overwrite existing files if not used carefully.
+	//! \param vec is the input data vector.
+	//! \param filename is the input file name.
+	template<typename T>
+	void outputVectorToFile(vector<T>& vec, string filename) {
+		ofstream outfile;
+		outfile.open(filename);
+		for (int i = 0; i < (int)vec.size(); i++) {
+			outfile << vec[i] << "\n";
+		}
+		outfile.close();
 	}
 
 	//! \brief This template function efficienctly removes the duplicate entries from an input vector.
