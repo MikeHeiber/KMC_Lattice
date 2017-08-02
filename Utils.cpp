@@ -7,6 +7,93 @@
 
 namespace Utils {
 
+	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, int num_bins) {
+		// Determine data range
+		double min_val, max_val;
+		auto min_it = min_element(data.begin(), data.end());
+		if (min_it != data.end()) {
+			min_val = *min_it;
+		}
+		else {
+			cout << "Minimum value not found. Data vector has " << data.size() << " elements." << endl;
+		}
+		auto max_it = max_element(data.begin(), data.end());
+		if (max_it != data.end()) {
+			max_val = *max_it;
+		}
+		else {
+			cout << "Maximum value not found. Data vector has " << data.size() << " elements." << endl;
+		}
+		// Limit the number of bins to the number of data entries
+		if (num_bins > (int)data.size()) {
+			num_bins = (int)data.size();
+		}
+		// Determine bin size
+		double bin_size = (max_val - min_val) / (double)num_bins;
+		return calculateProbabilityHist(data, bin_size, num_bins);
+	}
+
+	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, double bin_size) {
+		// Determine data range
+		double min_val, max_val;
+		auto min_it = min_element(data.begin(), data.end());
+		if (min_it != data.end()) {
+			min_val = *min_it;
+		}
+		else {
+			cout << "Minimum value not found. Data vector has " << data.size() << " elements." << endl;
+		}
+		auto max_it = max_element(data.begin(), data.end());
+		if (max_it != data.end()) {
+			max_val = *max_it;
+		}
+		else {
+			cout << "Maximum value not found. Data vector has " << data.size() << " elements." << endl;
+		}
+		// Determine number of bins
+		int num_bins = (int)ceil((max_val - min_val) / bin_size);
+		// Limit the number of bins to the number of data entries
+		if (num_bins > (int)data.size()) {
+			num_bins = (int)data.size();
+			bin_size = (max_val - min_val) / (double)num_bins;
+		}
+		return calculateProbabilityHist(data, bin_size, num_bins);
+	}
+
+	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, const double bin_size, const int num_bins) {
+		// Determine number of bins
+		double min_val;
+		auto min_it = min_element(data.begin(), data.end());
+		if (min_it != data.end()) {
+			min_val = *min_it;
+		}
+		else {
+			cout << "Minimum value not found. Data vector has " << data.size() << " elements." << endl;
+		}
+		// Calculate bin-centered x values
+		vector<pair<double, double>> hist(num_bins, make_pair(0.0, 0.0));
+		for (int i = 0; i < num_bins; i++) {
+			hist[i].first = min_val + 0.5*bin_size + bin_size*(i + 1);
+		}
+		// Calculate histogram
+		vector<int> counts(num_bins, 0);
+		int index;
+		for (int i = 0; i < (int)data.size(); i++) {
+			index = (int)floor((data[i] - min_val) / bin_size);
+			counts[index]++;
+		}
+		// Calculate total area
+		double area = 0.0;
+		for (int i = 0; i < num_bins; i++) {
+			area += (double)counts[i]*bin_size;
+		}
+		// Normalized histogram to get probability
+		for (int i = 0; i < num_bins; i++) {
+			hist[i].second = (double)counts[i] / area;
+		}
+		return hist;
+	}
+
 	void createExponentialDOSVector(vector<double>& data, const double mode, const double urbach_energy, mt19937& gen) {
 		exponential_distribution<double> dist_exp(1.0 / urbach_energy);
 		auto rand_exp = bind(dist_exp, ref(gen));
