@@ -18,6 +18,7 @@ var class_lattice =
     [ "getHeight", "class_lattice.html#aaa0cba3ab33ac620d9b9f9508c56d1ac", null ],
     [ "getLength", "class_lattice.html#a4b43b67a36fcd3dfe62c9eeaffa561d2", null ],
     [ "getNumSites", "class_lattice.html#ae8046ebe4dbbe34b03548384ae79d4ae", null ],
+    [ "getSiteCoords", "class_lattice.html#a554b9d4e654f02246ffbeab24a670362", null ],
     [ "getSiteIndex", "class_lattice.html#abafcbcee9689c0cf7a21134095075604", null ],
     [ "getSiteIt", "class_lattice.html#a46f7d12855d24e1bdd02814621b0a178", null ],
     [ "getUnitSize", "class_lattice.html#ac6963a6b2b4b8d96d3417f6e9c2a509d", null ],

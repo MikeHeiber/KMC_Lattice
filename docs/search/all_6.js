@@ -5,6 +5,8 @@ var searchData=
   ['incrementdy',['incrementDY',['../class_object.html#a9df010818be72d15bad7985bf8a89ba0',1,'Object']]],
   ['incrementdz',['incrementDZ',['../class_object.html#a440b267c478f5d63db1954bdbd543408',1,'Object']]],
   ['init',['init',['../class_lattice.html#a4067a9617cc24fa60ca6b47fccb4c123',1,'Lattice::init()'],['../class_simulation.html#af88e5e0634b373ba28f1dd87670725a6',1,'Simulation::init()']]],
+  ['integratedata',['integrateData',['../namespace_utils.html#a38cf7cfa47983614ebec954154de6701',1,'Utils']]],
+  ['interpolatedata',['interpolateData',['../namespace_utils.html#a675b70a626c85b5171e6c469e845e9f2',1,'Utils']]],
   ['intpow',['intpow',['../namespace_utils.html#affd19edaa58a3f8425e1f7b4c9233f8a',1,'Utils']]],
   ['isloggingenabled',['isLoggingEnabled',['../class_simulation.html#ac7c8a49a4cc506b850891480e0aae512',1,'Simulation']]],
   ['isoccupied',['isOccupied',['../class_lattice.html#a4d37afb6ad4c67f4f6462c2f6d5c337d',1,'Lattice::isOccupied()'],['../class_site.html#a30991b768ded0bb441c5bb54a789160a',1,'Site::isOccupied()']]],

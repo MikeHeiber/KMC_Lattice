@@ -183,6 +183,15 @@ int Lattice::getNumSites() const{
 	return (int)site_ptrs.size();
 }
 
+Coords Lattice::getSiteCoords(int site_index) {
+	Coords coords;
+	coords.x = site_index / (Width*Height);
+	int remainder = site_index % (Width*Height);
+	coords.y = remainder / Height;
+	coords.z = remainder % Height;
+	return coords;
+}
+
 int Lattice::getSiteIndex(const Coords& coords) const{
 	return coords.x*Width*Height + coords.y*Height + coords.z;
 }

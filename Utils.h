@@ -58,7 +58,7 @@ struct Coords{
 //! \date 2017
 namespace Utils {
 
-	// Scientifc Constants
+	// Scientific Constants
 	static constexpr double K_b = 8.61733035e-5;
 	static constexpr double Elementary_charge = 1.602176621e-19; // C
 	static constexpr double Vacuum_permittivity = 8.854187818e-12; // C/Vm
@@ -115,6 +115,19 @@ namespace Utils {
 	//! \return true if the input string is "true".
 	//! \return flase if the input string is "flase".
 	bool importBooleanParam(const string& input, bool& error_status);
+
+	//! \brief Numerically integrates a vector of x-y data using the trapezoid rule.
+	//! \warning The function assumes that the data is sorted by the x values.
+	//! \param data is the data vector containing x-y data pairs.
+	//! \return the numerically calculated area.
+	double integrateData(const vector<pair<double, double>>& data);
+
+	//! \brief Linearly interpolates an x-y data set to determine the interpolated y-value corresponding to an input x-value.
+	//! \warning The function assumes that the data is sorted by the x values.
+	//! \param data is the data vector containing x-y data pairs.
+	//! \param x_val is the x-value that will be interpolated to.
+	//! \return the interpolated y-value when the input x-value lies within the range of the input data.
+	double interpolateData(const vector<pair<double, double>>& data, const double x_val);
 
 	//! \brief Uses MPI to calculate the element-wise average vector from separate vectors coming from different processors.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0 
@@ -220,6 +233,20 @@ namespace Utils {
 		outfile.open(filename);
 		for (int i = 0; i < (int)vec.size(); i++) {
 			outfile << vec[i] << "\n";
+		}
+		outfile.close();
+	}
+
+	//! \brief This template function outputs the input data pair vector to a file with the specified filename.
+	//! \warning This function may overwrite existing files if not used carefully.
+	//! \param vec is the input data pair vector.
+	//! \param filename is the input file name.
+	template<typename T>
+	void outputVectorToFile(vector<pair<T,T>>& vec, string filename) {
+		ofstream outfile;
+		outfile.open(filename);
+		for (int i = 0; i < (int)vec.size(); i++) {
+			outfile << vec[i].first << "," << vec[i].second << "\n";
 		}
 		outfile.close();
 	}

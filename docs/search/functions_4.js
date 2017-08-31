@@ -18,6 +18,7 @@ var searchData=
   ['getnumsites',['getNumSites',['../class_lattice.html#ae8046ebe4dbbe34b03548384ae79d4ae',1,'Lattice']]],
   ['getobjectptr',['getObjectPtr',['../class_event.html#a5317d42bb07d0e75bec0c13bd9bf6de8',1,'Event::getObjectPtr()'],['../class_site.html#aecb14e440914b4d3d4aa7294419791e2',1,'Site::getObjectPtr()']]],
   ['getobjecttargetptr',['getObjectTargetPtr',['../class_event.html#ab86f724c3c894faa1d6ccca78c357d24',1,'Event']]],
+  ['getsitecoords',['getSiteCoords',['../class_lattice.html#a554b9d4e654f02246ffbeab24a670362',1,'Lattice']]],
   ['getsiteindex',['getSiteIndex',['../class_lattice.html#abafcbcee9689c0cf7a21134095075604',1,'Lattice']]],
   ['getsiteit',['getSiteIt',['../class_lattice.html#a46f7d12855d24e1bdd02814621b0a178',1,'Lattice']]],
   ['gettag',['getTag',['../class_object.html#aa9653577e8d0ac4b7b86d23d12f8b31b',1,'Object']]],

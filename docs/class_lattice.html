@@ -152,6 +152,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8046ebe4dbbe34b03548384ae79d4ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#ae8046ebe4dbbe34b03548384ae79d4ae">getNumSites</a> () const</td></tr>
 <tr class="memdesc:ae8046ebe4dbbe34b03548384ae79d4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of sites contained in the lattice.  <a href="#ae8046ebe4dbbe34b03548384ae79d4ae">More...</a><br /></td></tr>
 <tr class="separator:ae8046ebe4dbbe34b03548384ae79d4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a554b9d4e654f02246ffbeab24a670362"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_coords.html">Coords</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a554b9d4e654f02246ffbeab24a670362">getSiteCoords</a> (int site_index)</td></tr>
+<tr class="memdesc:a554b9d4e654f02246ffbeab24a670362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the coordinates of the specified site.  <a href="#a554b9d4e654f02246ffbeab24a670362">More...</a><br /></td></tr>
+<tr class="separator:a554b9d4e654f02246ffbeab24a670362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abafcbcee9689c0cf7a21134095075604"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#abafcbcee9689c0cf7a21134095075604">getSiteIndex</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords) const</td></tr>
 <tr class="memdesc:abafcbcee9689c0cf7a21134095075604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the vector index for the site corresponding to the input coordinates.  <a href="#abafcbcee9689c0cf7a21134095075604">More...</a><br /></td></tr>
 <tr class="separator:abafcbcee9689c0cf7a21134095075604"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -779,6 +782,33 @@ false if a move event is not possible. </dd></dl>
 
 <p>Gets the number of sites contained in the lattice. </p>
 <dl class="section return"><dt>Returns</dt><dd>The number of sites in the lattice. </dd></dl>
+
+</div>
+</div>
+<a id="a554b9d4e654f02246ffbeab24a670362"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a554b9d4e654f02246ffbeab24a670362">&#9670;&nbsp;</a></span>getSiteCoords()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_coords.html">Coords</a> Lattice::getSiteCoords </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>site_index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the coordinates of the specified site. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">site_index</td><td>is the vector index of the input site </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="struct_coords.html" title="This simple struct contains Cartesian coordinates specified by integers x,y,z. ">Coords</a> object that contains the coordinates of the site specified by the site index. </dd></dl>
 
 </div>
 </div>
