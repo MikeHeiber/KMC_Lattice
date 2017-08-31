@@ -162,6 +162,11 @@ class Lattice{
 		//! \return The number of sites in the lattice.
 		int getNumSites() const;
 
+		//! \brief Gets the coordinates of the specified site.
+		//! \param site_index is the vector index of the input site
+		//! \return a Coords object that contains the coordinates of the site specified by the site index.
+		Coords getSiteCoords(int site_index);
+
 		//! \brief Gets the vector index for the site corresponding to the input coordinates.
 		//! \param coords is the Coords struct that represents the input coordinates.
 		//! \return The vector index for the sites vector that is associated with the site located at the input coordinates.

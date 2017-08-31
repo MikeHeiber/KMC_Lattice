@@ -110,6 +110,12 @@ Functions</h2></td></tr>
 <tr class="memitem:afac80acf3a99a5cd96b84bffb4becbb4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#afac80acf3a99a5cd96b84bffb4becbb4">importBooleanParam</a> (const string &amp;input, bool &amp;error_status)</td></tr>
 <tr class="memdesc:afac80acf3a99a5cd96b84bffb4becbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts a boolean value from a string containing "true" or "false".  <a href="#afac80acf3a99a5cd96b84bffb4becbb4">More...</a><br /></td></tr>
 <tr class="separator:afac80acf3a99a5cd96b84bffb4becbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38cf7cfa47983614ebec954154de6701"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a38cf7cfa47983614ebec954154de6701">integrateData</a> (const vector&lt; pair&lt; double, double &gt;&gt; &amp;data)</td></tr>
+<tr class="memdesc:a38cf7cfa47983614ebec954154de6701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numerically integrates a vector of x-y data using the trapezoid rule.  <a href="#a38cf7cfa47983614ebec954154de6701">More...</a><br /></td></tr>
+<tr class="separator:a38cf7cfa47983614ebec954154de6701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675b70a626c85b5171e6c469e845e9f2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a675b70a626c85b5171e6c469e845e9f2">interpolateData</a> (const vector&lt; pair&lt; double, double &gt;&gt; &amp;data, const double x_val)</td></tr>
+<tr class="memdesc:a675b70a626c85b5171e6c469e845e9f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates an x-y data set to determine the interpolated y-value corresponding to an input x-value.  <a href="#a675b70a626c85b5171e6c469e845e9f2">More...</a><br /></td></tr>
+<tr class="separator:a675b70a626c85b5171e6c469e845e9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a27519719bf1493bb2b4f56b0019c9"><td class="memItemLeft" align="right" valign="top">vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ac9a27519719bf1493bb2b4f56b0019c9">MPI_calculateVectorAvg</a> (const vector&lt; double &gt; &amp;input_vector)</td></tr>
 <tr class="memdesc:ac9a27519719bf1493bb2b4f56b0019c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to calculate the element-wise average vector from separate vectors coming from different processors.  <a href="#ac9a27519719bf1493bb2b4f56b0019c9">More...</a><br /></td></tr>
 <tr class="separator:ac9a27519719bf1493bb2b4f56b0019c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,6 +147,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a516ba09eb26dc6f773a26e0aeba2cfbd">outputVectorToFile</a> (vector&lt; T &gt; &amp;vec, string filename)</td></tr>
 <tr class="memdesc:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function outputs the input data vector to a file with the specified filename.  <a href="#a516ba09eb26dc6f773a26e0aeba2cfbd">More...</a><br /></td></tr>
 <tr class="separator:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53e70969b810e3793f036f6b4df35727"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a53e70969b810e3793f036f6b4df35727"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a53e70969b810e3793f036f6b4df35727">outputVectorToFile</a> (vector&lt; pair&lt; T, T &gt;&gt; &amp;vec, string filename)</td></tr>
+<tr class="memdesc:a53e70969b810e3793f036f6b4df35727"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function outputs the input data pair vector to a file with the specified filename.  <a href="#a53e70969b810e3793f036f6b4df35727">More...</a><br /></td></tr>
+<tr class="separator:a53e70969b810e3793f036f6b4df35727"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ae6b61a9030cf09d8cba2566a42c871df">removeDuplicates</a> (vector&lt; T &gt; &amp;vec)</td></tr>
 <tr class="memdesc:ae6b61a9030cf09d8cba2566a42c871df"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function efficienctly removes the duplicate entries from an input vector.  <a href="#ae6b61a9030cf09d8cba2566a42c871df">More...</a><br /></td></tr>
@@ -503,6 +513,73 @@ flase if the input string is "flase". </dd></dl>
 
 </div>
 </div>
+<a id="a38cf7cfa47983614ebec954154de6701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38cf7cfa47983614ebec954154de6701">&#9670;&nbsp;</a></span>integrateData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Utils::integrateData </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; pair&lt; double, double &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Numerically integrates a vector of x-y data using the trapezoid rule. </p>
+<dl class="section warning"><dt>Warning</dt><dd>The function assumes that the data is sorted by the x values. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the data vector containing x-y data pairs. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the numerically calculated area. </dd></dl>
+
+</div>
+</div>
+<a id="a675b70a626c85b5171e6c469e845e9f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675b70a626c85b5171e6c469e845e9f2">&#9670;&nbsp;</a></span>interpolateData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Utils::interpolateData </td>
+          <td>(</td>
+          <td class="paramtype">const vector&lt; pair&lt; double, double &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>x_val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linearly interpolates an x-y data set to determine the interpolated y-value corresponding to an input x-value. </p>
+<dl class="section warning"><dt>Warning</dt><dd>The function assumes that the data is sorted by the x values. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the data vector containing x-y data pairs. </td></tr>
+    <tr><td class="paramname">x_val</td><td>is the x-value that will be interpolated to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the interpolated y-value when the input x-value lies within the range of the input data. </dd></dl>
+
+</div>
+</div>
 <a id="affd19edaa58a3f8425e1f7b4c9233f8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#affd19edaa58a3f8425e1f7b4c9233f8a">&#9670;&nbsp;</a></span>intpow()</h2>
 
@@ -660,7 +737,7 @@ An empty vector when called on other processors. </dd></dl>
 </div>
 </div>
 <a id="a516ba09eb26dc6f773a26e0aeba2cfbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a516ba09eb26dc6f773a26e0aeba2cfbd">&#9670;&nbsp;</a></span>outputVectorToFile()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a516ba09eb26dc6f773a26e0aeba2cfbd">&#9670;&nbsp;</a></span>outputVectorToFile() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -692,6 +769,46 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vec</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">filename</td><td>is the input file name. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a53e70969b810e3793f036f6b4df35727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53e70969b810e3793f036f6b4df35727">&#9670;&nbsp;</a></span>outputVectorToFile() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Utils::outputVectorToFile </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; pair&lt; T, T &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This template function outputs the input data pair vector to a file with the specified filename. </p>
+<dl class="section warning"><dt>Warning</dt><dd>This function may overwrite existing files if not used carefully. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>is the input data pair vector. </td></tr>
     <tr><td class="paramname">filename</td><td>is the input file name. </td></tr>
   </table>
   </dd>
