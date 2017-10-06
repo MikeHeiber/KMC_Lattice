@@ -113,6 +113,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a48e9e82f9dac1acec5d063a9f6f6115e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a48e9e82f9dac1acec5d063a9f6f6115e">executeNextEvent</a> ()=0</td></tr>
 <tr class="memdesc:a48e9e82f9dac1acec5d063a9f6f6115e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the next event in the simulation.  <a href="#a48e9e82f9dac1acec5d063a9f6f6115e">More...</a><br /></td></tr>
 <tr class="separator:a48e9e82f9dac1acec5d063a9f6f6115e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d88f18a1ba988d7e77b8be8de5b10d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a7d88f18a1ba988d7e77b8be8de5b10d1">getN_events</a> () const</td></tr>
+<tr class="memdesc:a7d88f18a1ba988d7e77b8be8de5b10d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of events that are currently in the event list.  <a href="#a7d88f18a1ba988d7e77b8be8de5b10d1">More...</a><br /></td></tr>
+<tr class="separator:a7d88f18a1ba988d7e77b8be8de5b10d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52cb5564151421cbefaca56357738de7"><td class="memItemLeft" align="right" valign="top"><a id="a52cb5564151421cbefaca56357738de7"></a>
 long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a52cb5564151421cbefaca56357738de7">getN_events_executed</a> () const</td></tr>
 <tr class="memdesc:a52cb5564151421cbefaca56357738de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of events that have been executed in the simulation. <br /></td></tr>
@@ -141,20 +144,20 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4b84249d359723e00ec4ae77164c8b7d"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_event.html">Event</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a4b84249d359723e00ec4ae77164c8b7d">addEvent</a> (<a class="el" href="class_event.html">Event</a> *event_ptr)</td></tr>
+<tr class="memitem:a4b84249d359723e00ec4ae77164c8b7d"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="class_event.html">Event</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a4b84249d359723e00ec4ae77164c8b7d">addEvent</a> (<a class="el" href="class_event.html">Event</a> *event_ptr)</td></tr>
 <tr class="memdesc:a4b84249d359723e00ec4ae77164c8b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a pointer to an <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> object to the event list and returns the iterator to its position in the list.  <a href="#a4b84249d359723e00ec4ae77164c8b7d">More...</a><br /></td></tr>
 <tr class="separator:a4b84249d359723e00ec4ae77164c8b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e0f43c4e11eda5486054c250f4de08f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a1e0f43c4e11eda5486054c250f4de08f">addObject</a> (<a class="el" href="class_object.html">Object</a> *object_ptr)</td></tr>
 <tr class="memdesc:a1e0f43c4e11eda5486054c250f4de08f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a pointer to an <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> object to the object list.  <a href="#a1e0f43c4e11eda5486054c250f4de08f">More...</a><br /></td></tr>
 <tr class="separator:a1e0f43c4e11eda5486054c250f4de08f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a401d40509ba367a28702873a0d65188d"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_event.html">Event</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a401d40509ba367a28702873a0d65188d">chooseNextEvent</a> ()</td></tr>
+<tr class="memitem:a401d40509ba367a28702873a0d65188d"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="class_event.html">Event</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a401d40509ba367a28702873a0d65188d">chooseNextEvent</a> ()</td></tr>
 <tr class="memdesc:a401d40509ba367a28702873a0d65188d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the event list and determines which event will be executed next.  <a href="#a401d40509ba367a28702873a0d65188d">More...</a><br /></td></tr>
 <tr class="separator:a401d40509ba367a28702873a0d65188d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6501dc60b4a3981f6ca44cec861364a"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#aa6501dc60b4a3981f6ca44cec861364a">findRecalcNeighbors</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords) const</td></tr>
+<tr class="memitem:aa6501dc60b4a3981f6ca44cec861364a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#aa6501dc60b4a3981f6ca44cec861364a">findRecalcNeighbors</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords) const</td></tr>
 <tr class="memdesc:aa6501dc60b4a3981f6ca44cec861364a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locates and returns a vector of pointers to all <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> objects near the input coordinates within the Recalc_cutoff radius.  <a href="#aa6501dc60b4a3981f6ca44cec861364a">More...</a><br /></td></tr>
 <tr class="separator:aa6501dc60b4a3981f6ca44cec861364a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a620684b9ac1fb07344c4c2237ed9f352"><td class="memItemLeft" align="right" valign="top"><a id="a620684b9ac1fb07344c4c2237ed9f352"></a>
-vector&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a620684b9ac1fb07344c4c2237ed9f352">getAllObjectPtrs</a> () const</td></tr>
+std::vector&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a620684b9ac1fb07344c4c2237ed9f352">getAllObjectPtrs</a> () const</td></tr>
 <tr class="memdesc:a620684b9ac1fb07344c4c2237ed9f352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of pointers to all <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> objects in the simulation. <br /></td></tr>
 <tr class="separator:a620684b9ac1fb07344c4c2237ed9f352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b10f51640088366d0d1278361817e8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a7b10f51640088366d0d1278361817e8d">moveObject</a> (<a class="el" href="class_object.html">Object</a> *object_ptr, const <a class="el" href="struct_coords.html">Coords</a> &amp;dest_coords)</td></tr>
@@ -166,23 +169,23 @@ vector&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><t
 <tr class="memitem:a39da17feb9b487c05c9a834def44972f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a39da17feb9b487c05c9a834def44972f">removeObject</a> (<a class="el" href="class_object.html">Object</a> *object_ptr)</td></tr>
 <tr class="memdesc:a39da17feb9b487c05c9a834def44972f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> pointer from the base simulation class.  <a href="#a39da17feb9b487c05c9a834def44972f">More...</a><br /></td></tr>
 <tr class="separator:a39da17feb9b487c05c9a834def44972f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a122928940c1301d71f19700b574f9e37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a122928940c1301d71f19700b574f9e37">setEvent</a> (const list&lt; <a class="el" href="class_event.html">Event</a> *&gt;::iterator event_it, <a class="el" href="class_event.html">Event</a> *event_ptr)</td></tr>
-<tr class="memdesc:a122928940c1301d71f19700b574f9e37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer in the event list indicated by the input iterator to the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer.  <a href="#a122928940c1301d71f19700b574f9e37">More...</a><br /></td></tr>
-<tr class="separator:a122928940c1301d71f19700b574f9e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4490fc0d8bb8a36b0ff581148ab85a14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a4490fc0d8bb8a36b0ff581148ab85a14">setEvent</a> (const std::list&lt; <a class="el" href="class_event.html">Event</a> *&gt;::iterator event_it, <a class="el" href="class_event.html">Event</a> *event_ptr)</td></tr>
+<tr class="memdesc:a4490fc0d8bb8a36b0ff581148ab85a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer in the event list indicated by the input iterator to the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer.  <a href="#a4490fc0d8bb8a36b0ff581148ab85a14">More...</a><br /></td></tr>
+<tr class="separator:a4490fc0d8bb8a36b0ff581148ab85a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1affa7d0725c3d10663095619dcb9208"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a1affa7d0725c3d10663095619dcb9208">updateTime</a> (const double input_time)</td></tr>
 <tr class="memdesc:a1affa7d0725c3d10663095619dcb9208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the simulation time with the input time.  <a href="#a1affa7d0725c3d10663095619dcb9208">More...</a><br /></td></tr>
 <tr class="separator:a1affa7d0725c3d10663095619dcb9208"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:acdfae37bde7eb7e895d29e210c1f8bcc"><td class="memItemLeft" align="right" valign="top"><a id="acdfae37bde7eb7e895d29e210c1f8bcc"></a>
-mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#acdfae37bde7eb7e895d29e210c1f8bcc">gen</a></td></tr>
-<tr class="memdesc:acdfae37bde7eb7e895d29e210c1f8bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator. <br /></td></tr>
-<tr class="separator:acdfae37bde7eb7e895d29e210c1f8bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cdc6b74a1a2efb1e031bbaac603c6ad"><td class="memItemLeft" align="right" valign="top"><a id="a7cdc6b74a1a2efb1e031bbaac603c6ad"></a>
-ofstream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a7cdc6b74a1a2efb1e031bbaac603c6ad">Logfile</a></td></tr>
-<tr class="memdesc:a7cdc6b74a1a2efb1e031bbaac603c6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to an output file stream that is used to print log messages to a logfile when logging is enabled. <br /></td></tr>
-<tr class="separator:a7cdc6b74a1a2efb1e031bbaac603c6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80d697e885e6fa3a0ab688b25b366194"><td class="memItemLeft" align="right" valign="top"><a id="a80d697e885e6fa3a0ab688b25b366194"></a>
+std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a80d697e885e6fa3a0ab688b25b366194">gen</a></td></tr>
+<tr class="memdesc:a80d697e885e6fa3a0ab688b25b366194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator. <br /></td></tr>
+<tr class="separator:a80d697e885e6fa3a0ab688b25b366194"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a741321a0bbc89d51b969abda469e6f96"><td class="memItemLeft" align="right" valign="top"><a id="a741321a0bbc89d51b969abda469e6f96"></a>
+std::ofstream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a741321a0bbc89d51b969abda469e6f96">Logfile</a></td></tr>
+<tr class="memdesc:a741321a0bbc89d51b969abda469e6f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to an output file stream that is used to print log messages to a logfile when logging is enabled. <br /></td></tr>
+<tr class="separator:a741321a0bbc89d51b969abda469e6f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb2cf4feeb4d8292eeba8f9ef393c6a4"><td class="memItemLeft" align="right" valign="top"><a id="afb2cf4feeb4d8292eeba8f9ef393c6a4"></a>
 <a class="el" href="class_lattice.html">Lattice</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#afb2cf4feeb4d8292eeba8f9ef393c6a4">lattice</a></td></tr>
 <tr class="memdesc:afb2cf4feeb4d8292eeba8f9ef393c6a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object represents a three-dimensional lattice, its boundary conditions, and its occupancy. <br /></td></tr>
@@ -431,6 +434,26 @@ false if execution of the next event is unsuccessful. </dd></dl>
 
 </div>
 </div>
+<a id="a7d88f18a1ba988d7e77b8be8de5b10d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d88f18a1ba988d7e77b8be8de5b10d1">&#9670;&nbsp;</a></span>getN_events()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Simulation::getN_events </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the number of events that are currently in the event list. </p>
+<dl class="section return"><dt>Returns</dt><dd>the size of the events list </dd></dl>
+
+</div>
+</div>
 <a id="af88e5e0634b373ba28f1dd87670725a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af88e5e0634b373ba28f1dd87670725a6">&#9670;&nbsp;</a></span>init()</h2>
 
@@ -603,8 +626,8 @@ false if logging is disabled. </dd></dl>
 
 </div>
 </div>
-<a id="a122928940c1301d71f19700b574f9e37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a122928940c1301d71f19700b574f9e37">&#9670;&nbsp;</a></span>setEvent()</h2>
+<a id="a4490fc0d8bb8a36b0ff581148ab85a14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4490fc0d8bb8a36b0ff581148ab85a14">&#9670;&nbsp;</a></span>setEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -615,7 +638,7 @@ false if logging is disabled. </dd></dl>
         <tr>
           <td class="memname">void Simulation::setEvent </td>
           <td>(</td>
-          <td class="paramtype">const list&lt; <a class="el" href="class_event.html">Event</a> *&gt;::iterator&#160;</td>
+          <td class="paramtype">const std::list&lt; <a class="el" href="class_event.html">Event</a> *&gt;::iterator&#160;</td>
           <td class="paramname"><em>event_it</em>, </td>
         </tr>
         <tr>

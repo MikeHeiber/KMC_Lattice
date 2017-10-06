@@ -5,11 +5,13 @@
 
 #include "Simulation.h"
 
+using namespace std;
+
 Simulation::Simulation() {
 
 }
 
-Simulation::~Simulation(){
+Simulation::~Simulation() {
 
 }
 
@@ -39,24 +41,24 @@ void Simulation::init(const Parameters_Simulation& params, const int id) {
 }
 
 
-list<Event*>::iterator Simulation::addEvent(Event* event_ptr){
-    events.push_back(event_ptr);
-    return --events.end();
+list<Event*>::iterator Simulation::addEvent(Event* event_ptr) {
+	events.push_back(event_ptr);
+	return --events.end();
 }
 
-void Simulation::addObject(Object* object_ptr){
-    // Add an event for the object to the event list and link the event to the object
-    events.push_back(nullptr);
-    object_ptr->setEventIt(--events.end());
-    // Add new object to the object vector and link the object to the event
-    objects.push_back(object_ptr);
-    // Set occupancy of site
-    lattice.setOccupied(object_ptr->getCoords());
-    (*lattice.getSiteIt(object_ptr->getCoords()))->setObjectPtr(*(--objects.end()));
-    // Update counters
-N_objects++;
-N_objects_created++;
-N_events_executed++;
+void Simulation::addObject(Object* object_ptr) {
+	// Add an event for the object to the event list and link the event to the object
+	events.push_back(nullptr);
+	object_ptr->setEventIt(--events.end());
+	// Add new object to the object vector and link the object to the event
+	objects.push_back(object_ptr);
+	// Set occupancy of site
+	lattice.setOccupied(object_ptr->getCoords());
+	(*lattice.getSiteIt(object_ptr->getCoords()))->setObjectPtr(*(--objects.end()));
+	// Update counters
+	N_objects++;
+	N_objects_created++;
+	N_events_executed++;
 }
 
 list<Event*>::iterator Simulation::chooseNextEvent() {
@@ -98,6 +100,16 @@ vector<Object*> Simulation::getAllObjectPtrs() const {
 
 int Simulation::getId() const {
 	return Id;
+}
+
+int Simulation::getN_events() const {
+	int count = 0;
+	for (auto it = events.begin(); it != events.end(); ++it) {
+		if ((*it)!=nullptr && (*it)->getExecutionTime() > 0) {
+			count++;
+		}
+	}
+	return count;
 }
 
 long int Simulation::getN_events_executed() const {

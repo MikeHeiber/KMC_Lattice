@@ -5,6 +5,8 @@
 
 #include "Event.h"
 
+using namespace std;
+
 // Initialize static class members
 const string Event::name_base = "Event";
 

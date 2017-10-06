@@ -7,9 +7,12 @@
 
 namespace Utils {
 
-	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, int num_bins) {
+	using namespace std;
+
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, int num_bins) {
 		// Determine data range
-		double min_val, max_val;
+		double min_val = 0;
+		double max_val = 0;
 		auto min_it = min_element(data.begin(), data.end());
 		if (min_it != data.end()) {
 			min_val = *min_it;
@@ -33,9 +36,10 @@ namespace Utils {
 		return calculateProbabilityHist(data, bin_size, num_bins);
 	}
 
-	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, double bin_size) {
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, double bin_size) {
 		// Determine data range
-		double min_val, max_val;
+		double min_val = 0;
+		double max_val = 0;
 		auto min_it = min_element(data.begin(), data.end());
 		if (min_it != data.end()) {
 			min_val = *min_it;
@@ -60,9 +64,9 @@ namespace Utils {
 		return calculateProbabilityHist(data, bin_size, num_bins);
 	}
 
-	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, const double bin_size, const int num_bins) {
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, const double bin_size, const int num_bins) {
 		// Determine number of bins
-		double min_val;
+		double min_val = 0;
 		auto min_it = min_element(data.begin(), data.end());
 		if (min_it != data.end()) {
 			min_val = *min_it;
@@ -73,7 +77,7 @@ namespace Utils {
 		// Calculate bin-centered x values
 		vector<pair<double, double>> hist(num_bins, make_pair(0.0, 0.0));
 		for (int i = 0; i < num_bins; i++) {
-			hist[i].first = min_val + 0.5*bin_size + bin_size*(i + 1);
+			hist[i].first = min_val + 0.5*bin_size + bin_size*i;
 		}
 		// Calculate histogram
 		vector<int> counts(num_bins, 0);
@@ -94,7 +98,7 @@ namespace Utils {
 		return hist;
 	}
 
-	void createExponentialDOSVector(vector<double>& data, const double mode, const double urbach_energy, mt19937& gen) {
+	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937& gen) {
 		exponential_distribution<double> dist_exp(1.0 / urbach_energy);
 		auto rand_exp = bind(dist_exp, ref(gen));
 		normal_distribution<double> dist_gaus(0, 2.0*urbach_energy / sqrt(2.0 * Pi));
@@ -111,7 +115,7 @@ namespace Utils {
 		}
 	}
 
-	void createGaussianDOSVector(vector<double>& data, const double mean, const double stdev, mt19937& gen) {
+	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937& gen) {
 		normal_distribution<double> dist(mean, stdev);
 		auto rand_gaus = bind(dist, ref(gen));
 		for (int i = 0; i < (int)data.size(); i++) {
@@ -119,7 +123,7 @@ namespace Utils {
 		}
 	}
 
-	bool importBooleanParam(const string& input, bool& error_status) {
+	bool importBooleanParam(const std::string& input, bool& error_status) {
 		string str = removeWhitespace(input);
 		if (str.compare("true") == 0) {
 			return true;
@@ -134,7 +138,7 @@ namespace Utils {
 		}
 	}
 
-	double integrateData(const vector<pair<double, double>>& data) {
+	double integrateData(const std::vector<std::pair<double, double>>& data) {
 		double area = 0;
 		for (int i = 1; i < (int)data.size(); i++) {
 			area += ((data[i - 1].second + data[i].second) / 2.0)*(data[i].first - data[i - 1].first);
@@ -142,7 +146,7 @@ namespace Utils {
 		return area;
 	}
 
-	double interpolateData(const vector<pair<double, double>>& data, const double x_val) {
+	double interpolateData(const std::vector<std::pair<double, double>>& data, const double x_val) {
 		for (int i = 1; i < (int)data.size(); i++) {
 			if (data[i-1].first < x_val && data[i].first > x_val) {
 				return data[i - 1].second + ((data[i].second - data[i - 1].second) / (data[i].first - data[i - 1].first))*(x_val - data[i - 1].first);
@@ -155,7 +159,7 @@ namespace Utils {
 		return NAN;
 	}
 
-	vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector) {
+	std::vector<double> MPI_calculateVectorAvg(const std::vector<double>& input_vector) {
 		int data_size = 0;
 		int data_count = 0;
 		double *data = NULL;
@@ -214,7 +218,7 @@ namespace Utils {
 		return output_vector;
 	}
 
-	vector<double> MPI_calculateVectorSum(const vector<double>& input_vector) {
+	std::vector<double> MPI_calculateVectorSum(const std::vector<double>& input_vector) {
 		int data_size = 0;
 		double *data = NULL;
 		double *sum = NULL;
@@ -238,7 +242,7 @@ namespace Utils {
 		return output_vector;
 	}
 
-	vector<int> MPI_calculateVectorSum(const vector<int>& input_vector) {
+	std::vector<int> MPI_calculateVectorSum(const std::vector<int>& input_vector) {
 		int data_size = 0;
 		int *data = NULL;
 		int *sum = NULL;
@@ -262,7 +266,7 @@ namespace Utils {
 		return output_vector;
 	}
 
-	vector<double> MPI_gatherVectors(const vector<double>& input_vector) {
+	std::vector<double> MPI_gatherVectors(const std::vector<double>& input_vector) {
 		int data_size = 0;
 		int data_count = 0;
 		double *data = NULL;
@@ -307,7 +311,7 @@ namespace Utils {
 		return output_vector;
 	}
 
-	string removeWhitespace(const string& str) {
+	std::string removeWhitespace(const std::string& str) {
 		auto strBegin = str.find_first_not_of(" ");
 		auto strEnd = str.find_last_not_of(" ");
 		auto range = strEnd - strBegin + 1;

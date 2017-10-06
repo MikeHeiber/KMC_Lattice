@@ -92,45 +92,45 @@ $(document).ready(function(){initNavTree('namespace_utils.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7ba881f36f5b29cbe039c329a2f5dd5c"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a7ba881f36f5b29cbe039c329a2f5dd5c">calculateProbabilityHist</a> (const vector&lt; double &gt; &amp;data, int num_bins)</td></tr>
-<tr class="memdesc:a7ba881f36f5b29cbe039c329a2f5dd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input number of bins.  <a href="#a7ba881f36f5b29cbe039c329a2f5dd5c">More...</a><br /></td></tr>
-<tr class="separator:a7ba881f36f5b29cbe039c329a2f5dd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0d4a17325f78a263879cdb9f04190d2"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ae0d4a17325f78a263879cdb9f04190d2">calculateProbabilityHist</a> (const vector&lt; double &gt; &amp;data, double bin_size)</td></tr>
-<tr class="memdesc:ae0d4a17325f78a263879cdb9f04190d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size.  <a href="#ae0d4a17325f78a263879cdb9f04190d2">More...</a><br /></td></tr>
-<tr class="separator:ae0d4a17325f78a263879cdb9f04190d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d27dec53fdab98a47fb93852085e9f1"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a8d27dec53fdab98a47fb93852085e9f1">calculateProbabilityHist</a> (const vector&lt; double &gt; &amp;data, const double bin_size, const int num_bins)</td></tr>
-<tr class="memdesc:a8d27dec53fdab98a47fb93852085e9f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size and input number of bins.  <a href="#a8d27dec53fdab98a47fb93852085e9f1">More...</a><br /></td></tr>
-<tr class="separator:a8d27dec53fdab98a47fb93852085e9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad895b1edcec8254af3279938d0ed4ac0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ad895b1edcec8254af3279938d0ed4ac0">createExponentialDOSVector</a> (vector&lt; double &gt; &amp;data, const double mode, const double urbach_energy, mt19937 &amp;gen)</td></tr>
-<tr class="memdesc:ad895b1edcec8254af3279938d0ed4ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.  <a href="#ad895b1edcec8254af3279938d0ed4ac0">More...</a><br /></td></tr>
-<tr class="separator:ad895b1edcec8254af3279938d0ed4ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a564bff107c9e05003ff99593968a86fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a564bff107c9e05003ff99593968a86fc">createGaussianDOSVector</a> (vector&lt; double &gt; &amp;data, const double mean, const double stdev, mt19937 &amp;gen)</td></tr>
-<tr class="memdesc:a564bff107c9e05003ff99593968a86fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a Gaussian distribution.  <a href="#a564bff107c9e05003ff99593968a86fc">More...</a><br /></td></tr>
-<tr class="separator:a564bff107c9e05003ff99593968a86fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac80acf3a99a5cd96b84bffb4becbb4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#afac80acf3a99a5cd96b84bffb4becbb4">importBooleanParam</a> (const string &amp;input, bool &amp;error_status)</td></tr>
-<tr class="memdesc:afac80acf3a99a5cd96b84bffb4becbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts a boolean value from a string containing "true" or "false".  <a href="#afac80acf3a99a5cd96b84bffb4becbb4">More...</a><br /></td></tr>
-<tr class="separator:afac80acf3a99a5cd96b84bffb4becbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38cf7cfa47983614ebec954154de6701"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a38cf7cfa47983614ebec954154de6701">integrateData</a> (const vector&lt; pair&lt; double, double &gt;&gt; &amp;data)</td></tr>
-<tr class="memdesc:a38cf7cfa47983614ebec954154de6701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numerically integrates a vector of x-y data using the trapezoid rule.  <a href="#a38cf7cfa47983614ebec954154de6701">More...</a><br /></td></tr>
-<tr class="separator:a38cf7cfa47983614ebec954154de6701"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a675b70a626c85b5171e6c469e845e9f2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a675b70a626c85b5171e6c469e845e9f2">interpolateData</a> (const vector&lt; pair&lt; double, double &gt;&gt; &amp;data, const double x_val)</td></tr>
-<tr class="memdesc:a675b70a626c85b5171e6c469e845e9f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates an x-y data set to determine the interpolated y-value corresponding to an input x-value.  <a href="#a675b70a626c85b5171e6c469e845e9f2">More...</a><br /></td></tr>
-<tr class="separator:a675b70a626c85b5171e6c469e845e9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9a27519719bf1493bb2b4f56b0019c9"><td class="memItemLeft" align="right" valign="top">vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ac9a27519719bf1493bb2b4f56b0019c9">MPI_calculateVectorAvg</a> (const vector&lt; double &gt; &amp;input_vector)</td></tr>
-<tr class="memdesc:ac9a27519719bf1493bb2b4f56b0019c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to calculate the element-wise average vector from separate vectors coming from different processors.  <a href="#ac9a27519719bf1493bb2b4f56b0019c9">More...</a><br /></td></tr>
-<tr class="separator:ac9a27519719bf1493bb2b4f56b0019c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae42867cb7be2aca3ff23e27a94c4f68b"><td class="memItemLeft" align="right" valign="top">vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ae42867cb7be2aca3ff23e27a94c4f68b">MPI_calculateVectorSum</a> (const vector&lt; double &gt; &amp;input_vector)</td></tr>
-<tr class="memdesc:ae42867cb7be2aca3ff23e27a94c4f68b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to calculate the element-wise sum vector from separate vectors coming from different processors.  <a href="#ae42867cb7be2aca3ff23e27a94c4f68b">More...</a><br /></td></tr>
-<tr class="separator:ae42867cb7be2aca3ff23e27a94c4f68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07efe2f58beb35b78d295a0b0dc1f660"><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a07efe2f58beb35b78d295a0b0dc1f660">MPI_calculateVectorSum</a> (const vector&lt; int &gt; &amp;input_vector)</td></tr>
-<tr class="memdesc:a07efe2f58beb35b78d295a0b0dc1f660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to calculate the element-wise sum vector from separate vectors coming from different processors.  <a href="#a07efe2f58beb35b78d295a0b0dc1f660">More...</a><br /></td></tr>
-<tr class="separator:a07efe2f58beb35b78d295a0b0dc1f660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9a7e13279f18cd8d36ca98a7943a7e8"><td class="memItemLeft" align="right" valign="top">vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#af9a7e13279f18cd8d36ca98a7943a7e8">MPI_gatherVectors</a> (const vector&lt; double &gt; &amp;input_vector)</td></tr>
-<tr class="memdesc:af9a7e13279f18cd8d36ca98a7943a7e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.  <a href="#af9a7e13279f18cd8d36ca98a7943a7e8">More...</a><br /></td></tr>
-<tr class="separator:af9a7e13279f18cd8d36ca98a7943a7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa3265ae19d2fbd675a9d47d46f62b11"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aaa3265ae19d2fbd675a9d47d46f62b11">removeWhitespace</a> (const string &amp;str)</td></tr>
-<tr class="memdesc:aaa3265ae19d2fbd675a9d47d46f62b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes leading and trailing spaces surrounding a string.  <a href="#aaa3265ae19d2fbd675a9d47d46f62b11">More...</a><br /></td></tr>
-<tr class="separator:aaa3265ae19d2fbd675a9d47d46f62b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcb2e98774b12bc12264034913547a2c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#adcb2e98774b12bc12264034913547a2c">calculateProbabilityHist</a> (const std::vector&lt; double &gt; &amp;data, int num_bins)</td></tr>
+<tr class="memdesc:adcb2e98774b12bc12264034913547a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input number of bins.  <a href="#adcb2e98774b12bc12264034913547a2c">More...</a><br /></td></tr>
+<tr class="separator:adcb2e98774b12bc12264034913547a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0818230f8ad279ef7ca217f3cba81f76"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a0818230f8ad279ef7ca217f3cba81f76">calculateProbabilityHist</a> (const std::vector&lt; double &gt; &amp;data, double bin_size)</td></tr>
+<tr class="memdesc:a0818230f8ad279ef7ca217f3cba81f76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size.  <a href="#a0818230f8ad279ef7ca217f3cba81f76">More...</a><br /></td></tr>
+<tr class="separator:a0818230f8ad279ef7ca217f3cba81f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08553f36886a36456e8111585029e467"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a08553f36886a36456e8111585029e467">calculateProbabilityHist</a> (const std::vector&lt; double &gt; &amp;data, const double bin_size, const int num_bins)</td></tr>
+<tr class="memdesc:a08553f36886a36456e8111585029e467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size and input number of bins.  <a href="#a08553f36886a36456e8111585029e467">More...</a><br /></td></tr>
+<tr class="separator:a08553f36886a36456e8111585029e467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af296d2aa8f889f67fe515fc641c5f5fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#af296d2aa8f889f67fe515fc641c5f5fe">createExponentialDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mode, const double urbach_energy, std::mt19937 &amp;gen)</td></tr>
+<tr class="memdesc:af296d2aa8f889f67fe515fc641c5f5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.  <a href="#af296d2aa8f889f67fe515fc641c5f5fe">More...</a><br /></td></tr>
+<tr class="separator:af296d2aa8f889f67fe515fc641c5f5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ce45ade7d6d4f2995b595da3ebbaaec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a2ce45ade7d6d4f2995b595da3ebbaaec">createGaussianDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mean, const double stdev, std::mt19937 &amp;gen)</td></tr>
+<tr class="memdesc:a2ce45ade7d6d4f2995b595da3ebbaaec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a Gaussian distribution.  <a href="#a2ce45ade7d6d4f2995b595da3ebbaaec">More...</a><br /></td></tr>
+<tr class="separator:a2ce45ade7d6d4f2995b595da3ebbaaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98a0cc670327fc21e272a07cbf5025ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a98a0cc670327fc21e272a07cbf5025ec">importBooleanParam</a> (const std::string &amp;input, bool &amp;error_status)</td></tr>
+<tr class="memdesc:a98a0cc670327fc21e272a07cbf5025ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts a boolean value from a string containing "true" or "false".  <a href="#a98a0cc670327fc21e272a07cbf5025ec">More...</a><br /></td></tr>
+<tr class="separator:a98a0cc670327fc21e272a07cbf5025ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49411c9d4c7a065dbcf237aa27a84023"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a49411c9d4c7a065dbcf237aa27a84023">integrateData</a> (const std::vector&lt; std::pair&lt; double, double &gt;&gt; &amp;data)</td></tr>
+<tr class="memdesc:a49411c9d4c7a065dbcf237aa27a84023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numerically integrates a vector of x-y data using the trapezoid rule.  <a href="#a49411c9d4c7a065dbcf237aa27a84023">More...</a><br /></td></tr>
+<tr class="separator:a49411c9d4c7a065dbcf237aa27a84023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af68995497777ee14d812c65991a4046f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#af68995497777ee14d812c65991a4046f">interpolateData</a> (const std::vector&lt; std::pair&lt; double, double &gt;&gt; &amp;data, const double x_val)</td></tr>
+<tr class="memdesc:af68995497777ee14d812c65991a4046f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates an x-y data set to determine the interpolated y-value corresponding to an input x-value.  <a href="#af68995497777ee14d812c65991a4046f">More...</a><br /></td></tr>
+<tr class="separator:af68995497777ee14d812c65991a4046f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71eeb04d74f890da3d27128c37fcff78"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a71eeb04d74f890da3d27128c37fcff78">MPI_calculateVectorAvg</a> (const std::vector&lt; double &gt; &amp;input_vector)</td></tr>
+<tr class="memdesc:a71eeb04d74f890da3d27128c37fcff78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to calculate the element-wise average vector from separate vectors coming from different processors.  <a href="#a71eeb04d74f890da3d27128c37fcff78">More...</a><br /></td></tr>
+<tr class="separator:a71eeb04d74f890da3d27128c37fcff78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a17d0ad939418dc745bcfd194ce2bc1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a0a17d0ad939418dc745bcfd194ce2bc1">MPI_calculateVectorSum</a> (const std::vector&lt; double &gt; &amp;input_vector)</td></tr>
+<tr class="memdesc:a0a17d0ad939418dc745bcfd194ce2bc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to calculate the element-wise sum vector from separate vectors coming from different processors.  <a href="#a0a17d0ad939418dc745bcfd194ce2bc1">More...</a><br /></td></tr>
+<tr class="separator:a0a17d0ad939418dc745bcfd194ce2bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7b634b14633046c6da126945d688aaf"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ad7b634b14633046c6da126945d688aaf">MPI_calculateVectorSum</a> (const std::vector&lt; int &gt; &amp;input_vector)</td></tr>
+<tr class="memdesc:ad7b634b14633046c6da126945d688aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to calculate the element-wise sum vector from separate vectors coming from different processors.  <a href="#ad7b634b14633046c6da126945d688aaf">More...</a><br /></td></tr>
+<tr class="separator:ad7b634b14633046c6da126945d688aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee439dad386e2477d34968311b166c85"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aee439dad386e2477d34968311b166c85">MPI_gatherVectors</a> (const std::vector&lt; double &gt; &amp;input_vector)</td></tr>
+<tr class="memdesc:aee439dad386e2477d34968311b166c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.  <a href="#aee439dad386e2477d34968311b166c85">More...</a><br /></td></tr>
+<tr class="separator:aee439dad386e2477d34968311b166c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9ceee3373ffe317f07d177cf0dfe056"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#af9ceee3373ffe317f07d177cf0dfe056">removeWhitespace</a> (const std::string &amp;str)</td></tr>
+<tr class="memdesc:af9ceee3373ffe317f07d177cf0dfe056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes leading and trailing spaces surrounding a string.  <a href="#af9ceee3373ffe317f07d177cf0dfe056">More...</a><br /></td></tr>
+<tr class="separator:af9ceee3373ffe317f07d177cf0dfe056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa76a204af4dd4c3eb151691825de2eb2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa76a204af4dd4c3eb151691825de2eb2"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aa76a204af4dd4c3eb151691825de2eb2">array_avg</a> (const T data[], const int array_size)</td></tr>
 <tr class="memdesc:aa76a204af4dd4c3eb151691825de2eb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the average value in double format when given an array of numerical datatypes.  <a href="#aa76a204af4dd4c3eb151691825de2eb2">More...</a><br /></td></tr>
@@ -143,26 +143,26 @@ Functions</h2></td></tr>
 <tr class="memitem:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="memTemplItemLeft" align="right" valign="top">base_type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#affd19edaa58a3f8425e1f7b4c9233f8a">intpow</a> (const base_type base, const int exponent)</td></tr>
 <tr class="memdesc:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the results of an integer power operation on a base numerical datatype.  <a href="#affd19edaa58a3f8425e1f7b4c9233f8a">More...</a><br /></td></tr>
 <tr class="separator:affd19edaa58a3f8425e1f7b4c9233f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a516ba09eb26dc6f773a26e0aeba2cfbd">outputVectorToFile</a> (vector&lt; T &gt; &amp;vec, string filename)</td></tr>
-<tr class="memdesc:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function outputs the input data vector to a file with the specified filename.  <a href="#a516ba09eb26dc6f773a26e0aeba2cfbd">More...</a><br /></td></tr>
-<tr class="separator:a516ba09eb26dc6f773a26e0aeba2cfbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53e70969b810e3793f036f6b4df35727"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a53e70969b810e3793f036f6b4df35727"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a53e70969b810e3793f036f6b4df35727">outputVectorToFile</a> (vector&lt; pair&lt; T, T &gt;&gt; &amp;vec, string filename)</td></tr>
-<tr class="memdesc:a53e70969b810e3793f036f6b4df35727"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function outputs the input data pair vector to a file with the specified filename.  <a href="#a53e70969b810e3793f036f6b4df35727">More...</a><br /></td></tr>
-<tr class="separator:a53e70969b810e3793f036f6b4df35727"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae6b61a9030cf09d8cba2566a42c871df"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ae6b61a9030cf09d8cba2566a42c871df">removeDuplicates</a> (vector&lt; T &gt; &amp;vec)</td></tr>
-<tr class="memdesc:ae6b61a9030cf09d8cba2566a42c871df"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function efficienctly removes the duplicate entries from an input vector.  <a href="#ae6b61a9030cf09d8cba2566a42c871df">More...</a><br /></td></tr>
-<tr class="separator:ae6b61a9030cf09d8cba2566a42c871df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb08a5b50d04b076f4348a8f752932b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename A &gt; </td></tr>
-<tr class="memitem:aadb08a5b50d04b076f4348a8f752932b"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aadb08a5b50d04b076f4348a8f752932b">vector_avg</a> (const vector&lt; T, A &gt; &amp;data)</td></tr>
-<tr class="memdesc:aadb08a5b50d04b076f4348a8f752932b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the average value in double format when given a vector of numerical datatypes.  <a href="#aadb08a5b50d04b076f4348a8f752932b">More...</a><br /></td></tr>
-<tr class="separator:aadb08a5b50d04b076f4348a8f752932b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename A &gt; </td></tr>
-<tr class="memitem:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a04daea5e4b4bb28117b09e1abae4ec5c">vector_stdev</a> (const vector&lt; T, A &gt; &amp;data)</td></tr>
-<tr class="memdesc:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.  <a href="#a04daea5e4b4bb28117b09e1abae4ec5c">More...</a><br /></td></tr>
-<tr class="separator:a04daea5e4b4bb28117b09e1abae4ec5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab76081fb0fa0e9e1633b1b2255db4164"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab76081fb0fa0e9e1633b1b2255db4164"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ab76081fb0fa0e9e1633b1b2255db4164">outputVectorToFile</a> (std::vector&lt; T &gt; &amp;vec, std::string filename)</td></tr>
+<tr class="memdesc:ab76081fb0fa0e9e1633b1b2255db4164"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function outputs the input data vector to a file with the specified filename.  <a href="#ab76081fb0fa0e9e1633b1b2255db4164">More...</a><br /></td></tr>
+<tr class="separator:ab76081fb0fa0e9e1633b1b2255db4164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a652ab00e72bce852c2b9798ff3e1a60b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a652ab00e72bce852c2b9798ff3e1a60b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a652ab00e72bce852c2b9798ff3e1a60b">outputVectorToFile</a> (std::vector&lt; std::pair&lt; T, T &gt;&gt; &amp;vec, std::string filename)</td></tr>
+<tr class="memdesc:a652ab00e72bce852c2b9798ff3e1a60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function outputs the input data pair vector to a file with the specified filename.  <a href="#a652ab00e72bce852c2b9798ff3e1a60b">More...</a><br /></td></tr>
+<tr class="separator:a652ab00e72bce852c2b9798ff3e1a60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f64d00eec0b50ac5bd119652c99d01b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5f64d00eec0b50ac5bd119652c99d01b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a5f64d00eec0b50ac5bd119652c99d01b">removeDuplicates</a> (std::vector&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:a5f64d00eec0b50ac5bd119652c99d01b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function efficienctly removes the duplicate entries from an input vector.  <a href="#a5f64d00eec0b50ac5bd119652c99d01b">More...</a><br /></td></tr>
+<tr class="separator:a5f64d00eec0b50ac5bd119652c99d01b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbc030ce708229ea393215fe13e6377b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename A &gt; </td></tr>
+<tr class="memitem:acbc030ce708229ea393215fe13e6377b"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#acbc030ce708229ea393215fe13e6377b">vector_avg</a> (const std::vector&lt; T, A &gt; &amp;data)</td></tr>
+<tr class="memdesc:acbc030ce708229ea393215fe13e6377b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the average value in double format when given a vector of numerical datatypes.  <a href="#acbc030ce708229ea393215fe13e6377b">More...</a><br /></td></tr>
+<tr class="separator:acbc030ce708229ea393215fe13e6377b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bfa9b066d7c0967807d588024c15d4e"><td class="memTemplParams" colspan="2">template&lt;typename T , typename A &gt; </td></tr>
+<tr class="memitem:a6bfa9b066d7c0967807d588024c15d4e"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a6bfa9b066d7c0967807d588024c15d4e">vector_stdev</a> (const std::vector&lt; T, A &gt; &amp;data)</td></tr>
+<tr class="memdesc:a6bfa9b066d7c0967807d588024c15d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.  <a href="#a6bfa9b066d7c0967807d588024c15d4e">More...</a><br /></td></tr>
+<tr class="separator:a6bfa9b066d7c0967807d588024c15d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This namespace provides useful constants and utility functions. </p>
@@ -250,16 +250,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a7ba881f36f5b29cbe039c329a2f5dd5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ba881f36f5b29cbe039c329a2f5dd5c">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[1/3]</span></h2>
+<a id="adcb2e98774b12bc12264034913547a2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcb2e98774b12bc12264034913547a2c">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
+          <td class="memname">std::vector&lt; std::pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -288,16 +288,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ae0d4a17325f78a263879cdb9f04190d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0d4a17325f78a263879cdb9f04190d2">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[2/3]</span></h2>
+<a id="a0818230f8ad279ef7ca217f3cba81f76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0818230f8ad279ef7ca217f3cba81f76">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
+          <td class="memname">std::vector&lt; std::pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -326,16 +326,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a8d27dec53fdab98a47fb93852085e9f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d27dec53fdab98a47fb93852085e9f1">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[3/3]</span></h2>
+<a id="a08553f36886a36456e8111585029e467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08553f36886a36456e8111585029e467">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
+          <td class="memname">std::vector&lt; std::pair&lt; double, double &gt; &gt; Utils::calculateProbabilityHist </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -371,8 +371,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ad895b1edcec8254af3279938d0ed4ac0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad895b1edcec8254af3279938d0ed4ac0">&#9670;&nbsp;</a></span>createExponentialDOSVector()</h2>
+<a id="af296d2aa8f889f67fe515fc641c5f5fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af296d2aa8f889f67fe515fc641c5f5fe">&#9670;&nbsp;</a></span>createExponentialDOSVector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +380,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void Utils::createExponentialDOSVector </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -398,7 +398,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">mt19937 &amp;&#160;</td>
+          <td class="paramtype">std::mt19937 &amp;&#160;</td>
           <td class="paramname"><em>gen</em>&#160;</td>
         </tr>
         <tr>
@@ -422,8 +422,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a564bff107c9e05003ff99593968a86fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a564bff107c9e05003ff99593968a86fc">&#9670;&nbsp;</a></span>createGaussianDOSVector()</h2>
+<a id="a2ce45ade7d6d4f2995b595da3ebbaaec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ce45ade7d6d4f2995b595da3ebbaaec">&#9670;&nbsp;</a></span>createGaussianDOSVector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,7 +431,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void Utils::createGaussianDOSVector </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -449,7 +449,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">mt19937 &amp;&#160;</td>
+          <td class="paramtype">std::mt19937 &amp;&#160;</td>
           <td class="paramname"><em>gen</em>&#160;</td>
         </tr>
         <tr>
@@ -473,8 +473,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="afac80acf3a99a5cd96b84bffb4becbb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afac80acf3a99a5cd96b84bffb4becbb4">&#9670;&nbsp;</a></span>importBooleanParam()</h2>
+<a id="a98a0cc670327fc21e272a07cbf5025ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a0cc670327fc21e272a07cbf5025ec">&#9670;&nbsp;</a></span>importBooleanParam()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -482,7 +482,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">bool Utils::importBooleanParam </td>
           <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
@@ -513,8 +513,8 @@ flase if the input string is "flase". </dd></dl>
 
 </div>
 </div>
-<a id="a38cf7cfa47983614ebec954154de6701"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38cf7cfa47983614ebec954154de6701">&#9670;&nbsp;</a></span>integrateData()</h2>
+<a id="a49411c9d4c7a065dbcf237aa27a84023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49411c9d4c7a065dbcf237aa27a84023">&#9670;&nbsp;</a></span>integrateData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -522,7 +522,7 @@ flase if the input string is "flase". </dd></dl>
         <tr>
           <td class="memname">double Utils::integrateData </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; pair&lt; double, double &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; double, double &gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
@@ -541,8 +541,8 @@ flase if the input string is "flase". </dd></dl>
 
 </div>
 </div>
-<a id="a675b70a626c85b5171e6c469e845e9f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a675b70a626c85b5171e6c469e845e9f2">&#9670;&nbsp;</a></span>interpolateData()</h2>
+<a id="af68995497777ee14d812c65991a4046f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af68995497777ee14d812c65991a4046f">&#9670;&nbsp;</a></span>interpolateData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -550,7 +550,7 @@ flase if the input string is "flase". </dd></dl>
         <tr>
           <td class="memname">double Utils::interpolateData </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; pair&lt; double, double &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; double, double &gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -620,16 +620,16 @@ template&lt;typename base_type &gt; </div>
 
 </div>
 </div>
-<a id="ac9a27519719bf1493bb2b4f56b0019c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9a27519719bf1493bb2b4f56b0019c9">&#9670;&nbsp;</a></span>MPI_calculateVectorAvg()</h2>
+<a id="a71eeb04d74f890da3d27128c37fcff78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71eeb04d74f890da3d27128c37fcff78">&#9670;&nbsp;</a></span>MPI_calculateVectorAvg()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; double &gt; Utils::MPI_calculateVectorAvg </td>
+          <td class="memname">std::vector&lt; double &gt; Utils::MPI_calculateVectorAvg </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>input_vector</em></td><td>)</td>
           <td></td>
         </tr>
@@ -649,16 +649,16 @@ An empty vector when called on other processors. </dd></dl>
 
 </div>
 </div>
-<a id="ae42867cb7be2aca3ff23e27a94c4f68b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae42867cb7be2aca3ff23e27a94c4f68b">&#9670;&nbsp;</a></span>MPI_calculateVectorSum() <span class="overload">[1/2]</span></h2>
+<a id="a0a17d0ad939418dc745bcfd194ce2bc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a17d0ad939418dc745bcfd194ce2bc1">&#9670;&nbsp;</a></span>MPI_calculateVectorSum() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; double &gt; Utils::MPI_calculateVectorSum </td>
+          <td class="memname">std::vector&lt; double &gt; Utils::MPI_calculateVectorSum </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>input_vector</em></td><td>)</td>
           <td></td>
         </tr>
@@ -678,16 +678,16 @@ An empty vector when called on other processors. </dd></dl>
 
 </div>
 </div>
-<a id="a07efe2f58beb35b78d295a0b0dc1f660"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07efe2f58beb35b78d295a0b0dc1f660">&#9670;&nbsp;</a></span>MPI_calculateVectorSum() <span class="overload">[2/2]</span></h2>
+<a id="ad7b634b14633046c6da126945d688aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7b634b14633046c6da126945d688aaf">&#9670;&nbsp;</a></span>MPI_calculateVectorSum() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; int &gt; Utils::MPI_calculateVectorSum </td>
+          <td class="memname">std::vector&lt; int &gt; Utils::MPI_calculateVectorSum </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
           <td class="paramname"><em>input_vector</em></td><td>)</td>
           <td></td>
         </tr>
@@ -707,16 +707,16 @@ An empty vector when called on other processors. </dd></dl>
 
 </div>
 </div>
-<a id="af9a7e13279f18cd8d36ca98a7943a7e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9a7e13279f18cd8d36ca98a7943a7e8">&#9670;&nbsp;</a></span>MPI_gatherVectors()</h2>
+<a id="aee439dad386e2477d34968311b166c85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee439dad386e2477d34968311b166c85">&#9670;&nbsp;</a></span>MPI_gatherVectors()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; double &gt; Utils::MPI_gatherVectors </td>
+          <td class="memname">std::vector&lt; double &gt; Utils::MPI_gatherVectors </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>input_vector</em></td><td>)</td>
           <td></td>
         </tr>
@@ -736,8 +736,8 @@ An empty vector when called on other processors. </dd></dl>
 
 </div>
 </div>
-<a id="a516ba09eb26dc6f773a26e0aeba2cfbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a516ba09eb26dc6f773a26e0aeba2cfbd">&#9670;&nbsp;</a></span>outputVectorToFile() <span class="overload">[1/2]</span></h2>
+<a id="ab76081fb0fa0e9e1633b1b2255db4164"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab76081fb0fa0e9e1633b1b2255db4164">&#9670;&nbsp;</a></span>outputVectorToFile() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -747,13 +747,13 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void Utils::outputVectorToFile </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>vec</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>filename</em>&#160;</td>
         </tr>
         <tr>
@@ -776,8 +776,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a53e70969b810e3793f036f6b4df35727"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53e70969b810e3793f036f6b4df35727">&#9670;&nbsp;</a></span>outputVectorToFile() <span class="overload">[2/2]</span></h2>
+<a id="a652ab00e72bce852c2b9798ff3e1a60b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a652ab00e72bce852c2b9798ff3e1a60b">&#9670;&nbsp;</a></span>outputVectorToFile() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -787,13 +787,13 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void Utils::outputVectorToFile </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; pair&lt; T, T &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; std::pair&lt; T, T &gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>vec</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>filename</em>&#160;</td>
         </tr>
         <tr>
@@ -816,8 +816,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ae6b61a9030cf09d8cba2566a42c871df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6b61a9030cf09d8cba2566a42c871df">&#9670;&nbsp;</a></span>removeDuplicates()</h2>
+<a id="a5f64d00eec0b50ac5bd119652c99d01b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f64d00eec0b50ac5bd119652c99d01b">&#9670;&nbsp;</a></span>removeDuplicates()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -827,7 +827,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">void Utils::removeDuplicates </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>vec</em></td><td>)</td>
           <td></td>
         </tr>
@@ -844,16 +844,16 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aaa3265ae19d2fbd675a9d47d46f62b11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa3265ae19d2fbd675a9d47d46f62b11">&#9670;&nbsp;</a></span>removeWhitespace()</h2>
+<a id="af9ceee3373ffe317f07d177cf0dfe056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9ceee3373ffe317f07d177cf0dfe056">&#9670;&nbsp;</a></span>removeWhitespace()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string Utils::removeWhitespace </td>
+          <td class="memname">std::string Utils::removeWhitespace </td>
           <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
@@ -871,8 +871,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aadb08a5b50d04b076f4348a8f752932b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadb08a5b50d04b076f4348a8f752932b">&#9670;&nbsp;</a></span>vector_avg()</h2>
+<a id="acbc030ce708229ea393215fe13e6377b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbc030ce708229ea393215fe13e6377b">&#9670;&nbsp;</a></span>vector_avg()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -882,7 +882,7 @@ template&lt;typename T , typename A &gt; </div>
         <tr>
           <td class="memname">double Utils::vector_avg </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; T, A &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; T, A &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
@@ -900,8 +900,8 @@ template&lt;typename T , typename A &gt; </div>
 
 </div>
 </div>
-<a id="a04daea5e4b4bb28117b09e1abae4ec5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04daea5e4b4bb28117b09e1abae4ec5c">&#9670;&nbsp;</a></span>vector_stdev()</h2>
+<a id="a6bfa9b066d7c0967807d588024c15d4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bfa9b066d7c0967807d588024c15d4e">&#9670;&nbsp;</a></span>vector_stdev()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -911,7 +911,7 @@ template&lt;typename T , typename A &gt; </div>
         <tr>
           <td class="memname">double Utils::vector_stdev </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; T, A &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; T, A &gt; &amp;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>

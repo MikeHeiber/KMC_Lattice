@@ -98,9 +98,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a70a5cebc3c0c5a0f609be0592e7cc117"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a70a5cebc3c0c5a0f609be0592e7cc117">Lattice</a> ()</td></tr>
 <tr class="memdesc:a70a5cebc3c0c5a0f609be0592e7cc117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor that creates an empty <a class="el" href="class_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object.  <a href="#a70a5cebc3c0c5a0f609be0592e7cc117">More...</a><br /></td></tr>
 <tr class="separator:a70a5cebc3c0c5a0f609be0592e7cc117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4067a9617cc24fa60ca6b47fccb4c123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a4067a9617cc24fa60ca6b47fccb4c123">init</a> (const <a class="el" href="struct_parameters___lattice.html">Parameters_Lattice</a> &amp;params, mt19937 *generator_ptr)</td></tr>
-<tr class="memdesc:a4067a9617cc24fa60ca6b47fccb4c123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="struct_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> input parameter struct.  <a href="#a4067a9617cc24fa60ca6b47fccb4c123">More...</a><br /></td></tr>
-<tr class="separator:a4067a9617cc24fa60ca6b47fccb4c123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b0a88048fae662aa71386a3a123a260"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a2b0a88048fae662aa71386a3a123a260">init</a> (const <a class="el" href="struct_parameters___lattice.html">Parameters_Lattice</a> &amp;params, std::mt19937 *generator_ptr)</td></tr>
+<tr class="memdesc:a2b0a88048fae662aa71386a3a123a260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="struct_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> input parameter struct.  <a href="#a2b0a88048fae662aa71386a3a123a260">More...</a><br /></td></tr>
+<tr class="separator:a2b0a88048fae662aa71386a3a123a260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6b80d6264bfc23ae5fea39abd2557d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#aa6b80d6264bfc23ae5fea39abd2557d5">calculateDestinationCoords</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords_initial, const int i, const int j, const int k, <a class="el" href="struct_coords.html">Coords</a> &amp;coords_dest) const</td></tr>
 <tr class="memdesc:aa6b80d6264bfc23ae5fea39abd2557d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).  <a href="#aa6b80d6264bfc23ae5fea39abd2557d5">More...</a><br /></td></tr>
 <tr class="separator:aa6b80d6264bfc23ae5fea39abd2557d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,16 +149,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b43b67a36fcd3dfe62c9eeaffa561d2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a4b43b67a36fcd3dfe62c9eeaffa561d2">getLength</a> () const</td></tr>
 <tr class="memdesc:a4b43b67a36fcd3dfe62c9eeaffa561d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the x-direction size of the lattice, the length.  <a href="#a4b43b67a36fcd3dfe62c9eeaffa561d2">More...</a><br /></td></tr>
 <tr class="separator:a4b43b67a36fcd3dfe62c9eeaffa561d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8046ebe4dbbe34b03548384ae79d4ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#ae8046ebe4dbbe34b03548384ae79d4ae">getNumSites</a> () const</td></tr>
-<tr class="memdesc:ae8046ebe4dbbe34b03548384ae79d4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of sites contained in the lattice.  <a href="#ae8046ebe4dbbe34b03548384ae79d4ae">More...</a><br /></td></tr>
-<tr class="separator:ae8046ebe4dbbe34b03548384ae79d4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a554b9d4e654f02246ffbeab24a670362"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_coords.html">Coords</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a554b9d4e654f02246ffbeab24a670362">getSiteCoords</a> (int site_index)</td></tr>
-<tr class="memdesc:a554b9d4e654f02246ffbeab24a670362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the coordinates of the specified site.  <a href="#a554b9d4e654f02246ffbeab24a670362">More...</a><br /></td></tr>
-<tr class="separator:a554b9d4e654f02246ffbeab24a670362"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abafcbcee9689c0cf7a21134095075604"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#abafcbcee9689c0cf7a21134095075604">getSiteIndex</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords) const</td></tr>
-<tr class="memdesc:abafcbcee9689c0cf7a21134095075604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the vector index for the site corresponding to the input coordinates.  <a href="#abafcbcee9689c0cf7a21134095075604">More...</a><br /></td></tr>
-<tr class="separator:abafcbcee9689c0cf7a21134095075604"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f7d12855d24e1bdd02814621b0a178"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_site.html">Site</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a46f7d12855d24e1bdd02814621b0a178">getSiteIt</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords)</td></tr>
+<tr class="memitem:a4be17e9123f7737387991a9d1a8b87b3"><td class="memItemLeft" align="right" valign="top">long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a4be17e9123f7737387991a9d1a8b87b3">getNumSites</a> () const</td></tr>
+<tr class="memdesc:a4be17e9123f7737387991a9d1a8b87b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of sites contained in the lattice.  <a href="#a4be17e9123f7737387991a9d1a8b87b3">More...</a><br /></td></tr>
+<tr class="separator:a4be17e9123f7737387991a9d1a8b87b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74a170b841ad1b74dad43519d37e9eaf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_coords.html">Coords</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a74a170b841ad1b74dad43519d37e9eaf">getSiteCoords</a> (long int site_index)</td></tr>
+<tr class="memdesc:a74a170b841ad1b74dad43519d37e9eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the coordinates of the specified site.  <a href="#a74a170b841ad1b74dad43519d37e9eaf">More...</a><br /></td></tr>
+<tr class="separator:a74a170b841ad1b74dad43519d37e9eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60431f6504a253d47acb0b02f524571c"><td class="memItemLeft" align="right" valign="top">long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a60431f6504a253d47acb0b02f524571c">getSiteIndex</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords) const</td></tr>
+<tr class="memdesc:a60431f6504a253d47acb0b02f524571c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the vector index for the site corresponding to the input coordinates.  <a href="#a60431f6504a253d47acb0b02f524571c">More...</a><br /></td></tr>
+<tr class="separator:a60431f6504a253d47acb0b02f524571c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f7d12855d24e1bdd02814621b0a178"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_site.html">Site</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a46f7d12855d24e1bdd02814621b0a178">getSiteIt</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords)</td></tr>
 <tr class="memdesc:a46f7d12855d24e1bdd02814621b0a178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the vector iterator for the site corresponding to the input coordinates.  <a href="#a46f7d12855d24e1bdd02814621b0a178">More...</a><br /></td></tr>
 <tr class="separator:a46f7d12855d24e1bdd02814621b0a178"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6963a6b2b4b8d96d3417f6e9c2a509d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#ac6963a6b2b4b8d96d3417f6e9c2a509d">getUnitSize</a> () const</td></tr>
@@ -186,9 +186,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a515b8bc548ef4a87c3495a7352a60399"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a515b8bc548ef4a87c3495a7352a60399">setOccupied</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords)</td></tr>
 <tr class="memdesc:a515b8bc548ef4a87c3495a7352a60399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the site located at the input coordinates to the occupied state.  <a href="#a515b8bc548ef4a87c3495a7352a60399">More...</a><br /></td></tr>
 <tr class="separator:a515b8bc548ef4a87c3495a7352a60399"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa16f46daaf157c155f0e9b378a07b5d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#aaa16f46daaf157c155f0e9b378a07b5d">setSitePointers</a> (const vector&lt; <a class="el" href="class_site.html">Site</a> *&gt; &amp;input_ptrs)</td></tr>
-<tr class="memdesc:aaa16f46daaf157c155f0e9b378a07b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the member site pointer vector to the input site pointer vector.  <a href="#aaa16f46daaf157c155f0e9b378a07b5d">More...</a><br /></td></tr>
-<tr class="separator:aaa16f46daaf157c155f0e9b378a07b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59546ec4301871897ba5adfda1126741"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a59546ec4301871897ba5adfda1126741">setSitePointers</a> (const std::vector&lt; <a class="el" href="class_site.html">Site</a> *&gt; &amp;input_ptrs)</td></tr>
+<tr class="memdesc:a59546ec4301871897ba5adfda1126741"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the member site pointer vector to the input site pointer vector.  <a href="#a59546ec4301871897ba5adfda1126741">More...</a><br /></td></tr>
+<tr class="separator:a59546ec4301871897ba5adfda1126741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class contains the properties of a three-dimensional lattice and the functions needed to interact with it. </p>
@@ -765,14 +765,14 @@ false if a move event is not possible. </dd></dl>
 
 </div>
 </div>
-<a id="ae8046ebe4dbbe34b03548384ae79d4ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8046ebe4dbbe34b03548384ae79d4ae">&#9670;&nbsp;</a></span>getNumSites()</h2>
+<a id="a4be17e9123f7737387991a9d1a8b87b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be17e9123f7737387991a9d1a8b87b3">&#9670;&nbsp;</a></span>getNumSites()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Lattice::getNumSites </td>
+          <td class="memname">long int Lattice::getNumSites </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -785,8 +785,8 @@ false if a move event is not possible. </dd></dl>
 
 </div>
 </div>
-<a id="a554b9d4e654f02246ffbeab24a670362"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a554b9d4e654f02246ffbeab24a670362">&#9670;&nbsp;</a></span>getSiteCoords()</h2>
+<a id="a74a170b841ad1b74dad43519d37e9eaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74a170b841ad1b74dad43519d37e9eaf">&#9670;&nbsp;</a></span>getSiteCoords()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -794,7 +794,7 @@ false if a move event is not possible. </dd></dl>
         <tr>
           <td class="memname"><a class="el" href="struct_coords.html">Coords</a> Lattice::getSiteCoords </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">long int&#160;</td>
           <td class="paramname"><em>site_index</em></td><td>)</td>
           <td></td>
         </tr>
@@ -812,14 +812,14 @@ false if a move event is not possible. </dd></dl>
 
 </div>
 </div>
-<a id="abafcbcee9689c0cf7a21134095075604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abafcbcee9689c0cf7a21134095075604">&#9670;&nbsp;</a></span>getSiteIndex()</h2>
+<a id="a60431f6504a253d47acb0b02f524571c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60431f6504a253d47acb0b02f524571c">&#9670;&nbsp;</a></span>getSiteIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Lattice::getSiteIndex </td>
+          <td class="memname">long int Lattice::getSiteIndex </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_coords.html">Coords</a> &amp;&#160;</td>
           <td class="paramname"><em>coords</em></td><td>)</td>
@@ -835,7 +835,9 @@ false if a move event is not possible. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The vector index for the sites vector that is associated with the site located at the input coordinates. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The vector index for the sites vector that is associated with the site located at the input coordinates. </dd>
+<dd>
+-1 if the coordinates are not located in the lattice. </dd></dl>
 
 </div>
 </div>
@@ -906,8 +908,8 @@ false if a move event is not possible. </dd></dl>
 
 </div>
 </div>
-<a id="a4067a9617cc24fa60ca6b47fccb4c123"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4067a9617cc24fa60ca6b47fccb4c123">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a2b0a88048fae662aa71386a3a123a260"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b0a88048fae662aa71386a3a123a260">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -921,7 +923,7 @@ false if a move event is not possible. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">mt19937 *&#160;</td>
+          <td class="paramtype">std::mt19937 *&#160;</td>
           <td class="paramname"><em>generator_ptr</em>&#160;</td>
         </tr>
         <tr>
@@ -1064,8 +1066,8 @@ false if periodic boundaries are disabled in the z-direction. </dd></dl>
 
 </div>
 </div>
-<a id="aaa16f46daaf157c155f0e9b378a07b5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa16f46daaf157c155f0e9b378a07b5d">&#9670;&nbsp;</a></span>setSitePointers()</h2>
+<a id="a59546ec4301871897ba5adfda1126741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59546ec4301871897ba5adfda1126741">&#9670;&nbsp;</a></span>setSitePointers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1073,7 +1075,7 @@ false if periodic boundaries are disabled in the z-direction. </dd></dl>
         <tr>
           <td class="memname">bool Lattice::setSitePointers </td>
           <td>(</td>
-          <td class="paramtype">const vector&lt; <a class="el" href="class_site.html">Site</a> *&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_site.html">Site</a> *&gt; &amp;&#160;</td>
           <td class="paramname"><em>input_ptrs</em></td><td>)</td>
           <td></td>
         </tr>

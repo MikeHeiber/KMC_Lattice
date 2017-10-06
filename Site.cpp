@@ -5,6 +5,8 @@
 
 # include "Site.h"
 
+using namespace std;
+
 Site::~Site(){
 
 }

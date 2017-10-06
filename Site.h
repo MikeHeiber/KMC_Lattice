@@ -6,8 +6,6 @@
 #ifndef SITE_H
 #define SITE_H
 
-using namespace std;
-
 // Forward declaration of the Object class is needed by the compiler.
 class Object;
 

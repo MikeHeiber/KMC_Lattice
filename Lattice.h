@@ -9,8 +9,7 @@
 #include "Utils.h"
 #include "Site.h"
 #include <functional>
-
-using namespace std;
+#include <stdexcept>
 
 //! \brief This struct contains all of the main input parameters needed by the Lattice class.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
@@ -49,7 +48,7 @@ class Lattice{
 		//! \param params is a Parameters_Lattice struct that contains all of the required
 		//! parameters to initialize the Lattice object. 
 		//! \param generator_ptr is a pointer to a Mersenne twister number generator.
-        void init(const Parameters_Lattice& params, mt19937* generator_ptr);
+        void init(const Parameters_Lattice& params, std::mt19937* generator_ptr);
 
 		//! \brief Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).
 		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
@@ -160,22 +159,23 @@ class Lattice{
 
 		//! \brief Gets the number of sites contained in the lattice.
 		//! \return The number of sites in the lattice.
-		int getNumSites() const;
+		long int getNumSites() const;
 
 		//! \brief Gets the coordinates of the specified site.
 		//! \param site_index is the vector index of the input site
 		//! \return a Coords object that contains the coordinates of the site specified by the site index.
-		Coords getSiteCoords(int site_index);
+		Coords getSiteCoords(long int site_index);
 
 		//! \brief Gets the vector index for the site corresponding to the input coordinates.
 		//! \param coords is the Coords struct that represents the input coordinates.
 		//! \return The vector index for the sites vector that is associated with the site located at the input coordinates.
-		int getSiteIndex(const Coords& coords) const;
+		//! \return -1 if the coordinates are not located in the lattice.
+		long int getSiteIndex(const Coords& coords) const;
 
 		//! \brief Gets the vector iterator for the site corresponding to the input coordinates.
 		//! \param coords is the Coords struct that represents the input coordinates.
 		//! \return The vector iterator for the sites vector that is associated with the site located at the input coordinates.
-		vector<Site*>::iterator getSiteIt(const Coords& coords);
+		std::vector<Site*>::iterator getSiteIt(const Coords& coords);
 
 		//! \brief Gets the lattice unit size, which is used to convert lattice units into real space units.
 		//! \return The unit size property of the lattice.
@@ -217,7 +217,7 @@ class Lattice{
 		//! \param input_ptrs is the input site pointer vector
 		//! \return false to indicate an error when the sizes of the input site pointer vector and the member site pointer vector are not equal.
 		//! \return true when no error occurs.
-		bool setSitePointers(const vector<Site*>& input_ptrs);
+		bool setSitePointers(const std::vector<Site*>& input_ptrs);
     protected:
 
     private:
@@ -228,8 +228,8 @@ class Lattice{
 		int Width; // nm
 		int Height; // nm
 		double Unit_size; // nm
-		vector<Site*> site_ptrs;
-		mt19937* gen_ptr;
+		std::vector<Site*> site_ptrs;
+		std::mt19937* gen_ptr;
 };
 
 #endif // LATTICE_H
