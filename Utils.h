@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cmath>
 #include <functional>
+#include <fstream>
 #include <iostream>
 #include <memory>
 #include <mpi.h>
@@ -16,8 +17,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-using namespace std;
 
 //! \brief This simple struct contains Cartesian coordinates specified by integers x,y,z.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
@@ -73,7 +72,7 @@ namespace Utils {
 	//! \param data is the input data vector.
 	//! \param num_bins is the desired number of bins.
 	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
-	vector<pair<double,double>> calculateProbabilityHist(const vector<double>& data, int num_bins);
+	std::vector<std::pair<double,double>> calculateProbabilityHist(const std::vector<double>& data, int num_bins);
 
 	//! \brief Calculates the probability histogram for the input data vector using the input bin size.
 	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. 
@@ -81,7 +80,7 @@ namespace Utils {
 	//! \param data is the input data vector.
 	//! \param bin_size is the desired bin size.
 	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
-	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, double bin_size);
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, double bin_size);
 
 	//! \brief Calculates the probability histogram for the input data vector using the input bin size and input number of bins.
 	//! \details Linearly spaced bins are automatically created starting from the minimum value of the data set. The function
@@ -90,7 +89,7 @@ namespace Utils {
 	//! \param num_bins is the number of bins that will be created.
 	//! \param bin_size is the input bin size.
 	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
-	vector<pair<double, double>> calculateProbabilityHist(const vector<double>& data, const double bin_size, const int num_bins);
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, const double bin_size, const int num_bins);
 
 	//! \brief Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.
 	//! \details The created distribution is Gaussian in the positive direction relative to the mode and exponential in 
@@ -100,34 +99,34 @@ namespace Utils {
 	//! \param mode is the value of the peak of the distribution.
 	//! \param urbach_energy is the parameter that detemines the shape of the exponential tail side of the distribution.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
-	void createExponentialDOSVector(vector<double>& data, const double mode, const double urbach_energy, mt19937& gen);
+	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937& gen);
 
 	//! \brief Creates a vector of doubles that has a Gaussian distribution.
 	//! \param data is the data vector where the numbers will be placed, which must be preallocated to the desired size.
 	//! \param mean is the position of the peak and center of the distribution.
 	//! \param stdev is the standard deviation of the distribution, which defines the width of the peak.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
-	void createGaussianDOSVector(vector<double>& data, const double mean, const double stdev, mt19937& gen);
+	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937& gen);
 
 	//! \brief Extracts a boolean value from a string containing "true" or "false".
 	//! \param input is the input string.
 	//! \param error_status is an input boolean that is used to indicate an error with the import process.
 	//! \return true if the input string is "true".
 	//! \return flase if the input string is "flase".
-	bool importBooleanParam(const string& input, bool& error_status);
+	bool importBooleanParam(const std::string& input, bool& error_status);
 
 	//! \brief Numerically integrates a vector of x-y data using the trapezoid rule.
 	//! \warning The function assumes that the data is sorted by the x values.
 	//! \param data is the data vector containing x-y data pairs.
 	//! \return the numerically calculated area.
-	double integrateData(const vector<pair<double, double>>& data);
+	double integrateData(const std::vector<std::pair<double, double>>& data);
 
 	//! \brief Linearly interpolates an x-y data set to determine the interpolated y-value corresponding to an input x-value.
 	//! \warning The function assumes that the data is sorted by the x values.
 	//! \param data is the data vector containing x-y data pairs.
 	//! \param x_val is the x-value that will be interpolated to.
 	//! \return the interpolated y-value when the input x-value lies within the range of the input data.
-	double interpolateData(const vector<pair<double, double>>& data, const double x_val);
+	double interpolateData(const std::vector<std::pair<double, double>>& data, const double x_val);
 
 	//! \brief Uses MPI to calculate the element-wise average vector from separate vectors coming from different processors.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0 
@@ -135,7 +134,7 @@ namespace Utils {
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is the element-wise average of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
-	vector<double> MPI_calculateVectorAvg(const vector<double>& input_vector);
+	std::vector<double> MPI_calculateVectorAvg(const std::vector<double>& input_vector);
 
 	//! \brief Uses MPI to calculate the element-wise sum vector from separate vectors coming from different processors.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0 
@@ -143,7 +142,7 @@ namespace Utils {
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is the element-wise sum of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
-	vector<double> MPI_calculateVectorSum(const vector<double>& input_vector);
+	std::vector<double> MPI_calculateVectorSum(const std::vector<double>& input_vector);
 
 	//! \brief Uses MPI to calculate the element-wise sum vector from separate vectors coming from different processors.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0 
@@ -151,7 +150,7 @@ namespace Utils {
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is the element-wise sum of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
-	vector<int> MPI_calculateVectorSum(const vector<int>& input_vector);
+	std::vector<int> MPI_calculateVectorSum(const std::vector<int>& input_vector);
 
 	//! \brief Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0
@@ -159,12 +158,12 @@ namespace Utils {
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is a concatenation of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
-	vector<double> MPI_gatherVectors(const vector<double>& input_vector);
+	std::vector<double> MPI_gatherVectors(const std::vector<double>& input_vector);
 
 	//! \brief Removes leading and trailing spaces surrounding a string.
 	//! \param str is the input string
 	//! \returns a new string that will have the surrounding spaces removed.
-	string removeWhitespace(const string& str);
+	std::string removeWhitespace(const std::string& str);
 
 	// Template functions
 
@@ -228,8 +227,8 @@ namespace Utils {
 	//! \param vec is the input data vector.
 	//! \param filename is the input file name.
 	template<typename T>
-	void outputVectorToFile(vector<T>& vec, string filename) {
-		ofstream outfile;
+	void outputVectorToFile(std::vector<T>& vec, std::string filename) {
+		std::ofstream outfile;
 		outfile.open(filename);
 		for (int i = 0; i < (int)vec.size(); i++) {
 			outfile << vec[i] << "\n";
@@ -242,8 +241,8 @@ namespace Utils {
 	//! \param vec is the input data pair vector.
 	//! \param filename is the input file name.
 	template<typename T>
-	void outputVectorToFile(vector<pair<T,T>>& vec, string filename) {
-		ofstream outfile;
+	void outputVectorToFile(std::vector<std::pair<T,T>>& vec, std::string filename) {
+		std::ofstream outfile;
 		outfile.open(filename);
 		for (int i = 0; i < (int)vec.size(); i++) {
 			outfile << vec[i].first << "," << vec[i].second << "\n";
@@ -255,7 +254,7 @@ namespace Utils {
 	//! \details This algorithm allow efficient removal of duplicate vector objects when > or < comparison operators do not exist.
 	//! \param vec is the input vector to be operated on.
 	template<typename T>
-	void removeDuplicates(vector<T>& vec) {
+	void removeDuplicates(std::vector<T>& vec) {
 		for (auto it1 = vec.begin(); it1 < vec.end() - 1; ++it1) {
 			for (auto it2 = it1 + 1; it2 < vec.end(); ++it2) {
 				if (*it2 == *it1) {
@@ -271,7 +270,7 @@ namespace Utils {
 	//! \param data is the vector of numerical data.
 	//! \return The average of the data set in double format.
 	template<typename T, typename A>
-	double vector_avg(const vector<T, A>& data) {
+	double vector_avg(const std::vector<T, A>& data) {
 		double sum = 0;
 		for (auto it = data.begin(); it != data.end(); ++it) {
 			sum += *it;
@@ -283,7 +282,7 @@ namespace Utils {
 	//! \param data is the vector of numerical data.
 	//! \return The standard deviation of the data set in double format.
 	template<typename T, typename A>
-	double vector_stdev(const vector<T, A>& data) {
+	double vector_stdev(const std::vector<T, A>& data) {
 		double sum = 0;
 		double avg = vector_avg(data);
 		for (auto it = data.begin(); it != data.end(); ++it) {

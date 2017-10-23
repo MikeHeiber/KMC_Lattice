@@ -13,5 +13,5 @@ var class_object =
     [ "incrementDY", "class_object.html#a9df010818be72d15bad7985bf8a89ba0", null ],
     [ "incrementDZ", "class_object.html#a440b267c478f5d63db1954bdbd543408", null ],
     [ "setCoords", "class_object.html#a34a164e4709e5daaba7a38c3d61ae617", null ],
-    [ "setEventIt", "class_object.html#ae39c4b0bd4e6a5f07f3d0e07e32061ec", null ]
+    [ "setEventIt", "class_object.html#ad5025bd84ae91d6426f458f32e582293", null ]
 ];

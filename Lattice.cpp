@@ -5,6 +5,8 @@
 
 #include "Lattice.h"
 
+using namespace std;
+
 Lattice::Lattice() {
 
 }
@@ -179,11 +181,15 @@ int Lattice::getLength() const{
 	return Length;
 }
 
-int Lattice::getNumSites() const{
+long int Lattice::getNumSites() const{
 	return (int)site_ptrs.size();
 }
 
-Coords Lattice::getSiteCoords(int site_index) {
+Coords Lattice::getSiteCoords(long int site_index) {
+	if (site_index < 0 || site_index >= Length*Width*Height) {
+		cout << "Error! Input site index is not located in the lattice." << endl;
+		throw out_of_range("Input site index is not located in the lattice.");
+	}
 	Coords coords;
 	coords.x = site_index / (Width*Height);
 	int remainder = site_index % (Width*Height);
@@ -192,8 +198,14 @@ Coords Lattice::getSiteCoords(int site_index) {
 	return coords;
 }
 
-int Lattice::getSiteIndex(const Coords& coords) const{
-	return coords.x*Width*Height + coords.y*Height + coords.z;
+long int Lattice::getSiteIndex(const Coords& coords) const{
+	if (coords.x >= 0 && coords.x < Length && coords.y >= 0 && coords.y < Width && coords.z >= 0 && coords.z < Height) {
+		return coords.x*Width*Height + coords.y*Height + coords.z;
+	}
+	else {
+		cout << "Error! Input coordinates are not located in the lattice." << endl;
+		throw out_of_range("Input coordinates are not located in the lattice.");
+	}
 }
 
 vector<Site*>::iterator Lattice::getSiteIt(const Coords& coords){

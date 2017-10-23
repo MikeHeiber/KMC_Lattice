@@ -10,8 +10,6 @@
 #include <list>
 #include <memory>
 
-using namespace std;
-
 // Forward declaration of the Event class is needed by the compiler.
 class Event;
 
@@ -53,11 +51,11 @@ class Object{
 		//! \details The event list iterator points to an Event pointer in the events list within the Simulation
 		//! class, and the Event pointer points to a specific derived Event class stored in the derived Simulation
 		//! class.
-        list<Event*>::iterator getEventIt() const;
+        std::list<Event*>::iterator getEventIt() const;
 
 		//! \brief Gets the name of the Object class.
 		//! \return "Object" when called on the base class.
-        virtual string getName() const;
+        virtual std::string getName() const;
 
 		//! \brief Gets the tag id number of the Object.
 		//! \warning This tag id number may not be unique between objects that are of different derived object classes.
@@ -81,16 +79,16 @@ class Object{
 
 		//! \brief Sets the iterator that points to a specific entry in the events list within the Simulation class.
 		//! \param input_it is the input event list iterator.
-        void setEventIt(const list<Event*>::iterator input_it);
+        void setEventIt(const std::list<Event*>::iterator input_it);
     private:
-        static const string name_base;
+        static const std::string name_base;
         double time_created = 0;
         int tag = -1;
         // Current coords
 		Coords coords = {-1,-1,-1};
         // Initial coords
         Coords coords_initial = { -1,-1,-1 };
-        list<Event*>::iterator event_it;
+		std::list<Event*>::iterator event_it;
         // Accounts for passes across periodic boundaries
         int dx = 0;
         int dy = 0;

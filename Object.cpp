@@ -5,6 +5,8 @@
 
 #include "Object.h"
 
+using namespace std;
+
 const string Object::name_base = "Object";
 
 Object::~Object(){

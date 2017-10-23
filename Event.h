@@ -12,8 +12,6 @@
 #include <memory>
 #include <ctime>
 
-using namespace std;
-
 // Forward declaration of the Object and Simulation classes are needed by the compiler
 class Object;
 class Simulation;
@@ -52,7 +50,7 @@ class Event{
 
 		//! \brief Gets the name of event class.
 		//! \return "Event" when called on the base class.
-        virtual string getName() const;
+        virtual std::string getName() const;
 
 		//! \brief Gets a pointer to the Object object that is designated as the subject of the event.
 		//! \warning Some events may not operate on an object and will thus not have a subject
@@ -94,8 +92,8 @@ class Event{
         // Functions
     private:
         // Variables and objects
-        static const string name_base;
-        double execution_time = 0;
+        static const std::string name_base;
+        double execution_time = -1;
         Object* object_ptr = nullptr;
         Object* object_target_ptr = nullptr;
 		Coords coords_dest = {-1,-1,-1};

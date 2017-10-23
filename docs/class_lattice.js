@@ -17,18 +17,18 @@ var class_lattice =
     [ "generateRandomZ", "class_lattice.html#a96006397a6ab389fb1eee87fde6e2165", null ],
     [ "getHeight", "class_lattice.html#aaa0cba3ab33ac620d9b9f9508c56d1ac", null ],
     [ "getLength", "class_lattice.html#a4b43b67a36fcd3dfe62c9eeaffa561d2", null ],
-    [ "getNumSites", "class_lattice.html#ae8046ebe4dbbe34b03548384ae79d4ae", null ],
-    [ "getSiteCoords", "class_lattice.html#a554b9d4e654f02246ffbeab24a670362", null ],
-    [ "getSiteIndex", "class_lattice.html#abafcbcee9689c0cf7a21134095075604", null ],
+    [ "getNumSites", "class_lattice.html#a4be17e9123f7737387991a9d1a8b87b3", null ],
+    [ "getSiteCoords", "class_lattice.html#a74a170b841ad1b74dad43519d37e9eaf", null ],
+    [ "getSiteIndex", "class_lattice.html#a60431f6504a253d47acb0b02f524571c", null ],
     [ "getSiteIt", "class_lattice.html#a46f7d12855d24e1bdd02814621b0a178", null ],
     [ "getUnitSize", "class_lattice.html#ac6963a6b2b4b8d96d3417f6e9c2a509d", null ],
     [ "getWidth", "class_lattice.html#aeb60d2b8bfb02d9da8bef463f0d41428", null ],
-    [ "init", "class_lattice.html#a4067a9617cc24fa60ca6b47fccb4c123", null ],
+    [ "init", "class_lattice.html#a2b0a88048fae662aa71386a3a123a260", null ],
     [ "isOccupied", "class_lattice.html#a4d37afb6ad4c67f4f6462c2f6d5c337d", null ],
     [ "isXPeriodic", "class_lattice.html#accf3b995e0d0cb422907728a29b1b523", null ],
     [ "isYPeriodic", "class_lattice.html#ac3192acefb019c5258143a6c758b3e48", null ],
     [ "isZPeriodic", "class_lattice.html#ad7dd1b12a253e506aba5cedb57bf86ea", null ],
     [ "outputLatticeOccupancy", "class_lattice.html#aa1f65735ecbd750ec04b6413b4d47316", null ],
     [ "setOccupied", "class_lattice.html#a515b8bc548ef4a87c3495a7352a60399", null ],
-    [ "setSitePointers", "class_lattice.html#aaa16f46daaf157c155f0e9b378a07b5d", null ]
+    [ "setSitePointers", "class_lattice.html#a59546ec4301871897ba5adfda1126741", null ]
 ];

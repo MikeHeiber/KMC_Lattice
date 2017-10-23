@@ -18,8 +18,6 @@
 #include <sstream>
 #include <ctime>
 
-using namespace std;
-
 //! \brief This struct contains all of the main input parameters needed by the Simulation class.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
@@ -47,7 +45,7 @@ struct Parameters_Simulation{
 	//! Defines the desired event recalculation cutoff radius for the simulation in nm.
     int Recalc_cutoff;
 	//! Defines the desired output file stream pointer to the logfile.
-    ofstream* Logfile;
+	std::ofstream* Logfile;
 };
 
 //! \brief This abstract base class contains the basic properties of a KMC simulation and the functions needed 
@@ -84,6 +82,10 @@ class Simulation{
 		//! \return false if execution of the next event is unsuccessful.
         virtual bool executeNextEvent() = 0;
 
+		//! \brief Gets the number of events that are currently in the event list
+		//! \return the size of the events list
+		int getN_events() const;
+
 		//! Gets the number of events that have been executed in the simulation.
         long int getN_events_executed() const;
 
@@ -112,9 +114,9 @@ class Simulation{
 		void setGeneratorSeed(const int seed);
     protected:
         //! Mersenne Twister random number generator
-        mt19937 gen;
+		std::mt19937 gen;
         //! Pointer to an output file stream that is used to print log messages to a logfile when logging is enabled.
-        ofstream* Logfile;
+		std::ofstream* Logfile;
 		//! The Lattice object represents a three-dimensional lattice, its boundary conditions, and its occupancy.
 		Lattice lattice;
 		//! The Error_found flag indicates whether or not there has been an error during one of the simulation operations.
@@ -125,7 +127,7 @@ class Simulation{
 		//! \brief Adds a pointer to an Event object to the event list and returns the iterator to its position in the list.
 		//! \param event_ptr is the input Event pointer.
 		//! \return A list iterator that indicates where in the event list the newly added Event pointer is located.
-        list<Event*>::iterator addEvent(Event* event_ptr);
+		std::list<Event*>::iterator addEvent(Event* event_ptr);
 
 		//! \brief Adds a pointer to an Object object to the object list.
 		//! \param object_ptr is the input Object pointer.
@@ -134,16 +136,16 @@ class Simulation{
 		//! \brief Searches the event list and determines which event will be executed next.
 		//! \details Chooses the event that has the smallest execution time.
 		//! \return A list iterator points to an Event pointer in event list that has been selected to be executed next.
-        list<Event*>::iterator chooseNextEvent();
+		std::list<Event*>::iterator chooseNextEvent();
 
 		//! \brief Locates and returns a vector of pointers to all Object objects near the input coordinates within 
 		//! the Recalc_cutoff radius.
 		//! \param coords is the Coords struct that designates the input coordinates.
 		//! \return a vector of Object pointers.
-        vector<Object*> findRecalcNeighbors(const Coords& coords) const;
+		std::vector<Object*> findRecalcNeighbors(const Coords& coords) const;
 
 		//! \brief Returns a vector of pointers to all Object objects in the simulation.
-        vector<Object*> getAllObjectPtrs() const;
+		std::vector<Object*> getAllObjectPtrs() const;
 
 		//! \brief Moves the designated object to the designated destination coordinates.
 		//! \param object_ptr is an Object pointer to the object that is to be moved.
@@ -169,7 +171,7 @@ class Simulation{
 		//! \details This is used to update the Event associated with a particular object.
 		//! \param event_it is the list iterator pointing to the Event pointer that is to be overwritten.
 		//! \param event_ptr is the input Event pointer.
-        void setEvent(const list<Event*>::iterator event_it,Event* event_ptr);
+        void setEvent(const std::list<Event*>::iterator event_it,Event* event_ptr);
 
 		//! \brief Updates the simulation time with the input time.
 		//! \param input_time is the input time that will become the new current simulation time.
@@ -183,8 +185,8 @@ class Simulation{
         // First Reaction Method Parameters
         int Recalc_cutoff;
         // Data Structures
-        list<Object*> objects;
-        list<Event*> events;
+		std::list<Object*> objects;
+		std::list<Event*> events;
         // Counters
         double Time = 0;
         int N_objects = 0;
