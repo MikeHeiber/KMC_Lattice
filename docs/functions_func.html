@@ -29,6 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">KMC_Lattice
+   &#160;<span id="projectnumber">v2.0-beta.2</span>
    </div>
    <div id="projectbrief">A general framework for three-dimensional lattice kinetic Monte Carlo simulations</div>
   </td>
@@ -100,16 +101,16 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 : <a class="el" href="class_object.html#a02643ea0804dec3e43f60c788855c03b">Object</a>
 </li>
 <li>calculateDX()
-: <a class="el" href="class_lattice.html#ad89c5473dd37339ede9fb3d0c3db4300">Lattice</a>
+: <a class="el" href="class_lattice.html#a08adb2f412af409d3ec241e60e687c1a">Lattice</a>
 </li>
 <li>calculateDY()
 : <a class="el" href="class_lattice.html#acdeca889f7df11fe299f8b7941198c83">Lattice</a>
 </li>
 <li>calculateDZ()
-: <a class="el" href="class_lattice.html#a76b38079e102e17c79b13a3398a404a0">Lattice</a>
+: <a class="el" href="class_lattice.html#a584ff9c528ebe46a6aea6ed652d107f4">Lattice</a>
 </li>
 <li>calculateExecutionTime()
-: <a class="el" href="class_event.html#a14b3f90f4b4d72ab1d0bf70f9b4cc907">Event</a>
+: <a class="el" href="class_event.html#a6fa01d0eba9aa1bbea18ee94aa8c02fe">Event</a>
 </li>
 <li>calculateLatticeDistanceSquared()
 : <a class="el" href="class_lattice.html#a3f51b0b41cf0e43e0469320310494a1e">Lattice</a>
@@ -175,6 +176,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>getEventIt()
 : <a class="el" href="class_object.html#aa7c58e0319b7715c8d36f38ca7acf03e">Object</a>
 </li>
+<li>getEventType()
+: <a class="el" href="class_event.html#a77ff5602b20c468b3b72e9924038ac94">Event</a>
+</li>
 <li>getExecutionTime()
 : <a class="el" href="class_event.html#a65550d982cdf85d993658cd7070c960c">Event</a>
 </li>
@@ -193,10 +197,6 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>getN_events_executed()
 : <a class="el" href="class_simulation.html#a52cb5564151421cbefaca56357738de7">Simulation</a>
 </li>
-<li>getName()
-: <a class="el" href="class_event.html#a8c38a406d844d05eac1ef007bad2487f">Event</a>
-, <a class="el" href="class_object.html#ade517616d51cd9ab581ec5afeb37b313">Object</a>
-</li>
 <li>getNumSites()
 : <a class="el" href="class_lattice.html#a4be17e9123f7737387991a9d1a8b87b3">Lattice</a>
 </li>
@@ -206,6 +206,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>getObjectTargetPtr()
 : <a class="el" href="class_event.html#ab86f724c3c894faa1d6ccca78c357d24">Event</a>
+</li>
+<li>getObjectType()
+: <a class="el" href="class_object.html#a79449834c55900dd1d96fb7c530e4515">Object</a>
 </li>
 <li>getSiteCoords()
 : <a class="el" href="class_lattice.html#a74a170b841ad1b74dad43519d37e9eaf">Lattice</a>
@@ -276,7 +279,7 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>moveObject()
-: <a class="el" href="class_simulation.html#a7b10f51640088366d0d1278361817e8d">Simulation</a>
+: <a class="el" href="class_simulation.html#a59666ceba048bec35557cb8b691d24d9">Simulation</a>
 </li>
 </ul>
 
@@ -317,9 +320,6 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>setDestCoords()
 : <a class="el" href="class_event.html#a166ae40f2bf26c1e08097697ca76c884">Event</a>
 </li>
-<li>setEvent()
-: <a class="el" href="class_simulation.html#a4490fc0d8bb8a36b0ff581148ab85a14">Simulation</a>
-</li>
 <li>setEventIt()
 : <a class="el" href="class_object.html#ad5025bd84ae91d6426f458f32e582293">Object</a>
 </li>
@@ -328,6 +328,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>setGeneratorSeed()
 : <a class="el" href="class_simulation.html#a1a825b9da67da43104137662694655bd">Simulation</a>
+</li>
+<li>setObjectEvent()
+: <a class="el" href="class_simulation.html#a43ca861e2514feb7f93bf18ea3b73385">Simulation</a>
 </li>
 <li>setObjectPtr()
 : <a class="el" href="class_event.html#a078cadde679fc042486ef065a097c7af">Event</a>
@@ -343,6 +346,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>setSitePointers()
 : <a class="el" href="class_lattice.html#a59546ec4301871897ba5adfda1126741">Lattice</a>
 </li>
+<li>setTime()
+: <a class="el" href="class_simulation.html#aae315f0881f0b385c566f96beb01d3f6">Simulation</a>
+</li>
 <li>setXYZ()
 : <a class="el" href="struct_coords.html#a88de3a6ee710766eb9c9444cee45a9f3">Coords</a>
 </li>
@@ -351,13 +357,6 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>Site()
 : <a class="el" href="class_site.html#a4119f95c45d57d6edf419169dea993f4">Site</a>
-</li>
-</ul>
-
-
-<h3><a id="index_u"></a>- u -</h3><ul>
-<li>updateTime()
-: <a class="el" href="class_simulation.html#a1affa7d0725c3d10663095619dcb9208">Simulation</a>
 </li>
 </ul>
 

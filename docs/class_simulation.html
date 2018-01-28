@@ -29,6 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">KMC_Lattice
+   &#160;<span id="projectnumber">v2.0-beta.2</span>
    </div>
    <div id="projectbrief">A general framework for three-dimensional lattice kinetic Monte Carlo simulations</div>
   </td>
@@ -160,28 +161,28 @@ Protected Member Functions</h2></td></tr>
 std::vector&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a620684b9ac1fb07344c4c2237ed9f352">getAllObjectPtrs</a> () const</td></tr>
 <tr class="memdesc:a620684b9ac1fb07344c4c2237ed9f352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of pointers to all <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> objects in the simulation. <br /></td></tr>
 <tr class="separator:a620684b9ac1fb07344c4c2237ed9f352"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b10f51640088366d0d1278361817e8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a7b10f51640088366d0d1278361817e8d">moveObject</a> (<a class="el" href="class_object.html">Object</a> *object_ptr, const <a class="el" href="struct_coords.html">Coords</a> &amp;dest_coords)</td></tr>
-<tr class="memdesc:a7b10f51640088366d0d1278361817e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the designated object to the designated destination coordinates.  <a href="#a7b10f51640088366d0d1278361817e8d">More...</a><br /></td></tr>
-<tr class="separator:a7b10f51640088366d0d1278361817e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59666ceba048bec35557cb8b691d24d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a59666ceba048bec35557cb8b691d24d9">moveObject</a> (<a class="el" href="class_object.html">Object</a> *object_ptr, const <a class="el" href="struct_coords.html">Coords</a> &amp;coords_dest)</td></tr>
+<tr class="memdesc:a59666ceba048bec35557cb8b691d24d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the designated object to the designated destination coordinates.  <a href="#a59666ceba048bec35557cb8b691d24d9">More...</a><br /></td></tr>
+<tr class="separator:a59666ceba048bec35557cb8b691d24d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a4808231d4760f0ab30ea39b6a67e8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a3a4808231d4760f0ab30ea39b6a67e8c">removeEvent</a> (<a class="el" href="class_event.html">Event</a> *event_ptr)</td></tr>
 <tr class="memdesc:a3a4808231d4760f0ab30ea39b6a67e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer from the event list.  <a href="#a3a4808231d4760f0ab30ea39b6a67e8c">More...</a><br /></td></tr>
 <tr class="separator:a3a4808231d4760f0ab30ea39b6a67e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39da17feb9b487c05c9a834def44972f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a39da17feb9b487c05c9a834def44972f">removeObject</a> (<a class="el" href="class_object.html">Object</a> *object_ptr)</td></tr>
 <tr class="memdesc:a39da17feb9b487c05c9a834def44972f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> pointer from the base simulation class.  <a href="#a39da17feb9b487c05c9a834def44972f">More...</a><br /></td></tr>
 <tr class="separator:a39da17feb9b487c05c9a834def44972f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4490fc0d8bb8a36b0ff581148ab85a14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a4490fc0d8bb8a36b0ff581148ab85a14">setEvent</a> (const std::list&lt; <a class="el" href="class_event.html">Event</a> *&gt;::iterator event_it, <a class="el" href="class_event.html">Event</a> *event_ptr)</td></tr>
-<tr class="memdesc:a4490fc0d8bb8a36b0ff581148ab85a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer in the event list indicated by the input iterator to the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer.  <a href="#a4490fc0d8bb8a36b0ff581148ab85a14">More...</a><br /></td></tr>
-<tr class="separator:a4490fc0d8bb8a36b0ff581148ab85a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1affa7d0725c3d10663095619dcb9208"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a1affa7d0725c3d10663095619dcb9208">updateTime</a> (const double input_time)</td></tr>
-<tr class="memdesc:a1affa7d0725c3d10663095619dcb9208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the simulation time with the input time.  <a href="#a1affa7d0725c3d10663095619dcb9208">More...</a><br /></td></tr>
-<tr class="separator:a1affa7d0725c3d10663095619dcb9208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43ca861e2514feb7f93bf18ea3b73385"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a43ca861e2514feb7f93bf18ea3b73385">setObjectEvent</a> (const <a class="el" href="class_object.html">Object</a> *object_ptr, <a class="el" href="class_event.html">Event</a> *event_ptr)</td></tr>
+<tr class="memdesc:a43ca861e2514feb7f93bf18ea3b73385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer in the event list associated with the indicated <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> to the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer.  <a href="#a43ca861e2514feb7f93bf18ea3b73385">More...</a><br /></td></tr>
+<tr class="separator:a43ca861e2514feb7f93bf18ea3b73385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae315f0881f0b385c566f96beb01d3f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#aae315f0881f0b385c566f96beb01d3f6">setTime</a> (const double input_time)</td></tr>
+<tr class="memdesc:aae315f0881f0b385c566f96beb01d3f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the simulation time with the input time.  <a href="#aae315f0881f0b385c566f96beb01d3f6">More...</a><br /></td></tr>
+<tr class="separator:aae315f0881f0b385c566f96beb01d3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a80d697e885e6fa3a0ab688b25b366194"><td class="memItemLeft" align="right" valign="top"><a id="a80d697e885e6fa3a0ab688b25b366194"></a>
-std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a80d697e885e6fa3a0ab688b25b366194">gen</a></td></tr>
-<tr class="memdesc:a80d697e885e6fa3a0ab688b25b366194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator. <br /></td></tr>
-<tr class="separator:a80d697e885e6fa3a0ab688b25b366194"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c1d9071749e0fd93e70380cafb28417"><td class="memItemLeft" align="right" valign="top"><a id="a4c1d9071749e0fd93e70380cafb28417"></a>
+std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a4c1d9071749e0fd93e70380cafb28417">generator</a></td></tr>
+<tr class="memdesc:a4c1d9071749e0fd93e70380cafb28417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator. <br /></td></tr>
+<tr class="separator:a4c1d9071749e0fd93e70380cafb28417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a741321a0bbc89d51b969abda469e6f96"><td class="memItemLeft" align="right" valign="top"><a id="a741321a0bbc89d51b969abda469e6f96"></a>
 std::ofstream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a741321a0bbc89d51b969abda469e6f96">Logfile</a></td></tr>
 <tr class="memdesc:a741321a0bbc89d51b969abda469e6f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to an output file stream that is used to print log messages to a logfile when logging is enabled. <br /></td></tr>
@@ -199,7 +200,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="textblock"><p>This abstract base class contains the basic properties of a KMC simulation and the functions needed to interact with it. </p>
 <p>This abstract base class must be extended using a derived simulation class. </p><dl class="section copyright"><dt>Copyright</dt><dd>MIT License. For more information, see the LICENSE file that accompanies this software package. </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Michael C. Heiber </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2018 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5b224cc5b36bcc8eb29689aff223de41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b224cc5b36bcc8eb29689aff223de41">&#9670;&nbsp;</a></span>Simulation()</h2>
@@ -513,8 +514,8 @@ false if logging is disabled. </dd></dl>
 
 </div>
 </div>
-<a id="a7b10f51640088366d0d1278361817e8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b10f51640088366d0d1278361817e8d">&#9670;&nbsp;</a></span>moveObject()</h2>
+<a id="a59666ceba048bec35557cb8b691d24d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59666ceba048bec35557cb8b691d24d9">&#9670;&nbsp;</a></span>moveObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -532,7 +533,7 @@ false if logging is disabled. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="struct_coords.html">Coords</a> &amp;&#160;</td>
-          <td class="paramname"><em>dest_coords</em>&#160;</td>
+          <td class="paramname"><em>coords_dest</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -551,7 +552,7 @@ false if logging is disabled. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">object_ptr</td><td>is an <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> pointer to the object that is to be moved. </td></tr>
-    <tr><td class="paramname">dest_coords</td><td>is the <a class="el" href="struct_coords.html" title="This simple struct contains Cartesian coordinates specified by integers x,y,z. ">Coords</a> struct that designates the coordinates where the object is to be moved. </td></tr>
+    <tr><td class="paramname">coords_dest</td><td>is the <a class="el" href="struct_coords.html" title="This simple struct contains Cartesian coordinates specified by integers x,y,z. ">Coords</a> struct that designates the coordinates where the object is to be moved. </td></tr>
   </table>
   </dd>
 </dl>
@@ -626,51 +627,6 @@ false if logging is disabled. </dd></dl>
 
 </div>
 </div>
-<a id="a4490fc0d8bb8a36b0ff581148ab85a14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4490fc0d8bb8a36b0ff581148ab85a14">&#9670;&nbsp;</a></span>setEvent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Simulation::setEvent </td>
-          <td>(</td>
-          <td class="paramtype">const std::list&lt; <a class="el" href="class_event.html">Event</a> *&gt;::iterator&#160;</td>
-          <td class="paramname"><em>event_it</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_event.html">Event</a> *&#160;</td>
-          <td class="paramname"><em>event_ptr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Overwrites the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer in the event list indicated by the input iterator to the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer. </p>
-<p>This is used to update the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> associated with a particular object. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event_it</td><td>is the list iterator pointing to the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer that is to be overwritten. </td></tr>
-    <tr><td class="paramname">event_ptr</td><td>is the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a1a825b9da67da43104137662694655bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a825b9da67da43104137662694655bd">&#9670;&nbsp;</a></span>setGeneratorSeed()</h2>
 
@@ -692,8 +648,8 @@ false if logging is disabled. </dd></dl>
 
 </div>
 </div>
-<a id="a1affa7d0725c3d10663095619dcb9208"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1affa7d0725c3d10663095619dcb9208">&#9670;&nbsp;</a></span>updateTime()</h2>
+<a id="a43ca861e2514feb7f93bf18ea3b73385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43ca861e2514feb7f93bf18ea3b73385">&#9670;&nbsp;</a></span>setObjectEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -702,7 +658,52 @@ false if logging is disabled. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Simulation::updateTime </td>
+          <td class="memname">void Simulation::setObjectEvent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_object.html">Object</a> *&#160;</td>
+          <td class="paramname"><em>object_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_event.html">Event</a> *&#160;</td>
+          <td class="paramname"><em>event_ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overwrites the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer in the event list associated with the indicated <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> to the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer. </p>
+<p>This is used to update the <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> associated with a particular object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object_ptr</td><td>is the pointer the designated <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> whose <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer is to be overwritten. </td></tr>
+    <tr><td class="paramname">event_ptr</td><td>is the input <a class="el" href="class_event.html" title="This base class contains the basic properties of a KMC simulation event and the functions needed to i...">Event</a> pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aae315f0881f0b385c566f96beb01d3f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae315f0881f0b385c566f96beb01d3f6">&#9670;&nbsp;</a></span>setTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Simulation::setTime </td>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>input_time</em></td><td>)</td>

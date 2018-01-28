@@ -1,4 +1,4 @@
-// Copyright (c) 2017 Michael C. Heiber
+// Copyright (c) 2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -22,14 +22,18 @@ class Simulation;
 //! base class is intended to be extended to create classes that represent specific types of events. 
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
-//! \date 2017
+//! \date 2018
 class Event{
     public:
 		//! Default virtual destructor needed by the base class.
         virtual ~Event();
 
-		//! Default constructor that creates an empty Event object.
-        Event();
+		//! The default constructor that creates an empty Event object.
+		Event();
+
+		//! Constructor that creates an empty Event object pre-initilized with the Simulation pointer.
+		//! \param sim_ptr is a pointer to the Simulation object that the Event is associated with.
+        Event(Simulation* sim_ptr);
 
 		//! \brief Calculates and sets the execution time of the event.
 		//! \details The function accesses the random number generator and current simulation time from the
@@ -38,8 +42,7 @@ class Event{
 		//! to calculate the rate. This base class function can then be called within the new function to calculate
 		//! the final execution time.
 		//! \param rate is the rate of the process represented by the event in units of 1/s.
-		//! \param sim_ptr is a pointer to a Simulation object.
-        void calculateExecutionTime(const double rate, Simulation* sim_ptr);
+        void calculateExecutionTime(const double rate);
 
 		//! \brief Gets the coordinates of the event destination site.
 		//! \warning Some events may not have a destination site determined until execution and will thus
@@ -50,7 +53,7 @@ class Event{
 
 		//! \brief Gets the name of event class.
 		//! \return "Event" when called on the base class.
-        virtual std::string getName() const;
+        virtual std::string getEventType() const;
 
 		//! \brief Gets a pointer to the Object object that is designated as the subject of the event.
 		//! \warning Some events may not operate on an object and will thus not have a subject
@@ -89,10 +92,13 @@ class Event{
 
     protected:
         // Variables
+		//! \brief The sim_ptr member variable provides a point to the Simulation object that the Event is asociated with.
+		//! \details The pointer is used to access the current time in the simulation and the random number generator.
+		Simulation* sim_ptr = nullptr;
         // Functions
     private:
         // Variables and objects
-        static const std::string name_base;
+        static const std::string event_type_base;
         double execution_time = -1;
         Object* object_ptr = nullptr;
         Object* object_target_ptr = nullptr;

@@ -1,4 +1,4 @@
-// Copyright (c) 2017 Michael C. Heiber
+// Copyright (c) 2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -19,7 +19,7 @@ class Event;
 //! base class is intended to be extended to create classes that represent specific types of objects. 
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
-//! \date 2017
+//! \date 2018
 class Object{
     public:
 		//! Default virtual destructor needed by the base class.
@@ -55,7 +55,7 @@ class Object{
 
 		//! \brief Gets the name of the Object class.
 		//! \return "Object" when called on the base class.
-        virtual std::string getName() const;
+        virtual std::string getObjectType() const;
 
 		//! \brief Gets the tag id number of the Object.
 		//! \warning This tag id number may not be unique between objects that are of different derived object classes.
@@ -81,11 +81,11 @@ class Object{
 		//! \param input_it is the input event list iterator.
         void setEventIt(const std::list<Event*>::iterator input_it);
     private:
-        static const std::string name_base;
+        static const std::string object_type_base;
         double time_created = 0;
         int tag = -1;
         // Current coords
-		Coords coords = {-1,-1,-1};
+		Coords coords_current = {-1,-1,-1};
         // Initial coords
         Coords coords_initial = { -1,-1,-1 };
 		std::list<Event*>::iterator event_it;

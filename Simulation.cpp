@@ -1,4 +1,4 @@
-// Copyright (c) 2017 Michael C. Heiber
+// Copyright (c) 2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -28,43 +28,42 @@ void Simulation::init(const Parameters_Simulation& params, const int id) {
 	params_lattice.Width = params.Width;
 	params_lattice.Height = params.Height;
 	params_lattice.Unit_size = params.Unit_size;
-	Temperature = params.Temperature;
+	temperature = params.Temperature;
 	// First reaction method parameters
 	Recalc_cutoff = params.Recalc_cutoff;
 	// Initialize data structures
-	lattice.init(params_lattice, &gen);
-	objects.clear();
-	events.clear();
-	gen.seed((int)time(0)*(id + 1));
+	lattice.init(params_lattice, &generator);
+	object_ptrs.clear();
+	event_ptrs.clear();
+	generator.seed((int)time(0)*(id + 1));
 	// Output files
 	Logfile = params.Logfile;
 }
 
 
 list<Event*>::iterator Simulation::addEvent(Event* event_ptr) {
-	events.push_back(event_ptr);
-	return --events.end();
+	event_ptrs.push_back(event_ptr);
+	return --event_ptrs.end();
 }
 
 void Simulation::addObject(Object* object_ptr) {
 	// Add an event for the object to the event list and link the event to the object
-	events.push_back(nullptr);
-	object_ptr->setEventIt(--events.end());
+	event_ptrs.push_back(nullptr);
+	object_ptr->setEventIt(--event_ptrs.end());
 	// Add new object to the object vector and link the object to the event
-	objects.push_back(object_ptr);
+	object_ptrs.push_back(object_ptr);
 	// Set occupancy of site
 	lattice.setOccupied(object_ptr->getCoords());
-	(*lattice.getSiteIt(object_ptr->getCoords()))->setObjectPtr(*(--objects.end()));
+	(*lattice.getSiteIt(object_ptr->getCoords()))->setObjectPtr(*(--object_ptrs.end()));
 	// Update counters
-	N_objects++;
 	N_objects_created++;
 	N_events_executed++;
 }
 
 list<Event*>::iterator Simulation::chooseNextEvent() {
-	auto event_target_it = events.begin();
-	if (events.size() > 1) {
-		for (auto it = ++events.begin(); it != events.end(); ++it) {
+	auto event_target_it = event_ptrs.begin();
+	if (event_ptrs.size() > 1) {
+		for (auto it = ++event_ptrs.begin(); it != event_ptrs.end(); ++it) {
 			if ((*it) != nullptr && ((*event_target_it) == nullptr || ((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()))) {
 				event_target_it = it;
 			}
@@ -74,28 +73,28 @@ list<Event*>::iterator Simulation::chooseNextEvent() {
 }
 
 vector<Object*> Simulation::findRecalcNeighbors(const Coords& coords) const {
-	vector<Object*> object_ptrs;
-	object_ptrs.reserve(10);
+	vector<Object*> neighbor_ptrs;
+	neighbor_ptrs.reserve(10);
 	Coords coords2;
 	const static int recalc_cutoff_sq_lat = (int)((Recalc_cutoff / lattice.getUnitSize())*(Recalc_cutoff / lattice.getUnitSize()));
 	int distance_sq_lat;
-	for (auto object_it = objects.begin(); object_it != objects.end(); ++object_it) {
-		coords2 = (*object_it)->getCoords();
+	for (auto const &item : object_ptrs) {
+		coords2 = item->getCoords();
 		distance_sq_lat = lattice.calculateLatticeDistanceSquared(coords, coords2);
 		if (distance_sq_lat <= recalc_cutoff_sq_lat) {
-			object_ptrs.push_back(*object_it);
+			neighbor_ptrs.push_back(item);
 		}
 	}
-	return object_ptrs;
+	return neighbor_ptrs;
 }
 
 vector<Object*> Simulation::getAllObjectPtrs() const {
-	vector<Object*> object_ptrs;
-	object_ptrs.reserve(objects.size());
-	for (auto object_it = objects.begin(); object_it != objects.end(); ++object_it) {
-		object_ptrs.push_back(*object_it);
+	vector<Object*> object_ptrs_vec;
+	object_ptrs_vec.reserve(object_ptrs.size());
+	for (auto const &item : object_ptrs) {
+		object_ptrs_vec.push_back(item);
 	}
-	return object_ptrs;
+	return object_ptrs_vec;
 }
 
 int Simulation::getId() const {
@@ -104,8 +103,8 @@ int Simulation::getId() const {
 
 int Simulation::getN_events() const {
 	int count = 0;
-	for (auto it = events.begin(); it != events.end(); ++it) {
-		if ((*it)!=nullptr && (*it)->getExecutionTime() > 0) {
+	for (auto const &item : event_ptrs) {
+		if (item!=nullptr && item->getExecutionTime() > 0) {
 			count++;
 		}
 	}
@@ -117,11 +116,11 @@ long int Simulation::getN_events_executed() const {
 }
 
 int Simulation::getTemp() const {
-	return Temperature;
+	return temperature;
 }
 
 double Simulation::getTime() const {
-	return Time;
+	return time_sim;
 }
 
 bool Simulation::isLoggingEnabled() const {
@@ -146,14 +145,14 @@ void Simulation::moveObject(Object* object_ptr, const Coords& coords_dest) {
 }
 
 double Simulation::rand01() {
-	return generate_canonical<double, std::numeric_limits<double>::digits>(gen);
+	return generate_canonical<double, std::numeric_limits<double>::digits>(generator);
 }
 
 void Simulation::removeEvent(Event* event_ptr) {
 	bool success = false;
-	for (auto it = events.begin(); it != events.end(); ++it) {
+	for (auto it = event_ptrs.begin(); it != event_ptrs.end(); ++it) {
 		if (*it == event_ptr) {
-			events.erase(it);
+			event_ptrs.erase(it);
 			success = true;
 			break;
 		}
@@ -171,15 +170,14 @@ void Simulation::removeObject(Object* object_ptr) {
 	removeEvent(*object_ptr->getEventIt());
 	// Delete the object pointer
 	bool success = false;
-	for (auto it = objects.begin(); it != objects.end(); ++it){
+	for (auto it = object_ptrs.begin(); it != object_ptrs.end(); ++it){
 		if (*it == object_ptr) {
-			objects.erase(it);
+			object_ptrs.erase(it);
 			success = true;
 			break;
 		}
 	}
     // Update counters
-    N_objects--;
     N_events_executed++;
 	// Error checking
 	if (!success) {
@@ -188,15 +186,15 @@ void Simulation::removeObject(Object* object_ptr) {
 	}
 }
 
-void Simulation::setEvent(const list<Event*>::iterator event_it,Event* event_ptr){
-	*event_it = event_ptr;
+void Simulation::setObjectEvent(const Object* object_ptr,Event* event_ptr){
+	*(object_ptr->getEventIt()) = event_ptr;
 }
 
 void Simulation::setGeneratorSeed(int seed) {
-	gen.seed(seed);
+	generator.seed(seed);
 }
 
-void Simulation::updateTime(const double new_time){
-    Time = new_time;
+void Simulation::setTime(const double new_time){
+    time_sim = new_time;
 }
 

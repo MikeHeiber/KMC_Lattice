@@ -29,6 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">KMC_Lattice
+   &#160;<span id="projectnumber">v2.0-beta.2</span>
    </div>
    <div id="projectbrief">A general framework for three-dimensional lattice kinetic Monte Carlo simulations</div>
   </td>
@@ -118,9 +119,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:aa7c58e0319b7715c8d36f38ca7acf03e"><td class="memItemLeft" align="right" valign="top">std::list&lt; <a class="el" href="class_event.html">Event</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#aa7c58e0319b7715c8d36f38ca7acf03e">getEventIt</a> () const</td></tr>
 <tr class="memdesc:aa7c58e0319b7715c8d36f38ca7acf03e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the event list iterator for the event that is associated with the object.  <a href="#aa7c58e0319b7715c8d36f38ca7acf03e">More...</a><br /></td></tr>
 <tr class="separator:aa7c58e0319b7715c8d36f38ca7acf03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade517616d51cd9ab581ec5afeb37b313"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#ade517616d51cd9ab581ec5afeb37b313">getName</a> () const</td></tr>
-<tr class="memdesc:ade517616d51cd9ab581ec5afeb37b313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> class.  <a href="#ade517616d51cd9ab581ec5afeb37b313">More...</a><br /></td></tr>
-<tr class="separator:ade517616d51cd9ab581ec5afeb37b313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79449834c55900dd1d96fb7c530e4515"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a79449834c55900dd1d96fb7c530e4515">getObjectType</a> () const</td></tr>
+<tr class="memdesc:a79449834c55900dd1d96fb7c530e4515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> class.  <a href="#a79449834c55900dd1d96fb7c530e4515">More...</a><br /></td></tr>
+<tr class="separator:a79449834c55900dd1d96fb7c530e4515"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9653577e8d0ac4b7b86d23d12f8b31b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#aa9653577e8d0ac4b7b86d23d12f8b31b">getTag</a> () const</td></tr>
 <tr class="memdesc:aa9653577e8d0ac4b7b86d23d12f8b31b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the tag id number of the <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a>.  <a href="#aa9653577e8d0ac4b7b86d23d12f8b31b">More...</a><br /></td></tr>
 <tr class="separator:aa9653577e8d0ac4b7b86d23d12f8b31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,7 +145,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <div class="textblock"><p>This base class contains the basic properties of a KMC simulation object and the functions needed to interact with it. </p>
 <p>This base class is designed to work with the <a class="el" href="class_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> class to construct a KMC simulation. This base class is intended to be extended to create classes that represent specific types of objects. </p><dl class="section copyright"><dt>Copyright</dt><dd>MIT License. For more information, see the LICENSE file that accompanies this software package. </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Michael C. Heiber </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2017 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2018 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aff050a622272cc7667251c7315f09fd7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff050a622272cc7667251c7315f09fd7">&#9670;&nbsp;</a></span>Object()</h2>
@@ -271,8 +272,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="ade517616d51cd9ab581ec5afeb37b313"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade517616d51cd9ab581ec5afeb37b313">&#9670;&nbsp;</a></span>getName()</h2>
+<a id="a79449834c55900dd1d96fb7c530e4515"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79449834c55900dd1d96fb7c530e4515">&#9670;&nbsp;</a></span>getObjectType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +282,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">string Object::getName </td>
+          <td class="memname">string Object::getObjectType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
