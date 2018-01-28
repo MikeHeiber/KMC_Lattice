@@ -1,7 +1,7 @@
 # KMC_Lattice
 
 ## General Information
-This object-oriented C++ software package contains a general framework for lattice kinetic Monte Carlo (KMC) simulations.  This framework consists of a number of utility functions and base classes that must be extended to create a full operational KMC simulation.  The goal of this package is to be robust and flexible so that users can easily develop KMC simulations for a wide variety of different scientific problems without the need to start from scratch. 
+This object-oriented C++ software package contains a general framework for lattice kinetic Monte Carlo (KMC) simulations.  This framework consists of a number of utility functions and base classes that must be extended to create a fully operational KMC simulation.  The goal of this package is to be robust and flexible so that users can easily develop KMC simulations for a wide variety of different scientific problems without the need to start from scratch. 
 
 This KMC_Lattice package uses the first reaction method with adjustable event recalculation for computationally efficient simulations.  The package is designed to be usable on a personal computer and on high performance computing clusters.  A simple example implementation of this general KMC framework can be found in the derived [KMC_Lattice_example](https://github.com/MikeHeiber/KMC_Lattice_example) package.  Check out the [Excimontec](https://github.com/MikeHeiber/Excimontec) software package to see a more detailed tool used for simulating organic semiconductor materials and devices.
 
