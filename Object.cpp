@@ -60,6 +60,13 @@ void Object::incrementDZ(const int num){
     dz += num;
 }
 
+void Object::resetInitialCoords(const Coords& input_coords) {
+	coords_initial = input_coords;
+	dx = 0;
+	dy = 0;
+	dz = 0;
+}
+
 void Object::setCoords(const Coords& input_coords){
     coords_current = input_coords;
 }

@@ -41,11 +41,11 @@ int Lattice::calculateDX(const int x, const int i) const{
 	}
 }
 
-int Lattice::calculateDX(const Coords& coords_initial, const Coords& coords_dest) const{
-	if (Enable_periodic_x && 2 * (coords_dest.x - coords_initial.x)>Length) {
+int Lattice::calculateDX(const Coords& coords_initial, const Coords& coords_dest) const {
+	if (Enable_periodic_x && 2 * (coords_dest.x - coords_initial.x) > Length) {
 		return Length;
 	}
-	else if (Enable_periodic_x && 2 * (coords_dest.x - coords_initial.x)<-Length) {
+	else if (Enable_periodic_x && 2 * (coords_dest.x - coords_initial.x) < -Length) {
 		return -Length;
 	}
 	else {
@@ -53,8 +53,8 @@ int Lattice::calculateDX(const Coords& coords_initial, const Coords& coords_dest
 	}
 }
 
-int Lattice::calculateDY(const int y, const int j) const{
-	if (Enable_periodic_y && y + j<0) {
+int Lattice::calculateDY(const int y, const int j) const {
+	if (Enable_periodic_y && y + j < 0) {
 		return Width;
 	}
 	else if (Enable_periodic_y && y + j >= Width) {
@@ -65,11 +65,11 @@ int Lattice::calculateDY(const int y, const int j) const{
 	}
 }
 
-int Lattice::calculateDY(const Coords& coords_initial, const Coords& coords_dest) const{
-	if (Enable_periodic_y && 2 * (coords_dest.y - coords_initial.y)>Width) {
+int Lattice::calculateDY(const Coords& coords_initial, const Coords& coords_dest) const {
+	if (Enable_periodic_y && 2 * (coords_dest.y - coords_initial.y) > Width) {
 		return Width;
 	}
-	else if (Enable_periodic_y && 2 * (coords_dest.y - coords_initial.y)<-Width) {
+	else if (Enable_periodic_y && 2 * (coords_dest.y - coords_initial.y) < -Width) {
 		return -Width;
 	}
 	else {
@@ -77,8 +77,8 @@ int Lattice::calculateDY(const Coords& coords_initial, const Coords& coords_dest
 	}
 }
 
-int Lattice::calculateDZ(const int z, const int k) const{
-	if (Enable_periodic_z && z + k<0) {
+int Lattice::calculateDZ(const int z, const int k) const {
+	if (Enable_periodic_z && z + k < 0) {
 		return Height;
 	}
 	else if (Enable_periodic_z && z + k >= Height) {
@@ -101,24 +101,24 @@ int Lattice::calculateDZ(const Coords& coords_initial, const Coords& coords_dest
 	}
 }
 
-int Lattice::calculateLatticeDistanceSquared(const Coords& coords_start, const Coords& coords_dest) const{
+int Lattice::calculateLatticeDistanceSquared(const Coords& coords_start, const Coords& coords_dest) const {
 	int absx = abs(coords_dest.x - coords_start.x);
 	int absy = abs(coords_dest.y - coords_start.y);
 	int absz = abs(coords_dest.z - coords_start.z);
 	int dx, dy, dz;
-	if (Enable_periodic_x && 2*absx > Length) {
+	if (Enable_periodic_x && 2 * absx > Length) {
 		dx = -Length;
 	}
 	else {
 		dx = 0;
 	}
-	if (Enable_periodic_y && 2*absy > Width) {
+	if (Enable_periodic_y && 2 * absy > Width) {
 		dy = -Width;
 	}
 	else {
 		dy = 0;
 	}
-	if (Enable_periodic_z && 2*absz > Height) {
+	if (Enable_periodic_z && 2 * absz > Height) {
 		dz = -Height;
 	}
 	else {
@@ -131,13 +131,13 @@ bool Lattice::checkMoveValidity(const Coords& coords_initial, const int i, const
 	if (i == 0 && j == 0 && k == 0) {
 		return false;
 	}
-	if (!Enable_periodic_x && (coords_initial.x + i >= Length || coords_initial.x + i<0)) {
+	if (!Enable_periodic_x && (coords_initial.x + i >= Length || coords_initial.x + i < 0)) {
 		return false;
 	}
-	if (!Enable_periodic_y && (coords_initial.y + j >= Width || coords_initial.y + j<0)) {
+	if (!Enable_periodic_y && (coords_initial.y + j >= Width || coords_initial.y + j < 0)) {
 		return false;
 	}
-	if (!Enable_periodic_z && (coords_initial.z + k >= Height || coords_initial.z + k<0)) {
+	if (!Enable_periodic_z && (coords_initial.z + k >= Height || coords_initial.z + k < 0)) {
 		return false;
 	}
 	return true;

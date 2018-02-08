@@ -9,6 +9,7 @@ var searchData=
   ['getcoords',['getCoords',['../class_object.html#a08df08943dc634609fa69b356a37d73f',1,'Object']]],
   ['getcreationtime',['getCreationTime',['../class_object.html#a6f91c3f8b61cb9c9a8db662ac07d92e9',1,'Object']]],
   ['getdestcoords',['getDestCoords',['../class_event.html#a6b4287971afaca8211f91f361ef55997',1,'Event']]],
+  ['geterrormessage',['getErrorMessage',['../class_simulation.html#a03d249f04c0921c938d68337dfc65f56',1,'Simulation']]],
   ['geteventit',['getEventIt',['../class_object.html#aa7c58e0319b7715c8d36f38ca7acf03e',1,'Object']]],
   ['geteventtype',['getEventType',['../class_event.html#a77ff5602b20c468b3b72e9924038ac94',1,'Event']]],
   ['getexecutiontime',['getExecutionTime',['../class_event.html#a65550d982cdf85d993658cd7070c960c',1,'Event']]],

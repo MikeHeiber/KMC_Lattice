@@ -254,16 +254,20 @@ namespace Utils {
 	//! \details This algorithm allow efficient removal of duplicate vector objects when > or < comparison operators do not exist.
 	//! \param vec is the input vector to be operated on.
 	template<typename T>
-	void removeDuplicates(std::vector<T>& vec) {
-		for (auto it1 = vec.begin(); it1 < vec.end() - 1; ++it1) {
-			for (auto it2 = it1 + 1; it2 < vec.end(); ++it2) {
-				if (*it2 == *it1) {
-					*it2 = *(it2 - 1);
+	void removeDuplicates(std::vector<T> &vec) {
+		if ((int)vec.size() > 2) {
+			for (auto it1 = vec.begin(); it1 != vec.end() - 2; ++it1) {
+				for (auto it2 = it1 + 2; it2 != vec.end(); ++it2) {
+					if (*it2 == *it1) {
+						*it2 = *(it2 - 1);
+					}
 				}
 			}
 		}
-		auto it3 = unique(vec.begin(), vec.end());
-		vec.resize(distance(vec.begin(), it3));
+		if ((int)vec.size() > 1) {
+			auto it3 = unique(vec.begin(), vec.end());
+			vec.resize(distance(vec.begin(), it3));
+		}
 	}
 
 	//! \brief This template function calculates and returns the average value in double format when given a vector of numerical datatypes.

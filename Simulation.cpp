@@ -6,6 +6,7 @@
 #include "Simulation.h"
 
 using namespace std;
+using namespace Utils;
 
 Simulation::Simulation() {
 
@@ -19,6 +20,11 @@ void Simulation::init(const Parameters_Simulation& params, const int id) {
 	Id = id;
 	// General Parameters
 	Enable_logging = params.Enable_logging;
+	// Event recalculation method parameters
+	Enable_FRM = params.Enable_FRM;
+	Enable_selective_recalc = params.Enable_selective_recalc;
+	Recalc_cutoff = params.Recalc_cutoff;
+	Enable_full_recalc = params.Enable_full_recalc;
 	// Lattice Parameters
 	Parameters_Lattice params_lattice;
 	params_lattice.Enable_periodic_x = params.Enable_periodic_x;
@@ -29,8 +35,6 @@ void Simulation::init(const Parameters_Simulation& params, const int id) {
 	params_lattice.Height = params.Height;
 	params_lattice.Unit_size = params.Unit_size;
 	temperature = params.Temperature;
-	// First reaction method parameters
-	Recalc_cutoff = params.Recalc_cutoff;
 	// Initialize data structures
 	lattice.init(params_lattice, &generator);
 	object_ptrs.clear();
@@ -72,6 +76,37 @@ list<Event*>::iterator Simulation::chooseNextEvent() {
 	return event_target_it;
 }
 
+vector<Object*> Simulation::findRecalcObjects(const Coords& coords_start, const Coords& coords_dest) const {
+	vector<Object*> object_recalc_ptrs;
+	object_recalc_ptrs.reserve(10);
+	if (Enable_FRM) {
+		for (auto const &item : object_ptrs) {
+			// Recalculate event for an Object located at coords_start or coords_dest
+			if (item->getCoords() == coords_start || item->getCoords() == coords_dest) {
+				object_recalc_ptrs.push_back(item);
+			}
+			// Recalculate event for an Object that has a valid queued event that targets coords_start or coords_dest
+			else if (*(item->getEventIt())!=nullptr && ((*(item->getEventIt()))->getDestCoords() == coords_start || (*(item->getEventIt()))->getDestCoords() == coords_dest)) {
+				object_recalc_ptrs.push_back(item);
+			}
+		}
+	}
+	else if (Enable_selective_recalc) {
+		object_recalc_ptrs = findRecalcNeighbors(coords_start);
+		if (coords_start != coords_dest) {
+			vector<Object*> object_recalc_ptrs2 = findRecalcNeighbors(coords_dest);
+			object_recalc_ptrs.insert(object_recalc_ptrs.end(), object_recalc_ptrs2.begin(), object_recalc_ptrs2.end());
+			removeDuplicates(object_recalc_ptrs);
+		}
+	}
+	else if (Enable_full_recalc) {
+		for (auto const &item : object_ptrs) {
+			object_recalc_ptrs.push_back(item);
+		}
+	}
+	return object_recalc_ptrs;
+}
+
 vector<Object*> Simulation::findRecalcNeighbors(const Coords& coords) const {
 	vector<Object*> neighbor_ptrs;
 	neighbor_ptrs.reserve(10);
@@ -95,6 +130,10 @@ vector<Object*> Simulation::getAllObjectPtrs() const {
 		object_ptrs_vec.push_back(item);
 	}
 	return object_ptrs_vec;
+}
+
+string Simulation::getErrorMessage() const {
+	return error_msg;
 }
 
 int Simulation::getId() const {
@@ -184,6 +223,10 @@ void Simulation::removeObject(Object* object_ptr) {
 		cout << "Error! The Object pointer could not be found in the object list and could not be removed." << endl;
 		Error_found = true;
 	}
+}
+
+void Simulation::setErrorMessage(const string& input_msg) {
+	error_msg = input_msg;
 }
 
 void Simulation::setObjectEvent(const Object* object_ptr,Event* event_ptr){

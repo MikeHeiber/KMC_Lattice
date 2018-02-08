@@ -2,6 +2,7 @@ var searchData=
 [
   ['setcoords',['setCoords',['../class_object.html#a34a164e4709e5daaba7a38c3d61ae617',1,'Object']]],
   ['setdestcoords',['setDestCoords',['../class_event.html#a166ae40f2bf26c1e08097697ca76c884',1,'Event']]],
+  ['seterrormessage',['setErrorMessage',['../class_simulation.html#a0f06c75c9dd6be20a3911781b48fd467',1,'Simulation']]],
   ['seteventit',['setEventIt',['../class_object.html#ad5025bd84ae91d6426f458f32e582293',1,'Object']]],
   ['setexecutiontime',['setExecutionTime',['../class_event.html#af4282af20bd5b3940ba75c23e6032f18',1,'Event']]],
   ['setgeneratorseed',['setGeneratorSeed',['../class_simulation.html#a1a825b9da67da43104137662694655bd',1,'Simulation']]],

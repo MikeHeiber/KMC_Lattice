@@ -73,8 +73,13 @@ class Object{
 		//! \param num is the input increment amount.
         void incrementDZ(const int num);
 
+		//! \brief Resets the initial coordinates of the Object
+		//! \details The dx, dy, and dz member variables that keep track of adjustments for crossing periodic boundaries are also reset to zero.
+		//! \param input_coords is the Coords struct that designates the input coordinates and will be copied to the coords_initial member variable.
+		void resetInitialCoords(const Coords& input_coords);
+
 		//! \brief Sets the coordinates of the Object
-		//! \param input_coords is the Coords struct that designates the input coordinates.
+		//! \param input_coords is the Coords struct that designates the input coordinates that will be copied to the coords_current member variable.
         void setCoords(const Coords& input_coords);
 
 		//! \brief Sets the iterator that points to a specific entry in the events list within the Simulation class.
