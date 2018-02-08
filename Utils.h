@@ -1,4 +1,4 @@
-// Copyright (c) 2017 Michael C. Heiber
+// Copyright (c) 2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -21,7 +21,7 @@
 //! \brief This simple struct contains Cartesian coordinates specified by integers x,y,z.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
-//! \date 2017
+//! \date 2018
 struct Coords{
 	//! The x Cartesian coordinate.
     int x;
@@ -54,7 +54,7 @@ struct Coords{
 //! \brief This namespace provides useful constants and utility functions.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
-//! \date 2017
+//! \date 2018
 namespace Utils {
 
 	// Scientific Constants
@@ -230,8 +230,8 @@ namespace Utils {
 	void outputVectorToFile(std::vector<T>& vec, std::string filename) {
 		std::ofstream outfile;
 		outfile.open(filename);
-		for (int i = 0; i < (int)vec.size(); i++) {
-			outfile << vec[i] << "\n";
+		for (auto const &item : vec) {
+			outfile << item << "\n";
 		}
 		outfile.close();
 	}
@@ -244,8 +244,8 @@ namespace Utils {
 	void outputVectorToFile(std::vector<std::pair<T,T>>& vec, std::string filename) {
 		std::ofstream outfile;
 		outfile.open(filename);
-		for (int i = 0; i < (int)vec.size(); i++) {
-			outfile << vec[i].first << "," << vec[i].second << "\n";
+		for (auto const &item : vec) {
+			outfile << item.first << "," << item.second << "\n";
 		}
 		outfile.close();
 	}
@@ -254,16 +254,20 @@ namespace Utils {
 	//! \details This algorithm allow efficient removal of duplicate vector objects when > or < comparison operators do not exist.
 	//! \param vec is the input vector to be operated on.
 	template<typename T>
-	void removeDuplicates(std::vector<T>& vec) {
-		for (auto it1 = vec.begin(); it1 < vec.end() - 1; ++it1) {
-			for (auto it2 = it1 + 1; it2 < vec.end(); ++it2) {
-				if (*it2 == *it1) {
-					*it2 = *(it2 - 1);
+	void removeDuplicates(std::vector<T> &vec) {
+		if ((int)vec.size() > 2) {
+			for (auto it1 = vec.begin(); it1 != vec.end() - 2; ++it1) {
+				for (auto it2 = it1 + 2; it2 != vec.end(); ++it2) {
+					if (*it2 == *it1) {
+						*it2 = *(it2 - 1);
+					}
 				}
 			}
 		}
-		auto it3 = unique(vec.begin(), vec.end());
-		vec.resize(distance(vec.begin(), it3));
+		if ((int)vec.size() > 1) {
+			auto it3 = unique(vec.begin(), vec.end());
+			vec.resize(distance(vec.begin(), it3));
+		}
 	}
 
 	//! \brief This template function calculates and returns the average value in double format when given a vector of numerical datatypes.
@@ -272,8 +276,8 @@ namespace Utils {
 	template<typename T, typename A>
 	double vector_avg(const std::vector<T, A>& data) {
 		double sum = 0;
-		for (auto it = data.begin(); it != data.end(); ++it) {
-			sum += *it;
+		for (auto const &item : data) {
+			sum += item;
 		}
 		return sum / data.size();
 	}
@@ -285,8 +289,8 @@ namespace Utils {
 	double vector_stdev(const std::vector<T, A>& data) {
 		double sum = 0;
 		double avg = vector_avg(data);
-		for (auto it = data.begin(); it != data.end(); ++it) {
-			sum += (*it - avg)*(*it - avg);
+		for (auto const &item : data) {
+			sum += (item - avg)*(item - avg);
 		}
 		return sqrt(sum / (data.size() - 1));
 	}

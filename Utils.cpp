@@ -1,4 +1,4 @@
-// Copyright (c) 2017 Michael C. Heiber
+// Copyright (c) 2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -104,13 +104,13 @@ namespace Utils {
 		normal_distribution<double> dist_gaus(0, 2.0*urbach_energy / sqrt(2.0 * Pi));
 		auto rand_gaus = bind(dist_gaus, ref(gen));
 		double energy;
-		for (int i = 0; i < (int)data.size(); i++) {
+		for (auto &item : data) {
 			energy = rand_gaus();
 			if (energy > 0) {
-				data[i] = mode + energy;
+				item = mode + energy;
 			}
 			else {
-				data[i] = mode - rand_exp();
+				item = mode - rand_exp();
 			}
 		}
 	}
@@ -118,8 +118,8 @@ namespace Utils {
 	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937& gen) {
 		normal_distribution<double> dist(mean, stdev);
 		auto rand_gaus = bind(dist, ref(gen));
-		for (int i = 0; i < (int)data.size(); i++) {
-			data[i] = rand_gaus();
+		for (auto &item : data) {
+			item = rand_gaus();
 		}
 	}
 
