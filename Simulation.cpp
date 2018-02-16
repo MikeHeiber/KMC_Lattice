@@ -45,7 +45,7 @@ void Simulation::init(const Parameters_Simulation& params, const int id) {
 }
 
 
-list<Event*>::iterator Simulation::addEvent(Event* event_ptr) {
+list<Event*>::const_iterator Simulation::addEvent(Event* event_ptr) {
 	event_ptrs.push_back(event_ptr);
 	return --event_ptrs.end();
 }
@@ -64,7 +64,7 @@ void Simulation::addObject(Object* object_ptr) {
 	N_events_executed++;
 }
 
-list<Event*>::iterator Simulation::chooseNextEvent() {
+list<Event*>::const_iterator Simulation::chooseNextEvent() {
 	auto event_target_it = event_ptrs.begin();
 	if (event_ptrs.size() > 1) {
 		for (auto it = ++event_ptrs.begin(); it != event_ptrs.end(); ++it) {
@@ -160,6 +160,10 @@ int Simulation::getTemp() const {
 
 double Simulation::getTime() const {
 	return time_sim;
+}
+
+double Simulation::getVolume() const {
+	return lattice.getVolume();
 }
 
 bool Simulation::isLoggingEnabled() const {

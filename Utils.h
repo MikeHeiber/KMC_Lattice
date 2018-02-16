@@ -205,15 +205,8 @@ namespace Utils {
 			result = 1;
 			return result;
 		}
-		int exponent_abs;
-		if (exponent < 0) {
-			exponent_abs = -exponent;
-		}
-		else {
-			exponent_abs = exponent;
-		}
 		result = base;
-		for (int i = 1; i < exponent_abs; i++) {
+		for (int i = 1; i < abs(exponent); i++) {
 			result *= base;
 		}
 		if (exponent < 0) {

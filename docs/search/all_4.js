@@ -29,5 +29,6 @@ var searchData=
   ['gettemp',['getTemp',['../class_simulation.html#ac00bce7c792fb67a75395c46c03efe0a',1,'Simulation']]],
   ['gettime',['getTime',['../class_simulation.html#a391ac262089c8bda8e76ce930b1db88b',1,'Simulation']]],
   ['getunitsize',['getUnitSize',['../class_lattice.html#ac6963a6b2b4b8d96d3417f6e9c2a509d',1,'Lattice']]],
+  ['getvolume',['getVolume',['../class_lattice.html#a46f9cec33419459b64ff0efdf47a38b9',1,'Lattice::getVolume()'],['../class_simulation.html#a623c3fbc431ab74c2d2b2374a3b5a3a7',1,'Simulation::getVolume()']]],
   ['getwidth',['getWidth',['../class_lattice.html#aeb60d2b8bfb02d9da8bef463f0d41428',1,'Lattice']]]
 ];
