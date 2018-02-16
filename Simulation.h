@@ -110,6 +110,9 @@ class Simulation{
 		//! Get the current simulation time in units of seconds.
         double getTime() const;
 
+		//! Get the simulation box volume in cm^-3
+		double getVolume() const;
+
 		//! \brief Checks whether or not logging is enabled.
 		//! \details This is primarily used for debugging purposes.
 		//! \return true if logging is enabled.
@@ -140,7 +143,7 @@ class Simulation{
 		//! \brief Adds a pointer to an Event object to the event list and returns the iterator to its position in the list.
 		//! \param event_ptr is the input Event pointer.
 		//! \return A list iterator that indicates where in the event list the newly added Event pointer is located.
-		std::list<Event*>::iterator addEvent(Event* event_ptr);
+		std::list<Event*>::const_iterator addEvent(Event* event_ptr);
 
 		//! \brief Adds a pointer to an Object object to the object list.
 		//! \param object_ptr is the input Object pointer.
@@ -149,7 +152,7 @@ class Simulation{
 		//! \brief Searches the event list and determines which event will be executed next.
 		//! \details Chooses the event that has the smallest execution time.
 		//! \return A list iterator points to an Event pointer in event list that has been selected to be executed next.
-		std::list<Event*>::iterator chooseNextEvent();
+		std::list<Event*>::const_iterator chooseNextEvent();
 
 		//! \brief Constructs and returns a vector of pointers to all Object objects that are to have their events recalculated/
 		//! \param coords_start is the Coords struct that designates the starting coordinates of an event.

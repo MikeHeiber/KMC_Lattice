@@ -181,6 +181,9 @@ class Lattice{
 		//! \return The unit size property of the lattice.
 		double getUnitSize() const;
 
+		//! \brief Gets the volume of the lattice in cm^-3.
+		double getVolume() const;
+
 		//! \brief Gets the y-direction size of the lattice, the width.
 		//! \return The Width property of the lattice, which is the y-direction size.
 		int getWidth() const;

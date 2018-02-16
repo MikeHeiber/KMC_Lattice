@@ -6,6 +6,7 @@
 #include "Lattice.h"
 
 using namespace std;
+using namespace Utils;
 
 Lattice::Lattice() {
 
@@ -220,6 +221,10 @@ double Lattice::getUnitSize() const{
 
 int Lattice::getWidth() const{
 	return Width;
+}
+
+double Lattice::getVolume() const {
+	return ((Length*Width*Height*1e-7*Unit_size)*1e-7*Unit_size)*1e-7*Unit_size;
 }
 
 bool Lattice::isOccupied(const Coords& coords) const{
