@@ -311,6 +311,51 @@ namespace Utils {
 		return output_vector;
 	}
 
+	std::vector<int> MPI_gatherVectors(const std::vector<int>& input_vector) {
+		int data_size = 0;
+		int data_count = 0;
+		int *data = NULL;
+		int *data_all = NULL;
+		int *data_sizes = NULL;
+		int *data_displacement = NULL;
+		vector<int> output_vector;
+		int procid;
+		int nproc;
+		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
+		MPI_Comm_size(MPI_COMM_WORLD, &nproc);
+		if (procid == 0) {
+			data_sizes = (int *)malloc(sizeof(int)*nproc);
+		}
+		data_size = (int)input_vector.size();
+		data = (int *)malloc(sizeof(int)*data_size);
+		for (int i = 0; i < (int)input_vector.size(); i++) {
+			data[i] = input_vector[i];
+		}
+		MPI_Gather(&data_size, 1, MPI_INT, data_sizes, 1, MPI_INT, 0, MPI_COMM_WORLD);
+		if (procid == 0) {
+			for (int i = 0; i < nproc; i++) {
+				data_count += data_sizes[i];
+			}
+			data_all = (int *)malloc(sizeof(int)*data_count);
+			data_displacement = (int *)malloc(sizeof(int)*nproc);
+			data_displacement[0] = 0;
+			for (int i = 1; i < nproc; i++) {
+				data_displacement[i] = data_displacement[i - 1] + data_sizes[i - 1];
+			}
+		}
+		MPI_Gatherv(data, data_size, MPI_INT, data_all, data_sizes, data_displacement, MPI_INT, 0, MPI_COMM_WORLD);
+		if (procid == 0) {
+			for (int i = 0; i < data_count; i++) {
+				output_vector.push_back(data_all[i]);
+			}
+		}
+		delete data;
+		delete data_all;
+		delete data_sizes;
+		delete data_displacement;
+		return output_vector;
+	}
+
 	std::string removeWhitespace(const std::string& str) {
 		auto strBegin = str.find_first_not_of(" ");
 		auto strEnd = str.find_last_not_of(" ");

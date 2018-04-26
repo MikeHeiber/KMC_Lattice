@@ -123,6 +123,15 @@ vector<Object*> Simulation::findRecalcNeighbors(const Coords& coords) const {
 	return neighbor_ptrs;
 }
 
+vector<Event*> Simulation::getAllEventPtrs() const {
+	vector<Event*> event_ptrs_vec;
+	event_ptrs_vec.reserve(event_ptrs.size());
+	for (auto const &item : event_ptrs) {
+		event_ptrs_vec.push_back(item);
+	}
+	return event_ptrs_vec;
+}
+
 vector<Object*> Simulation::getAllObjectPtrs() const {
 	vector<Object*> object_ptrs_vec;
 	object_ptrs_vec.reserve(object_ptrs.size());

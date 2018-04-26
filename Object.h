@@ -85,6 +85,7 @@ class Object{
 		//! \brief Sets the iterator that points to a specific entry in the events list within the Simulation class.
 		//! \param input_it is the input event list iterator.
         void setEventIt(const std::list<Event*>::iterator input_it);
+
     private:
         static const std::string object_type_base;
         double time_created = 0;

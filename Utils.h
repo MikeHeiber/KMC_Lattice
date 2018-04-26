@@ -160,6 +160,14 @@ namespace Utils {
 	//! \return An empty vector when called on other processors.
 	std::vector<double> MPI_gatherVectors(const std::vector<double>& input_vector);
 
+	//! \brief Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.
+	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0
+	//! receives the large data vector and all of the othe rprocessors receive an empty vector.
+	//! \param input_vector is the input data from the processor calling the function.
+	//! \return A vector that is a concatenation of all input vectors from each processor, when called on processor 0.
+	//! \return An empty vector when called on other processors.
+	std::vector<int> MPI_gatherVectors(const std::vector<int>& input_vector);
+
 	//! \brief Removes leading and trailing spaces surrounding a string.
 	//! \param str is the input string
 	//! \returns a new string that will have the surrounding spaces removed.
