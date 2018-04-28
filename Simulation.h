@@ -135,7 +135,7 @@ class Simulation{
 		Lattice lattice;
 		//! The Error_found flag indicates whether or not there has been an error during one of the simulation operations.
 		bool Error_found = false;
-		//! The error_msg string holds a message with information about the error that has occured or is empty otherwise.
+		//! The error_msg string holds a message with information about the error that has occurred or is empty otherwise.
 		std::string error_msg;
 
         //------ Functions
@@ -159,6 +159,9 @@ class Simulation{
 		//! \param coords_dest is the Coords struct that designates the destination coordinates of an event.
 		//! \return a vector of Object pointers.
 		std::vector<Object*> findRecalcObjects(const Coords& coords_start, const Coords& coords_dest) const;
+
+		//! \brief Returns a vector of pointers to all Event objects in the simulation.
+		std::vector<Event*> getAllEventPtrs() const;
 
 		//! \brief Returns a vector of pointers to all Object objects in the simulation.
 		std::vector<Object*> getAllObjectPtrs() const;
