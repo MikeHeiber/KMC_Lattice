@@ -8,7 +8,6 @@
 
 #include "Utils.h"
 #include <list>
-#include <memory>
 
 // Forward declaration of the Event class is needed by the compiler.
 class Event;
