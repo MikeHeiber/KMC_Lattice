@@ -31,6 +31,9 @@ namespace Utils {
 		if (num_bins > (int)data.size()) {
 			num_bins = (int)data.size();
 		}
+		// Extend the range a little bit to ensure all data fits in the range
+		min_val -= 1e-3*abs(min_val);
+		max_val += 1e-3*abs(max_val);
 		// Determine bin size
 		double bin_size = (max_val - min_val) / (double)num_bins;
 		return calculateProbabilityHist(data, bin_size, num_bins);
@@ -54,6 +57,9 @@ namespace Utils {
 		else {
 			cout << "Maximum value not found. Data vector has " << data.size() << " elements." << endl;
 		}
+		// Extend the range a little bit to ensure all data fits in the range
+		min_val -= 1e-3*abs(min_val);
+		max_val += 1e-3*abs(max_val);
 		// Determine number of bins
 		int num_bins = (int)ceil((max_val - min_val) / bin_size);
 		// Limit the number of bins to the number of data entries
@@ -65,7 +71,7 @@ namespace Utils {
 	}
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, const double bin_size, const int num_bins) {
-		// Determine number of bins
+		// Determine the starting bin position
 		double min_val = 0;
 		auto min_it = min_element(data.begin(), data.end());
 		if (min_it != data.end()) {
@@ -74,6 +80,8 @@ namespace Utils {
 		else {
 			cout << "Minimum value not found. Data vector has " << data.size() << " elements." << endl;
 		}
+		// Extend the range a little bit to ensure all data fits in the range
+		min_val -= 1e-3*abs(min_val);
 		// Calculate bin-centered x values
 		vector<pair<double, double>> hist(num_bins, make_pair(0.0, 0.0));
 		for (int i = 0; i < num_bins; i++) {

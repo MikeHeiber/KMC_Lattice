@@ -9,8 +9,6 @@
 #include "Simulation.h"
 #include "Utils.h"
 #include <list>
-#include <memory>
-#include <ctime>
 
 // Forward declaration of the Object and Simulation classes are needed by the compiler
 class Object;
