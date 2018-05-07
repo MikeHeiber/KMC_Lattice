@@ -8,6 +8,7 @@ var class_simulation =
     [ "chooseNextEvent", "class_simulation.html#af8cf2e5c24531582599423df2d70dc5b", null ],
     [ "executeNextEvent", "class_simulation.html#a48e9e82f9dac1acec5d063a9f6f6115e", null ],
     [ "findRecalcObjects", "class_simulation.html#a662702acf2d446dbdef0e1c87bf21038", null ],
+    [ "getAllEventPtrs", "class_simulation.html#aec6a6e1a80eb566685e4d257e6f872c5", null ],
     [ "getAllObjectPtrs", "class_simulation.html#a620684b9ac1fb07344c4c2237ed9f352", null ],
     [ "getErrorMessage", "class_simulation.html#a03d249f04c0921c938d68337dfc65f56", null ],
     [ "getId", "class_simulation.html#aff40f268758bd9a0f390a649fc45c05e", null ],

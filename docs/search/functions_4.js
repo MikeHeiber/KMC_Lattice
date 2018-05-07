@@ -4,6 +4,7 @@ var searchData=
   ['generaterandomx',['generateRandomX',['../class_lattice.html#ab78435e50e3bf9f376c04fc305785bb4',1,'Lattice']]],
   ['generaterandomy',['generateRandomY',['../class_lattice.html#a180a9d79a40b1a0a092c8ab489569700',1,'Lattice']]],
   ['generaterandomz',['generateRandomZ',['../class_lattice.html#a96006397a6ab389fb1eee87fde6e2165',1,'Lattice']]],
+  ['getalleventptrs',['getAllEventPtrs',['../class_simulation.html#aec6a6e1a80eb566685e4d257e6f872c5',1,'Simulation']]],
   ['getallobjectptrs',['getAllObjectPtrs',['../class_simulation.html#a620684b9ac1fb07344c4c2237ed9f352',1,'Simulation']]],
   ['getcoords',['getCoords',['../class_object.html#a08df08943dc634609fa69b356a37d73f',1,'Object']]],
   ['getcreationtime',['getCreationTime',['../class_object.html#a6f91c3f8b61cb9c9a8db662ac07d92e9',1,'Object']]],

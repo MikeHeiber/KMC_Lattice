@@ -168,9 +168,9 @@ namespace Utils {
 	//! \return An empty vector when called on other processors.
 	std::vector<int> MPI_gatherVectors(const std::vector<int>& input_vector);
 
-	//! \brief Removes leading and trailing spaces surrounding a string.
+	//! \brief Removes all spaces and ta characters in a string.
 	//! \param str is the input string
-	//! \returns a new string that will have the surrounding spaces removed.
+	//! \returns a new string that will have the whitespace removed.
 	std::string removeWhitespace(const std::string& str);
 
 	// Template functions

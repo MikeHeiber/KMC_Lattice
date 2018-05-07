@@ -11,8 +11,8 @@ namespace Utils {
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, int num_bins) {
 		// Determine data range
-		double min_val = 0;
-		double max_val = 0;
+		double min_val = 0.0;
+		double max_val = 0.0;
 		auto min_it = min_element(data.begin(), data.end());
 		if (min_it != data.end()) {
 			min_val = *min_it;
@@ -32,17 +32,17 @@ namespace Utils {
 			num_bins = (int)data.size();
 		}
 		// Extend the range a little bit to ensure all data fits in the range
-		min_val -= 1e-3*abs(min_val);
-		max_val += 1e-3*abs(max_val);
+		min_val -= 1e-12*abs(min_val);
+		max_val += 1e-12*abs(max_val);
 		// Determine bin size
-		double bin_size = (max_val - min_val) / (double)num_bins;
+		double bin_size = (max_val - min_val) / num_bins;
 		return calculateProbabilityHist(data, bin_size, num_bins);
 	}
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, double bin_size) {
 		// Determine data range
-		double min_val = 0;
-		double max_val = 0;
+		double min_val = 0.0;
+		double max_val = 0.0;
 		auto min_it = min_element(data.begin(), data.end());
 		if (min_it != data.end()) {
 			min_val = *min_it;
@@ -58,8 +58,8 @@ namespace Utils {
 			cout << "Maximum value not found. Data vector has " << data.size() << " elements." << endl;
 		}
 		// Extend the range a little bit to ensure all data fits in the range
-		min_val -= 1e-3*abs(min_val);
-		max_val += 1e-3*abs(max_val);
+		min_val -= 1e-12*abs(min_val);
+		max_val += 1e-12*abs(max_val);
 		// Determine number of bins
 		int num_bins = (int)ceil((max_val - min_val) / bin_size);
 		// Limit the number of bins to the number of data entries
@@ -72,7 +72,7 @@ namespace Utils {
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, const double bin_size, const int num_bins) {
 		// Determine the starting bin position
-		double min_val = 0;
+		double min_val = 0.0;
 		auto min_it = min_element(data.begin(), data.end());
 		if (min_it != data.end()) {
 			min_val = *min_it;
@@ -81,7 +81,7 @@ namespace Utils {
 			cout << "Minimum value not found. Data vector has " << data.size() << " elements." << endl;
 		}
 		// Extend the range a little bit to ensure all data fits in the range
-		min_val -= 1e-3*abs(min_val);
+		min_val -= 1e-12*abs(min_val);
 		// Calculate bin-centered x values
 		vector<pair<double, double>> hist(num_bins, make_pair(0.0, 0.0));
 		for (int i = 0; i < num_bins; i++) {
@@ -97,11 +97,11 @@ namespace Utils {
 		// Calculate total area
 		double area = 0.0;
 		for (int i = 0; i < num_bins; i++) {
-			area += (double)counts[i]*bin_size;
+			area += counts[i]*bin_size;
 		}
 		// Normalized histogram to get probability
 		for (int i = 0; i < num_bins; i++) {
-			hist[i].second = (double)counts[i] / area;
+			hist[i].second = counts[i] / area;
 		}
 		return hist;
 	}
@@ -364,11 +364,12 @@ namespace Utils {
 		return output_vector;
 	}
 
-	std::string removeWhitespace(const std::string& str) {
-		auto strBegin = str.find_first_not_of(" ");
-		auto strEnd = str.find_last_not_of(" ");
-		auto range = strEnd - strBegin + 1;
-		return str.substr(strBegin, range);
+	std::string removeWhitespace(const std::string& str_input) {
+		// Remove tab characters
+		string str_out = str_input;
+		str_out.erase(remove(str_out.begin(), str_out.end(), '\t'), str_out.end());
+		str_out.erase(remove_if(str_out.begin(), str_out.end(), isspace), str_out.end());
+		return str_out;
 	}
 
 }
