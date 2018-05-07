@@ -368,7 +368,7 @@ namespace Utils {
 		// Remove tab characters
 		string str_out = str_input;
 		str_out.erase(remove(str_out.begin(), str_out.end(), '\t'), str_out.end());
-		str_out.erase(remove_if(str_out.begin(), str_out.end(), isspace), str_out.end());
+		str_out.erase(remove(str_out.begin(), str_out.end(), ' '), str_out.end());
 		return str_out;
 	}
 
