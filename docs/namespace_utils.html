@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">KMC_Lattice
-   &#160;<span id="projectnumber">v2.0-beta.3</span>
+   &#160;<span id="projectnumber">v2.0-beta.4</span>
    </div>
    <div id="projectbrief">A general framework for three-dimensional lattice kinetic Monte Carlo simulations</div>
   </td>
@@ -135,8 +135,11 @@ Functions</h2></td></tr>
 <tr class="memitem:aee439dad386e2477d34968311b166c85"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aee439dad386e2477d34968311b166c85">MPI_gatherVectors</a> (const std::vector&lt; double &gt; &amp;input_vector)</td></tr>
 <tr class="memdesc:aee439dad386e2477d34968311b166c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.  <a href="#aee439dad386e2477d34968311b166c85">More...</a><br /></td></tr>
 <tr class="separator:aee439dad386e2477d34968311b166c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad44ab8e489dbb7e24480f4e0778099d0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#ad44ab8e489dbb7e24480f4e0778099d0">MPI_gatherVectors</a> (const std::vector&lt; int &gt; &amp;input_vector)</td></tr>
+<tr class="memdesc:ad44ab8e489dbb7e24480f4e0778099d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.  <a href="#ad44ab8e489dbb7e24480f4e0778099d0">More...</a><br /></td></tr>
+<tr class="separator:ad44ab8e489dbb7e24480f4e0778099d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9ceee3373ffe317f07d177cf0dfe056"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#af9ceee3373ffe317f07d177cf0dfe056">removeWhitespace</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:af9ceee3373ffe317f07d177cf0dfe056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes leading and trailing spaces surrounding a string.  <a href="#af9ceee3373ffe317f07d177cf0dfe056">More...</a><br /></td></tr>
+<tr class="memdesc:af9ceee3373ffe317f07d177cf0dfe056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all spaces and ta characters in a string.  <a href="#af9ceee3373ffe317f07d177cf0dfe056">More...</a><br /></td></tr>
 <tr class="separator:af9ceee3373ffe317f07d177cf0dfe056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa76a204af4dd4c3eb151691825de2eb2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa76a204af4dd4c3eb151691825de2eb2"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aa76a204af4dd4c3eb151691825de2eb2">array_avg</a> (const T data[], const int array_size)</td></tr>
@@ -715,7 +718,7 @@ An empty vector when called on other processors. </dd></dl>
 </div>
 </div>
 <a id="aee439dad386e2477d34968311b166c85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee439dad386e2477d34968311b166c85">&#9670;&nbsp;</a></span>MPI_gatherVectors()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aee439dad386e2477d34968311b166c85">&#9670;&nbsp;</a></span>MPI_gatherVectors() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -724,6 +727,35 @@ An empty vector when called on other processors. </dd></dl>
           <td class="memname">std::vector&lt; double &gt; Utils::MPI_gatherVectors </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>input_vector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uses MPI to gather vectors from separate processors to build one big vector containing all of the data. </p>
+<p>Each processor calls this function and sends an input vector. Upon function return, processor 0 receives the large data vector and all of the othe rprocessors receive an empty vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input_vector</td><td>is the input data from the processor calling the function. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector that is a concatenation of all input vectors from each processor, when called on processor 0. </dd>
+<dd>
+An empty vector when called on other processors. </dd></dl>
+
+</div>
+</div>
+<a id="ad44ab8e489dbb7e24480f4e0778099d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad44ab8e489dbb7e24480f4e0778099d0">&#9670;&nbsp;</a></span>MPI_gatherVectors() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; int &gt; Utils::MPI_gatherVectors </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
           <td class="paramname"><em>input_vector</em></td><td>)</td>
           <td></td>
         </tr>
@@ -867,14 +899,14 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Removes leading and trailing spaces surrounding a string. </p>
+<p>Removes all spaces and ta characters in a string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>is the input string </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a new string that will have the surrounding spaces removed. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a new string that will have the whitespace removed. </dd></dl>
 
 </div>
 </div>
