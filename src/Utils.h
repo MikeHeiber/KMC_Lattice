@@ -30,6 +30,19 @@ struct Coords{
 	//! The z Cartesian coordinate.
     int z;
 
+	//! Default constructor that creates an empty Coords object.
+	Coords(){}
+
+	//! \brief Constructor that creates a Coords object with the x,y,z coordinates set using the input values xval, yval, and zval.
+	//! \param xval is the input x value.
+	//! \param yval is the input y value.
+	//! \param zval is the input z value.
+	Coords(const int xval, const int yval, const int zval) {
+		x = xval;
+		y = yval;
+		z = zval;
+	}
+
 	//! \brief Sets the x,y,z coordinates using the input values xval, yval, and zval.
 	//! \param xval is the input x value.
 	//! \param yval is the input y value.
@@ -154,7 +167,7 @@ namespace Utils {
 
 	//! \brief Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0
-	//! receives the large data vector and all of the othe rprocessors receive an empty vector.
+	//! receives the large data vector and all of the other processors receive an empty vector.
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is a concatenation of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
@@ -162,7 +175,7 @@ namespace Utils {
 
 	//! \brief Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0
-	//! receives the large data vector and all of the othe rprocessors receive an empty vector.
+	//! receives the large data vector and all of the other processors receive an empty vector.
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is a concatenation of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.

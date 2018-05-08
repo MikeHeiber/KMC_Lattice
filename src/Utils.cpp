@@ -142,7 +142,7 @@ namespace Utils {
 			if (data[i-1].first < x_val && data[i].first > x_val) {
 				return data[i - 1].second + ((data[i].second - data[i - 1].second) / (data[i].first - data[i - 1].first))*(x_val - data[i - 1].first);
 			}
-			if (abs(data[i].first - x_val) < 1e-6) {
+			if (abs(data[i].first - x_val) < 1e-12) {
 				return data[i].second;
 			}
 		}
