@@ -499,6 +499,24 @@ namespace EventTests {
 			test_sim.init(params_base, 0);
 		}
 	};
+	
+	TEST_F(EventTest, GeneralEventTests){
+		Event event(&test_sim);
+		EXPECT_EQ("Event",event.getEventType());
+		Coords coords1(0,0,0);
+		Object object1(0.0, 1, coords1);
+		event.setObjectPtr(&object1);
+		EXPECT_EQ(&object1,event.getObjectPtr());
+		Coords coords2(1,0,0);
+		Object object2(0.0, 2, coords2);
+		event.setObjectTargetPtr(&object2);
+		EXPECT_EQ(&object2,event.getObjectTargetPtr());
+		event.setDestCoords(coords2);
+		EXPECT_EQ(coords2,event.getDestCoords());
+		EXPECT_FALSE(event.setExecutionTime(-1.0));
+		EXPECT_TRUE(event.setExecutionTime(1.0));
+		EXPECT_DOUBLE_EQ(1.0,event.getExecutionTime());
+	}
 
 	TEST_F(EventTest, CalculateExecutionTimeTests) {
 		Event event(&test_sim);
