@@ -59,6 +59,11 @@ namespace UtilsTests {
 		hist = calculateProbabilityHist(data, 1.0, 5);
 		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
 		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
+		data = {0.0, 1.0, 2.0, 3.0, 4.0};
+		hist = calculateProbabilityHist(data, 10);
+		EXPECT_EQ(5, (int)hist.size());
+		hist = calculateProbabilityHist(data, 0.1);
+		EXPECT_EQ(5, (int)hist.size());
 	}
 
 	TEST(UtilsTests, ExponentialDOSTests) {
@@ -130,6 +135,8 @@ namespace UtilsTests {
 			data_vec[i].second = 2.5*data_vec[i].first - 5.0;
 		}
 		EXPECT_NEAR(3.25, interpolateData(data_vec, 3.3), 1e-4);
+		EXPECT_DOUBLE_EQ(7.5, interpolateData(data_vec, 5));
+		EXPECT_TRUE(std::isnan(interpolateData(data_vec, 21.0)));
 	}
 
 	TEST(UtilsTests, RemoveWhitespaceTests) {
@@ -288,6 +295,7 @@ namespace LatticeTests{
 		EXPECT_EQ(50, lattice.getHeight());
 		EXPECT_DOUBLE_EQ(1.0, lattice.getUnitSize());
 		EXPECT_EQ((long int)50 * 50 * 50, lattice.getNumSites());
+		EXPECT_DOUBLE_EQ(125000e-21,lattice.getVolume());
 	}
 
 	TEST_F(LatticeTest, CalculateDestCoordsTests) {
@@ -302,6 +310,11 @@ namespace LatticeTests{
 		EXPECT_EQ(1, coords_f.x);
 		EXPECT_EQ(48, coords_f.y);
 		EXPECT_EQ(1, coords_f.z);
+		coords_i.setXYZ(1, 48, 1);
+		lattice.calculateDestinationCoords(coords_i, -2, 2, -3, coords_f);
+		EXPECT_EQ(49, coords_f.x);
+		EXPECT_EQ(0, coords_f.y);
+		EXPECT_EQ(48, coords_f.z);
 	}
 
 	TEST_F(LatticeTest, PeriodicCrossingTests) {
@@ -328,11 +341,19 @@ namespace LatticeTests{
 		params_lattice.Enable_periodic_z = true;
 		Lattice lattice2;
 		lattice2.init(params_lattice, &gen);
+		EXPECT_FALSE(lattice2.isXPeriodic());
+		EXPECT_FALSE(lattice2.isYPeriodic());
+		EXPECT_TRUE(lattice2.isZPeriodic());
 		Coords coords1{ 49, 0, 49 };
+		EXPECT_FALSE(lattice2.checkMoveValidity(coords1, 0, 0, 0));
 		EXPECT_FALSE(lattice2.checkMoveValidity(coords1, 1, 0, 0));
 		EXPECT_FALSE(lattice2.checkMoveValidity(coords1, 0, -1, 0));
 		EXPECT_TRUE(lattice2.checkMoveValidity(coords1, 0, 0, 1));
 		EXPECT_TRUE(lattice2.checkMoveValidity(coords1, -1, 1, -1));
+		params_lattice.Enable_periodic_z = false;
+		lattice2.init(params_lattice, &gen);
+		EXPECT_FALSE(lattice2.isZPeriodic());
+		EXPECT_FALSE(lattice2.checkMoveValidity(coords1, 0, 0, 1));
 	}
 
 	TEST_F(LatticeTest, RandomSiteGenTests) {
@@ -411,12 +432,16 @@ namespace LatticeTests{
 		EXPECT_FALSE(lattice.isOccupied(coords));
 	}
 
-	TEST_F(LatticeTest, SetSitePointersTests) {
+	TEST_F(LatticeTest, SiteTests) {
 		Site site;
 		vector<Site*> site_ptrs(10, &site);
 		EXPECT_FALSE(lattice.setSitePointers(site_ptrs));
 		site_ptrs.assign(50 * 50 * 50, &site);
 		EXPECT_TRUE(lattice.setSitePointers(site_ptrs));
+		Coords coords{5,6,7};
+		Site* site1 = *lattice.getSiteIt(coords);
+		Site* site2 = site_ptrs[lattice.getSiteIndex(coords)];
+		EXPECT_EQ(site1,site2);
 	}
 }
 
