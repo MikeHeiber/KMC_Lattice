@@ -32,10 +32,10 @@ src/Object.o : src/Object.cpp src/Object.h src/Utils.h
 src/Simulation.o : src/Simulation.cpp src/Simulation.h src/Event.h src/Lattice.h src/Object.h src/Site.h src/Utils.h
 	mpicxx $(FLAGS) -c $< -o $@
 	
-src/Site.o : src/Site.cpp KMC_Lattice/Site.h
+src/Site.o : src/Site.cpp src/Site.h
 	mpicxx $(FLAGS) -c $< -o $@
 	
-src/Utils.o : KMC_Lattice/Utils.cpp KMC_Lattice/Utils.h
+src/Utils.o : src/Utils.cpp src/Utils.h
 	mpicxx $(FLAGS) -c $< -o $@
 
 #
