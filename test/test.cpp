@@ -136,7 +136,10 @@ namespace UtilsTests {
 		}
 		EXPECT_NEAR(3.25, interpolateData(data_vec, 3.3), 1e-4);
 		EXPECT_DOUBLE_EQ(7.5, interpolateData(data_vec, 5));
+		// Attempt to interpolate beyond the data range
+		EXPECT_TRUE(std::isnan(interpolateData(data_vec, -1.0)));
 		EXPECT_TRUE(std::isnan(interpolateData(data_vec, 21.0)));
+		
 	}
 
 	TEST(UtilsTests, RemoveWhitespaceTests) {
@@ -145,6 +148,10 @@ namespace UtilsTests {
 		str = " text	";
 		EXPECT_EQ(removeWhitespace(str), "text");
 		str = "			text ";
+		EXPECT_EQ(removeWhitespace(str), "text");
+		str = "t e	xt";
+		EXPECT_EQ(removeWhitespace(str), "text");
+		str = "text";
 		EXPECT_EQ(removeWhitespace(str), "text");
 	}
 
@@ -323,11 +330,21 @@ namespace LatticeTests{
 		EXPECT_EQ(lattice.calculateDX(coords_i, coords_f), -50);
 		EXPECT_EQ(lattice.calculateDY(coords_i, coords_f), 0);
 		EXPECT_EQ(lattice.calculateDZ(coords_i, coords_f), 0);
+		coords_i = { 0, 49, 48 };
+		coords_f = { 49, 49, 49 };
+		EXPECT_EQ(lattice.calculateDX(coords_i, coords_f), 50);
+		EXPECT_EQ(lattice.calculateDY(coords_i, coords_f), 0);
+		EXPECT_EQ(lattice.calculateDZ(coords_i, coords_f), 0);
 		coords_i.setXYZ(0, 0, 49);
 		coords_f.setXYZ(1, 49, 0);
 		EXPECT_EQ(lattice.calculateDX(coords_i, coords_f), 0);
 		EXPECT_EQ(lattice.calculateDY(coords_i, coords_f), 50);
 		EXPECT_EQ(lattice.calculateDZ(coords_i, coords_f), -50);
+		coords_i = {1, 49, 0};
+		coords_f = {0, 0, 49};
+		EXPECT_EQ(lattice.calculateDX(coords_i, coords_f), 0);
+		EXPECT_EQ(lattice.calculateDY(coords_i, coords_f), -50);
+		EXPECT_EQ(lattice.calculateDZ(coords_i, coords_f), 50);
 		coords_i.setXYZ(4, 5, 6);
 		coords_f.setXYZ(3, 6, 5);
 		EXPECT_EQ(lattice.calculateDX(coords_i, coords_f), 0);
@@ -442,6 +459,17 @@ namespace LatticeTests{
 		Site* site1 = *lattice.getSiteIt(coords);
 		Site* site2 = site_ptrs[lattice.getSiteIndex(coords)];
 		EXPECT_EQ(site1,site2);
+		// Check for sites and indices outside the lattice
+		coords = {0, 60, 0};
+		EXPECT_THROW(lattice.getSiteIndex(coords),out_of_range);
+		EXPECT_THROW(lattice.getSiteCoords(150000),out_of_range);
+		// Check site object assignment and clearing
+		Object object;
+		site.setObjectPtr(&object);
+		EXPECT_TRUE(site.isOccupied());
+		EXPECT_EQ(&object,site.getObjectPtr());
+		site.clearOccupancy();
+		EXPECT_FALSE(site.isOccupied());
 	}
 }
 
@@ -510,9 +538,25 @@ namespace EventTests {
 
 namespace ObjectTests {
 	
+	TEST(ObjectTests, GeneralObjectTests) {
+		// Assume object is created in a 50 x 50 x 50 lattice
+		Coords coords = {0,0,0};
+		Object object1(0.0, 1, coords);
+		EXPECT_EQ("Object",object1.getObjectType());
+		EXPECT_EQ(1,object1.getTag());
+		EXPECT_EQ(coords,object1.getCoords());
+		EXPECT_DOUBLE_EQ(0.0,object1.getCreationTime());
+		// Object-Event tests
+		Event event;
+		list<Event*> event_ptrs;
+		event_ptrs.push_back(&event);
+		object1.setEventIt(event_ptrs.begin());
+		EXPECT_EQ(&event,*(object1.getEventIt()));
+	}
+	
 	TEST(ObjectTests, CalculateDisplacementTests) {
 		// Assume object is created in a 50 x 50 x 50 lattice
-		Object object1(0, 1, { 0,0,0 });
+		Object object1(0.0, 1, { 0,0,0 });
 		object1.setCoords({ 0,0,5 });
 		EXPECT_DOUBLE_EQ(5.0, object1.calculateDisplacement());
 		object1.setCoords({ 0,0,49 });
@@ -525,7 +569,11 @@ namespace ObjectTests {
 		object1.setCoords({ 49,0,49 });
 		object1.incrementDY(50);
 		EXPECT_DOUBLE_EQ(sqrt(2), object1.calculateDisplacement());
+		object1.resetInitialCoords({5,5,5});
+		object1.setCoords({ 4,4,4 });
+		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
 	}
+	
 }
 
 
