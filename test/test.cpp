@@ -49,6 +49,16 @@ namespace UtilsTests {
 		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
 		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
 		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
+		data.clear();
+		hist = calculateProbabilityHist(data, 10.0);
+		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
+		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
+		hist = calculateProbabilityHist(data, 5);
+		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
+		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
+		hist = calculateProbabilityHist(data, 1.0, 5);
+		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
+		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
 	}
 
 	TEST(UtilsTests, ExponentialDOSTests) {
