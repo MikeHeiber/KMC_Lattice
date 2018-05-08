@@ -14,9 +14,122 @@ using namespace Utils;
 // Simple derived Simulation class
 class TestSim : public Simulation {
 public:
-	bool checkFinished() const { return false; };
-	bool executeNextEvent() { return false; };
+	vector<Object> objects;
+	vector<Event> events;
+	vector<Site> sites;
+
+	bool init(const Parameters_Simulation& params, const int id) {
+		// Initialize Simulation base class
+		Simulation::init(params, id);
+		// Initialize Sites
+		Site site;
+		sites.assign(lattice.getNumSites(), site);
+		vector<Site*> site_ptrs;
+		for (auto& item : sites) {
+			site_ptrs.push_back(&item);
+		}
+		lattice.setSitePointers(site_ptrs);
+		// Perform test initialization
+		// Construct and add initial object
+		Coords coords1(0, 0, 0);
+		Object object1(0.0, 1, coords1);
+		objects.push_back(object1);
+		addObject(&objects[0]);
+		// Construct and add event for the object
+		Event event1(this);
+		event1.setObjectPtr(&objects[0]);
+		Coords coords2(1, 0, 0);
+		event1.setDestCoords(coords2);
+		event1.calculateExecutionTime(1.0);
+		events.push_back(event1);
+		setObjectEvent(&objects[0], &events[0]);
+		return true;
+	}
+
+	void calculateNextEvent(Object* object_ptr) {
+		Event* event_ptr = *(object_ptr->getEventIt());
+		Coords coords_i = object_ptr->getCoords();
+		Coords coords_f;
+		lattice.calculateDestinationCoords(coords_i, 0, 10, 0, coords_f);
+		event_ptr->setDestCoords(coords_f);
+		event_ptr->calculateExecutionTime(1.0);
+	}
+
+	bool checkFinished() const {
+		return (getN_events_executed() == 8);
+	}
+
+	bool executeNextEvent() {
+		Event* event_ptr = *chooseNextEvent();
+		setTime(event_ptr->getExecutionTime());
+		Coords coords_i = (*(event_ptr->getObjectPtr())).getCoords();
+		Coords coords_f = event_ptr->getDestCoords();
+		moveObject(event_ptr->getObjectPtr(), event_ptr->getDestCoords());
+		auto object_vec = findRecalcObjects(coords_i, coords_f);
+		for (auto item : object_vec) {
+			calculateNextEvent(item);
+		}
+		return true;
+	}
+	
 };
+
+namespace SimulationTests {
+
+	class SimulationTest : public ::testing::Test {
+	protected:
+		Parameters_Simulation params_base;
+		TestSim sim;
+		void SetUp() {
+			{
+				params_base.Enable_logging = false;
+				params_base.Enable_periodic_x = true;
+				params_base.Enable_periodic_y = true;
+				params_base.Enable_periodic_z = true;
+				params_base.Length = 50;
+				params_base.Width = 50;
+				params_base.Height = 50;
+				params_base.Unit_size = 1.0;
+				params_base.Temperature = 300;
+				params_base.Enable_FRM = false;
+				params_base.Enable_selective_recalc = true;
+				params_base.Recalc_cutoff = 3;
+				params_base.Enable_full_recalc = false;
+			}
+			// Initialize TestSim object
+			sim.init(params_base, 0);
+			sim.setGeneratorSeed(0);
+		}
+	};
+
+	TEST_F(SimulationTest, SetupTests) {
+		EXPECT_EQ(0, sim.getId());
+		EXPECT_FALSE(sim.isLoggingEnabled());
+		EXPECT_DOUBLE_EQ(0.0, sim.getTime());
+		EXPECT_EQ(300, sim.getTemp());
+		EXPECT_DOUBLE_EQ(125000e-21, sim.getVolume());
+	}
+
+	TEST_F(SimulationTest, EventExecutionTests) {
+		Coords coords(0, 0, 0);
+		EXPECT_EQ(coords, sim.objects[0].getCoords());
+		EXPECT_EQ(1, sim.getN_events());
+		EXPECT_TRUE(sim.executeNextEvent());
+		coords.setXYZ(1, 0, 0);
+		EXPECT_EQ(coords, sim.objects[0].getCoords());
+		EXPECT_EQ(2, sim.getN_events_executed());
+		EXPECT_FALSE(sim.checkFinished());
+		while (!sim.checkFinished()) {
+			EXPECT_TRUE(sim.executeNextEvent());
+		}
+		EXPECT_EQ(8, sim.getN_events_executed());
+		Coords coords_f(1, 10, 0);
+		EXPECT_EQ(coords_f.x, sim.objects[0].getCoords().x);
+		EXPECT_EQ(coords_f.y, sim.objects[0].getCoords().y);
+		EXPECT_EQ(coords_f.z, sim.objects[0].getCoords().z);
+	}
+
+}
 
 namespace UtilsTests {
 
@@ -593,7 +706,6 @@ namespace ObjectTests {
 	}
 	
 }
-
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);
