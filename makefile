@@ -71,7 +71,7 @@ test/test.o : test/test.cpp $(GTEST_HEADERS) $(OBJS)
 test_mpi : FLAGS = -fprofile-arcs -ftest-coverage -std=c++11 -Wall -Wextra -I. -Isrc
 test_mpi : test/KMC_Lattice_MPI_tests.exe
 
-test/Excimontec_MPI_tests.exe : test/test_mpi.o test/gtest-all.o $(OBJS)
+test/KMC_Lattice_MPI_tests.exe : test/test_mpi.o test/gtest-all.o $(OBJS)
 	mpicxx $(GTEST_FLAGS) $(FLAGS) -lpthread $^ -o $@
 
 test/test_mpi.o : test/test_mpi.cpp $(GTEST_HEADERS) $(OBJS)
