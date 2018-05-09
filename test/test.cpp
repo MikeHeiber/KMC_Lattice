@@ -39,8 +39,11 @@ public:
 	CreationEvent event_creation;
 	list<MoveEvent> events_move;
 	list<TerminationEvent> events_termination;
+	Event event_previous;
+	string event_previous_type;
 	int N_move_events = 0;
 	int N_termination_events = 0;
+	vector<double> displacement_data;
 
 	bool init(const Parameters_Simulation& params, const int id) {
 		// Initialize Simulation base class
@@ -69,7 +72,33 @@ public:
 		move_event_it->calculateExecutionTime(100);
 		Coords coords_i = object_ptr->getCoords();
 		Coords coords_f;
-		lattice.calculateDestinationCoords(coords_i, 1, 0, 0, coords_f);
+		int i = 0, j = 0, k = 0;
+		uniform_int_distribution<> dist(0, 5);
+		int rand_num = dist(generator);
+		switch (rand_num) {
+		case 0:
+			i = -1;
+			break;
+		case 1:
+			i = 1;
+			break;
+		case 2:
+			j = -1;
+			break;
+		case 3:
+			j = 1;
+			break;
+		case 4:
+			k = -1;
+			break;
+		case 5:
+			k = 1;
+			break;
+		default:
+			i = 1;
+			break;
+		}
+		lattice.calculateDestinationCoords(coords_i, i, j, k, coords_f);
 		move_event_it->setDestCoords(coords_f);
 		// Calculate termination event
 		termination_event_it->setDestCoords(coords_i);
@@ -84,7 +113,7 @@ public:
 	}
 
 	bool checkFinished() const {
-		return (getN_objects_created() == 5);
+		return (N_termination_events == 100000);
 	}
 
 	void executeCreationEvent(const std::list<Event*>::const_iterator event_it) {
@@ -115,6 +144,8 @@ public:
 		auto event_it = chooseNextEvent();
 		Event* event_ptr = *event_it;
 		string event_type = event_ptr->getEventType();
+		event_previous = *event_ptr;
+		event_previous_type = event_type;
 		Coords coords_i;
 		Coords coords_f = event_ptr->getDestCoords();
 		setTime(event_ptr->getExecutionTime());
@@ -128,6 +159,8 @@ public:
 				executeMoveEvent(event_it);
 			}
 			else if (event_type.compare("Termination")==0) {
+				Object* object_ptr = (*event_it)->getObjectPtr();
+				displacement_data.push_back(object_ptr->calculateDisplacement());
 				executeTerminationEvent(event_it);
 			}
 			else {
@@ -151,6 +184,14 @@ public:
 		auto termination_event_it = find_if(events_termination.begin(), events_termination.end(), [object_ptr](TerminationEvent& a) { return a.getObjectPtr() == object_ptr; });
 		events_termination.erase(termination_event_it);
 		N_termination_events++;
+	}
+
+	vector<Object*> getAllObjectPtrs() const {
+		return getAllObjectPtrs();
+	}
+
+	vector<Event*> getAllEventPtrs() const {
+		return getAllEventPtrs();
 	}
 	
 };
@@ -200,10 +241,36 @@ namespace SimulationTests {
 		EXPECT_EQ(2, sim.getN_events());
 		EXPECT_EQ(1, sim.getN_events_executed());
 		EXPECT_FALSE(sim.checkFinished());
-		while (!sim.checkFinished()) {
-			sim.executeNextEvent();
-		}
+	}
 
+	TEST_F(SimulationTest, KMCAlgorithmTests) {
+		while (!sim.checkFinished()) {
+			EXPECT_TRUE(sim.executeNextEvent());
+		}
+		EXPECT_EQ(100000, sim.getN_objects_created());
+		double displacement = vector_avg(sim.displacement_data);
+		TestSim sim2;
+		params_base.Enable_FRM = true;
+		params_base.Enable_selective_recalc = false;
+		params_base.Enable_full_recalc = false;
+		sim2.init(params_base, 0);
+		while (!sim2.checkFinished()) {
+			EXPECT_TRUE(sim2.executeNextEvent());
+		}
+		EXPECT_EQ(100000, sim2.getN_objects_created());
+		double displacement2 = vector_avg(sim2.displacement_data);
+		EXPECT_NEAR(displacement, displacement2, 1e-2);
+		TestSim sim3;
+		params_base.Enable_FRM = false;
+		params_base.Enable_selective_recalc = false;
+		params_base.Enable_full_recalc = true;
+		sim3.init(params_base, 0);
+		while (!sim3.checkFinished()) {
+			EXPECT_TRUE(sim3.executeNextEvent());
+		}
+		EXPECT_EQ(100000, sim3.getN_objects_created());
+		double displacement3 = vector_avg(sim3.displacement_data);
+		EXPECT_NEAR(displacement, displacement3, 1e-2);
 	}
 
 }
