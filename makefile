@@ -56,8 +56,10 @@ ifeq ($(lastword $(subst /, ,$(CXX))),pgc++)
 	GTEST_FLAGS = -I$(GTEST_DIR)/include
 endif
 
-test : FLAGS = -fprofile-arcs -ftest-coverage -std=c++11 -Wall -Wextra -I. -Isrc
-test : test/KMC_Lattice_tests.exe	
+test_coverage : FLAGS = -fprofile-arcs -ftest-coverage -std=c++11 -Wall -Wextra -I. -Isrc
+test_coverage : test/KMC_Lattice_tests.exe test/KMC_Lattice_MPI_tests.exe
+
+test : test/KMC_Lattice_tests.exe test/KMC_Lattice_MPI_tests.exe
 	
 test/KMC_Lattice_tests.exe : test/test.o test/gtest-all.o $(OBJS)
 	mpicxx $(GTEST_FLAGS) $(FLAGS) -lpthread $^ -o $@
@@ -68,9 +70,6 @@ test/gtest-all.o : $(GTEST_SRCS_)
 test/test.o : test/test.cpp $(GTEST_HEADERS) $(OBJS)
 	mpicxx $(GTEST_FLAGS) $(FLAGS) -c $< -o $@
 
-test_mpi : FLAGS = -fprofile-arcs -ftest-coverage -std=c++11 -Wall -Wextra -I. -Isrc
-test_mpi : test/KMC_Lattice_MPI_tests.exe
-
 test/KMC_Lattice_MPI_tests.exe : test/test_mpi.o test/gtest-all.o $(OBJS)
 	mpicxx $(GTEST_FLAGS) $(FLAGS) -lpthread $^ -o $@
 
@@ -78,4 +77,4 @@ test/test_mpi.o : test/test_mpi.cpp $(GTEST_HEADERS) $(OBJS)
 	mpicxx $(GTEST_FLAGS) $(FLAGS) -c $< -o $@
 	
 clean:
-	-rm src/*.o src/*.gcno* src/*.gcda KMC_Lattice/*.o KMC_Lattice/*.gcno* KMC_Lattice/*.gcda testing/*.o testing/*.gcno* testing/*.gcda *~ Excimontec.exe testing/*.o testing/Excimontec_tests.exe testing/Excimontec_mpi_tests.exe
+	-rm src/*.o src/*.gcno* src/*.gcda test/*.o test/*.gcno* test/*.gcda *~ libKMC.a test/KMC_Lattice_tests.exe test/KMC_Lattice_MPI_tests.exe
