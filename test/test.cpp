@@ -14,9 +14,33 @@ using namespace Utils;
 // Simple derived Simulation class
 class TestSim : public Simulation {
 public:
-	vector<Object> objects;
-	vector<Event> events;
-	vector<Site> sites;
+	class CreationEvent : public Event {
+	public:
+		CreationEvent() : Event() {}
+		CreationEvent(Simulation* simulation_ptr) : Event(simulation_ptr) {}
+		string getEventType() const { return "Creation"; }
+	};
+	class MoveEvent : public Event {
+	public:
+		MoveEvent() : Event() {}
+		MoveEvent(Simulation* simulation_ptr) : Event(simulation_ptr) {}
+		string getEventType() const { return "Move"; }
+	};
+	class TerminationEvent : public Event {
+	public:
+		TerminationEvent() : Event() {}
+		TerminationEvent(Simulation* simulation_ptr) : Event(simulation_ptr) {}
+		string getEventType() const { return "Termination"; }
+	};
+
+	// Data members
+	list<Object> objects;
+	list<Site> sites;
+	CreationEvent event_creation;
+	list<MoveEvent> events_move;
+	list<TerminationEvent> events_termination;
+	int N_move_events = 0;
+	int N_termination_events = 0;
 
 	bool init(const Parameters_Simulation& params, const int id) {
 		// Initialize Simulation base class
@@ -30,46 +54,103 @@ public:
 		}
 		lattice.setSitePointers(site_ptrs);
 		// Perform test initialization
-		// Construct and add initial object
-		Coords coords1(0, 0, 0);
-		Object object1(0.0, 1, coords1);
-		objects.push_back(object1);
-		addObject(&objects[0]);
-		// Construct and add event for the object
-		Event event1(this);
-		event1.setObjectPtr(&objects[0]);
-		Coords coords2(1, 0, 0);
-		event1.setDestCoords(coords2);
-		event1.calculateExecutionTime(1.0);
-		events.push_back(event1);
-		setObjectEvent(&objects[0], &events[0]);
+		CreationEvent event_creation_new(this);
+		event_creation = event_creation_new;
+		event_creation.setDestCoords(lattice.generateRandomCoords());
+		event_creation.calculateExecutionTime(1.0);
+		addEvent(&event_creation);
 		return true;
 	}
 
 	void calculateNextEvent(Object* object_ptr) {
-		Event* event_ptr = *(object_ptr->getEventIt());
+		auto move_event_it = find_if(events_move.begin(), events_move.end(), [object_ptr](MoveEvent& a) { return a.getObjectPtr() == object_ptr; });
+		auto termination_event_it = find_if(events_termination.begin(), events_termination.end(), [object_ptr](TerminationEvent& a) { return a.getObjectPtr() == object_ptr; });
+		// Calculate move events
+		move_event_it->calculateExecutionTime(100);
 		Coords coords_i = object_ptr->getCoords();
 		Coords coords_f;
-		lattice.calculateDestinationCoords(coords_i, 0, 10, 0, coords_f);
-		event_ptr->setDestCoords(coords_f);
-		event_ptr->calculateExecutionTime(1.0);
+		lattice.calculateDestinationCoords(coords_i, 1, 0, 0, coords_f);
+		move_event_it->setDestCoords(coords_f);
+		// Calculate termination event
+		termination_event_it->setDestCoords(coords_i);
+		termination_event_it->calculateExecutionTime(10);
+		// Select fastest event
+		if (move_event_it->getExecutionTime() < termination_event_it->getExecutionTime()) {
+			setObjectEvent(object_ptr, &(*move_event_it));
+		}
+		else {
+			setObjectEvent(object_ptr, &(*termination_event_it));
+		}
 	}
 
 	bool checkFinished() const {
-		return (getN_events_executed() == 8);
+		return (getN_objects_created() == 5);
+	}
+
+	void executeCreationEvent(const std::list<Event*>::const_iterator event_it) {
+		Event* event_ptr = *event_it;
+		Coords coords_dest = event_ptr->getDestCoords();
+		Object object(event_ptr->getExecutionTime(),getN_objects_created()+1,coords_dest);
+		objects.push_back(object);
+		addObject(&objects.back());
+		Simulation* sim_ptr = this;
+		MoveEvent event1(sim_ptr);
+		event1.setObjectPtr(&objects.back());
+		events_move.push_back(event1);
+		TerminationEvent event2(sim_ptr);
+		event2.setObjectPtr(&objects.back());
+		events_termination.push_back(event2);
+		// Calculate next creation event
+		event_creation.setDestCoords(lattice.generateRandomCoords());
+		event_creation.calculateExecutionTime(1.0);
+	}
+
+	void executeMoveEvent(const std::list<Event*>::const_iterator event_it) {
+		Event* event_ptr = *event_it;
+		moveObject(event_ptr->getObjectPtr(), event_ptr->getDestCoords());
+		N_move_events++;
 	}
 
 	bool executeNextEvent() {
-		Event* event_ptr = *chooseNextEvent();
-		setTime(event_ptr->getExecutionTime());
-		Coords coords_i = (*(event_ptr->getObjectPtr())).getCoords();
+		auto event_it = chooseNextEvent();
+		Event* event_ptr = *event_it;
+		string event_type = event_ptr->getEventType();
+		Coords coords_i;
 		Coords coords_f = event_ptr->getDestCoords();
-		moveObject(event_ptr->getObjectPtr(), event_ptr->getDestCoords());
+		setTime(event_ptr->getExecutionTime());
+		if (event_type.compare("Creation")==0) {
+			executeCreationEvent(event_it);
+			coords_i = coords_f;
+		}
+		else {
+			coords_i = event_ptr->getObjectPtr()->getCoords();
+			if (event_type.compare("Move")==0) {
+				executeMoveEvent(event_it);
+			}
+			else if (event_type.compare("Termination")==0) {
+				executeTerminationEvent(event_it);
+			}
+			else {
+				return false;
+			}
+		}
 		auto object_vec = findRecalcObjects(coords_i, coords_f);
 		for (auto item : object_vec) {
 			calculateNextEvent(item);
 		}
 		return true;
+	}
+
+	void executeTerminationEvent(const std::list<Event*>::const_iterator event_it) {
+		Object* object_ptr = (*event_it)->getObjectPtr();
+		// Remove object from Simulation class
+		removeObject(object_ptr);
+		// Remove local events
+		auto move_event_it = find_if(events_move.begin(), events_move.end(), [object_ptr](MoveEvent& a) { return a.getObjectPtr() == object_ptr; });
+		events_move.erase(move_event_it);
+		auto termination_event_it = find_if(events_termination.begin(), events_termination.end(), [object_ptr](TerminationEvent& a) { return a.getObjectPtr() == object_ptr; });
+		events_termination.erase(termination_event_it);
+		N_termination_events++;
 	}
 	
 };
@@ -111,22 +192,18 @@ namespace SimulationTests {
 	}
 
 	TEST_F(SimulationTest, EventExecutionTests) {
-		Coords coords(0, 0, 0);
-		EXPECT_EQ(coords, sim.objects[0].getCoords());
+		EXPECT_EQ(0, (int)sim.objects.size());
 		EXPECT_EQ(1, sim.getN_events());
 		EXPECT_TRUE(sim.executeNextEvent());
-		coords.setXYZ(1, 0, 0);
-		EXPECT_EQ(coords, sim.objects[0].getCoords());
-		EXPECT_EQ(2, sim.getN_events_executed());
+		EXPECT_EQ(1, (int)sim.objects.size());
+		EXPECT_EQ(1, sim.objects.front().getTag());
+		EXPECT_EQ(2, sim.getN_events());
+		EXPECT_EQ(1, sim.getN_events_executed());
 		EXPECT_FALSE(sim.checkFinished());
 		while (!sim.checkFinished()) {
-			EXPECT_TRUE(sim.executeNextEvent());
+			sim.executeNextEvent();
 		}
-		EXPECT_EQ(8, sim.getN_events_executed());
-		Coords coords_f(1, 10, 0);
-		EXPECT_EQ(coords_f.x, sim.objects[0].getCoords().x);
-		EXPECT_EQ(coords_f.y, sim.objects[0].getCoords().y);
-		EXPECT_EQ(coords_f.z, sim.objects[0].getCoords().z);
+
 	}
 
 }
