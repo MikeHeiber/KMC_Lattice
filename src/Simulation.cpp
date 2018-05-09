@@ -65,15 +65,9 @@ void Simulation::addObject(Object* object_ptr) {
 }
 
 list<Event*>::const_iterator Simulation::chooseNextEvent() {
-	auto event_target_it = event_ptrs.begin();
-	if (event_ptrs.size() > 1) {
-		for (auto it = ++event_ptrs.begin(); it != event_ptrs.end(); ++it) {
-			if ((*it) != nullptr && ((*event_target_it) == nullptr || ((*it)->getExecutionTime() < (*event_target_it)->getExecutionTime()))) {
-				event_target_it = it;
-			}
-		}
-	}
-	return event_target_it;
+	return min_element(event_ptrs.begin(), event_ptrs.end(), [](Event* a, Event* b) {
+		return (a != nullptr && b != nullptr ) && (a->getExecutionTime() < b->getExecutionTime()); 
+	});
 }
 
 vector<Object*> Simulation::findRecalcObjects(const Coords& coords_start, const Coords& coords_dest) const {
@@ -161,6 +155,10 @@ int Simulation::getN_events() const {
 
 long int Simulation::getN_events_executed() const {
 	return N_events_executed;
+}
+
+long int Simulation::getN_objects_created() const {
+	return N_objects_created;
 }
 
 int Simulation::getTemp() const {
