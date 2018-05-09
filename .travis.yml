@@ -44,4 +44,3 @@ before_install:
 script:
     - make -j10 $TARGET && travis_wait ./test/KMC_Lattice_tests.exe && travis_wait mpiexec -n 4 ./test/KMC_Lattice_MPI_tests.exe
     - if [[ "$TARGET" = test_coverage ]]; then coveralls --include src --exclude "googletest/*" --gcov-options '\-lp'; fi
-    - 
