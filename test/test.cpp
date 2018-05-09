@@ -259,7 +259,7 @@ namespace SimulationTests {
 		}
 		EXPECT_EQ(200000, sim2.getN_objects_created());
 		double displacement2 = vector_avg(sim2.displacement_data);
-		EXPECT_NEAR(displacement, displacement2, 1e-2);
+		EXPECT_NEAR(displacement, displacement2, 5e-2);
 		TestSim sim3;
 		params_base.Enable_FRM = false;
 		params_base.Enable_selective_recalc = false;
@@ -270,7 +270,7 @@ namespace SimulationTests {
 		}
 		EXPECT_EQ(200000, sim3.getN_objects_created());
 		double displacement3 = vector_avg(sim3.displacement_data);
-		EXPECT_NEAR(displacement, displacement3, 1e-2);
+		EXPECT_NEAR(displacement, displacement3, 5e-2);
 	}
 
 }
