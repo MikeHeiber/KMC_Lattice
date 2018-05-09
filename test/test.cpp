@@ -113,7 +113,7 @@ public:
 	}
 
 	bool checkFinished() const {
-		return (getN_objects_created() == 100000);
+		return (getN_objects_created() == 200000);
 	}
 
 	void executeCreationEvent(const std::list<Event*>::const_iterator event_it) {
@@ -247,7 +247,7 @@ namespace SimulationTests {
 		while (!sim.checkFinished()) {
 			EXPECT_TRUE(sim.executeNextEvent());
 		}
-		EXPECT_EQ(100000, sim.getN_objects_created());
+		EXPECT_EQ(200000, sim.getN_objects_created());
 		double displacement = vector_avg(sim.displacement_data);
 		TestSim sim2;
 		params_base.Enable_FRM = true;
@@ -257,7 +257,7 @@ namespace SimulationTests {
 		while (!sim2.checkFinished()) {
 			EXPECT_TRUE(sim2.executeNextEvent());
 		}
-		EXPECT_EQ(100000, sim2.getN_objects_created());
+		EXPECT_EQ(200000, sim2.getN_objects_created());
 		double displacement2 = vector_avg(sim2.displacement_data);
 		EXPECT_NEAR(displacement, displacement2, 1e-2);
 		TestSim sim3;
@@ -268,7 +268,7 @@ namespace SimulationTests {
 		while (!sim3.checkFinished()) {
 			EXPECT_TRUE(sim3.executeNextEvent());
 		}
-		EXPECT_EQ(100000, sim3.getN_objects_created());
+		EXPECT_EQ(200000, sim3.getN_objects_created());
 		double displacement3 = vector_avg(sim3.displacement_data);
 		EXPECT_NEAR(displacement, displacement3, 1e-2);
 	}
