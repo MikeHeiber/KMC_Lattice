@@ -113,7 +113,7 @@ public:
 	}
 
 	bool checkFinished() const {
-		return (N_termination_events == 100000);
+		return (getN_objects_created() == 100000);
 	}
 
 	void executeCreationEvent(const std::list<Event*>::const_iterator event_it) {
