@@ -165,11 +165,11 @@ namespace Utils {
 		MPI_Comm_size(MPI_COMM_WORLD, &nproc);
 		vector<double> output_vector;
 		if (procid == 0) {
-			data_sizes = (int *)malloc(sizeof(int)*nproc);
+			data_sizes = new int[nproc];
 		}
 		data_size = (int)input_vector.size();
-		data = (double *)malloc(sizeof(double)*data_size);
-		for (int i = 0; i < (int)input_vector.size(); i++) {
+		data = new double[data_size];
+		for (int i = 0; i < data_size; i++) {
 			data[i] = input_vector[i];
 		}
 		MPI_Gather(&data_size, 1, MPI_INT, data_sizes, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -177,8 +177,8 @@ namespace Utils {
 			for (int i = 0; i < nproc; i++) {
 				data_count += data_sizes[i];
 			}
-			data_all = (double *)malloc(sizeof(double)*data_count);
-			data_displacement = (int *)malloc(sizeof(int)*nproc);
+			data_all = new double[data_count];
+			data_displacement = new int[nproc];
 			data_displacement[0] = 0;
 			for (int i = 1; i < nproc; i++) {
 				data_displacement[i] = data_displacement[i - 1] + data_sizes[i - 1];
@@ -202,10 +202,10 @@ namespace Utils {
 				output_vector.push_back(average);
 			}
 		}
-		delete data;
-		delete data_all;
-		delete data_sizes;
-		delete data_displacement;
+		delete[] data;
+		delete[] data_all;
+		delete[] data_sizes;
+		delete[] data_displacement;
 		return output_vector;
 	}
 
@@ -217,8 +217,8 @@ namespace Utils {
 		int procid;
 		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		data_size = (int)input_vector.size();
-		data = (double *)malloc(sizeof(double)*data_size);
-		sum = (double *)malloc(sizeof(double)*data_size);
+		data = new double[data_size];
+		sum = new double[data_size];
 		for (int i = 0; i < (int)input_vector.size(); i++) {
 			data[i] = input_vector[i];
 		}
@@ -228,8 +228,8 @@ namespace Utils {
 				output_vector.push_back(sum[i]);
 			}
 		}
-		delete data;
-		delete sum;
+		delete[] data;
+		delete[] sum;
 		return output_vector;
 	}
 
@@ -241,8 +241,8 @@ namespace Utils {
 		int procid;
 		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		data_size = (int)input_vector.size();
-		data = (int *)malloc(sizeof(int)*data_size);
-		sum = (int *)malloc(sizeof(int)*data_size);
+		data = new int[data_size];
+		sum = new int[data_size];
 		for (int i = 0; i < (int)input_vector.size(); i++) {
 			data[i] = input_vector[i];
 		}
@@ -252,8 +252,8 @@ namespace Utils {
 				output_vector.push_back(sum[i]);
 			}
 		}
-		delete data;
-		delete sum;
+		delete[] data;
+		delete[] sum;
 		return output_vector;
 	}
 
@@ -270,10 +270,10 @@ namespace Utils {
 		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		MPI_Comm_size(MPI_COMM_WORLD, &nproc);
 		if (procid == 0) {
-			data_sizes = (int *)malloc(sizeof(int)*nproc);
+			data_sizes = new int[nproc];
 		}
 		data_size = (int)input_vector.size();
-		data = (double *)malloc(sizeof(double)*data_size);
+		data = new double[data_size];
 		for (int i = 0; i < (int)input_vector.size(); i++) {
 			data[i] = input_vector[i];
 		}
@@ -282,8 +282,8 @@ namespace Utils {
 			for (int i = 0; i < nproc; i++) {
 				data_count += data_sizes[i];
 			}
-			data_all = (double *)malloc(sizeof(double)*data_count);
-			data_displacement = (int *)malloc(sizeof(int)*nproc);
+			data_all = new double[data_count];
+			data_displacement = new int[nproc];
 			data_displacement[0] = 0;
 			for (int i = 1; i < nproc; i++) {
 				data_displacement[i] = data_displacement[i - 1] + data_sizes[i - 1];
@@ -295,10 +295,10 @@ namespace Utils {
 				output_vector.push_back(data_all[i]);
 			}
 		}
-		delete data;
-		delete data_all;
-		delete data_sizes;
-		delete data_displacement;
+		delete[] data;
+		delete[] data_all;
+		delete[] data_sizes;
+		delete[] data_displacement;
 		return output_vector;
 	}
 
@@ -315,10 +315,10 @@ namespace Utils {
 		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		MPI_Comm_size(MPI_COMM_WORLD, &nproc);
 		if (procid == 0) {
-			data_sizes = (int *)malloc(sizeof(int)*nproc);
+			data_sizes = new int[nproc];
 		}
 		data_size = (int)input_vector.size();
-		data = (int *)malloc(sizeof(int)*data_size);
+		data = new int[data_size];
 		for (int i = 0; i < (int)input_vector.size(); i++) {
 			data[i] = input_vector[i];
 		}
@@ -327,8 +327,8 @@ namespace Utils {
 			for (int i = 0; i < nproc; i++) {
 				data_count += data_sizes[i];
 			}
-			data_all = (int *)malloc(sizeof(int)*data_count);
-			data_displacement = (int *)malloc(sizeof(int)*nproc);
+			data_all = new int[data_count];
+			data_displacement = new int[nproc];
 			data_displacement[0] = 0;
 			for (int i = 1; i < nproc; i++) {
 				data_displacement[i] = data_displacement[i - 1] + data_sizes[i - 1];
@@ -340,10 +340,10 @@ namespace Utils {
 				output_vector.push_back(data_all[i]);
 			}
 		}
-		delete data;
-		delete data_all;
-		delete data_sizes;
-		delete data_displacement;
+		delete[] data;
+		delete[] data_all;
+		delete[] data_sizes;
+		delete[] data_displacement;
 		return output_vector;
 	}
 
