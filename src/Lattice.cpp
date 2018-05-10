@@ -144,6 +144,42 @@ bool Lattice::checkMoveValidity(const Coords& coords_initial, const int i, const
 	return true;
 }
 
+Coords Lattice::chooseRandomNearestNeighbor(const Coords& coords_i) {
+	int i = 0, j = 0, k = 0;
+	uniform_int_distribution<> dist(0, 5);
+	while (1) {
+		int rand_num = dist(*gen_ptr);
+		switch (rand_num) {
+		case 0:
+			i = -1;
+			break;
+		case 1:
+			i = 1;
+			break;
+		case 2:
+			j = -1;
+			break;
+		case 3:
+			j = 1;
+			break;
+		case 4:
+			k = -1;
+			break;
+		case 5:
+			k = 1;
+			break;
+		default:
+			break;
+		}
+		if (checkMoveValidity(coords_i, i, j, k)) {
+			break;
+		}
+	}
+	Coords coords_f;
+	calculateDestinationCoords(coords_i, i, j, k, coords_f);
+	return coords_f;
+}
+
 void Lattice::clearOccupancy(const Coords& coords) {
 	site_ptrs[getSiteIndex(coords)]->clearOccupancy();
 }
