@@ -265,7 +265,7 @@ namespace Utils {
 	}
 
 	//! \brief This template function efficienctly removes the duplicate entries from an input vector.
-	//! \details This algorithm allow efficient removal of duplicate vector objects when > or < comparison operators do not exist.
+	//! \details This algorithm allows efficient removal of duplicate vector objects when > or < comparison operators do not exist.
 	//! \param vec is the input vector to be operated on.
 	template<typename T>
 	void removeDuplicates(std::vector<T> &vec) {
@@ -289,11 +289,7 @@ namespace Utils {
 	//! \return The average of the data set in double format.
 	template<typename T, typename A>
 	double vector_avg(const std::vector<T, A>& data) {
-		double sum = 0;
-		for (auto const &item : data) {
-			sum += item;
-		}
-		return sum / data.size();
+		return accumulate(data.begin(), data.end(), 0.0) / (double)data.size();
 	}
 
 	//! \brief This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.
@@ -301,12 +297,11 @@ namespace Utils {
 	//! \return The standard deviation of the data set in double format.
 	template<typename T, typename A>
 	double vector_stdev(const std::vector<T, A>& data) {
-		double sum = 0;
 		double avg = vector_avg(data);
-		for (auto const &item : data) {
-			sum += (item - avg)*(item - avg);
-		}
-		return sqrt(sum / (data.size() - 1));
+		double sum = accumulate(data.begin(), data.end(), 0.0, [avg](double& x, const T& element) {
+			return x + (element - avg)*(element - avg);
+		});
+		return sqrt(sum / (double)((int)data.size() - 1));
 	}
 }
 
