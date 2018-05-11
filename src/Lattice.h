@@ -126,11 +126,12 @@ class Lattice{
 		//! \return false if a move event is not possible.
 		bool checkMoveValidity(const Coords& coords_initial, const int i, const int j, const int k) const;
 
-		//! \brief Randomly selects a valid nearest neighbor site
+		//! \brief Randomly selects a valid, unoccupied nearest neighbor site
 		//! \details Will choose a site across a periodic boundary if periodic boundaries are enabled.
 		//! \param coords_i is the Coords struct that designates the starting coordinates.
-		//! \return a Coords struct that represents the selected nearest neighbor site.
-		Coords chooseRandomNearestNeighbor(const Coords& coords_i);
+		//! \return a Coords struct that represents the selected unoccupied nearest neighbor site.
+		//! \return {-1,-1,-1} if there is no valid unoccupied neighbor
+		Coords chooseRandomUnoccupiedNeighbor(const Coords& coords_i);
 
 		//! \brief Clears the occupancy of the site located at the specified coordinates.
 		//! \param coords is the Coords struct that represents the coordinates of the site to be cleared.

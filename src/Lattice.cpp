@@ -144,43 +144,50 @@ bool Lattice::checkMoveValidity(const Coords& coords_initial, const int i, const
 	return true;
 }
 
-Coords Lattice::chooseRandomNearestNeighbor(const Coords& coords_i) {
-	int i = 0, j = 0, k = 0;
-	uniform_int_distribution<> dist(0, 5);
-	while (1) {
-		i = 0;
-		j = 0;
-		k = 0;
-		int rand_num = dist(*gen_ptr);
-		switch (rand_num) {
-		case 0:
+Coords Lattice::chooseRandomUnoccupiedNeighbor(const Coords& coords_i) {
+	vector<Coords> coords_vec;
+	coords_vec.reserve(6);
+	Coords coords_f;
+	for (int n = 0; n < 6; n++) {
+		int i = 0;
+		int j = 0;
+		int k = 0;
+		if (n == 0) {
 			i = -1;
-			break;
-		case 1:
+		}
+		else if (n == 1) {
 			i = 1;
-			break;
-		case 2:
+		}
+		else if (n == 2) {
 			j = -1;
-			break;
-		case 3:
+		}
+		else if (n == 3) {
 			j = 1;
-			break;
-		case 4:
+		}
+		else if (n == 4) {
 			k = -1;
-			break;
-		case 5:
+		}
+		else if (n == 5) {
 			k = 1;
-			break;
-		default:
-			break;
 		}
 		if (checkMoveValidity(coords_i, i, j, k)) {
-			break;
+			calculateDestinationCoords(coords_i, i, j, k, coords_f);
+			if (!isOccupied(coords_f)) {
+				coords_vec.push_back(coords_f);
+			}
 		}
+	}	
+	if ((int)coords_vec.size() == 1) {
+		return coords_vec[0];
 	}
-	Coords coords_f;
-	calculateDestinationCoords(coords_i, i, j, k, coords_f);
-	return coords_f;
+	else if ((int)coords_vec.size()>1) {
+		uniform_int_distribution<> dist(0, (int)coords_vec.size()-1);
+		return coords_vec[dist(*gen_ptr)];
+	}
+	else {
+		coords_f = { -1,-1,-1 };
+		return coords_f;
+	}
 }
 
 void Lattice::clearOccupancy(const Coords& coords) {
@@ -197,20 +204,17 @@ Coords Lattice::generateRandomCoords() {
 
 int Lattice::generateRandomX() {
 	uniform_int_distribution<int> distx(0, Length - 1);
-	auto randx = bind(distx, ref(*gen_ptr));
-	return randx();
+	return distx(*gen_ptr);
 }
 
 int Lattice::generateRandomY() {
 	uniform_int_distribution<int> disty(0, Width - 1);
-	auto randy = bind(disty, ref(*gen_ptr));
-	return randy();
+	return disty(*gen_ptr);
 }
 
 int Lattice::generateRandomZ() {
 	uniform_int_distribution<int> distz(0, Height - 1);
-	auto randz = bind(distz, ref(*gen_ptr));
-	return randz();
+	return distz(*gen_ptr);
 }
 
 int Lattice::getHeight() const{
