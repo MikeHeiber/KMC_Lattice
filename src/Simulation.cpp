@@ -102,18 +102,12 @@ vector<Object*> Simulation::findRecalcObjects(const Coords& coords_start, const 
 }
 
 vector<Object*> Simulation::findRecalcNeighbors(const Coords& coords) const {
-	vector<Object*> neighbor_ptrs;
-	neighbor_ptrs.reserve(10);
-	Coords coords2;
 	const static int recalc_cutoff_sq_lat = (int)((Recalc_cutoff / lattice.getUnitSize())*(Recalc_cutoff / lattice.getUnitSize()));
-	int distance_sq_lat;
-	for (auto const &item : object_ptrs) {
-		coords2 = item->getCoords();
-		distance_sq_lat = lattice.calculateLatticeDistanceSquared(coords, coords2);
-		if (distance_sq_lat <= recalc_cutoff_sq_lat) {
-			neighbor_ptrs.push_back(item);
-		}
-	}
+	vector<Object*> neighbor_ptrs(object_ptrs.size());
+	auto it = copy_if(object_ptrs.begin(), object_ptrs.end(), neighbor_ptrs.begin(), [this,&coords](Object* element) {
+		return lattice.calculateLatticeDistanceSquared(coords, element->getCoords()) <= recalc_cutoff_sq_lat;
+	});
+	neighbor_ptrs.resize(std::distance(neighbor_ptrs.begin(), it));
 	return neighbor_ptrs;
 }
 
@@ -144,13 +138,9 @@ int Simulation::getId() const {
 }
 
 int Simulation::getN_events() const {
-	int count = 0;
-	for (auto const &item : event_ptrs) {
-		if (item!=nullptr && item->getExecutionTime() > 0) {
-			count++;
-		}
-	}
-	return count;
+	return count_if(event_ptrs.begin(), event_ptrs.end(), [](Event* element) {
+		return (element != nullptr && element->getExecutionTime() > 0);
+	});
 }
 
 long int Simulation::getN_events_executed() const {
@@ -199,15 +189,11 @@ double Simulation::rand01() {
 }
 
 void Simulation::removeEvent(Event* event_ptr) {
-	bool success = false;
-	for (auto it = event_ptrs.begin(); it != event_ptrs.end(); ++it) {
-		if (*it == event_ptr) {
-			event_ptrs.erase(it);
-			success = true;
-			break;
-		}
+	auto it = find_if(event_ptrs.begin(), event_ptrs.end(), [event_ptr](Event* element) {return element == event_ptr;});
+	if (it != event_ptrs.end()) {
+		event_ptrs.erase(it);
 	}
-	if (!success) {
+	else{
 		cout << "Error! The Event pointer could not be found in the event list and could not be removed." << endl;
 		Error_found = true;
 	}
@@ -219,21 +205,17 @@ void Simulation::removeObject(Object* object_ptr) {
 	// Delete the event pointer
 	removeEvent(*object_ptr->getEventIt());
 	// Delete the object pointer
-	bool success = false;
-	for (auto it = object_ptrs.begin(); it != object_ptrs.end(); ++it){
-		if (*it == object_ptr) {
-			object_ptrs.erase(it);
-			success = true;
-			break;
-		}
+	auto it = find_if(object_ptrs.begin(), object_ptrs.end(), [object_ptr](Object* element) {return element == object_ptr; });
+	if (it != object_ptrs.end()) {
+		object_ptrs.erase(it);
 	}
-    // Update counters
-    N_events_executed++;
-	// Error checking
-	if (!success) {
+	else {
 		cout << "Error! The Object pointer could not be found in the object list and could not be removed." << endl;
 		Error_found = true;
 	}
+    // Update counters
+    N_events_executed++;
+
 }
 
 void Simulation::setErrorMessage(const string& input_msg) {
@@ -251,4 +233,3 @@ void Simulation::setGeneratorSeed(int seed) {
 void Simulation::setTime(const double new_time){
     time_sim = new_time;
 }
-
