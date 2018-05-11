@@ -148,6 +148,9 @@ Coords Lattice::chooseRandomNearestNeighbor(const Coords& coords_i) {
 	int i = 0, j = 0, k = 0;
 	uniform_int_distribution<> dist(0, 5);
 	while (1) {
+		i = 0;
+		j = 0;
+		k = 0;
 		int rand_num = dist(*gen_ptr);
 		switch (rand_num) {
 		case 0:
