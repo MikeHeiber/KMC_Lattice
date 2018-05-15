@@ -170,11 +170,11 @@ public:
 	}
 
 	vector<Object*> getAllObjectPtrs() const {
-		return getAllObjectPtrs();
+		return Simulation::getAllObjectPtrs();
 	}
 
 	vector<Event*> getAllEventPtrs() const {
-		return getAllEventPtrs();
+		return Simulation::getAllEventPtrs();
 	}
 
 	Coords getRandomCoords() {
@@ -244,8 +244,8 @@ namespace SimulationTests {
 			}
 			else{
 				auto it = sim.events_move.begin();
-				advance(it,i);
-				EXPECT_TRUE(&(*it)==event_ptrs[i+1]);
+				advance(it,i-1);
+				EXPECT_TRUE(&(*it)==event_ptrs[i]);
 			}
 		}
 		// Check event destination coords
