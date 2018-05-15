@@ -796,7 +796,7 @@ namespace LatticeTests {
 
 	TEST_F(LatticeTest, RandomUnoccupiedNeighborTests) {
 		vector<int> data(30000);
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			Coords coords = lattice.generateRandomCoords();
 			for (auto& item : data) {
 				Coords coords_new = lattice.chooseRandomUnoccupiedNeighbor(coords);
@@ -811,6 +811,16 @@ namespace LatticeTests {
 				EXPECT_NEAR(1.0 / 6.0, (double)count/(double)data.size(), 1e-2);
 			}
 		}
+		// Check for correct output when all neighbor sites are occupied
+		Coords coords(5,5,5);
+		lattice.setOccupied(Coords(4,5,5));
+		lattice.setOccupied(Coords(6,5,5));
+		lattice.setOccupied(Coords(5,4,5));
+		lattice.setOccupied(Coords(5,6,5));
+		lattice.setOccupied(Coords(5,5,4));
+		lattice.setOccupied(Coords(5,5,6));
+		Coords coords_new = lattice.chooseRandomUnoccupiedNeighbor(coords);
+		EXPECT_TRUE(coords_new==Coords(-1,-1,-1));
 	}
 
 	TEST_F(LatticeTest, 2DTests) {
@@ -833,7 +843,7 @@ namespace LatticeTests {
 		lattice2D.setSitePointers(site_ptrs);
 		// Check random neighbor site generation in 2D
 		vector<int> data(30000);
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			Coords coords = lattice2D.generateRandomCoords();
 			for (auto& item : data) {
 				item = lattice2D.getSiteIndex(lattice2D.chooseRandomUnoccupiedNeighbor(coords));
@@ -868,7 +878,7 @@ namespace LatticeTests {
 		lattice1D.setSitePointers(site_ptrs);
 		// Check random neighbor site generation in 1D
 		vector<int> data(30000);
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			Coords coords = lattice1D.generateRandomCoords();
 			for (auto& item : data) {
 				item = lattice1D.getSiteIndex(lattice1D.chooseRandomUnoccupiedNeighbor(coords));
