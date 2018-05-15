@@ -398,7 +398,7 @@ namespace UtilsTests {
 	}
 
 	TEST(UtilsTests, CalculateProbabilityHistTests) {
-		mt19937 gen(std::random_device{}());
+		mt19937_64 gen(std::random_device{}());
 		uniform_real_distribution<> dist(0, 100);
 		vector<double> data((int)1e7);
 		for (int i = 0; i < (int)data.size(); i++) {
@@ -433,7 +433,7 @@ namespace UtilsTests {
 	}
 
 	TEST(UtilsTests, ExponentialDOSTests) {
-		mt19937 gen(std::random_device{}());
+		mt19937_64 gen(std::random_device{}());
 		vector<double> data((int)2e7, 0.0);
 		createExponentialDOSVector(data, 0.0, 0.1, gen);
 		auto hist = calculateProbabilityHist(data, 1000);
@@ -452,7 +452,7 @@ namespace UtilsTests {
 	}
 
 	TEST(UtilsTests, GaussianDOSTests) {
-		mt19937 gen(std::random_device{}());
+		mt19937_64 gen(std::random_device{}());
 		vector<double> data((int)3e7, 0.0);
 		createGaussianDOSVector(data, 0.0, 0.15, gen);
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
