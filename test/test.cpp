@@ -79,6 +79,12 @@ public:
 			setObjectEvent(object_ptr, &(*move_event_it));
 		}
 	}
+	
+	bool checkErrorMessageFunctions(string msg_in){
+		setErrorMessage(msg_in);
+		string msg_out = getErrorMessage();
+		return msg_in.compare(msg_out)==0;
+	}
 
 	bool checkFinished() const {
 		return (getN_objects_created() == N_tests);
@@ -203,6 +209,7 @@ namespace SimulationTests {
 			sim.N_tests = 10000;
 			sim.N_steps = 500;
 			sim.k_move = 1000;
+			sim.setGeneratorSeed(std::random_device{}());
 		}
 	};
 
@@ -223,6 +230,24 @@ namespace SimulationTests {
 		EXPECT_EQ(2, sim.getN_events());
 		EXPECT_EQ(1, sim.getN_events_executed());
 		EXPECT_FALSE(sim.checkFinished());
+		// Check objects and events
+		auto object_ptrs = sim.getAllObjectPtrs();
+		for(int i=0; i<(int)sim.objects.size(); i++){
+			auto it = sim.objects.begin();
+			advance(it,i);
+			EXPECT_TRUE(&(*it)==object_ptrs[i]);
+		}
+		auto event_ptrs = sim.getAllEventPtrs();
+		for(int i=0; i<(int)event_ptrs.size(); i++){
+			if(i==0){
+				EXPECT_TRUE(&sim.event_creation==event_ptrs[i]);
+			}
+			else{
+				auto it = sim.events_move.begin();
+				advance(it,i);
+				EXPECT_TRUE(&(*it)==event_ptrs[i+1]);
+			}
+		}
 		// Check event destination coords
 		vector<Coords> data(20000);
 		for (int i = 0; i < 10; i++) {
@@ -381,6 +406,13 @@ namespace SimulationTests {
 		EXPECT_NEAR(displacement1, displacement2, 5e-2*displacement1);
 		EXPECT_NEAR(displacement1, displacement3, 5e-2*displacement1);
 		EXPECT_NEAR(displacement2, displacement3, 5e-2*displacement2);
+	}
+	
+	TEST_F(SimulationTest, ErrorMessageTests) {
+		EXPECT_TRUE(sim.checkErrorMessageFunctions("Error!"));
+		EXPECT_TRUE(sim.checkErrorMessageFunctions("Error! There is a problem."));
+		EXPECT_TRUE(sim.checkErrorMessageFunctions(" "));
+		EXPECT_TRUE(sim.checkErrorMessageFunctions(""));
 	}
 }
 
