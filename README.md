@@ -7,15 +7,15 @@ The goal of this package is to be robust, reliable, and flexible so that users c
 
 This KMC_Lattice package implements several event recalculation options for creating computationally efficient simulations. 
 The package is designed to be usable on a personal computer and on high performance computing clusters. 
-Check out the [Excimontec](https://github.com/MikeHeiber/Excimontec) software package for an example of a complex tool constructed using KMC_Lattice, which is used for simulating organic semiconductor materials and devices.
+Check out the [Excimontec](https://github.com/MikeHeiber/Excimontec) software package for an example of a complex tool constructed using KMC_Lattice, which is used for simulating organic semiconductor devices.
 
-For further reading about kinetic Monte Carlo simulations, a nice overview of the theory and algorithm can be found here:
+For further reading about kinetic Monte Carlo simulations, a nice overview of the theory and algorithms can be found here:
 
 [Introduction to the Kinetic Monte Carlo Method by Arthur Voter, Los Alamos National Lab](http://www.fml.t.u-tokyo.ac.jp/~izumi/CMS/MC/Introduction_kMC.pdf)
 
 ## Current Status
 
-The current release is KMC_Lattice [![GitHub (pre-)release](https://img.shields.io/github/release/MikeHeiber/KMC_Lattice/all.svg?style=flat-square)](https://github.com/MikeHeiber/KMC_Lattice/releases) 
+The current release is KMC_Lattice [![GitHub (pre-)release](https://img.shields.io/github/release/MikeHeiber/KMC_Lattice/all.svg?style=flat-square)](https://github.com/MikeHeiber/KMC_Lattice/releases).
 Most major planned features that are to be included in v2.0 are now implemented and have undergone preliminary testing. 
 However, this software tool is still under development, and as such, there may still be bugs that need to be squashed. 
 Please report any bugs or submit feature requests in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
@@ -38,7 +38,7 @@ Code is being tested using [googletest](https://github.com/google/googletest) wi
 
 ## Contact
 
-If you would like to contribute to the development of this project or would like some help in using the tool for your research, please contact me (heiber@mailaps.org) to discuss a collaboration. 
+If you would like to contribute to the development of this project or would like some help in building an efficient KMC simulation tool for your specific scientific problem, please contact me (heiber@mailaps.org) to discuss a collaboration. 
 You can check out my KMC research and other work on [Researchgate](https://www.researchgate.net/profile/Michael_Heiber).
 
 ## How to try KMC_Lattice?
@@ -47,9 +47,8 @@ You can check out my KMC research and other work on [Researchgate](https://www.r
 
 This software tool uses [Message Passing Interface (MPI)](https://computing.llnl.gov/tutorials/mpi/) to utilize parallel computing power. 
 As a result, using KMC_Lattice requires that an MPI library is pre-installed on your system, and the final KMC_Lattice library must be built on your specific system. 
-We cannot provide pre-built binaries for your system. 
-Contact your HPC admin to determine the protocols for building MPI applications on your HPC system. 
-In many cases, the HPC system will already be configured for you, and the package comes with a default makefile that can be used with the [GCC compiler](https://gcc.gnu.org/) or the [PGI compiler](https://www.pgroup.com/). 
+Contact your HPC admin to determine the protocols for building MPI applications on your specific HPC system. 
+In many cases, the HPC system and environment will already be configured for you, and the package comes with a default makefile that can be used with the [GCC compiler](https://gcc.gnu.org/) or the [PGI compiler](https://www.pgroup.com/). 
 
 If you wish, you can also install MPI on your own personal workstation and then build the KMC_Lattice library there as well. For development and preliminary simulation tests, sometimes it is more efficient to run on your own workstation instead of an HPC system. More information about common MPI packages can be found here:
 - Open MPI, http://www.open-mpi.org/
@@ -57,16 +56,11 @@ If you wish, you can also install MPI on your own personal workstation and then 
 - MVAPICH, http://mvapich.cse.ohio-state.edu/
 
 Once you have an MPI library installed, to build the KMC_Lattice library, copy the KMC_Lattice directory to your machine, set it as your working directory, and run `make`. 
-Compilation flags have been set for GCC and PGI compilers.  If you are using another compiler, you will need to edit the makefile and define your own compiler options.
+Compilation flags have been set for the GCC and PGI compilers.  If you are using another compiler, you may need to edit the makefile and define your own compiler options.
 However, before you use the KMC_Lattice library, you should test it on your own hardware using the unit and system tests provided. 
 Build the testing executable by running `make test`. 
 Once the test build is complete, run `./test/KMC_Lattice_tests.exe`.
 Please report any build or testing errors in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
-
-## Contact
-
-If you would like to contribute to the development of this project or would like some help in building an efficient KMC simulation tool for your specific scientific problem, please contact me to discuss a collaboration. 
-You can check out my KMC research and other work on [Researchgate](https://www.researchgate.net/profile/Michael_Heiber).
 
 ## Package Contents
 
@@ -88,6 +82,6 @@ For example, site energies can be assigned to derived site classes to account fo
 Simulation class - This base class can be extended to manage all derived objects and their associated events. 
 The Simulation class contains the fundamental properties and back-end operations that most simulations would require.
 
-Utils - This file contain a number of useful utility functions, scientific constants, etc. that can then be used throughout the software package.
+Utils - This contains a number of useful utility functions, scientific constants, etc. that can then be used throughout the software package.
 
 Detailed API documentation for these classes and the entire KMC_Lattice package can be viewed [here](https://mikeheiber.github.io/KMC_Lattice/).
