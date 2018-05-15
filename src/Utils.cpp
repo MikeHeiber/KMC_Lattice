@@ -89,7 +89,7 @@ namespace Utils {
 		return hist;
 	}
 
-	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937& gen) {
+	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937_64& gen) {
 		exponential_distribution<double> dist_exp(1.0 / urbach_energy);
 		auto rand_exp = bind(dist_exp, ref(gen));
 		normal_distribution<double> dist_gaus(0, 2.0*urbach_energy / sqrt(2.0 * Pi));
@@ -106,7 +106,7 @@ namespace Utils {
 		}
 	}
 
-	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937& gen) {
+	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937_64& gen) {
 		normal_distribution<double> dist(mean, stdev);
 		auto rand_gaus = bind(dist, ref(gen));
 		for (auto &item : data) {

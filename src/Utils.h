@@ -112,14 +112,14 @@ namespace Utils {
 	//! \param mode is the value of the peak of the distribution.
 	//! \param urbach_energy is the parameter that detemines the shape of the exponential tail side of the distribution.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
-	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937& gen);
+	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937_64& gen);
 
 	//! \brief Creates a vector of doubles that has a Gaussian distribution.
 	//! \param data is the data vector where the numbers will be placed, which must be preallocated to the desired size.
 	//! \param mean is the position of the peak and center of the distribution.
 	//! \param stdev is the standard deviation of the distribution, which defines the width of the peak.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
-	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937& gen);
+	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937_64& gen);
 
 	//! \brief Extracts a boolean value from a string containing "true" or "false".
 	//! \param input is the input string.

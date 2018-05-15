@@ -12,7 +12,7 @@ Lattice::Lattice() {
 
 }
 
-void Lattice::init(const Parameters_Lattice& params, mt19937* generator_ptr) {
+void Lattice::init(const Parameters_Lattice& params, mt19937_64* generator_ptr) {
 	Enable_periodic_x = params.Enable_periodic_x;
 	Enable_periodic_y = params.Enable_periodic_y;
 	Enable_periodic_z = params.Enable_periodic_z;
@@ -176,12 +176,12 @@ Coords Lattice::chooseRandomUnoccupiedNeighbor(const Coords& coords_i) {
 				coords_vec.push_back(coords_f);
 			}
 		}
-	}	
+	}
 	if ((int)coords_vec.size() == 1) {
 		return coords_vec[0];
 	}
-	else if ((int)coords_vec.size()>1) {
-		uniform_int_distribution<> dist(0, (int)coords_vec.size()-1);
+	else if ((int)coords_vec.size() > 1) {
+		uniform_int_distribution<> dist(0, (int)coords_vec.size() - 1);
 		return coords_vec[dist(*gen_ptr)];
 	}
 	else {

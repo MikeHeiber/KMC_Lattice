@@ -48,7 +48,7 @@ class Lattice{
 		//! \param params is a Parameters_Lattice struct that contains all of the required
 		//! parameters to initialize the Lattice object. 
 		//! \param generator_ptr is a pointer to a Mersenne twister number generator.
-        void init(const Parameters_Lattice& params, std::mt19937* generator_ptr);
+        void init(const Parameters_Lattice& params, std::mt19937_64* generator_ptr);
 
 		//! \brief Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).
 		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
@@ -239,7 +239,7 @@ class Lattice{
 		int Height; // nm
 		double Unit_size; // nm
 		std::vector<Site*> site_ptrs;
-		std::mt19937* gen_ptr;
+		std::mt19937_64* gen_ptr;
 };
 
 #endif // LATTICE_H

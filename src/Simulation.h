@@ -131,7 +131,7 @@ class Simulation{
 
     protected:
         //! Mersenne Twister random number generator
-		std::mt19937 generator;
+		std::mt19937_64 generator;
         //! Pointer to an output file stream that is used to print log messages to a logfile when logging is enabled.
 		std::ofstream* Logfile;
 		//! The Lattice object represents a three-dimensional lattice, its boundary conditions, and its occupancy.
