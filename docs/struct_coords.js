@@ -1,5 +1,7 @@
 var struct_coords =
 [
+    [ "Coords", "struct_coords.html#a5922d1783cefa759950faa50ac347191", null ],
+    [ "Coords", "struct_coords.html#a246211bba85765d5d67953922070d11f", null ],
     [ "operator!=", "struct_coords.html#aaea2c566feec4e4bf56b27a34568be76", null ],
     [ "operator==", "struct_coords.html#ad3347f6568814df1a2b98b3cd0b78632", null ],
     [ "setXYZ", "struct_coords.html#a88de3a6ee710766eb9c9444cee45a9f3", null ],

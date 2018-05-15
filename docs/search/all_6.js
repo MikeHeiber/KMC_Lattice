@@ -4,7 +4,7 @@ var searchData=
   ['incrementdx',['incrementDX',['../class_object.html#a3d7c877f4aa179d9a56050c5faddc18d',1,'Object']]],
   ['incrementdy',['incrementDY',['../class_object.html#a9df010818be72d15bad7985bf8a89ba0',1,'Object']]],
   ['incrementdz',['incrementDZ',['../class_object.html#a440b267c478f5d63db1954bdbd543408',1,'Object']]],
-  ['init',['init',['../class_lattice.html#a2b0a88048fae662aa71386a3a123a260',1,'Lattice::init()'],['../class_simulation.html#af88e5e0634b373ba28f1dd87670725a6',1,'Simulation::init()']]],
+  ['init',['init',['../class_lattice.html#ab7322e5340badb9df4d208554fd90a89',1,'Lattice::init()'],['../class_simulation.html#af88e5e0634b373ba28f1dd87670725a6',1,'Simulation::init()']]],
   ['integratedata',['integrateData',['../namespace_utils.html#a49411c9d4c7a065dbcf237aa27a84023',1,'Utils']]],
   ['interpolatedata',['interpolateData',['../namespace_utils.html#af68995497777ee14d812c65991a4046f',1,'Utils']]],
   ['intpow',['intpow',['../namespace_utils.html#affd19edaa58a3f8425e1f7b4c9233f8a',1,'Utils']]],

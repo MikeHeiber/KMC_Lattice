@@ -25,7 +25,7 @@ Object::Object(const double time,const int tag_num,const Coords& start_coords){
 }
 
 double Object::calculateDisplacement() const{
-    return sqrt((double)(coords_current.x+dx-coords_initial.x)*(coords_current.x+dx-coords_initial.x)+(coords_current.y+dy-coords_initial.y)*(coords_current.y+dy-coords_initial.y)+(coords_current.z+dz-coords_initial.z)*(coords_current.z+dz-coords_initial.z));
+    return sqrt((coords_current.x+dx-coords_initial.x)*(coords_current.x+dx-coords_initial.x)+(coords_current.y+dy-coords_initial.y)*(coords_current.y+dy-coords_initial.y)+(coords_current.z+dz-coords_initial.z)*(coords_current.z+dz-coords_initial.z));
 }
 
 Coords Object::getCoords() const{

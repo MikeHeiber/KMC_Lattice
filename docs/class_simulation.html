@@ -130,6 +130,10 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a52cb5564151421cbefaca56357738de7">getN_events_executed</a> () const</td></tr>
 <tr class="memdesc:a52cb5564151421cbefaca56357738de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of events that have been executed in the simulation. <br /></td></tr>
 <tr class="separator:a52cb5564151421cbefaca56357738de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab07386326b1844df84464abe30927bf5"><td class="memItemLeft" align="right" valign="top"><a id="ab07386326b1844df84464abe30927bf5"></a>
+long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ab07386326b1844df84464abe30927bf5">getN_objects_created</a> () const</td></tr>
+<tr class="memdesc:ab07386326b1844df84464abe30927bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of objects that have been created in the simulation. <br /></td></tr>
+<tr class="separator:ab07386326b1844df84464abe30927bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff40f268758bd9a0f390a649fc45c05e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#aff40f268758bd9a0f390a649fc45c05e">getId</a> () const</td></tr>
 <tr class="memdesc:aff40f268758bd9a0f390a649fc45c05e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the processor ID number for the processor that is running the simulation.  <a href="#aff40f268758bd9a0f390a649fc45c05e">More...</a><br /></td></tr>
 <tr class="separator:aff40f268758bd9a0f390a649fc45c05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,10 +203,10 @@ std::vector&lt; <a class="el" href="class_object.html">Object</a> * &gt;&#160;</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a4c1d9071749e0fd93e70380cafb28417"><td class="memItemLeft" align="right" valign="top"><a id="a4c1d9071749e0fd93e70380cafb28417"></a>
-std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a4c1d9071749e0fd93e70380cafb28417">generator</a></td></tr>
-<tr class="memdesc:a4c1d9071749e0fd93e70380cafb28417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator. <br /></td></tr>
-<tr class="separator:a4c1d9071749e0fd93e70380cafb28417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269659fa336a5563e2ccfe2db1654ba9"><td class="memItemLeft" align="right" valign="top"><a id="a269659fa336a5563e2ccfe2db1654ba9"></a>
+std::mt19937_64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a269659fa336a5563e2ccfe2db1654ba9">generator</a></td></tr>
+<tr class="memdesc:a269659fa336a5563e2ccfe2db1654ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator. <br /></td></tr>
+<tr class="separator:a269659fa336a5563e2ccfe2db1654ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a741321a0bbc89d51b969abda469e6f96"><td class="memItemLeft" align="right" valign="top"><a id="a741321a0bbc89d51b969abda469e6f96"></a>
 std::ofstream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a741321a0bbc89d51b969abda469e6f96">Logfile</a></td></tr>
 <tr class="memdesc:a741321a0bbc89d51b969abda469e6f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to an output file stream that is used to print log messages to a logfile when logging is enabled. <br /></td></tr>

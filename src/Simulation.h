@@ -99,6 +99,9 @@ class Simulation{
 		//! Gets the number of events that have been executed in the simulation.
         long int getN_events_executed() const;
 
+		//! Gets the number of objects that have been created in the simulation.
+		long int getN_objects_created() const;
+
 		//! \brief Gets the processor ID number for the processor that is running the simulation.
 		//! \details This is primarly used with MPI to differentiate between different simualtions running on 
 		//! different cores.
@@ -128,7 +131,7 @@ class Simulation{
 
     protected:
         //! Mersenne Twister random number generator
-		std::mt19937 generator;
+		std::mt19937_64 generator;
         //! Pointer to an output file stream that is used to print log messages to a logfile when logging is enabled.
 		std::ofstream* Logfile;
 		//! The Lattice object represents a three-dimensional lattice, its boundary conditions, and its occupancy.
@@ -214,7 +217,7 @@ class Simulation{
 		std::list<Object*> object_ptrs;
 		std::list<Event*> event_ptrs;
         // Counters
-        double time_sim = 0;
+        double time_sim = 0.0;
         long int N_objects_created = 0;
         long int N_events_executed = 0;
         // Functions

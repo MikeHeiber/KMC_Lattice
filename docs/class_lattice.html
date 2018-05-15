@@ -105,9 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a70a5cebc3c0c5a0f609be0592e7cc117"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a70a5cebc3c0c5a0f609be0592e7cc117">Lattice</a> ()</td></tr>
 <tr class="memdesc:a70a5cebc3c0c5a0f609be0592e7cc117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor that creates an empty <a class="el" href="class_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object.  <a href="#a70a5cebc3c0c5a0f609be0592e7cc117">More...</a><br /></td></tr>
 <tr class="separator:a70a5cebc3c0c5a0f609be0592e7cc117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b0a88048fae662aa71386a3a123a260"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a2b0a88048fae662aa71386a3a123a260">init</a> (const <a class="el" href="struct_parameters___lattice.html">Parameters_Lattice</a> &amp;params, std::mt19937 *generator_ptr)</td></tr>
-<tr class="memdesc:a2b0a88048fae662aa71386a3a123a260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="struct_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> input parameter struct.  <a href="#a2b0a88048fae662aa71386a3a123a260">More...</a><br /></td></tr>
-<tr class="separator:a2b0a88048fae662aa71386a3a123a260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7322e5340badb9df4d208554fd90a89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#ab7322e5340badb9df4d208554fd90a89">init</a> (const <a class="el" href="struct_parameters___lattice.html">Parameters_Lattice</a> &amp;params, std::mt19937_64 *generator_ptr)</td></tr>
+<tr class="memdesc:ab7322e5340badb9df4d208554fd90a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="struct_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> input parameter struct.  <a href="#ab7322e5340badb9df4d208554fd90a89">More...</a><br /></td></tr>
+<tr class="separator:ab7322e5340badb9df4d208554fd90a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6b80d6264bfc23ae5fea39abd2557d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#aa6b80d6264bfc23ae5fea39abd2557d5">calculateDestinationCoords</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords_initial, const int i, const int j, const int k, <a class="el" href="struct_coords.html">Coords</a> &amp;coords_dest) const</td></tr>
 <tr class="memdesc:aa6b80d6264bfc23ae5fea39abd2557d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).  <a href="#aa6b80d6264bfc23ae5fea39abd2557d5">More...</a><br /></td></tr>
 <tr class="separator:aa6b80d6264bfc23ae5fea39abd2557d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +135,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0592298c4b92e9e84a768b95cd6d0f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#ad0592298c4b92e9e84a768b95cd6d0f0">checkMoveValidity</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords_initial, const int i, const int j, const int k) const</td></tr>
 <tr class="memdesc:ad0592298c4b92e9e84a768b95cd6d0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if a generic move operation from the designated initial coordinates to a destination position specified by the displacement vector (i,j,k) is possible.  <a href="#ad0592298c4b92e9e84a768b95cd6d0f0">More...</a><br /></td></tr>
 <tr class="separator:ad0592298c4b92e9e84a768b95cd6d0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf954e8213010ab8aeac7a0b93a869bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_coords.html">Coords</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#abf954e8213010ab8aeac7a0b93a869bc">chooseRandomUnoccupiedNeighbor</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords_i)</td></tr>
+<tr class="memdesc:abf954e8213010ab8aeac7a0b93a869bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomly selects a valid, unoccupied nearest neighbor site.  <a href="#abf954e8213010ab8aeac7a0b93a869bc">More...</a><br /></td></tr>
+<tr class="separator:abf954e8213010ab8aeac7a0b93a869bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97a1b4f24cd40b81ed63aa2d7713b63b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice.html#a97a1b4f24cd40b81ed63aa2d7713b63b">clearOccupancy</a> (const <a class="el" href="struct_coords.html">Coords</a> &amp;coords)</td></tr>
 <tr class="memdesc:a97a1b4f24cd40b81ed63aa2d7713b63b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the occupancy of the site located at the specified coordinates.  <a href="#a97a1b4f24cd40b81ed63aa2d7713b63b">More...</a><br /></td></tr>
 <tr class="separator:a97a1b4f24cd40b81ed63aa2d7713b63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -630,6 +633,35 @@ false if a move event is not possible. </dd></dl>
 
 </div>
 </div>
+<a id="abf954e8213010ab8aeac7a0b93a869bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf954e8213010ab8aeac7a0b93a869bc">&#9670;&nbsp;</a></span>chooseRandomUnoccupiedNeighbor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_coords.html">Coords</a> Lattice::chooseRandomUnoccupiedNeighbor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_coords.html">Coords</a> &amp;&#160;</td>
+          <td class="paramname"><em>coords_i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Randomly selects a valid, unoccupied nearest neighbor site. </p>
+<p>Will choose a site across a periodic boundary if periodic boundaries are enabled. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">coords_i</td><td>is the <a class="el" href="struct_coords.html" title="This simple struct contains Cartesian coordinates specified by integers x,y,z. ">Coords</a> struct that designates the starting coordinates. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="struct_coords.html" title="This simple struct contains Cartesian coordinates specified by integers x,y,z. ">Coords</a> struct that represents the selected unoccupied nearest neighbor site. </dd>
+<dd>
+{-1,-1,-1} if there is no valid unoccupied neighbor </dd></dl>
+
+</div>
+</div>
 <a id="a97a1b4f24cd40b81ed63aa2d7713b63b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97a1b4f24cd40b81ed63aa2d7713b63b">&#9670;&nbsp;</a></span>clearOccupancy()</h2>
 
@@ -919,8 +951,8 @@ false if a move event is not possible. </dd></dl>
 
 </div>
 </div>
-<a id="a2b0a88048fae662aa71386a3a123a260"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b0a88048fae662aa71386a3a123a260">&#9670;&nbsp;</a></span>init()</h2>
+<a id="ab7322e5340badb9df4d208554fd90a89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7322e5340badb9df4d208554fd90a89">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -934,7 +966,7 @@ false if a move event is not possible. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::mt19937 *&#160;</td>
+          <td class="paramtype">std::mt19937_64 *&#160;</td>
           <td class="paramname"><em>generator_ptr</em>&#160;</td>
         </tr>
         <tr>

@@ -14,6 +14,7 @@ var class_simulation =
     [ "getId", "class_simulation.html#aff40f268758bd9a0f390a649fc45c05e", null ],
     [ "getN_events", "class_simulation.html#a7d88f18a1ba988d7e77b8be8de5b10d1", null ],
     [ "getN_events_executed", "class_simulation.html#a52cb5564151421cbefaca56357738de7", null ],
+    [ "getN_objects_created", "class_simulation.html#ab07386326b1844df84464abe30927bf5", null ],
     [ "getTemp", "class_simulation.html#ac00bce7c792fb67a75395c46c03efe0a", null ],
     [ "getTime", "class_simulation.html#a391ac262089c8bda8e76ce930b1db88b", null ],
     [ "getVolume", "class_simulation.html#a623c3fbc431ab74c2d2b2374a3b5a3a7", null ],
@@ -29,7 +30,7 @@ var class_simulation =
     [ "setTime", "class_simulation.html#aae315f0881f0b385c566f96beb01d3f6", null ],
     [ "Error_found", "class_simulation.html#a7f4615a7898fb83d09be5e7fad92bb47", null ],
     [ "error_msg", "class_simulation.html#a954f41f4332dabda0fecea5d72151988", null ],
-    [ "generator", "class_simulation.html#a4c1d9071749e0fd93e70380cafb28417", null ],
+    [ "generator", "class_simulation.html#a269659fa336a5563e2ccfe2db1654ba9", null ],
     [ "lattice", "class_simulation.html#afb2cf4feeb4d8292eeba8f9ef393c6a4", null ],
     [ "Logfile", "class_simulation.html#a741321a0bbc89d51b969abda469e6f96", null ]
 ];

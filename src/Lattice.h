@@ -48,7 +48,7 @@ class Lattice{
 		//! \param params is a Parameters_Lattice struct that contains all of the required
 		//! parameters to initialize the Lattice object. 
 		//! \param generator_ptr is a pointer to a Mersenne twister number generator.
-        void init(const Parameters_Lattice& params, std::mt19937* generator_ptr);
+        void init(const Parameters_Lattice& params, std::mt19937_64* generator_ptr);
 
 		//! \brief Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).
 		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
@@ -125,6 +125,13 @@ class Lattice{
 		//! \return true if a move event is possible.
 		//! \return false if a move event is not possible.
 		bool checkMoveValidity(const Coords& coords_initial, const int i, const int j, const int k) const;
+
+		//! \brief Randomly selects a valid, unoccupied nearest neighbor site
+		//! \details Will choose a site across a periodic boundary if periodic boundaries are enabled.
+		//! \param coords_i is the Coords struct that designates the starting coordinates.
+		//! \return a Coords struct that represents the selected unoccupied nearest neighbor site.
+		//! \return {-1,-1,-1} if there is no valid unoccupied neighbor
+		Coords chooseRandomUnoccupiedNeighbor(const Coords& coords_i);
 
 		//! \brief Clears the occupancy of the site located at the specified coordinates.
 		//! \param coords is the Coords struct that represents the coordinates of the site to be cleared.
@@ -232,7 +239,7 @@ class Lattice{
 		int Height; // nm
 		double Unit_size; // nm
 		std::vector<Site*> site_ptrs;
-		std::mt19937* gen_ptr;
+		std::mt19937_64* gen_ptr;
 };
 
 #endif // LATTICE_H

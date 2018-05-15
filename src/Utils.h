@@ -30,6 +30,19 @@ struct Coords{
 	//! The z Cartesian coordinate.
     int z;
 
+	//! Default constructor that creates an empty Coords object.
+	Coords(){}
+
+	//! \brief Constructor that creates a Coords object with the x,y,z coordinates set using the input values xval, yval, and zval.
+	//! \param xval is the input x value.
+	//! \param yval is the input y value.
+	//! \param zval is the input z value.
+	Coords(const int xval, const int yval, const int zval) {
+		x = xval;
+		y = yval;
+		z = zval;
+	}
+
 	//! \brief Sets the x,y,z coordinates using the input values xval, yval, and zval.
 	//! \param xval is the input x value.
 	//! \param yval is the input y value.
@@ -99,14 +112,14 @@ namespace Utils {
 	//! \param mode is the value of the peak of the distribution.
 	//! \param urbach_energy is the parameter that detemines the shape of the exponential tail side of the distribution.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
-	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937& gen);
+	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937_64& gen);
 
 	//! \brief Creates a vector of doubles that has a Gaussian distribution.
 	//! \param data is the data vector where the numbers will be placed, which must be preallocated to the desired size.
 	//! \param mean is the position of the peak and center of the distribution.
 	//! \param stdev is the standard deviation of the distribution, which defines the width of the peak.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
-	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937& gen);
+	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937_64& gen);
 
 	//! \brief Extracts a boolean value from a string containing "true" or "false".
 	//! \param input is the input string.
@@ -154,7 +167,7 @@ namespace Utils {
 
 	//! \brief Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0
-	//! receives the large data vector and all of the othe rprocessors receive an empty vector.
+	//! receives the large data vector and all of the other processors receive an empty vector.
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is a concatenation of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
@@ -162,7 +175,7 @@ namespace Utils {
 
 	//! \brief Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0
-	//! receives the large data vector and all of the othe rprocessors receive an empty vector.
+	//! receives the large data vector and all of the other processors receive an empty vector.
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is a concatenation of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
@@ -252,7 +265,7 @@ namespace Utils {
 	}
 
 	//! \brief This template function efficienctly removes the duplicate entries from an input vector.
-	//! \details This algorithm allow efficient removal of duplicate vector objects when > or < comparison operators do not exist.
+	//! \details This algorithm allows efficient removal of duplicate vector objects when > or < comparison operators do not exist.
 	//! \param vec is the input vector to be operated on.
 	template<typename T>
 	void removeDuplicates(std::vector<T> &vec) {
@@ -276,11 +289,7 @@ namespace Utils {
 	//! \return The average of the data set in double format.
 	template<typename T, typename A>
 	double vector_avg(const std::vector<T, A>& data) {
-		double sum = 0;
-		for (auto const &item : data) {
-			sum += item;
-		}
-		return sum / data.size();
+		return accumulate(data.begin(), data.end(), 0.0) / (double)data.size();
 	}
 
 	//! \brief This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.
@@ -288,12 +297,11 @@ namespace Utils {
 	//! \return The standard deviation of the data set in double format.
 	template<typename T, typename A>
 	double vector_stdev(const std::vector<T, A>& data) {
-		double sum = 0;
 		double avg = vector_avg(data);
-		for (auto const &item : data) {
-			sum += (item - avg)*(item - avg);
-		}
-		return sqrt(sum / (data.size() - 1));
+		double sum = accumulate(data.begin(), data.end(), 0.0, [avg](double& x, const T& element) {
+			return x + (element - avg)*(element - avg);
+		});
+		return sqrt(sum / (double)((int)data.size() - 1));
 	}
 }
 

@@ -92,11 +92,43 @@ $(document).ready(function(){initNavTree('md__r_e_a_d_m_e.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h2>General Information</h2>
-<p>This object-oriented C++ software package contains a general framework for lattice kinetic Monte Carlo (KMC) simulations. This framework consists of a number of utility functions and base classes that must be extended to create a fully operational KMC simulation. The goal of this package is to be robust and flexible so that users can easily develop KMC simulations for a wide variety of different scientific problems without the need to start from scratch.</p>
-<p>This KMC_Lattice package implements several event recalculation options for creating computationally efficient simulations. The package is designed to be usable on a personal computer and on high performance computing clusters. A simple example implementation of this general KMC framework can be found in the <a href="https://github.com/MikeHeiber/KMC_Lattice_example">KMC_Lattice_example</a> package. To see a more complete implementation for simulating a complex system, check out the <a href="https://github.com/MikeHeiber/Excimontec">Excimontec</a> software package that is used for simulating organic semiconductor materials and devices.</p>
+<p>This object-oriented C++ software package contains a general framework for lattice kinetic Monte Carlo (KMC) simulations. This framework consists of a number of utility functions and base classes that must be extended to create a fully operational KMC simulation. The goal of this package is to be robust, reliable, and flexible so that users can easily develop KMC simulations for a wide variety of different scientific problems without the need to start from scratch.</p>
+<p>This KMC_Lattice package implements several event recalculation options for creating computationally efficient simulations. The package is designed to be usable on a personal computer and on high performance computing clusters. Check out the <a href="https://github.com/MikeHeiber/Excimontec">Excimontec</a> software package for an example of a complex tool constructed using KMC_Lattice, which is used for simulating organic semiconductor materials and devices.</p>
 <p>For further reading about kinetic Monte Carlo simulations, a nice overview of the theory and algorithm can be found here:</p>
 <p><a href="http://www.fml.t.u-tokyo.ac.jp/~izumi/CMS/MC/Introduction_kMC.pdf">Introduction to the Kinetic Monte Carlo Method by Arthur Voter, Los Alamos National Lab</a></p>
-<h2>Work Together</h2>
+<h2>Current Status</h2>
+<p>The current release is KMC_Lattice <a href="https://github.com/MikeHeiber/KMC_Lattice/releases"></a> Most major planned features that are to be included in v2.0 are now implemented and have undergone preliminary testing. However, this software tool is still under development, and as such, there may still be bugs that need to be squashed. Please report any bugs or submit feature requests in the <a href="https://github.com/MikeHeiber/KMC_Lattice/issues">Issues</a> section.</p>
+<h4>Continuous Integration and Testing Status:</h4>
+<p>KMC_Lattice is currently being tested on <a href="https://www.ubuntu.com/">Ubuntu</a> v14.04 with the <a href="https://gcc.gnu.org/">GCC compiler</a> (versions 4.7, 4.8, 4.9, 5, 6, 7, and 8) and on both <a href="http://www.open-mpi.org/">Open MPI</a> v1.6.5 and <a href="http://www.mpich.org/">MPICH</a> v3.04 using <a href="https://travis-ci.com/">Travis CI</a>.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Branch  </th><th class="markdownTableHeadNone">Status   </th></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">Master  </td><td class="markdownTableBodyNone"><a href="https://travis-ci.org/MikeHeiber/KMC_Lattice"></a>   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Development  </td><td class="markdownTableBodyNone"><a href="https://travis-ci.org/MikeHeiber/KMC_Lattice"></a>   </td></tr>
+</table>
+<p>Code is being tested using <a href="https://github.com/google/googletest">googletest</a> with test coverage assessment by <a href="https://coveralls.io/">Coveralls</a>.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Branch  </th><th class="markdownTableHeadNone">Status   </th></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">Master  </td><td class="markdownTableBodyNone"><a href="https://coveralls.io/github/MikeHeiber/KMC_Lattice?branch=master"></a>   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Development  </td><td class="markdownTableBodyNone"><a href="https://coveralls.io/github/MikeHeiber/KMC_Lattice?branch=development"></a>   </td></tr>
+</table>
+<h2>Contact</h2>
+<p>If you would like to contribute to the development of this project or would like some help in using the tool for your research, please contact me (<a href="#" onclick="location.href='mai'+'lto:'+'hei'+'be'+'r@m'+'ai'+'lap'+'s.'+'org'; return false;">heibe<span style="display: none;">.nosp@m.</span>r@ma<span style="display: none;">.nosp@m.</span>ilaps<span style="display: none;">.nosp@m.</span>.org</a>) to discuss a collaboration. You can check out my KMC research and other work on <a href="https://www.researchgate.net/profile/Michael_Heiber">Researchgate</a>.</p>
+<h2>How to try KMC_Lattice?</h2>
+<h4>Building and Testing the KMC_Lattice Library</h4>
+<p>This software tool uses <a href="https://computing.llnl.gov/tutorials/mpi/">Message Passing Interface (MPI)</a> to utilize parallel computing power. As a result, using KMC_Lattice requires that an MPI library is pre-installed on your system, and the final KMC_Lattice library must be built on your specific system. We cannot provide pre-built binaries for your system. Contact your HPC admin to determine the protocols for building MPI applications on your HPC system. In many cases, the HPC system will already be configured for you, and the package comes with a default makefile that can be used with the <a href="https://gcc.gnu.org/">GCC compiler</a> or the <a href="https://www.pgroup.com/">PGI compiler</a>.</p>
+<p>If you wish, you can also install MPI on your own personal workstation and then build the KMC_Lattice library there as well. For development and preliminary simulation tests, sometimes it is more efficient to run on your own workstation instead of an HPC system. More information about common MPI packages can be found here:</p><ul>
+<li>Open MPI, <a href="http://www.open-mpi.org/">http://www.open-mpi.org/</a></li>
+<li>MPICH, <a href="http://www.mpich.org/">http://www.mpich.org/</a></li>
+<li>MVAPICH, <a href="http://mvapich.cse.ohio-state.edu/">http://mvapich.cse.ohio-state.edu/</a></li>
+</ul>
+<p>Once you have an MPI library installed, to build the KMC_Lattice library, copy the KMC_Lattice directory to your machine, set it as your working directory, and run <code>make</code>. Compilation flags have been set for GCC and PGI compilers. If you are using another compiler, you will need to edit the makefile and define your own compiler options. However, before you use the KMC_Lattice library, you should test it on your own hardware using the unit and system tests provided. Build the testing executable by running <code>make test</code>. Once the test build is complete, run <code>./test/KMC_Lattice_tests.exe</code>. Please report any build or testing errors in the <a href="https://github.com/MikeHeiber/KMC_Lattice/issues">Issues</a> section.</p>
+<h2>Contact</h2>
 <p>If you would like to contribute to the development of this project or would like some help in building an efficient KMC simulation tool for your specific scientific problem, please contact me to discuss a collaboration. You can check out my KMC research and other work on <a href="https://www.researchgate.net/profile/Michael_Heiber">Researchgate</a>.</p>
 <h2>Package Contents</h2>
 <p><a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> class - This base class can be extended to represent any entity that one would like to simulate. It could represent an electron, atom, molecule, organism, etc. depending on the application. The <a class="el" href="class_object.html" title="This base class contains the basic properties of a KMC simulation object and the functions needed to ...">Object</a> class contains the fundamental properties and back-end operations that any given entity simulation would require.</p>

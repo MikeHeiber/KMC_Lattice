@@ -108,12 +108,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a08553f36886a36456e8111585029e467"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a08553f36886a36456e8111585029e467">calculateProbabilityHist</a> (const std::vector&lt; double &gt; &amp;data, const double bin_size, const int num_bins)</td></tr>
 <tr class="memdesc:a08553f36886a36456e8111585029e467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size and input number of bins.  <a href="#a08553f36886a36456e8111585029e467">More...</a><br /></td></tr>
 <tr class="separator:a08553f36886a36456e8111585029e467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af296d2aa8f889f67fe515fc641c5f5fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#af296d2aa8f889f67fe515fc641c5f5fe">createExponentialDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mode, const double urbach_energy, std::mt19937 &amp;gen)</td></tr>
-<tr class="memdesc:af296d2aa8f889f67fe515fc641c5f5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.  <a href="#af296d2aa8f889f67fe515fc641c5f5fe">More...</a><br /></td></tr>
-<tr class="separator:af296d2aa8f889f67fe515fc641c5f5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ce45ade7d6d4f2995b595da3ebbaaec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a2ce45ade7d6d4f2995b595da3ebbaaec">createGaussianDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mean, const double stdev, std::mt19937 &amp;gen)</td></tr>
-<tr class="memdesc:a2ce45ade7d6d4f2995b595da3ebbaaec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a Gaussian distribution.  <a href="#a2ce45ade7d6d4f2995b595da3ebbaaec">More...</a><br /></td></tr>
-<tr class="separator:a2ce45ade7d6d4f2995b595da3ebbaaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62ed21bf039a062d34511cd016cd9b59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a62ed21bf039a062d34511cd016cd9b59">createExponentialDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mode, const double urbach_energy, std::mt19937_64 &amp;gen)</td></tr>
+<tr class="memdesc:a62ed21bf039a062d34511cd016cd9b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.  <a href="#a62ed21bf039a062d34511cd016cd9b59">More...</a><br /></td></tr>
+<tr class="separator:a62ed21bf039a062d34511cd016cd9b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa92dbcc79f8336fcd2d9644db1a2b0ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#aa92dbcc79f8336fcd2d9644db1a2b0ae">createGaussianDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mean, const double stdev, std::mt19937_64 &amp;gen)</td></tr>
+<tr class="memdesc:aa92dbcc79f8336fcd2d9644db1a2b0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a Gaussian distribution.  <a href="#aa92dbcc79f8336fcd2d9644db1a2b0ae">More...</a><br /></td></tr>
+<tr class="separator:aa92dbcc79f8336fcd2d9644db1a2b0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98a0cc670327fc21e272a07cbf5025ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_utils.html#a98a0cc670327fc21e272a07cbf5025ec">importBooleanParam</a> (const std::string &amp;input, bool &amp;error_status)</td></tr>
 <tr class="memdesc:a98a0cc670327fc21e272a07cbf5025ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts a boolean value from a string containing "true" or "false".  <a href="#a98a0cc670327fc21e272a07cbf5025ec">More...</a><br /></td></tr>
 <tr class="separator:a98a0cc670327fc21e272a07cbf5025ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -381,8 +381,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="af296d2aa8f889f67fe515fc641c5f5fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af296d2aa8f889f67fe515fc641c5f5fe">&#9670;&nbsp;</a></span>createExponentialDOSVector()</h2>
+<a id="a62ed21bf039a062d34511cd016cd9b59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62ed21bf039a062d34511cd016cd9b59">&#9670;&nbsp;</a></span>createExponentialDOSVector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -408,7 +408,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::mt19937 &amp;&#160;</td>
+          <td class="paramtype">std::mt19937_64 &amp;&#160;</td>
           <td class="paramname"><em>gen</em>&#160;</td>
         </tr>
         <tr>
@@ -432,8 +432,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a2ce45ade7d6d4f2995b595da3ebbaaec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ce45ade7d6d4f2995b595da3ebbaaec">&#9670;&nbsp;</a></span>createGaussianDOSVector()</h2>
+<a id="aa92dbcc79f8336fcd2d9644db1a2b0ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa92dbcc79f8336fcd2d9644db1a2b0ae">&#9670;&nbsp;</a></span>createGaussianDOSVector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,7 +459,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::mt19937 &amp;&#160;</td>
+          <td class="paramtype">std::mt19937_64 &amp;&#160;</td>
           <td class="paramname"><em>gen</em>&#160;</td>
         </tr>
         <tr>
@@ -734,7 +734,7 @@ An empty vector when called on other processors. </dd></dl>
 </div><div class="memdoc">
 
 <p>Uses MPI to gather vectors from separate processors to build one big vector containing all of the data. </p>
-<p>Each processor calls this function and sends an input vector. Upon function return, processor 0 receives the large data vector and all of the othe rprocessors receive an empty vector. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Each processor calls this function and sends an input vector. Upon function return, processor 0 receives the large data vector and all of the other processors receive an empty vector. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input_vector</td><td>is the input data from the processor calling the function. </td></tr>
   </table>
@@ -763,7 +763,7 @@ An empty vector when called on other processors. </dd></dl>
 </div><div class="memdoc">
 
 <p>Uses MPI to gather vectors from separate processors to build one big vector containing all of the data. </p>
-<p>Each processor calls this function and sends an input vector. Upon function return, processor 0 receives the large data vector and all of the othe rprocessors receive an empty vector. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Each processor calls this function and sends an input vector. Upon function return, processor 0 receives the large data vector and all of the other processors receive an empty vector. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input_vector</td><td>is the input data from the processor calling the function. </td></tr>
   </table>
@@ -874,7 +874,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>This template function efficienctly removes the duplicate entries from an input vector. </p>
-<p>This algorithm allow efficient removal of duplicate vector objects when &gt; or &lt; comparison operators do not exist. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This algorithm allows efficient removal of duplicate vector objects when &gt; or &lt; comparison operators do not exist. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vec</td><td>is the input vector to be operated on. </td></tr>
   </table>
