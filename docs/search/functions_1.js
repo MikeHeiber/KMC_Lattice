@@ -11,7 +11,9 @@ var searchData=
   ['checkfinished',['checkFinished',['../class_simulation.html#af69bb46977a3a0084214a194c888e16c',1,'Simulation']]],
   ['checkmovevalidity',['checkMoveValidity',['../class_lattice.html#ad0592298c4b92e9e84a768b95cd6d0f0',1,'Lattice']]],
   ['choosenextevent',['chooseNextEvent',['../class_simulation.html#af8cf2e5c24531582599423df2d70dc5b',1,'Simulation']]],
+  ['chooserandomunoccupiedneighbor',['chooseRandomUnoccupiedNeighbor',['../class_lattice.html#abf954e8213010ab8aeac7a0b93a869bc',1,'Lattice']]],
   ['clearoccupancy',['clearOccupancy',['../class_lattice.html#a97a1b4f24cd40b81ed63aa2d7713b63b',1,'Lattice::clearOccupancy()'],['../class_site.html#a46ff077954e39046b493ee1ea57a9c93',1,'Site::clearOccupancy()']]],
-  ['createexponentialdosvector',['createExponentialDOSVector',['../namespace_utils.html#af296d2aa8f889f67fe515fc641c5f5fe',1,'Utils']]],
-  ['creategaussiandosvector',['createGaussianDOSVector',['../namespace_utils.html#a2ce45ade7d6d4f2995b595da3ebbaaec',1,'Utils']]]
+  ['coords',['Coords',['../struct_coords.html#a5922d1783cefa759950faa50ac347191',1,'Coords::Coords()'],['../struct_coords.html#a246211bba85765d5d67953922070d11f',1,'Coords::Coords(const int xval, const int yval, const int zval)']]],
+  ['createexponentialdosvector',['createExponentialDOSVector',['../namespace_utils.html#a62ed21bf039a062d34511cd016cd9b59',1,'Utils']]],
+  ['creategaussiandosvector',['createGaussianDOSVector',['../namespace_utils.html#aa92dbcc79f8336fcd2d9644db1a2b0ae',1,'Utils']]]
 ];

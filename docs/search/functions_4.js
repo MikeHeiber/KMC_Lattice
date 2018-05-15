@@ -18,6 +18,7 @@ var searchData=
   ['getlength',['getLength',['../class_lattice.html#a4b43b67a36fcd3dfe62c9eeaffa561d2',1,'Lattice']]],
   ['getn_5fevents',['getN_events',['../class_simulation.html#a7d88f18a1ba988d7e77b8be8de5b10d1',1,'Simulation']]],
   ['getn_5fevents_5fexecuted',['getN_events_executed',['../class_simulation.html#a52cb5564151421cbefaca56357738de7',1,'Simulation']]],
+  ['getn_5fobjects_5fcreated',['getN_objects_created',['../class_simulation.html#ab07386326b1844df84464abe30927bf5',1,'Simulation']]],
   ['getnumsites',['getNumSites',['../class_lattice.html#a4be17e9123f7737387991a9d1a8b87b3',1,'Lattice']]],
   ['getobjectptr',['getObjectPtr',['../class_event.html#a5317d42bb07d0e75bec0c13bd9bf6de8',1,'Event::getObjectPtr()'],['../class_site.html#aecb14e440914b4d3d4aa7294419791e2',1,'Site::getObjectPtr()']]],
   ['getobjecttargetptr',['getObjectTargetPtr',['../class_event.html#ab86f724c3c894faa1d6ccca78c357d24',1,'Event']]],
