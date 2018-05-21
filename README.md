@@ -11,8 +11,8 @@ Check out the [Excimontec](https://github.com/MikeHeiber/Excimontec) software pa
 
 For further reading about kinetic Monte Carlo simulations, nice overviews of the theory and algorithms can be found here:
 
-[Introduction to the Kinetic Monte Carlo Method by Arthur Voter, Los Alamos National Lab](http://www.fml.t.u-tokyo.ac.jp/~izumi/CMS/MC/Introduction_kMC.pdf)
-[Monte Carlo and kinetic Monte Carlo methods – a tutorial by Peter Kratzer, University of Duisburg-Essen](https://arxiv.org/pdf/0904.2556.pdf)
+- [Introduction to the Kinetic Monte Carlo Method by Arthur Voter, Los Alamos National Lab](http://www.fml.t.u-tokyo.ac.jp/~izumi/CMS/MC/Introduction_kMC.pdf)
+- [Monte Carlo and kinetic Monte Carlo methods – a tutorial by Peter Kratzer, University of Duisburg-Essen](https://arxiv.org/pdf/0904.2556.pdf)
 
 ## Current Status
 
