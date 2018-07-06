@@ -24,13 +24,13 @@ void Lattice::init(const Parameters_Lattice& params, mt19937_64* generator_ptr) 
 	gen_ptr = generator_ptr;
 }
 
-void Lattice::calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k, Coords& coords_dest) const{
+void Lattice::calculateDestinationCoords(const Coords& coords_initial, const int i, const int j, const int k, Coords& coords_dest) const {
 	coords_dest.x = coords_initial.x + i + calculateDX(coords_initial.x, i);
 	coords_dest.y = coords_initial.y + j + calculateDY(coords_initial.y, j);
 	coords_dest.z = coords_initial.z + k + calculateDZ(coords_initial.z, k);
 }
 
-int Lattice::calculateDX(const int x, const int i) const{
+int Lattice::calculateDX(const int x, const int i) const {
 	if (Enable_periodic_x && x + i < 0) {
 		return Length;
 	}
@@ -90,7 +90,7 @@ int Lattice::calculateDZ(const int z, const int k) const {
 	}
 }
 
-int Lattice::calculateDZ(const Coords& coords_initial, const Coords& coords_dest) const{
+int Lattice::calculateDZ(const Coords& coords_initial, const Coords& coords_dest) const {
 	if (Enable_periodic_z && 2 * (coords_dest.z - coords_initial.z) > Height) {
 		return Height;
 	}
@@ -217,20 +217,20 @@ int Lattice::generateRandomZ() {
 	return distz(*gen_ptr);
 }
 
-int Lattice::getHeight() const{
+int Lattice::getHeight() const {
 	return Height;
 }
 
-int Lattice::getLength() const{
+int Lattice::getLength() const {
 	return Length;
 }
 
-long int Lattice::getNumSites() const{
+long int Lattice::getNumSites() const {
 	return (int)site_ptrs.size();
 }
 
 Coords Lattice::getSiteCoords(long int site_index) {
-	if (site_index < 0 || site_index >= Length*Width*Height) {
+	if (site_index < 0 || site_index >= Length * Width*Height) {
 		cout << "Error! Input site index is not located in the lattice." << endl;
 		throw out_of_range("Input site index is not located in the lattice.");
 	}
@@ -242,7 +242,7 @@ Coords Lattice::getSiteCoords(long int site_index) {
 	return coords;
 }
 
-long int Lattice::getSiteIndex(const Coords& coords) const{
+long int Lattice::getSiteIndex(const Coords& coords) const {
 	if (coords.x >= 0 && coords.x < Length && coords.y >= 0 && coords.y < Width && coords.z >= 0 && coords.z < Height) {
 		return coords.x*Width*Height + coords.y*Height + coords.z;
 	}
@@ -252,17 +252,17 @@ long int Lattice::getSiteIndex(const Coords& coords) const{
 	}
 }
 
-vector<Site*>::iterator Lattice::getSiteIt(const Coords& coords){
+vector<Site*>::iterator Lattice::getSiteIt(const Coords& coords) {
 	auto site_it = site_ptrs.begin();
 	advance(site_it, getSiteIndex(coords));
 	return site_it;
 }
 
-double Lattice::getUnitSize() const{
+double Lattice::getUnitSize() const {
 	return Unit_size;
 }
 
-int Lattice::getWidth() const{
+int Lattice::getWidth() const {
 	return Width;
 }
 
@@ -270,23 +270,23 @@ double Lattice::getVolume() const {
 	return ((Length*Width*Height*1e-7*Unit_size)*1e-7*Unit_size)*1e-7*Unit_size;
 }
 
-bool Lattice::isOccupied(const Coords& coords) const{
+bool Lattice::isOccupied(const Coords& coords) const {
 	return site_ptrs[getSiteIndex(coords)]->isOccupied();
 }
 
-bool Lattice::isXPeriodic() const{
+bool Lattice::isXPeriodic() const {
 	return Enable_periodic_x;
 }
 
-bool Lattice::isYPeriodic() const{
+bool Lattice::isYPeriodic() const {
 	return Enable_periodic_y;
 }
 
-bool Lattice::isZPeriodic() const{
+bool Lattice::isZPeriodic() const {
 	return Enable_periodic_z;
 }
 
-void Lattice::outputLatticeOccupancy() const{
+void Lattice::outputLatticeOccupancy() const {
 	for (auto site_it = site_ptrs.begin(); site_it != site_ptrs.end(); ++site_it) {
 		if ((*site_it)->isOccupied()) {
 			cout << "Site " << distance(site_ptrs.begin(), site_it) << " is occupied." << endl;
@@ -299,7 +299,7 @@ void Lattice::setOccupied(const Coords& coords) {
 }
 
 bool Lattice::setSitePointers(const vector<Site*>& input_ptrs) {
-	if ((int)input_ptrs.size() != getNumSites()){
+	if ((int)input_ptrs.size() != getNumSites()) {
 		cout << "Error setting the lattice site pointers! The number of sites in the input vector do not equal the expected number of lattice sites." << endl;
 		return false;
 	}

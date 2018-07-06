@@ -7,32 +7,32 @@
 
 using namespace std;
 
-Site::~Site(){
+Site::~Site() {
 
 }
 
-Site::Site(){
+Site::Site() {
 
 }
 
-void Site::clearOccupancy(){
-    occupied = false;
+void Site::clearOccupancy() {
+	occupied = false;
 	object_ptr = nullptr;
 }
 
-Object* Site::getObjectPtr() const{
-    return object_ptr;
+Object* Site::getObjectPtr() const {
+	return object_ptr;
 }
 
-bool Site::isOccupied() const{
-    return occupied;
+bool Site::isOccupied() const {
+	return occupied;
 }
 
-void Site::setObjectPtr(Object* input_ptr){
-    object_ptr = input_ptr;
+void Site::setObjectPtr(Object* input_ptr) {
+	object_ptr = input_ptr;
 	occupied = true;
 }
 
-void Site::setOccupied(){
-    occupied = true;
+void Site::setOccupied() {
+	occupied = true;
 }
