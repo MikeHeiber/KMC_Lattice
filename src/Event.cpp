@@ -10,7 +10,7 @@ using namespace std;
 // Initialize static class members
 const string Event::event_type_base = "Event";
 
-Event::~Event(){
+Event::~Event() {
 
 }
 
@@ -18,39 +18,39 @@ Event::Event() {
 
 }
 
-Event::Event(Simulation* simulation_ptr){
+Event::Event(Simulation* simulation_ptr) {
 	sim_ptr = simulation_ptr;
 }
 
-void Event::calculateExecutionTime(const double rate){
-    execution_time = sim_ptr->getTime()-(log(sim_ptr->rand01())/rate);
+void Event::calculateExecutionTime(const double rate) {
+	execution_time = sim_ptr->getTime() - (log(sim_ptr->rand01()) / rate);
 }
 
-Coords Event::getDestCoords() const{
-    return coords_dest;
+Coords Event::getDestCoords() const {
+	return coords_dest;
 }
 
-double Event::getExecutionTime() const{
-    return execution_time;
+double Event::getExecutionTime() const {
+	return execution_time;
 }
 
-string Event::getEventType() const{
-    return event_type_base;
+string Event::getEventType() const {
+	return event_type_base;
 }
 
-Object* Event::getObjectPtr() const{
-    return object_ptr;
+Object* Event::getObjectPtr() const {
+	return object_ptr;
 }
 
-Object* Event::getObjectTargetPtr() const{
-    return object_target_ptr;
+Object* Event::getObjectTargetPtr() const {
+	return object_target_ptr;
 }
 
-void Event::setDestCoords(const Coords& coords){
-    coords_dest = coords;
+void Event::setDestCoords(const Coords& coords) {
+	coords_dest = coords;
 }
 
-bool Event::setExecutionTime(const double time){
+bool Event::setExecutionTime(const double time) {
 	if (time < 0) {
 		return false;
 	}
@@ -60,10 +60,10 @@ bool Event::setExecutionTime(const double time){
 	}
 }
 
-void Event::setObjectPtr(Object* input_ptr){
-    object_ptr = input_ptr;
+void Event::setObjectPtr(Object* input_ptr) {
+	object_ptr = input_ptr;
 }
 
-void Event::setObjectTargetPtr(Object* input_ptr){
+void Event::setObjectTargetPtr(Object* input_ptr) {
 	object_target_ptr = input_ptr;
 }

@@ -22,16 +22,16 @@
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
 //! \date 2018
-struct Coords{
+struct Coords {
 	//! The x Cartesian coordinate.
-    int x;
+	int x;
 	//! The y Cartesian coordinate.
-    int y;
+	int y;
 	//! The z Cartesian coordinate.
-    int z;
+	int z;
 
 	//! Default constructor that creates an empty Coords object.
-	Coords(){}
+	Coords() {}
 
 	//! \brief Constructor that creates a Coords object with the x,y,z coordinates set using the input values xval, yval, and zval.
 	//! \param xval is the input x value.
@@ -47,14 +47,14 @@ struct Coords{
 	//! \param xval is the input x value.
 	//! \param yval is the input y value.
 	//! \param zval is the input z value.
-    void setXYZ(const int xval,const int yval,const int zval){
-        x = xval;
-        y = yval;
-        z = zval;
-    }
+	void setXYZ(const int xval, const int yval, const int zval) {
+		x = xval;
+		y = yval;
+		z = zval;
+	}
 	//! \brief Defines the conditions when two Coords structs are deemed to be equal.
 	//! \param rhs is the right hand side Coords struct of the comparison operator.
-	bool operator==(const Coords& rhs) const{
+	bool operator==(const Coords& rhs) const {
 		return (x == rhs.x && y == rhs.y && z == rhs.z);
 	}
 	//! \brief Defines the conditions when two Coords structs are deemed to be unequal.
@@ -71,11 +71,11 @@ struct Coords{
 namespace Utils {
 
 	// Scientific Constants
-	static constexpr double K_b = 8.61733035e-5;
+	static constexpr double K_b = 8.61733035e-5; // eV/K
 	static constexpr double Elementary_charge = 1.602176621e-19; // C
 	static constexpr double Vacuum_permittivity = 8.854187818e-12; // C/Vm
-	static constexpr double Plank = 6.626070040e-34;
-	static constexpr double Light_speed = 2.99792458e8;
+	static constexpr double Plank = 6.626070040e-34; // J s
+	static constexpr double Light_speed = 2.99792458e8; // m/s
 	static constexpr double Pi = 3.14159265359;
 	static constexpr double Coulomb_constant = 8.987551787e9; // N m^2 C^-2
 
@@ -85,7 +85,7 @@ namespace Utils {
 	//! \param data is the input data vector.
 	//! \param num_bins is the desired number of bins.
 	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
-	std::vector<std::pair<double,double>> calculateProbabilityHist(const std::vector<double>& data, int num_bins);
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, int num_bins);
 
 	//! \brief Calculates the probability histogram for the input data vector using the input bin size.
 	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. 
@@ -255,7 +255,7 @@ namespace Utils {
 	//! \param vec is the input data pair vector.
 	//! \param filename is the input file name.
 	template<typename T>
-	void outputVectorToFile(std::vector<std::pair<T,T>>& vec, std::string filename) {
+	void outputVectorToFile(std::vector<std::pair<T, T>>& vec, std::string filename) {
 		std::ofstream outfile;
 		outfile.open(filename);
 		for (auto const &item : vec) {

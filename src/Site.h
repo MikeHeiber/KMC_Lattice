@@ -15,36 +15,36 @@ class Object;
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 //! \author Michael C. Heiber
 //! \date 2018
-class Site{
-    public:
-		//! Default virtual destructor needed by the base class.
-        virtual ~Site();
+class Site {
+public:
+	//! Default virtual destructor needed by the base class.
+	virtual ~Site();
 
-		//! Default constructor that creates an empty Object object.
-        Site();
+	//! Default constructor that creates an empty Object object.
+	Site();
 
-		//! \brief Clears the occupancy of the site.
-		//! \details This function also sets the Object pointer to nullptr.
-        void clearOccupancy();
+	//! \brief Clears the occupancy of the site.
+	//! \details This function also sets the Object pointer to nullptr.
+	void clearOccupancy();
 
-		//! Gets the pointer to the Object object that occupies the site.
-        Object* getObjectPtr() const;
+	//! Gets the pointer to the Object object that occupies the site.
+	Object* getObjectPtr() const;
 
-		//! \brief Checks whether the site is occupied or not.
-		//! \return true if the site occupied.
-		//! \return false if the site is unoccupied.
-        bool isOccupied() const;
+	//! \brief Checks whether the site is occupied or not.
+	//! \return true if the site occupied.
+	//! \return false if the site is unoccupied.
+	bool isOccupied() const;
 
-		//! \brief Sets the pointer to the occupying Object
-		//! \details Also sets the site to an occupied state.
-        void setObjectPtr(Object* input_ptr);
+	//! \brief Sets the pointer to the occupying Object
+	//! \details Also sets the site to an occupied state.
+	void setObjectPtr(Object* input_ptr);
 
-		//! Sets the site to an occupied state.
-        void setOccupied();
+	//! Sets the site to an occupied state.
+	void setOccupied();
 
-    private:
-        bool occupied = false;
-        Object* object_ptr = nullptr;
+private:
+	bool occupied = false;
+	Object* object_ptr = nullptr;
 };
 
 #endif // SITE_H
