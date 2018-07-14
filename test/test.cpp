@@ -90,8 +90,8 @@ public:
 		return (getN_objects_created() == N_tests);
 	}
 
-	Event* determinePathway(vector<Event*> possible_events) {
-		return determinePathway(possible_events);
+	Event* determinePathway(const vector<Event*>& possible_events) {
+		return Simulation::determinePathway(possible_events);
 	}
 
 	Coords executeCreationEvent() {
