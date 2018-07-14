@@ -251,16 +251,16 @@ namespace SimulationTests {
 		// Test probability distribution of indices
 		for (int i = 0; i < 10; i++) {
 			int count = count_if(indices.begin(), indices.end(), [i](int element) {return element == i; });
-			EXPECT_NEAR(1.0 / 10.0, (double)count / (double)indices.size(), 1e-2);
+			EXPECT_NEAR(1.0 / 10.0, (double)count / (double)indices.size(), 2e-3);
 		}
 		// Test probability distribution of times
-		EXPECT_NEAR(1.0, integrateData(times_hist), 1e-2);
-		EXPECT_NEAR(1e7, times_hist[0].second, 1e5);
+		EXPECT_NEAR(1.0, integrateData(times_hist), 2e-2);
+		EXPECT_NEAR(1e7, times_hist[0].second, 2e5);
 		auto it = find_if(times_hist.begin(), times_hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-7; });
 		it--;
-		EXPECT_NEAR(1e7 / 2.7182818284590, (*it).second, 1e5);
+		EXPECT_NEAR(1e7 / 2.7182818284590, (*it).second, 2e5);
 		// Test average wait time
-		EXPECT_NEAR(vector_avg(times), 1e-7, 1e-9);
+		EXPECT_NEAR(vector_avg(times), 1e-7, 2e-9);
 	}
 
 	TEST_F(SimulationTest, EventExecutionTests) {
