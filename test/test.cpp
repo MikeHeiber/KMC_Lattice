@@ -90,6 +90,10 @@ public:
 		return (getN_objects_created() == N_tests);
 	}
 
+	Event* determinePathway(vector<Event*> possible_events) {
+		return determinePathway(possible_events);
+	}
+
 	Coords executeCreationEvent() {
 		Coords coords_dest = coords_creation;
 		if(lattice.isOccupied(coords_dest)) {
@@ -219,6 +223,44 @@ namespace SimulationTests {
 		EXPECT_DOUBLE_EQ(0.0, sim.getTime());
 		EXPECT_EQ(300, sim.getTemp());
 		EXPECT_DOUBLE_EQ(params_base.Length*params_base.Width*params_base.Height*1e-21, sim.getVolume());
+	}
+
+	TEST_F(SimulationTest, BKL_determinePathwayTests) {
+		// Construct list of events and event pointers that all have the same rate constant
+		Event event1(&sim);
+		vector<Event> events(10, event1);
+		vector<Event*> event_ptrs;
+		Coords coords_dest;
+		for (int i = 0; i < (int)events.size(); i++) {
+			coords_dest = { i,i,i };
+			events[i].setDestCoords(coords_dest);
+			events[i].setRateConstant(1e6);
+			event_ptrs.push_back(&events[i]);
+		}
+		Event* event_ptr;
+		// Generate collection of chosen event indices and wait times using BKL algorithm
+		vector<int> indices((int)2e7);
+		vector<double> times((int)2e7);
+		for (int i = 0; i < (int)times.size(); i++) {
+			event_ptr = sim.determinePathway(event_ptrs);
+			indices[i] = event_ptr->getDestCoords().x;
+			times[i] = event_ptr->getExecutionTime();
+		}
+		// Calculate probability distribution of indices and times
+		auto times_hist = calculateProbabilityHist(times, 1000);
+		// Test probability distribution of indices
+		for (int i = 0; i < 10; i++) {
+			int count = count_if(indices.begin(), indices.end(), [i](int element) {return element == i; });
+			EXPECT_NEAR(1.0 / 10.0, (double)count / (double)indices.size(), 1e-2);
+		}
+		// Test probability distribution of times
+		EXPECT_NEAR(1.0, integrateData(times_hist), 1e-2);
+		EXPECT_NEAR(1e7, times_hist[0].second, 1e5);
+		auto it = find_if(times_hist.begin(), times_hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-7; });
+		it--;
+		EXPECT_NEAR(1e7 / 2.7182818284590, (*it).second, 1e5);
+		// Test average wait time
+		EXPECT_NEAR(vector_avg(times), 1e-7, 1e-9);
 	}
 
 	TEST_F(SimulationTest, EventExecutionTests) {

@@ -70,6 +70,27 @@ list<Event*>::const_iterator Simulation::chooseNextEvent() {
 	});
 }
 
+Event* Simulation::determinePathway(const vector<Event*>& possible_events) {
+	// Create vector of partial sums
+	vector<double> rates(possible_events.size(), 0);
+	vector<double> sums(possible_events.size(), 0);
+	transform(possible_events.begin(), possible_events.end(), rates.begin(), [](Event* a) {
+		return a->getRateConstant();
+	});
+	partial_sum(rates.begin(), rates.end(), sums.begin());
+	// Determine which event will occur
+	double k_tot = sums.back();
+	double target = k_tot * rand01();
+	auto it = find_if(sums.begin(), sums.end(), [target](const double& a) {
+		return a > target;
+	});
+	Event* target_event_ptr = possible_events.at(distance(sums.begin(), it));
+	// Determine the execution time
+	target_event_ptr->calculateExecutionTime(k_tot);
+	// Return pointer to chosen event
+	return target_event_ptr;
+}
+
 vector<Object*> Simulation::findRecalcObjects(const Coords& coords_start, const Coords& coords_dest) const {
 	vector<Object*> object_recalc_ptrs;
 	object_recalc_ptrs.reserve(10);

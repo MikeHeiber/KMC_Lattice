@@ -17,6 +17,8 @@
 #include <fstream>
 #include <sstream>
 #include <ctime>
+#include <numeric>
+#include <algorithm>
 
 //! \brief This struct contains all of the main input parameters needed by the Simulation class.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
@@ -156,6 +158,10 @@ protected:
 	//! \details Chooses the event that has the smallest execution time.
 	//! \return A list iterator points to an Event pointer in event list that has been selected to be executed next.
 	std::list<Event*>::const_iterator chooseNextEvent();
+
+	//! \brief Uses the BKL algorithm to determine the reaction pathway and execution time given a number of different options.
+	//! \return a pointer to an Event object that indicates the chosen pathway.
+	Event* determinePathway(const std::vector<Event*>& possible_events);
 
 	//! \brief Constructs and returns a vector of pointers to all Object objects that are to have their events recalculated/
 	//! \param coords_start is the Coords struct that designates the starting coordinates of an event.
