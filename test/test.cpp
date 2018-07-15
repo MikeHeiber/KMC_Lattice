@@ -733,9 +733,6 @@ namespace LatticeTests {
 				site_ptrs[i] = &sites[i];
 			}
 			lattice.setSitePointers(site_ptrs);
-			// Redirect cout to a stringstream to suppress command line output during the test
-			stringstream ss;
-			cout.rdbuf(ss.rdbuf());
 		}
 	};
 
@@ -1151,5 +1148,7 @@ namespace ObjectTests {
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);
+	// Redirect cout to NULL to suppress command line output during the tests
+	cout.rdbuf(NULL);
 	return RUN_ALL_TESTS();
 }
