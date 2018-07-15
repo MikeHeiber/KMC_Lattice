@@ -70,6 +70,27 @@ list<Event*>::const_iterator Simulation::chooseNextEvent() {
 	});
 }
 
+Event* Simulation::determinePathway(const vector<Event*>& possible_events) {
+	// Create vector of partial sums
+	vector<double> rates(possible_events.size(), 0);
+	vector<double> sums(possible_events.size(), 0);
+	transform(possible_events.begin(), possible_events.end(), rates.begin(), [](Event* a) {
+		return a->getRateConstant();
+	});
+	partial_sum(rates.begin(), rates.end(), sums.begin());
+	// Determine which event will occur
+	double k_tot = sums.back();
+	double target = k_tot * rand01();
+	auto it = find_if(sums.begin(), sums.end(), [target](const double& a) {
+		return a > target;
+	});
+	Event* target_event_ptr = possible_events.at(distance(sums.begin(), it));
+	// Determine the execution time
+	target_event_ptr->calculateExecutionTime(k_tot);
+	// Return pointer to chosen event
+	return target_event_ptr;
+}
+
 vector<Object*> Simulation::findRecalcObjects(const Coords& coords_start, const Coords& coords_dest) const {
 	vector<Object*> object_recalc_ptrs;
 	object_recalc_ptrs.reserve(10);
@@ -133,6 +154,10 @@ string Simulation::getErrorMessage() const {
 	return error_msg;
 }
 
+bool Simulation::getErrorStatus() const {
+	return Error_found;
+}
+
 int Simulation::getId() const {
 	return Id;
 }
@@ -189,6 +214,7 @@ double Simulation::rand01() {
 }
 
 void Simulation::removeEvent(Event* event_ptr) {
+	// Find the Event pointer
 	auto it = find_if(event_ptrs.begin(), event_ptrs.end(), [event_ptr](Event* element) {return element == event_ptr; });
 	if (it != event_ptrs.end()) {
 		event_ptrs.erase(it);
@@ -200,13 +226,14 @@ void Simulation::removeEvent(Event* event_ptr) {
 }
 
 void Simulation::removeObject(Object* object_ptr) {
-	// Clear occupancy of site
-	lattice.clearOccupancy(object_ptr->getCoords());
-	// Delete the event pointer
-	removeEvent(*object_ptr->getEventIt());
-	// Delete the object pointer
+	// Find the Object pointer
 	auto it = find_if(object_ptrs.begin(), object_ptrs.end(), [object_ptr](Object* element) {return element == object_ptr; });
 	if (it != object_ptrs.end()) {
+		// Clear occupancy of site
+		lattice.clearOccupancy(object_ptr->getCoords());
+		// Delete the corresponding Event pointer
+		removeEvent(*object_ptr->getEventIt());
+		// Delete the Object pointer
 		object_ptrs.erase(it);
 	}
 	else {
@@ -215,7 +242,6 @@ void Simulation::removeObject(Object* object_ptr) {
 	}
 	// Update counters
 	N_events_executed++;
-
 }
 
 void Simulation::setErrorMessage(const string& input_msg) {

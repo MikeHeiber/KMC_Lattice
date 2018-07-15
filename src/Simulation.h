@@ -17,6 +17,8 @@
 #include <fstream>
 #include <sstream>
 #include <ctime>
+#include <numeric>
+#include <algorithm>
 
 //! \brief This struct contains all of the main input parameters needed by the Simulation class.
 //! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
@@ -92,6 +94,11 @@ public:
 	//! \return the error_msg string member variable.
 	std::string getErrorMessage() const;
 
+	//! \brief Gets the error status.
+	//! \return true if Error_found is true.
+	//! \return false if Error_found is false.
+	bool getErrorStatus() const;
+
 	//! \brief Gets the number of events that are currently in the event list
 	//! \return the size of the events list
 	int getN_events() const;
@@ -139,7 +146,7 @@ protected:
 	//! The Error_found flag indicates whether or not there has been an error during one of the simulation operations.
 	bool Error_found = false;
 	//! The error_msg string holds a message with information about the error that has occurred or is empty otherwise.
-	std::string error_msg;
+	std::string error_msg = "";
 
 	//------ Functions
 
@@ -156,6 +163,10 @@ protected:
 	//! \details Chooses the event that has the smallest execution time.
 	//! \return A list iterator points to an Event pointer in event list that has been selected to be executed next.
 	std::list<Event*>::const_iterator chooseNextEvent();
+
+	//! \brief Uses the BKL algorithm to determine the reaction pathway and execution time given a number of different options.
+	//! \return a pointer to an Event object that indicates the chosen pathway.
+	Event* determinePathway(const std::vector<Event*>& possible_events);
 
 	//! \brief Constructs and returns a vector of pointers to all Object objects that are to have their events recalculated/
 	//! \param coords_start is the Coords struct that designates the starting coordinates of an event.

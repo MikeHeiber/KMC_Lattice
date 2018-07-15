@@ -26,16 +26,20 @@ void Event::calculateExecutionTime(const double rate) {
 	execution_time = sim_ptr->getTime() - (log(sim_ptr->rand01()) / rate);
 }
 
+void Event::calculateRateConstant() {
+
+}
+
 Coords Event::getDestCoords() const {
 	return coords_dest;
 }
 
-double Event::getExecutionTime() const {
-	return execution_time;
-}
-
 string Event::getEventType() const {
 	return event_type_base;
+}
+
+double Event::getExecutionTime() const {
+	return execution_time;
 }
 
 Object* Event::getObjectPtr() const {
@@ -44,6 +48,10 @@ Object* Event::getObjectPtr() const {
 
 Object* Event::getObjectTargetPtr() const {
 	return object_target_ptr;
+}
+
+double Event::getRateConstant() const {
+	return rate_constant;
 }
 
 void Event::setDestCoords(const Coords& coords) {
@@ -66,4 +74,8 @@ void Event::setObjectPtr(Object* input_ptr) {
 
 void Event::setObjectTargetPtr(Object* input_ptr) {
 	object_target_ptr = input_ptr;
+}
+
+void Event::setRateConstant(double val) {
+	rate_constant = val;
 }

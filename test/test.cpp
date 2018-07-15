@@ -79,20 +79,24 @@ public:
 			setObjectEvent(object_ptr, &(*move_event_it));
 		}
 	}
-	
-	bool checkErrorMessageFunctions(string msg_in){
+
+	bool checkErrorMessageFunctions(string msg_in) {
 		setErrorMessage(msg_in);
 		string msg_out = getErrorMessage();
-		return msg_in.compare(msg_out)==0;
+		return msg_in.compare(msg_out) == 0;
 	}
 
 	bool checkFinished() const {
 		return (getN_objects_created() == N_tests);
 	}
 
+	Event* determinePathway(const vector<Event*>& possible_events) {
+		return Simulation::determinePathway(possible_events);
+	}
+
 	Coords executeCreationEvent() {
 		Coords coords_dest = coords_creation;
-		if(lattice.isOccupied(coords_dest)) {
+		if (lattice.isOccupied(coords_dest)) {
 			coords_dest = lattice.chooseRandomUnoccupiedNeighbor(coords_dest);
 		}
 		if (coords_dest.x != -1) {
@@ -120,7 +124,7 @@ public:
 	bool executeNextEvent() {
 		// Check if any objects are finished
 		for (auto& item : objects) {
-			if (move_counts[item.getTag()]==N_steps) {
+			if (move_counts[item.getTag()] == N_steps) {
 				displacement_data.push_back(item.calculateDisplacement());
 				executeTerminationEvent(&item);
 				break;
@@ -180,6 +184,19 @@ public:
 	Coords getRandomCoords() {
 		return lattice.generateRandomCoords();
 	}
+
+	void removeEvent(Event* event_ptr) {
+		Simulation::removeEvent(event_ptr);
+	}
+
+	void removeObject(Object* object_ptr) {
+		Simulation::removeObject(object_ptr);
+	}
+
+	void resetErrorStatus() {
+		Error_found = false;
+		error_msg = "";
+	}
 };
 
 namespace SimulationTests {
@@ -221,6 +238,56 @@ namespace SimulationTests {
 		EXPECT_DOUBLE_EQ(params_base.Length*params_base.Width*params_base.Height*1e-21, sim.getVolume());
 	}
 
+	TEST_F(SimulationTest, RemoveEventObjectTests) {
+		EXPECT_FALSE(sim.getErrorStatus());
+		Event event1;
+		sim.removeEvent(&event1);
+		EXPECT_TRUE(sim.getErrorStatus());
+		sim.resetErrorStatus();
+		Object object1;
+		sim.removeObject(&object1);
+		EXPECT_TRUE(sim.getErrorStatus());
+		sim.resetErrorStatus();
+	}
+
+	TEST_F(SimulationTest, BKL_determinePathwayTests) {
+		// Construct list of events and event pointers that all have the same rate constant
+		Event event1(&sim);
+		vector<Event> events(10, event1);
+		vector<Event*> event_ptrs;
+		Coords coords_dest;
+		for (int i = 0; i < (int)events.size(); i++) {
+			coords_dest = { i,i,i };
+			events[i].setDestCoords(coords_dest);
+			events[i].setRateConstant(1e6);
+			event_ptrs.push_back(&events[i]);
+		}
+		Event* event_ptr;
+		// Generate collection of chosen event indices and wait times using BKL algorithm
+		vector<int> indices((int)2e7);
+		vector<double> times((int)2e7);
+		for (int i = 0; i < (int)times.size(); i++) {
+			event_ptr = sim.determinePathway(event_ptrs);
+			indices[i] = event_ptr->getDestCoords().x;
+			times[i] = event_ptr->getExecutionTime();
+		}
+		// Calculate probability distribution of indices and times
+		auto times_hist = calculateProbabilityHist(times, 1000);
+		// Test probability distribution of indices
+		for (int i = 0; i < 10; i++) {
+			int count = count_if(indices.begin(), indices.end(), [i](int element) {return element == i; });
+			EXPECT_NEAR(1.0 / 10.0, (double)count / (double)indices.size(), 2e-3);
+		}
+		// Test probability distribution of times
+		EXPECT_NEAR(1.0, integrateData(times_hist), 2e-2);
+		EXPECT_NEAR(1e7, times_hist[0].second, 2e5);
+		auto it = find_if(times_hist.begin(), times_hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-7; });
+		it--;
+		EXPECT_NEAR(1e7 / 2.7182818284590, (*it).second, 2e5);
+		// Test average wait time
+		EXPECT_NEAR(vector_avg(times), 1e-7, 2e-9);
+	}
+
 	TEST_F(SimulationTest, EventExecutionTests) {
 		EXPECT_EQ(0, (int)sim.objects.size());
 		EXPECT_EQ(1, sim.getN_events());
@@ -232,20 +299,20 @@ namespace SimulationTests {
 		EXPECT_FALSE(sim.checkFinished());
 		// Check objects and events
 		auto object_ptrs = sim.getAllObjectPtrs();
-		for(int i=0; i<(int)sim.objects.size(); i++){
+		for (int i = 0; i < (int)sim.objects.size(); i++) {
 			auto it = sim.objects.begin();
-			advance(it,i);
-			EXPECT_TRUE(&(*it)==object_ptrs[i]);
+			advance(it, i);
+			EXPECT_TRUE(&(*it) == object_ptrs[i]);
 		}
 		auto event_ptrs = sim.getAllEventPtrs();
-		for(int i=0; i<(int)event_ptrs.size(); i++){
-			if(i==0){
-				EXPECT_TRUE(&sim.event_creation==event_ptrs[i]);
+		for (int i = 0; i < (int)event_ptrs.size(); i++) {
+			if (i == 0) {
+				EXPECT_TRUE(&sim.event_creation == event_ptrs[i]);
 			}
-			else{
+			else {
 				auto it = sim.events_move.begin();
-				advance(it,i-1);
-				EXPECT_TRUE(&(*it)==event_ptrs[i]);
+				advance(it, i - 1);
+				EXPECT_TRUE(&(*it) == event_ptrs[i]);
 			}
 		}
 		// Check event destination coords
@@ -285,13 +352,13 @@ namespace SimulationTests {
 		while (!sim2.checkFinished()) {
 			if (sim2.event_previous_type.compare("Creation") == 0) {
 				creation_coords.push_back(sim2.objects.back().getCoords());
-				EXPECT_TRUE(sim2.coords_creation==creation_coords.back());
+				EXPECT_TRUE(sim2.coords_creation == creation_coords.back());
 				sim2.coords_creation = sim2.getRandomCoords();
 			}
 			Coords coords_i = creation_coords[sim2.objects.front().getTag()];
 			Coords coords = sim2.objects.front().getCoords();
 			displacement = sim2.objects.front().calculateDisplacement();
-			EXPECT_DOUBLE_EQ(sqrt((coords.x-coords_i.x)*(coords.x-coords_i.x) + (coords.y-coords_i.y)*(coords.y-coords_i.y) + (coords.z-coords_i.z)*(coords.z-coords_i.z)), displacement);
+			EXPECT_DOUBLE_EQ(sqrt((coords.x - coords_i.x)*(coords.x - coords_i.x) + (coords.y - coords_i.y)*(coords.y - coords_i.y) + (coords.z - coords_i.z)*(coords.z - coords_i.z)), displacement);
 			EXPECT_TRUE(sim2.executeNextEvent());
 		}
 	}
@@ -407,7 +474,7 @@ namespace SimulationTests {
 		EXPECT_NEAR(displacement1, displacement3, 5e-2*displacement1);
 		EXPECT_NEAR(displacement2, displacement3, 5e-2*displacement2);
 	}
-	
+
 	TEST_F(SimulationTest, ErrorMessageTests) {
 		EXPECT_TRUE(sim.checkErrorMessageFunctions("Error!"));
 		EXPECT_TRUE(sim.checkErrorMessageFunctions("Error! There is a problem."));
@@ -439,7 +506,7 @@ namespace UtilsTests {
 		auto hist = calculateProbabilityHist(data, 10);
 		uniform_int_distribution<> dist2(0, 9);
 		EXPECT_EQ(10, (int)hist.size());
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second,1e-4);
+		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
 		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
 		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
 		hist = calculateProbabilityHist(data, 10.0);
@@ -457,7 +524,7 @@ namespace UtilsTests {
 		hist = calculateProbabilityHist(data, 1.0, 5);
 		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
 		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
-		data = {0.0, 1.0, 2.0, 3.0, 4.0};
+		data = { 0.0, 1.0, 2.0, 3.0, 4.0 };
 		hist = calculateProbabilityHist(data, 10);
 		EXPECT_EQ(5, (int)hist.size());
 		hist = calculateProbabilityHist(data, 0.1);
@@ -523,9 +590,9 @@ namespace UtilsTests {
 
 	TEST(UtilsTests, InterpolateDataTests) {
 		vector<pair<double, double>> data_vec(100);
-		for (int i = 0; i < (int)data_vec.size();i++) {
+		for (int i = 0; i < (int)data_vec.size(); i++) {
 			data_vec[i].first = 0.1*i;
-			data_vec[i].second = exp(-data_vec[i].first/2.85);
+			data_vec[i].second = exp(-data_vec[i].first / 2.85);
 		}
 		EXPECT_NEAR(1 / exp(1), interpolateData(data_vec, 2.85), 1e-4);
 		for (int i = 0; i < (int)data_vec.size(); i++) {
@@ -537,7 +604,7 @@ namespace UtilsTests {
 		// Attempt to interpolate beyond the data range
 		EXPECT_TRUE(std::isnan(interpolateData(data_vec, -1.0)));
 		EXPECT_TRUE(std::isnan(interpolateData(data_vec, 21.0)));
-		
+
 	}
 
 	TEST(UtilsTests, RemoveWhitespaceTests) {
@@ -808,19 +875,19 @@ namespace LatticeTests {
 			EXPECT_EQ(6, (int)site_options.size());
 			for (auto item : site_options) {
 				int count = count_if(data.begin(), data.end(), [item](int element) {return element == item; });
-				EXPECT_NEAR(1.0 / 6.0, (double)count/(double)data.size(), 1e-2);
+				EXPECT_NEAR(1.0 / 6.0, (double)count / (double)data.size(), 1e-2);
 			}
 		}
 		// Check for correct output when all neighbor sites are occupied
-		Coords coords(5,5,5);
-		lattice.setOccupied(Coords(4,5,5));
-		lattice.setOccupied(Coords(6,5,5));
-		lattice.setOccupied(Coords(5,4,5));
-		lattice.setOccupied(Coords(5,6,5));
-		lattice.setOccupied(Coords(5,5,4));
-		lattice.setOccupied(Coords(5,5,6));
+		Coords coords(5, 5, 5);
+		lattice.setOccupied(Coords(4, 5, 5));
+		lattice.setOccupied(Coords(6, 5, 5));
+		lattice.setOccupied(Coords(5, 4, 5));
+		lattice.setOccupied(Coords(5, 6, 5));
+		lattice.setOccupied(Coords(5, 5, 4));
+		lattice.setOccupied(Coords(5, 5, 6));
 		Coords coords_new = lattice.chooseRandomUnoccupiedNeighbor(coords);
-		EXPECT_TRUE(coords_new==Coords(-1,-1,-1));
+		EXPECT_TRUE(coords_new == Coords(-1, -1, -1));
 	}
 
 	TEST_F(LatticeTest, 2DTests) {
@@ -853,7 +920,7 @@ namespace LatticeTests {
 			EXPECT_EQ(4, (int)site_options.size());
 			for (auto item : site_options) {
 				int count = count_if(data.begin(), data.end(), [item](int element) {return element == item; });
-				EXPECT_NEAR(1.0 / 4.0, (double)count/(double)data.size(), 1e-2);
+				EXPECT_NEAR(1.0 / 4.0, (double)count / (double)data.size(), 1e-2);
 			}
 		}
 	}
@@ -931,6 +998,12 @@ namespace LatticeTests {
 		coords.setXYZ(5, 5, 5);
 		lattice.setOccupied(coords);
 		EXPECT_TRUE(lattice.isOccupied(coords));
+		stringstream ss1, ss2;
+		auto old_buffer = cout.rdbuf(ss1.rdbuf());
+		lattice.outputLatticeOccupancy();
+		cout.rdbuf(old_buffer);
+		ss2 << "Site " << lattice.getSiteIndex(coords) << " is occupied.\n";
+		EXPECT_EQ(ss1.str(), ss2.str());
 		for (int x = 0; x < lattice.getLength(); x++) {
 			for (int y = 0; y < lattice.getWidth(); y++) {
 				for (int z = 0; z < lattice.getHeight(); z++) {
@@ -977,43 +1050,49 @@ namespace EventTests {
 	protected:
 		Parameters_Simulation params_base;
 		TestSim test_sim;
-		void setUp(){
+		void setUp() {
 			{
-			params_base.Enable_logging = false;
-			params_base.Enable_periodic_x = true;
-			params_base.Enable_periodic_y = true;
-			params_base.Enable_periodic_z = true;
-			params_base.Length = 50;
-			params_base.Width = 50;
-			params_base.Height = 50;
-			params_base.Unit_size = 1.0;
-			params_base.Temperature = 300;
-			params_base.Enable_FRM = false;
-			params_base.Enable_selective_recalc = true;
-			params_base.Recalc_cutoff = 3;
-			params_base.Enable_full_recalc = false;
+				params_base.Enable_logging = false;
+				params_base.Enable_periodic_x = true;
+				params_base.Enable_periodic_y = true;
+				params_base.Enable_periodic_z = true;
+				params_base.Length = 50;
+				params_base.Width = 50;
+				params_base.Height = 50;
+				params_base.Unit_size = 1.0;
+				params_base.Temperature = 300;
+				params_base.Enable_FRM = false;
+				params_base.Enable_selective_recalc = true;
+				params_base.Recalc_cutoff = 3;
+				params_base.Enable_full_recalc = false;
 			}
 			// Initialize TestSim object
 			test_sim.init(params_base);
 		}
 	};
-	
-	TEST_F(EventTest, GeneralEventTests){
+
+	TEST_F(EventTest, GeneralEventTests) {
 		Event event(&test_sim);
-		EXPECT_EQ("Event",event.getEventType());
-		Coords coords1(0,0,0);
+		EXPECT_EQ("Event", event.getEventType());
+		Coords coords1(0, 0, 0);
 		Object object1(0.0, 1, coords1);
 		event.setObjectPtr(&object1);
-		EXPECT_EQ(&object1,event.getObjectPtr());
-		Coords coords2(1,0,0);
+		EXPECT_EQ(&object1, event.getObjectPtr());
+		Coords coords2(1, 0, 0);
 		Object object2(0.0, 2, coords2);
 		event.setObjectTargetPtr(&object2);
-		EXPECT_EQ(&object2,event.getObjectTargetPtr());
+		EXPECT_EQ(&object2, event.getObjectTargetPtr());
 		event.setDestCoords(coords2);
-		EXPECT_EQ(coords2,event.getDestCoords());
+		EXPECT_EQ(coords2, event.getDestCoords());
 		EXPECT_FALSE(event.setExecutionTime(-1.0));
 		EXPECT_TRUE(event.setExecutionTime(1.0));
-		EXPECT_DOUBLE_EQ(1.0,event.getExecutionTime());
+		EXPECT_DOUBLE_EQ(1.0, event.getExecutionTime());
+		// Check initial default value of the rate constant.
+		EXPECT_DOUBLE_EQ(-1.0, event.getRateConstant());
+		// Execute empty virtual function.
+		event.calculateRateConstant();
+		// Check that the default value of the rate constant is unchanged.
+		EXPECT_DOUBLE_EQ(-1.0, event.getRateConstant());
 	}
 
 	TEST_F(EventTest, CalculateExecutionTimeTests) {
@@ -1053,23 +1132,23 @@ namespace EventTests {
 }
 
 namespace ObjectTests {
-	
+
 	TEST(ObjectTests, GeneralObjectTests) {
 		// Assume object is created in a 50 x 50 x 50 lattice
-		Coords coords = {0,0,0};
+		Coords coords = { 0,0,0 };
 		Object object1(0.0, 1, coords);
-		EXPECT_EQ("Object",object1.getObjectType());
-		EXPECT_EQ(1,object1.getTag());
-		EXPECT_EQ(coords,object1.getCoords());
-		EXPECT_DOUBLE_EQ(0.0,object1.getCreationTime());
+		EXPECT_EQ("Object", object1.getObjectType());
+		EXPECT_EQ(1, object1.getTag());
+		EXPECT_EQ(coords, object1.getCoords());
+		EXPECT_DOUBLE_EQ(0.0, object1.getCreationTime());
 		// Object-Event tests
 		Event event;
 		list<Event*> event_ptrs;
 		event_ptrs.push_back(&event);
 		object1.setEventIt(event_ptrs.begin());
-		EXPECT_EQ(&event,*(object1.getEventIt()));
+		EXPECT_EQ(&event, *(object1.getEventIt()));
 	}
-	
+
 	TEST(ObjectTests, CalculateDisplacementTests) {
 		// Assume object is created in a 50 x 50 x 50 lattice
 		Object object1(0.0, 1, { 0,0,0 });
@@ -1085,14 +1164,16 @@ namespace ObjectTests {
 		object1.setCoords({ 49,0,49 });
 		object1.incrementDY(50);
 		EXPECT_DOUBLE_EQ(sqrt(2), object1.calculateDisplacement());
-		object1.resetInitialCoords({5,5,5});
+		object1.resetInitialCoords({ 5,5,5 });
 		object1.setCoords({ 4,4,4 });
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
 	}
-	
+
 }
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);
+	// Redirect cout to NULL to suppress command line output during the tests
+	cout.rdbuf(NULL);
 	return RUN_ALL_TESTS();
 }
