@@ -94,6 +94,11 @@ public:
 	//! \return the error_msg string member variable.
 	std::string getErrorMessage() const;
 
+	//! \brief Gets the error status.
+	//! \return true if Error_found is true.
+	//! \return false if Error_found is false.
+	bool getErrorStatus() const;
+
 	//! \brief Gets the number of events that are currently in the event list
 	//! \return the size of the events list
 	int getN_events() const;
@@ -141,7 +146,7 @@ protected:
 	//! The Error_found flag indicates whether or not there has been an error during one of the simulation operations.
 	bool Error_found = false;
 	//! The error_msg string holds a message with information about the error that has occurred or is empty otherwise.
-	std::string error_msg;
+	std::string error_msg = "";
 
 	//------ Functions
 

@@ -184,6 +184,19 @@ public:
 	Coords getRandomCoords() {
 		return lattice.generateRandomCoords();
 	}
+
+	void removeEvent(Event* event_ptr) {
+		Simulation::removeEvent(event_ptr);
+	}
+
+	void removeObject(Object* object_ptr) {
+		Simulation::removeObject(object_ptr);
+	}
+
+	void resetErrorStatus() {
+		Error_found = false;
+		error_msg = "";
+	}
 };
 
 namespace SimulationTests {
@@ -223,6 +236,18 @@ namespace SimulationTests {
 		EXPECT_DOUBLE_EQ(0.0, sim.getTime());
 		EXPECT_EQ(300, sim.getTemp());
 		EXPECT_DOUBLE_EQ(params_base.Length*params_base.Width*params_base.Height*1e-21, sim.getVolume());
+	}
+
+	TEST_F(SimulationTest, RemoveEventObjectTests) {
+		EXPECT_FALSE(sim.getErrorStatus());
+		Event event1;
+		sim.removeEvent(&event1);
+		EXPECT_TRUE(sim.getErrorStatus());
+		sim.resetErrorStatus();
+		Object object1;
+		sim.removeObject(&object1);
+		EXPECT_TRUE(sim.getErrorStatus());
+		sim.resetErrorStatus();
 	}
 
 	TEST_F(SimulationTest, BKL_determinePathwayTests) {

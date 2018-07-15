@@ -154,6 +154,10 @@ string Simulation::getErrorMessage() const {
 	return error_msg;
 }
 
+bool Simulation::getErrorStatus() const {
+	return Error_found;
+}
+
 int Simulation::getId() const {
 	return Id;
 }
@@ -210,6 +214,7 @@ double Simulation::rand01() {
 }
 
 void Simulation::removeEvent(Event* event_ptr) {
+	// Find the Event pointer
 	auto it = find_if(event_ptrs.begin(), event_ptrs.end(), [event_ptr](Event* element) {return element == event_ptr; });
 	if (it != event_ptrs.end()) {
 		event_ptrs.erase(it);
@@ -221,13 +226,14 @@ void Simulation::removeEvent(Event* event_ptr) {
 }
 
 void Simulation::removeObject(Object* object_ptr) {
-	// Clear occupancy of site
-	lattice.clearOccupancy(object_ptr->getCoords());
-	// Delete the event pointer
-	removeEvent(*object_ptr->getEventIt());
-	// Delete the object pointer
+	// Find the Object pointer
 	auto it = find_if(object_ptrs.begin(), object_ptrs.end(), [object_ptr](Object* element) {return element == object_ptr; });
 	if (it != object_ptrs.end()) {
+		// Clear occupancy of site
+		lattice.clearOccupancy(object_ptr->getCoords());
+		// Delete the corresponding Event pointer
+		removeEvent(*object_ptr->getEventIt());
+		// Delete the Object pointer
 		object_ptrs.erase(it);
 	}
 	else {
@@ -236,7 +242,6 @@ void Simulation::removeObject(Object* object_ptr) {
 	}
 	// Update counters
 	N_events_executed++;
-
 }
 
 void Simulation::setErrorMessage(const string& input_msg) {
