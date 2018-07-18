@@ -1089,10 +1089,10 @@ namespace EventTests {
 		EXPECT_DOUBLE_EQ(1.0, event.getExecutionTime());
 		// Check initial default value of the rate constant.
 		EXPECT_DOUBLE_EQ(-1.0, event.getRateConstant());
-		// Execute empty virtual function.
-		event.calculateRateConstant();
-		// Check that the default value of the rate constant is unchanged.
-		EXPECT_DOUBLE_EQ(-1.0, event.getRateConstant());
+		// Execute default rate constant function.
+		event.calculateRateConstant(1.0);
+		// Check that the rate constant is correctly assigned.
+		EXPECT_DOUBLE_EQ(1.0, event.getRateConstant());
 	}
 
 	TEST_F(EventTest, CalculateExecutionTimeTests) {

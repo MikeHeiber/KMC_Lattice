@@ -26,8 +26,8 @@ void Event::calculateExecutionTime(const double rate) {
 	execution_time = sim_ptr->getTime() - (log(sim_ptr->rand01()) / rate);
 }
 
-void Event::calculateRateConstant() {
-
+void Event::calculateRateConstant(const double rate) {
+	rate_constant = rate;
 }
 
 Coords Event::getDestCoords() const {
