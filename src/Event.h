@@ -42,8 +42,8 @@ public:
 	//! \param rate is the rate of the process represented by the event in units of 1/s.
 	void calculateExecutionTime(const double rate);
 
-	//! Default virtual function that must be defined by derived Event classes.
-	virtual void calculateRateConstant();
+	//! Default function that can be overloaded by derived Event classes.
+	void calculateRateConstant(const double rate);
 
 	//! \brief Gets the coordinates of the event destination site.
 	//! \warning Some events may not have a destination site determined until execution and will thus
