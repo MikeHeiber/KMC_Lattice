@@ -614,6 +614,46 @@ namespace UtilsTests {
 		prob = calculateProbabilityHist(data, 0.1);
 		EXPECT_EQ(5, (int)prob.size());
 	}
+	
+	TEST(UtilsTests, ExponentialDOSTests) {
+		mt19937_64 gen(std::random_device{}());
+		vector<double> data((int)2e7, 0.0);
+		createExponentialDOSVector(data, 0.0, 0.1, gen);
+		auto hist = calculateProbabilityHist(data, 1000);
+		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		vector<double> prob;
+		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		double peak = *max_element(prob.begin(), prob.end());
+		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
+		createExponentialDOSVector(data, 0.0, 0.05, gen);
+		hist = calculateProbabilityHist(data, 1000);
+		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		prob.clear();
+		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		peak = *max_element(prob.begin(), prob.end());
+		EXPECT_NEAR(0.5*(1.0 / 0.05), peak, 1e-2*peak);
+	}
+
+	TEST(UtilsTests, GaussianDOSTests) {
+		mt19937_64 gen(std::random_device{}());
+		vector<double> data((int)3e7, 0.0);
+		createGaussianDOSVector(data, 0.0, 0.15, gen);
+		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
+		EXPECT_NEAR(0.15, vector_stdev(data), 1e-4);
+		auto hist = calculateProbabilityHist(data, 1000);
+		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		double peak = hist[499].second;
+		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
+		createGaussianDOSVector(data, 0.0, 0.05, gen);
+		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
+		EXPECT_NEAR(0.05, vector_stdev(data), 1e-4);
+		hist = calculateProbabilityHist(data, 0.005);
+		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		vector<double> prob;
+		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		peak = *max_element(prob.begin(), prob.end());
+		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.05, 2)), peak, 1e-1*peak);
+	}
 
 	TEST(UtilsTests, Str2boolTests) {
 		EXPECT_TRUE(str2bool("true"));
