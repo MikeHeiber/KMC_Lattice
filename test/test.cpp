@@ -7,9 +7,8 @@
 #include "Simulation.h"
 #include "Utils.h"
 
-
 using namespace std;
-using namespace Utils;
+using namespace KMC_Lattice;
 
 // Simple derived Simulation class
 class TestSim : public Simulation {

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['simulation',['Simulation',['../class_simulation.html',1,'']]],
-  ['site',['Site',['../class_site.html',1,'']]]
+  ['simulation',['Simulation',['../class_k_m_c___lattice_1_1_simulation.html',1,'KMC_Lattice']]],
+  ['site',['Site',['../class_k_m_c___lattice_1_1_site.html',1,'KMC_Lattice']]]
 ];

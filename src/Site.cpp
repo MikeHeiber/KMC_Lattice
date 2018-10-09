@@ -7,32 +7,36 @@
 
 using namespace std;
 
-Site::~Site() {
+namespace KMC_Lattice {
 
-}
+	Site::~Site() {
 
-Site::Site() {
+	}
 
-}
+	Site::Site() {
 
-void Site::clearOccupancy() {
-	occupied = false;
-	object_ptr = nullptr;
-}
+	}
 
-Object* Site::getObjectPtr() const {
-	return object_ptr;
-}
+	void Site::clearOccupancy() {
+		occupied = false;
+		object_ptr = nullptr;
+	}
 
-bool Site::isOccupied() const {
-	return occupied;
-}
+	Object* Site::getObjectPtr() const {
+		return object_ptr;
+	}
 
-void Site::setObjectPtr(Object* input_ptr) {
-	object_ptr = input_ptr;
-	occupied = true;
-}
+	bool Site::isOccupied() const {
+		return occupied;
+	}
 
-void Site::setOccupied() {
-	occupied = true;
+	void Site::setObjectPtr(Object* input_ptr) {
+		object_ptr = input_ptr;
+		occupied = true;
+	}
+
+	void Site::setOccupied() {
+		occupied = true;
+	}
+
 }

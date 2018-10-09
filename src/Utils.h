@@ -3,8 +3,8 @@
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef KMC_LATTICE_UTILS_H
+#define KMC_LATTICE_UTILS_H
 
 #include <algorithm>
 #include <cmath>
@@ -18,57 +18,53 @@
 #include <string>
 #include <vector>
 
-//! \brief This simple struct contains Cartesian coordinates specified by integers x,y,z.
-//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
-//! \author Michael C. Heiber
-//! \date 2018
-struct Coords {
-	//! The x Cartesian coordinate.
-	int x;
-	//! The y Cartesian coordinate.
-	int y;
-	//! The z Cartesian coordinate.
-	int z;
+namespace KMC_Lattice {
 
-	//! Default constructor that creates an empty Coords object.
-	Coords() {}
+	//! \brief This simple struct contains Cartesian coordinates specified by integers x,y,z.
+	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
+	//! \author Michael C. Heiber
+	//! \date 2018
+	struct Coords {
+		//! The x Cartesian coordinate.
+		int x;
+		//! The y Cartesian coordinate.
+		int y;
+		//! The z Cartesian coordinate.
+		int z;
 
-	//! \brief Constructor that creates a Coords object with the x,y,z coordinates set using the input values xval, yval, and zval.
-	//! \param xval is the input x value.
-	//! \param yval is the input y value.
-	//! \param zval is the input z value.
-	Coords(const int xval, const int yval, const int zval) {
-		x = xval;
-		y = yval;
-		z = zval;
-	}
+		//! Default constructor that creates an empty Coords object.
+		Coords() {}
 
-	//! \brief Sets the x,y,z coordinates using the input values xval, yval, and zval.
-	//! \param xval is the input x value.
-	//! \param yval is the input y value.
-	//! \param zval is the input z value.
-	void setXYZ(const int xval, const int yval, const int zval) {
-		x = xval;
-		y = yval;
-		z = zval;
-	}
-	//! \brief Defines the conditions when two Coords structs are deemed to be equal.
-	//! \param rhs is the right hand side Coords struct of the comparison operator.
-	bool operator==(const Coords& rhs) const {
-		return (x == rhs.x && y == rhs.y && z == rhs.z);
-	}
-	//! \brief Defines the conditions when two Coords structs are deemed to be unequal.
-	//! \param rhs is the right hand side Coords struct  of the comparison operator.
-	bool operator!=(const Coords& rhs) const {
-		return (x != rhs.x || y != rhs.y || z != rhs.z);
-	}
-};
+		//! \brief Constructor that creates a Coords object with the x,y,z coordinates set using the input values xval, yval, and zval.
+		//! \param xval is the input x value.
+		//! \param yval is the input y value.
+		//! \param zval is the input z value.
+		Coords(const int xval, const int yval, const int zval) {
+			x = xval;
+			y = yval;
+			z = zval;
+		}
 
-//! \brief This namespace provides useful constants and utility functions.
-//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
-//! \author Michael C. Heiber
-//! \date 2018
-namespace Utils {
+		//! \brief Sets the x,y,z coordinates using the input values xval, yval, and zval.
+		//! \param xval is the input x value.
+		//! \param yval is the input y value.
+		//! \param zval is the input z value.
+		void setXYZ(const int xval, const int yval, const int zval) {
+			x = xval;
+			y = yval;
+			z = zval;
+		}
+		//! \brief Defines the conditions when two Coords structs are deemed to be equal.
+		//! \param rhs is the right hand side Coords struct of the comparison operator.
+		bool operator==(const Coords& rhs) const {
+			return (x == rhs.x && y == rhs.y && z == rhs.z);
+		}
+		//! \brief Defines the conditions when two Coords structs are deemed to be unequal.
+		//! \param rhs is the right hand side Coords struct  of the comparison operator.
+		bool operator!=(const Coords& rhs) const {
+			return (x != rhs.x || y != rhs.y || z != rhs.z);
+		}
+	};
 
 	// Scientific Constants
 	static constexpr double K_b = 8.61733035e-5; // eV/K
@@ -305,4 +301,4 @@ namespace Utils {
 	}
 }
 
-#endif // UTILS_H
+#endif // KMC_LATTICE_UTILS_H

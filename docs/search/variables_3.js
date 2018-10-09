@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['lattice',['lattice',['../class_simulation.html#afb2cf4feeb4d8292eeba8f9ef393c6a4',1,'Simulation']]],
-  ['length',['Length',['../struct_parameters___lattice.html#a99c7d553111bb660032bb7ca6f592da6',1,'Parameters_Lattice::Length()'],['../struct_parameters___simulation.html#a038f418e1b2e4fec3fc6a8336f8b23de',1,'Parameters_Simulation::Length()']]],
-  ['logfile',['Logfile',['../struct_parameters___simulation.html#aa491c1f8ca5045b4cc9c8bbfcb930024',1,'Parameters_Simulation::Logfile()'],['../class_simulation.html#a741321a0bbc89d51b969abda469e6f96',1,'Simulation::Logfile()']]]
+  ['lattice',['lattice',['../class_k_m_c___lattice_1_1_simulation.html#a4ebf8e9e8c47cf04b773e061604c2a8b',1,'KMC_Lattice::Simulation']]],
+  ['length',['Length',['../struct_k_m_c___lattice_1_1_parameters___lattice.html#aef548b90f34da4de7dae41a98f2f9d55',1,'KMC_Lattice::Parameters_Lattice::Length()'],['../struct_k_m_c___lattice_1_1_parameters___simulation.html#a88b03c51d9a6bae5420d1fe00c6c2999',1,'KMC_Lattice::Parameters_Simulation::Length()']]],
+  ['logfile',['Logfile',['../struct_k_m_c___lattice_1_1_parameters___simulation.html#ab5e0cde045525c0dfbbcc346bd034889',1,'KMC_Lattice::Parameters_Simulation::Logfile()'],['../class_k_m_c___lattice_1_1_simulation.html#ac99e99d5f2b1e9ccecf04c3d3ffc88f7',1,'KMC_Lattice::Simulation::Logfile()']]]
 ];

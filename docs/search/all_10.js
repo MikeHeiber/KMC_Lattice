@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['vector_5favg',['vector_avg',['../namespace_utils.html#acbc030ce708229ea393215fe13e6377b',1,'Utils']]],
-  ['vector_5fstdev',['vector_stdev',['../namespace_utils.html#a6bfa9b066d7c0967807d588024c15d4e',1,'Utils']]]
+  ['width',['Width',['../struct_k_m_c___lattice_1_1_parameters___lattice.html#a87f26d624bd8add88f447150f0a313be',1,'KMC_Lattice::Parameters_Lattice::Width()'],['../struct_k_m_c___lattice_1_1_parameters___simulation.html#a5fa76e853e5cafe11bc1064a2e724f18',1,'KMC_Lattice::Parameters_Simulation::Width()']]]
 ];

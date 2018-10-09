@@ -8,7 +8,7 @@
 #include <mpi.h>
 
 using namespace std;
-using namespace Utils;
+using namespace KMC_Lattice;
 
 namespace MPI_Tests {
 

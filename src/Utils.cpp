@@ -5,9 +5,9 @@
 
 #include "Utils.h"
 
-namespace Utils {
+using namespace std;
 
-	using namespace std;
+namespace KMC_Lattice {
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, int num_bins) {
 		// Check for valid input data
@@ -356,4 +356,3 @@ namespace Utils {
 	}
 
 }
-

@@ -1,19 +1,17 @@
 var searchData=
 [
-  ['calculatedestinationcoords',['calculateDestinationCoords',['../class_lattice.html#aa6b80d6264bfc23ae5fea39abd2557d5',1,'Lattice']]],
-  ['calculatedisplacement',['calculateDisplacement',['../class_object.html#a02643ea0804dec3e43f60c788855c03b',1,'Object']]],
-  ['calculatedx',['calculateDX',['../class_lattice.html#a08adb2f412af409d3ec241e60e687c1a',1,'Lattice::calculateDX(const int x, const int i) const'],['../class_lattice.html#ad89c5473dd37339ede9fb3d0c3db4300',1,'Lattice::calculateDX(const Coords &amp;coords_initial, const Coords &amp;coords_dest) const']]],
-  ['calculatedy',['calculateDY',['../class_lattice.html#acdeca889f7df11fe299f8b7941198c83',1,'Lattice::calculateDY(const int y, const int j) const'],['../class_lattice.html#a4e8b3577701ec0cefce595f6956b22e3',1,'Lattice::calculateDY(const Coords &amp;coords_initial, const Coords &amp;coords_dest) const']]],
-  ['calculatedz',['calculateDZ',['../class_lattice.html#a584ff9c528ebe46a6aea6ed652d107f4',1,'Lattice::calculateDZ(const int z, const int k) const'],['../class_lattice.html#a76b38079e102e17c79b13a3398a404a0',1,'Lattice::calculateDZ(const Coords &amp;coords_initial, const Coords &amp;coords_dest) const']]],
-  ['calculateexecutiontime',['calculateExecutionTime',['../class_event.html#a6fa01d0eba9aa1bbea18ee94aa8c02fe',1,'Event']]],
-  ['calculatelatticedistancesquared',['calculateLatticeDistanceSquared',['../class_lattice.html#a3f51b0b41cf0e43e0469320310494a1e',1,'Lattice']]],
-  ['calculateprobabilityhist',['calculateProbabilityHist',['../namespace_utils.html#adcb2e98774b12bc12264034913547a2c',1,'Utils::calculateProbabilityHist(const std::vector&lt; double &gt; &amp;data, int num_bins)'],['../namespace_utils.html#a0818230f8ad279ef7ca217f3cba81f76',1,'Utils::calculateProbabilityHist(const std::vector&lt; double &gt; &amp;data, double bin_size)'],['../namespace_utils.html#a08553f36886a36456e8111585029e467',1,'Utils::calculateProbabilityHist(const std::vector&lt; double &gt; &amp;data, const double bin_size, const int num_bins)']]],
-  ['checkfinished',['checkFinished',['../class_simulation.html#af69bb46977a3a0084214a194c888e16c',1,'Simulation']]],
-  ['checkmovevalidity',['checkMoveValidity',['../class_lattice.html#ad0592298c4b92e9e84a768b95cd6d0f0',1,'Lattice']]],
-  ['choosenextevent',['chooseNextEvent',['../class_simulation.html#af8cf2e5c24531582599423df2d70dc5b',1,'Simulation']]],
-  ['chooserandomunoccupiedneighbor',['chooseRandomUnoccupiedNeighbor',['../class_lattice.html#abf954e8213010ab8aeac7a0b93a869bc',1,'Lattice']]],
-  ['clearoccupancy',['clearOccupancy',['../class_lattice.html#a97a1b4f24cd40b81ed63aa2d7713b63b',1,'Lattice::clearOccupancy()'],['../class_site.html#a46ff077954e39046b493ee1ea57a9c93',1,'Site::clearOccupancy()']]],
-  ['coords',['Coords',['../struct_coords.html',1,'Coords'],['../struct_coords.html#a5922d1783cefa759950faa50ac347191',1,'Coords::Coords()'],['../struct_coords.html#a246211bba85765d5d67953922070d11f',1,'Coords::Coords(const int xval, const int yval, const int zval)']]],
-  ['createexponentialdosvector',['createExponentialDOSVector',['../namespace_utils.html#a62ed21bf039a062d34511cd016cd9b59',1,'Utils']]],
-  ['creategaussiandosvector',['createGaussianDOSVector',['../namespace_utils.html#aa92dbcc79f8336fcd2d9644db1a2b0ae',1,'Utils']]]
+  ['calculatedestinationcoords',['calculateDestinationCoords',['../class_k_m_c___lattice_1_1_lattice.html#aa58ebee129a3d04d3f0711dba99ad9a6',1,'KMC_Lattice::Lattice']]],
+  ['calculatedisplacement',['calculateDisplacement',['../class_k_m_c___lattice_1_1_object.html#a5d011f168e873aab55e84add9dd0c8c3',1,'KMC_Lattice::Object']]],
+  ['calculatedx',['calculateDX',['../class_k_m_c___lattice_1_1_lattice.html#af89468ae0fba03fa3d32eae655210772',1,'KMC_Lattice::Lattice::calculateDX(const int x, const int i) const'],['../class_k_m_c___lattice_1_1_lattice.html#a9a5f4b567bd182ce77b35a24bf8d56e0',1,'KMC_Lattice::Lattice::calculateDX(const Coords &amp;coords_initial, const Coords &amp;coords_dest) const']]],
+  ['calculatedy',['calculateDY',['../class_k_m_c___lattice_1_1_lattice.html#a47d240a28c0554ea7143fa742135aa92',1,'KMC_Lattice::Lattice::calculateDY(const int y, const int j) const'],['../class_k_m_c___lattice_1_1_lattice.html#af4ee0130041231c699e16f545829e5b2',1,'KMC_Lattice::Lattice::calculateDY(const Coords &amp;coords_initial, const Coords &amp;coords_dest) const']]],
+  ['calculatedz',['calculateDZ',['../class_k_m_c___lattice_1_1_lattice.html#a29b2a3c2c06d69ecc6c769291011e92a',1,'KMC_Lattice::Lattice::calculateDZ(const int z, const int k) const'],['../class_k_m_c___lattice_1_1_lattice.html#a25603b97e72feca4fb4753582c6cff6c',1,'KMC_Lattice::Lattice::calculateDZ(const Coords &amp;coords_initial, const Coords &amp;coords_dest) const']]],
+  ['calculateexecutiontime',['calculateExecutionTime',['../class_k_m_c___lattice_1_1_event.html#a039fde52107f33c2ff9914307445d8ce',1,'KMC_Lattice::Event']]],
+  ['calculatelatticedistancesquared',['calculateLatticeDistanceSquared',['../class_k_m_c___lattice_1_1_lattice.html#ae4236a8a25023c91b51efdb4ea219396',1,'KMC_Lattice::Lattice']]],
+  ['calculaterateconstant',['calculateRateConstant',['../class_k_m_c___lattice_1_1_event.html#a27e523a6b00ac1a1af98c4fd0d604cb2',1,'KMC_Lattice::Event']]],
+  ['checkfinished',['checkFinished',['../class_k_m_c___lattice_1_1_simulation.html#ab052ca6b08f8ab0fb7fd6c6cdacd13c4',1,'KMC_Lattice::Simulation']]],
+  ['checkmovevalidity',['checkMoveValidity',['../class_k_m_c___lattice_1_1_lattice.html#aaa11ead84244a29a439fb212ab4d79b4',1,'KMC_Lattice::Lattice']]],
+  ['choosenextevent',['chooseNextEvent',['../class_k_m_c___lattice_1_1_simulation.html#a6ccfc03c32dc356fb9fd5445afa89230',1,'KMC_Lattice::Simulation']]],
+  ['chooserandomunoccupiedneighbor',['chooseRandomUnoccupiedNeighbor',['../class_k_m_c___lattice_1_1_lattice.html#ad85dbcfb3abb0812c9f1f330739d4c6f',1,'KMC_Lattice::Lattice']]],
+  ['clearoccupancy',['clearOccupancy',['../class_k_m_c___lattice_1_1_lattice.html#af7f99d58aae86832524258fead97887f',1,'KMC_Lattice::Lattice::clearOccupancy()'],['../class_k_m_c___lattice_1_1_site.html#a76a8dbd7a5af658684de274e5ab7d1cc',1,'KMC_Lattice::Site::clearOccupancy()']]],
+  ['coords',['Coords',['../struct_k_m_c___lattice_1_1_coords.html',1,'KMC_Lattice::Coords'],['../struct_k_m_c___lattice_1_1_coords.html#ab7a6291b7d6205f7abcd60f46ac0d8ef',1,'KMC_Lattice::Coords::Coords()'],['../struct_k_m_c___lattice_1_1_coords.html#aed7503369631f615276b58aa17d1aa5e',1,'KMC_Lattice::Coords::Coords(const int xval, const int yval, const int zval)']]]
 ];
