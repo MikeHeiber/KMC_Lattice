@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Michael C. Heiber
+// Copyright (c) 2017-2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -6,6 +6,7 @@
 #include "gtest/gtest.h"
 #include "Simulation.h"
 #include "Utils.h"
+#include "Version.h"
 
 using namespace std;
 using namespace KMC_Lattice;
@@ -495,94 +496,137 @@ namespace UtilsTests {
 		EXPECT_TRUE(coords == coords2);
 	}
 
+	TEST(UtilsTests, CalculateHistTests) {
+		// Check behavior for an empty data set
+		vector<int> data;
+		EXPECT_THROW(calculateHist(data, 1), invalid_argument);
+		// Create sample data
+		data = { 0,0,2,1,2,4,3,1,0,4,2 };
+		// Calculate the histogram
+		auto hist = calculateHist(data, 1);
+		// Check hist size
+		EXPECT_EQ(5, (int)hist.size());
+		// Check hist bins
+		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
+		EXPECT_DOUBLE_EQ(1.0, hist[1].first);
+		EXPECT_DOUBLE_EQ(2.0, hist[2].first);
+		EXPECT_DOUBLE_EQ(3.0, hist[3].first);
+		EXPECT_DOUBLE_EQ(4.0, hist[4].first);
+		// Check hist values
+		EXPECT_EQ(3, hist[0].second);
+		EXPECT_EQ(2, hist[1].second);
+		EXPECT_EQ(3, hist[2].second);
+		EXPECT_EQ(1, hist[3].second);
+		EXPECT_EQ(2, hist[4].second);
+		// Caclulate the probability hist using the hist
+		auto prob = calculateProbabilityHist(hist);
+		// Check behavior if the hist is empty
+		hist.clear();
+		EXPECT_THROW(calculateProbabilityHist(hist), invalid_argument);
+		// Check prob size
+		EXPECT_EQ(5, (int)prob.size());
+		// Check prob values
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[0].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[1].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[2].second);
+		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob[3].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[4].second);
+		// Check that the prob hist sums to 1
+		auto cum_hist = calculateCumulativeHist(prob);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate the prob hist directly from the data vector
+		prob = calculateProbabilityHist(data, 1);
+		// Check prob size
+		EXPECT_EQ(5, (int)prob.size());
+		// Check prob values
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[0].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[1].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[2].second);
+		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob[3].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[4].second);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Check behavior how larger bin size
+		// Create sample data
+		data = { 0,0,2,1,2,4,3,1,0,4,2,5 };
+		// Calculate the histogram
+		hist = calculateHist(data, 2);
+		// Check hist size
+		EXPECT_EQ(3, (int)hist.size());
+		// Check hist bins
+		EXPECT_DOUBLE_EQ(0.5, hist[0].first);
+		EXPECT_DOUBLE_EQ(2.5, hist[1].first);
+		EXPECT_DOUBLE_EQ(4.5, hist[2].first);
+		// Check hist values
+		EXPECT_EQ(5, hist[0].second);
+		EXPECT_EQ(4, hist[1].second);
+		EXPECT_EQ(3, hist[2].second);
+		// Check behavior with invalid bin size
+		EXPECT_THROW(calculateHist(data, 0), invalid_argument);
+		EXPECT_THROW(calculateHist(data, -1), invalid_argument);
+	}
+
 	TEST(UtilsTests, CalculateProbabilityHistTests) {
+		vector<int> int_data;
+		// Test with empty int data set that exception is thrown
+		EXPECT_THROW(calculateProbabilityHist(int_data, 5), invalid_argument);
+		// Generate a set of data from a uniform real distribution
 		mt19937_64 gen(std::random_device{}());
 		uniform_real_distribution<> dist(0, 100);
-		vector<double> data((int)1e7);
+		vector<double> data((int)2e7, 0.0);
 		for (int i = 0; i < (int)data.size(); i++) {
 			data[i] = dist(gen);
 		}
-		auto hist = calculateProbabilityHist(data, 10);
+		// Calculate histogram with 9 bins
+		auto prob = calculateProbabilityHist(data, 10);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob.size());
+		// Check several random values from the uniform probability hist
 		uniform_int_distribution<> dist2(0, 9);
-		EXPECT_EQ(10, (int)hist.size());
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		hist = calculateProbabilityHist(data, 10.0);
-		EXPECT_EQ(10, (int)hist.size());
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		auto cum_hist = calculateCumulativeHist(prob);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with a bin size of 10.0
+		prob = calculateProbabilityHist(data, 10.0);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob.size());
+		// Check several random values from the uniform probability hist
+		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Clear data vector
 		data.clear();
-		hist = calculateProbabilityHist(data, 10.0);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
-		hist = calculateProbabilityHist(data, 5);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
-		hist = calculateProbabilityHist(data, 1.0, 5);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
+		// Check that empty double data vectors throw an exception
+		EXPECT_THROW(calculateProbabilityHist(data, 10.0), invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data, 5);, invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data, 1.0, 5), invalid_argument);
+		// Check behavior on a test dataset
 		data = { 0.0, 1.0, 2.0, 3.0, 4.0 };
-		hist = calculateProbabilityHist(data, 10);
-		EXPECT_EQ(5, (int)hist.size());
-		hist = calculateProbabilityHist(data, 0.1);
-		EXPECT_EQ(5, (int)hist.size());
+		prob = calculateProbabilityHist(data, 10);
+		EXPECT_EQ(5, (int)prob.size());
+		prob = calculateProbabilityHist(data, 0.1);
+		EXPECT_EQ(5, (int)prob.size());
 	}
 
-	TEST(UtilsTests, ExponentialDOSTests) {
-		mt19937_64 gen(std::random_device{}());
-		vector<double> data((int)2e7, 0.0);
-		createExponentialDOSVector(data, 0.0, 0.1, gen);
-		auto hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
-		vector<double> prob;
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
-		double peak = *max_element(prob.begin(), prob.end());
-		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
-		createExponentialDOSVector(data, 0.0, 0.05, gen);
-		hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
-		prob.clear();
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
-		peak = *max_element(prob.begin(), prob.end());
-		EXPECT_NEAR(0.5*(1.0 / 0.05), peak, 1e-2*peak);
-	}
-
-	TEST(UtilsTests, GaussianDOSTests) {
-		mt19937_64 gen(std::random_device{}());
-		vector<double> data((int)3e7, 0.0);
-		createGaussianDOSVector(data, 0.0, 0.15, gen);
-		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
-		EXPECT_NEAR(0.15, vector_stdev(data), 1e-4);
-		auto hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
-		double peak = hist[499].second;
-		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
-		createGaussianDOSVector(data, 0.0, 0.05, gen);
-		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
-		EXPECT_NEAR(0.05, vector_stdev(data), 1e-4);
-		hist = calculateProbabilityHist(data, 0.005);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
-		vector<double> prob;
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
-		peak = *max_element(prob.begin(), prob.end());
-		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.05, 2)), peak, 1e-1*peak);
-	}
-
-	TEST(UtilsTests, ImportBooleanTests) {
-		bool error_status;
-		EXPECT_TRUE(importBooleanParam("true", error_status));
-		EXPECT_TRUE(importBooleanParam(" true  ", error_status));
-		EXPECT_FALSE(importBooleanParam("false	", error_status));
-		EXPECT_FALSE(importBooleanParam("   false", error_status));
-		EXPECT_FALSE(importBooleanParam("blah", error_status));
-		EXPECT_FALSE(importBooleanParam("	blah  ", error_status));
-		EXPECT_TRUE(error_status);
+	TEST(UtilsTests, Str2boolTests) {
+		EXPECT_TRUE(str2bool("true"));
+		EXPECT_TRUE(str2bool(" true  "));
+		EXPECT_FALSE(str2bool("false	"));
+		EXPECT_FALSE(str2bool("   false"));
+		// Check that invalid input strings throw an exception as designed
+		EXPECT_THROW(str2bool("blah"), invalid_argument);
+		EXPECT_THROW(str2bool("	blah  "), invalid_argument);
 	}
 
 	TEST(UtilsTests, IntegrateDataTests) {
-		vector<pair<double, double>> data_vec = { {0.0,0.0},{1.0,1.0},{2.0,2.0},{3.0,3.0} };
+		vector<pair<double, double>> data_vec = { { 0.0,0.0 },{ 1.0,1.0 },{ 2.0,2.0 },{ 3.0,3.0 } };
 		auto area = integrateData(data_vec);
 		EXPECT_DOUBLE_EQ(area, 9.0 / 2.0);
 	}
@@ -658,6 +702,8 @@ namespace UtilsTests {
 		EXPECT_DOUBLE_EQ(1.048576e-4, intpow(2.5, -10));
 		EXPECT_DOUBLE_EQ(1.0, intpow(15.04564, 0));
 		EXPECT_DOUBLE_EQ(1e-21, intpow(1e-7, 3));
+		// Check integer base to negative power
+		EXPECT_DOUBLE_EQ(0.5, intpow(2, -1));
 	}
 
 	TEST(UtilsTests, RemoveDuplicatesTests) {
@@ -680,11 +726,6 @@ namespace UtilsTests {
 		removeDuplicates(vec3);
 		EXPECT_EQ(4, vec3[1].x);
 		EXPECT_EQ(2, (int)vec3.size());
-		Object object1(0, 1, { 0,0,0 });
-		Object object2(0, 2, { 1,1,1 });
-		vector<Object*> object_ptrs{ &object1, &object1, &object2, &object1, &object2 };
-		removeDuplicates(object_ptrs);
-		EXPECT_EQ(2, (int)object_ptrs.size());
 		vector<int> vec4 = {};
 		removeDuplicates(vec4);
 		EXPECT_EQ(0, (int)vec4.size());
@@ -705,12 +746,16 @@ namespace UtilsTests {
 		}
 		EXPECT_DOUBLE_EQ(5.5, vector_avg(int_data));
 		EXPECT_NEAR(3.02765035409749, vector_stdev(int_data), 1e-14);
+		EXPECT_DOUBLE_EQ(5.5, vector_median(int_data));
+		EXPECT_EQ(4, vector_which_median(int_data));
 		// negative ints
 		for (int i = 0; i < 10; i++) {
 			int_data[i] = -(i + 1);
 		}
 		EXPECT_DOUBLE_EQ(-5.5, vector_avg(int_data));
 		EXPECT_NEAR(3.02765035409749, vector_stdev(int_data), 1e-14);
+		EXPECT_DOUBLE_EQ(-5.5, vector_median(int_data));
+		EXPECT_EQ(4, vector_which_median(int_data));
 		// positive doubles
 		vector<double> double_data;
 		double_data.assign(10, 0);
@@ -719,6 +764,8 @@ namespace UtilsTests {
 		}
 		EXPECT_DOUBLE_EQ(2.75, vector_avg(double_data));
 		EXPECT_NEAR(1.51382517704875, vector_stdev(double_data), 1e-14);
+		EXPECT_DOUBLE_EQ(2.75, vector_median(double_data));
+		EXPECT_EQ(4, vector_which_median(double_data));
 		// negative doubles
 		double_data.assign(10, 0);
 		for (int i = 0; i < 10; i++) {
@@ -726,6 +773,12 @@ namespace UtilsTests {
 		}
 		EXPECT_DOUBLE_EQ(-2.75, vector_avg(double_data));
 		EXPECT_NEAR(1.51382517704875, vector_stdev(double_data), 1e-14);
+		EXPECT_DOUBLE_EQ(-2.75, vector_median(double_data));
+		EXPECT_EQ(4, vector_which_median(double_data));
+		// Check simple odd size vector median
+		vector<double> data = { 3.0, 0.0, 1.0, 5.0, 10.0 };
+		EXPECT_DOUBLE_EQ(3.0, vector_median(data));
+		EXPECT_EQ(0, vector_which_median(data));
 	}
 }
 
@@ -1168,6 +1221,79 @@ namespace ObjectTests {
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
 	}
 
+}
+
+namespace VersionTests {
+
+	TEST(VersionTests, ConstructorTests) {
+		// Check behavior of incorrect formats
+		EXPECT_THROW(Version ver1("blah"), invalid_argument);
+		EXPECT_THROW(Version ver1("v1.0"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.0"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.1-gamma"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.1-alpha"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.1-alpha.0"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.0-alpha.1"), invalid_argument);
+		EXPECT_THROW(Version ver1("1.0.0-alpha"), invalid_argument);
+		EXPECT_THROW(Version ver1("-1.0.0-alpha"), invalid_argument);
+	}
+
+	TEST(VersionTests, ComparisonTests) {
+		Version ver1("1.0.0-alpha.1");
+		Version ver2("1.0.0-alpha.1");
+		EXPECT_EQ(ver1, ver2);
+		EXPECT_GE(ver1, ver2);
+		EXPECT_LE(ver1, ver2);
+		// Check different prerelease numbers
+		Version ver3("1.0.0-alpha.2");
+		EXPECT_NE(ver1, ver3);
+		EXPECT_LT(ver1, ver3);
+		EXPECT_GT(ver3, ver2);
+		// Check different prerelease names
+		Version ver4("1.0.0-beta.1");
+		EXPECT_NE(ver4, ver1);
+		EXPECT_GT(ver4, ver1);
+		EXPECT_LT(ver1, ver4);
+		Version ver5("1.0.0-rc.1");
+		EXPECT_NE(ver4, ver5);
+		EXPECT_LT(ver4, ver5);
+		EXPECT_GT(ver5, ver4);
+		// Check different major numbers
+		Version ver6("2.0.0-alpha.1");
+		EXPECT_NE(ver6, ver1);
+		EXPECT_GT(ver6, ver1);
+		EXPECT_LT(ver1, ver6);
+		// Check different minor numbers
+		Version ver7("1.1.0-alpha.1");
+		EXPECT_NE(ver7, ver1);
+		EXPECT_GT(ver7, ver1);
+		EXPECT_LT(ver1, ver7);
+		// Check different rev numbers
+		Version ver8("1.0.1-alpha.1");
+		EXPECT_NE(ver8, ver1);
+		EXPECT_GT(ver8, ver1);
+		EXPECT_LT(ver1, ver8);
+		// Check abbreviated version
+		Version ver9("1.0-alpha.1");
+		EXPECT_EQ(ver9, ver1);
+		Version ver10("1.0-beta.1");
+		EXPECT_EQ(ver10, ver4);
+	}
+
+	TEST(VersionTests, GetVersionStrTssts) {
+		string version_str = "1.0.0-beta.1";
+		Version ver1(version_str);
+		EXPECT_EQ(version_str, ver1.getVersionStr());
+		stringstream ss1;
+		ss1 << ver1;
+		EXPECT_EQ(version_str, ss1.str());
+		version_str = "2.0.1";
+		Version ver2(version_str);
+		EXPECT_EQ(version_str, ver2.getVersionStr());
+		stringstream ss2;
+		ss2 << ver2;
+		EXPECT_EQ(version_str, ss2.str());
+	}
 }
 
 int main(int argc, char **argv) {
