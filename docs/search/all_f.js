@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['unit_5fsize',['Unit_size',['../struct_parameters___lattice.html#a5f9628b968ba4206a7650c774827b1f0',1,'Parameters_Lattice::Unit_size()'],['../struct_parameters___simulation.html#ab5dda6868bc9359d97a614f027734349',1,'Parameters_Simulation::Unit_size()']]],
-  ['utils',['Utils',['../namespace_utils.html',1,'']]]
+  ['unit_5fsize',['Unit_size',['../struct_k_m_c___lattice_1_1_parameters___lattice.html#a526ce3d0585c3614f6c26e9e5a367fba',1,'KMC_Lattice::Parameters_Lattice::Unit_size()'],['../struct_k_m_c___lattice_1_1_parameters___simulation.html#aa9ca252b7d7fe449732dd8d7bff90c51',1,'KMC_Lattice::Parameters_Simulation::Unit_size()']]]
 ];

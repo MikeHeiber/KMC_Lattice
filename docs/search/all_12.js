@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x',['x',['../struct_coords.html#a59992d986e76375f31828d32c05cd15d',1,'Coords']]]
+  ['y',['y',['../struct_k_m_c___lattice_1_1_coords.html#a7be10a627d73f242e512052a36d71adc',1,'KMC_Lattice::Coords']]]
 ];

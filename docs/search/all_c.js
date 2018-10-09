@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['rand01',['rand01',['../class_simulation.html#a938de951b2766c6fb2b00cf9714caffa',1,'Simulation']]],
-  ['recalc_5fcutoff',['Recalc_cutoff',['../struct_parameters___simulation.html#af55371ca9e7027e799f5be46e40eacc1',1,'Parameters_Simulation']]],
-  ['removeduplicates',['removeDuplicates',['../namespace_utils.html#a5f64d00eec0b50ac5bd119652c99d01b',1,'Utils']]],
-  ['removeevent',['removeEvent',['../class_simulation.html#a3a4808231d4760f0ab30ea39b6a67e8c',1,'Simulation']]],
-  ['removeobject',['removeObject',['../class_simulation.html#a39da17feb9b487c05c9a834def44972f',1,'Simulation']]],
-  ['removewhitespace',['removeWhitespace',['../namespace_utils.html#af9ceee3373ffe317f07d177cf0dfe056',1,'Utils']]],
-  ['resetinitialcoords',['resetInitialCoords',['../class_object.html#a1d1115b941cc6965dddf5510cf49bbee',1,'Object']]]
+  ['rand01',['rand01',['../class_k_m_c___lattice_1_1_simulation.html#a27b476d904f3ad0af2ef58a962f2574a',1,'KMC_Lattice::Simulation']]],
+  ['rate_5fconstant',['rate_constant',['../class_k_m_c___lattice_1_1_event.html#a98949e76ebd2f2350efdbd5bc5d34c92',1,'KMC_Lattice::Event']]],
+  ['recalc_5fcutoff',['Recalc_cutoff',['../struct_k_m_c___lattice_1_1_parameters___simulation.html#a11e2d4ccb4debeb97f539b696ecc2268',1,'KMC_Lattice::Parameters_Simulation']]],
+  ['removeevent',['removeEvent',['../class_k_m_c___lattice_1_1_simulation.html#a1df8865ebf3d6d358263b911f524a573',1,'KMC_Lattice::Simulation']]],
+  ['removeobject',['removeObject',['../class_k_m_c___lattice_1_1_simulation.html#ac2003bd2e11263b622a3d95ceaee01c4',1,'KMC_Lattice::Simulation']]],
+  ['resetinitialcoords',['resetInitialCoords',['../class_k_m_c___lattice_1_1_object.html#ac36b584f43f8f72b454031c760327b24',1,'KMC_Lattice::Object']]]
 ];
