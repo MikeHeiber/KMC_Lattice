@@ -225,21 +225,6 @@ namespace KMC_Lattice {
 		}
 	}
 
-	bool importBooleanParam(const std::string& input, bool& error_status) {
-		string str = removeWhitespace(input);
-		if (str.compare("true") == 0) {
-			return true;
-		}
-		else if (str.compare("false") == 0) {
-			return false;
-		}
-		else {
-			cout << "Error importing boolean parameter." << endl;
-			error_status = true;
-			return false;
-		}
-	}
-
 	double integrateData(const std::vector<std::pair<double, double>>& data) {
 		double area = 0;
 		for (int i = 1; i < (int)data.size(); i++) {

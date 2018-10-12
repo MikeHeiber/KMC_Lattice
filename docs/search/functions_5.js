@@ -32,6 +32,7 @@ var searchData=
   ['gettemp',['getTemp',['../class_k_m_c___lattice_1_1_simulation.html#a9218e6b4f0b164290edf73ec9a76c94b',1,'KMC_Lattice::Simulation']]],
   ['gettime',['getTime',['../class_k_m_c___lattice_1_1_simulation.html#ae0baa87a3f9c2c60431c2de73ca5b5eb',1,'KMC_Lattice::Simulation']]],
   ['getunitsize',['getUnitSize',['../class_k_m_c___lattice_1_1_lattice.html#ae181c1b9dd4108e94bfa40fd807caf11',1,'KMC_Lattice::Lattice']]],
+  ['getversionstr',['getVersionStr',['../class_k_m_c___lattice_1_1_version.html#ab6a3e4eca3a783aeec8488f95a34c0c4',1,'KMC_Lattice::Version']]],
   ['getvolume',['getVolume',['../class_k_m_c___lattice_1_1_lattice.html#adb7197961eb56e1b955bb390116dd32e',1,'KMC_Lattice::Lattice::getVolume()'],['../class_k_m_c___lattice_1_1_simulation.html#ac0b0fa2b84e54e52e649804d4a1ea37f',1,'KMC_Lattice::Simulation::getVolume()']]],
   ['getwidth',['getWidth',['../class_k_m_c___lattice_1_1_lattice.html#a741678dc7025e8b189eb36be8cb887e0',1,'KMC_Lattice::Lattice']]]
 ];

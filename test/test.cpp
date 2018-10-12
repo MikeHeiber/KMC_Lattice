@@ -599,7 +599,7 @@ namespace UtilsTests {
 		// Calculate the discrete prob dist
 		auto prob_dist = calculateDensityHist(prob_hist);
 		// Check that the prob dist integrates to 1
-		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-3);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
 		// Calculate histogram with a bin size of 10.0
 		prob_hist = calculateProbabilityHist(data, 10.0);
 		// Check for the correct number of bins
@@ -618,7 +618,7 @@ namespace UtilsTests {
 		// Calculate the discrete prob dist
 		prob_dist = calculateDensityHist(prob_hist);
 		// Check that the prob dist integrates to 1
-		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-3);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
 		// Clear data vector
 		data.clear();
 		// Check that empty double data vectors throw an exception
