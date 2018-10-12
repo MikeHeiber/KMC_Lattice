@@ -629,6 +629,9 @@ namespace UtilsTests {
 		vector<pair<double,double>> hist;
 		EXPECT_THROW(calculateDensityHist(hist), invalid_argument);
 		EXPECT_THROW(calculateCumulativeHist(hist), invalid_argument);
+		// Check that calculation on single entry histogram throws an exception
+		hist.push_back(make_pair(0.0,1.0));
+		EXPECT_THROW(calculateDensityHist(hist), invalid_argument);
 		// Check behavior on a test dataset
 		data = { 0.0, 1.0, 2.0, 3.0, 4.0 };
 		prob_hist = calculateProbabilityHist(data, 10);
@@ -757,6 +760,22 @@ namespace UtilsTests {
 		EXPECT_DOUBLE_EQ(-2.75, array_avg(double_data, 10));
 		EXPECT_NEAR(1.51382517704875, array_stdev(double_data, 10), 1e-14);
 	}
+	
+	TEST(UtilsTests, RoundTests){
+		// Check round down positive val
+		EXPECT_EQ(1 , round_int(1.1));
+		// Check round up positive val
+		EXPECT_EQ(2 , round_int(1.5));
+		// Check round down to zero
+		EXPECT_EQ(0 , round_int(0.4));
+		// Check round up to zero
+		EXPECT_EQ(0 , round_int(-0.4));
+		// Check round down negative val
+		EXPECT_EQ(-2 , round_int(-1.5));
+		// Check round up negative val
+		EXPECT_EQ(-1 , round_int(-1.1));
+	}
+	
 
 	TEST(UtilsTests, IntPowTests) {
 		EXPECT_DOUBLE_EQ(1.0, intpow(2.5, 0));
