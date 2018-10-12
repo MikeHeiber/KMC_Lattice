@@ -83,6 +83,8 @@ For example, site energies can be assigned to derived site classes to account fo
 Simulation class - This base class can be extended to manage all derived objects and their associated events. 
 The Simulation class contains the fundamental properties and back-end operations that most simulations would require.
 
-Utils - This contains a number of useful utility functions, scientific constants, etc. that can then be used throughout the software package.
+Utils - This file contains a number of useful utility functions, scientific constants, etc. that can then be used throughout the software package.
+
+Version class - This class stores a valid software version string and has version comparison operators and can be used to compare different versions of things to check for compatibility.
 
 Detailed API documentation for these classes and the entire KMC_Lattice package can be viewed [here](https://mikeheiber.github.io/KMC_Lattice/).

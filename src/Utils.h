@@ -1,6 +1,6 @@
-// Copyright (c) 2018 Michael C. Heiber
+// Copyright (c) 2017-2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
-// For more information, see the LICENSE file that accompanies this software.
+// For more information, see the LICENSE file that accompanies this software package.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
 
 #ifndef KMC_LATTICE_UTILS_H
@@ -8,13 +8,15 @@
 
 #include <algorithm>
 #include <cmath>
-#include <functional>
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <mpi.h>
+#include <numeric>
 #include <random>
 #include <set>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -23,7 +25,7 @@ namespace KMC_Lattice {
 	//! \brief This simple struct contains Cartesian coordinates specified by integers x,y,z.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	struct Coords {
 		//! The x Cartesian coordinate.
 		int x;
@@ -54,11 +56,13 @@ namespace KMC_Lattice {
 			y = yval;
 			z = zval;
 		}
+
 		//! \brief Defines the conditions when two Coords structs are deemed to be equal.
 		//! \param rhs is the right hand side Coords struct of the comparison operator.
 		bool operator==(const Coords& rhs) const {
 			return (x == rhs.x && y == rhs.y && z == rhs.z);
 		}
+
 		//! \brief Defines the conditions when two Coords structs are deemed to be unequal.
 		//! \param rhs is the right hand side Coords struct  of the comparison operator.
 		bool operator!=(const Coords& rhs) const {
@@ -75,7 +79,39 @@ namespace KMC_Lattice {
 	static constexpr double Pi = 3.14159265359;
 	static constexpr double Coulomb_constant = 8.987551787e9; // N m^2 C^-2
 
-	//! \brief Calculates the probability histogram for the input data vector using the input number of bins.
+	//! \brief Calculates the cumulative histogram from the input probability histogram data.
+	//! \param hist is the input probability histogram which is a vector of x-y pairs consisting of bin-centered x values and probability y values.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and cumulative probability y values.
+	std::vector<std::pair<double, double>> calculateCumulativeHist(const std::vector<std::pair<double, double>>& hist);
+
+	//! \brief Calculates the density histogram from the input probability histogram.
+	//! \param hist is the input probability histogram which is a vector of x-y pairs consisting of bin-centered x values and probability y values.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability density y values.
+	std::vector<std::pair<double, double>> calculateDensityHist(const std::vector<std::pair<double, double>>& hist);
+
+	//! \brief Calculates the histogram for the input integer data vector using the input bin size.
+	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set with the specified bin size.
+	//! The function outputs bin-centered x values and counts y values in a x-y pair vector.
+	//! \param data is the input integer data vector.
+	//! \param bin_size is the specified bin size
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and counts y values.
+	std::vector<std::pair<double, int>> calculateHist(const std::vector<int>& data, int bin_size);
+
+	//! \brief Calculates the probability histogram for the input integer data vector using the input bin size.
+	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set with the specified bin size.
+	//! The function outputs bin-centered x values and probability y values in a x-y pair vector.
+	//! \param data is the input integer data vector.
+	//! \param bin_size is the specified bin size
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<int>& data, int bin_size);
+
+	//! \brief Calculates the probability histogram for the input histogram data vector.
+	//! The function outputs bin-centered x values and probability y values in a x-y pair vector.
+	//! \param hist is the input histogram data vector.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<std::pair<double, int>> hist);
+
+	//! \brief Calculates the probability histogram for the input double data vector using the input number of bins.
 	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. 
 	//! The function outputs bin-centered x values and probability y values in a x-y pair vector.
 	//! \param data is the input data vector.
@@ -117,13 +153,6 @@ namespace KMC_Lattice {
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
 	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937_64& gen);
 
-	//! \brief Extracts a boolean value from a string containing "true" or "false".
-	//! \param input is the input string.
-	//! \param error_status is an input boolean that is used to indicate an error with the import process.
-	//! \return true if the input string is "true".
-	//! \return flase if the input string is "flase".
-	bool importBooleanParam(const std::string& input, bool& error_status);
-
 	//! \brief Numerically integrates a vector of x-y data using the trapezoid rule.
 	//! \warning The function assumes that the data is sorted by the x values.
 	//! \param data is the data vector containing x-y data pairs.
@@ -137,15 +166,24 @@ namespace KMC_Lattice {
 	//! \return the interpolated y-value when the input x-value lies within the range of the input data.
 	double interpolateData(const std::vector<std::pair<double, double>>& data, const double x_val);
 
+	//! \brief Uses MPI to calculate the average probability histogram from separate histograms coming from different processors.
+	//! \details Each processor calls this function and sends an input histogram. Each input histogram must have the same bin size.  
+	//! Upon function return, processor 0 receives the average probabiliy histogram and all of the other processors receive an empty probability histogram.
+	//! \param input_hist is the input histogram data from the processor calling the function.
+	//! \return A pair vector that is the average probability histogram of all input histograms from each processor, when called on processor 0.
+	//! \return An empty vector when called on other processors.
+	std::vector<std::pair<double, double>> MPI_calculateProbHistAvg(const std::vector<std::pair<double, int>>& input_hist);
+
 	//! \brief Uses MPI to calculate the element-wise average vector from separate vectors coming from different processors.
-	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0 
-	//! receives the average vector and all of the other processors receive an empty vector.
+	//! \details Each processor calls this function and sends an input vector. If vectors are different sizes, the function uses trailing zeroes
+	//! to make all vectors the same size before averaging. Upon function return, processor 0 receives the average vector and all of the other 
+	//! processors receive an empty vector.
 	//! \param input_vector is the input data from the processor calling the function.
 	//! \return A vector that is the element-wise average of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
 	std::vector<double> MPI_calculateVectorAvg(const std::vector<double>& input_vector);
 
-	//! \brief Uses MPI to calculate the element-wise sum vector from separate vectors coming from different processors.
+	//! \brief Uses MPI to calculate the element-wise sum vector from separate equally sized vectors coming from different processors.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0 
 	//! receives the sum vector and all of the other processors receive an empty vector.
 	//! \param input_vector is the input data from the processor calling the function.
@@ -160,6 +198,22 @@ namespace KMC_Lattice {
 	//! \return A vector that is the element-wise sum of all input vectors from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
 	std::vector<int> MPI_calculateVectorSum(const std::vector<int>& input_vector);
+
+	//! \brief Uses MPI to gather integer values from separate processors to build one vector containing all of the data.
+	//! \details Each processor calls this function and sends an input value.  Upon function return, processor 0
+	//! receives the data vector and all of the other processors receive an empty vector.
+	//! \param input_val is the input integer data value from the processor calling the function.
+	//! \return A vector that is a collection of the values from each processor, when called on processor 0.
+	//! \return An empty vector when called on other processors.
+	std::vector<int> MPI_gatherValues(const int input_val);
+
+	//! \brief Uses MPI to gather double values from separate processors to build one vector containing all of the data.
+	//! \details Each processor calls this function and sends an input value.  Upon function return, processor 0
+	//! receives the data vector and all of the other processors receive an empty vector.
+	//! \param input_val is the input double data value from the processor calling the function.
+	//! \return A vector that is a collection of the values from each processor, when called on processor 0.
+	//! \return An empty vector when called on other processors.
+	std::vector<double> MPI_gatherValues(const double input_val);
 
 	//! \brief Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.
 	//! \details Each processor calls this function and sends an input vector.  Upon function return, processor 0
@@ -182,6 +236,18 @@ namespace KMC_Lattice {
 	//! \returns a new string that will have the whitespace removed.
 	std::string removeWhitespace(const std::string& str);
 
+	//! \brief Rounds the input double value to the nearest integer value.
+	//! \param num is the input double value.
+	//! \returns an integer value that is the rounded value.
+	int round_int(const double num);
+
+	//! \brief Extracts a boolean value from a string containing "true" or "false".
+	//! Throws an invalid_argument exception if the input string is not "true" or "false".
+	//! \param input is the input string.
+	//! \return true if the input string is "true".
+	//! \return flase if the input string is "flase".
+	bool str2bool(const std::string& input);
+
 	// Template functions
 
 	//! \brief This template function calculates and returns the average value in double format when given an array of numerical datatypes.
@@ -197,8 +263,22 @@ namespace KMC_Lattice {
 		return sum / array_size;
 	}
 
-	//! \brief This template function calculates and returns the standard deviation in double format when given an array of numerical datatypes.
+	//! \brief This template function calculates and returns the median value when given an array of numerical datatypes.
 	//! \param data is the array of numerical data.
+	//! \param array_size is the size of the input data array.
+	//! \return The median value of the data set.
+	template<typename T>
+	T array_median(const T data[], const int array_size) {
+		std::vector<T> data_vect(array_size);
+		for (int i = 0; i < array_size; i++) {
+			data_vect[i] = data[i];
+		}
+		sort(data_vect.begin(), data_vect.end());
+		return data_vect[array_size / 2];
+	}
+
+	//! \brief This template function calculates and returns the standard deviation in double format when given an array of numerical datatypes.
+	//! \param data is the input array of numerical data.
 	//! \param array_size is the size of the input data array.
 	//! \return The standard deviation of the data set in double format.
 	template<typename T>
@@ -211,15 +291,31 @@ namespace KMC_Lattice {
 		return sqrt(sum / (array_size - 1));
 	}
 
+	//! \brief This template function determines which element in the data array has the median value of the dataset.
+	//! \param data is the input array of numerical data.
+	//! \param array_size is the size of the input data array.
+	//! \return the integer array index that indicates the median value.
+	//! \return -1 if the median cannot be determined.
+	template<typename T>
+	int array_which_median(const T data[], const int array_size) {
+		T median = array_median(data, array_size);
+		for (int i = 0; i < array_size; i++) {
+			if (data[i] == median) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	//! \brief This template function calculates and returns the results of an integer power operation on a base numerical datatype.
 	//! \param base is the base of the integer power operation and can be any numerical type.
 	//! \param exponent is the integer exponent for the integer power operation.
-	//! \return The result of the integer power operation in whichever datatype format was input with the base.
-	template<typename base_type>
-	base_type intpow(const base_type base, const int exponent) {
-		base_type result;
+	//! \return The result of the integer power operation in double format.
+	template<typename T>
+	double intpow(const T base, const int exponent) {
+		double result;
 		if (exponent == 0) {
-			result = 1;
+			result = 1.0;
 			return result;
 		}
 		result = base;
@@ -240,8 +336,8 @@ namespace KMC_Lattice {
 	void outputVectorToFile(std::vector<T>& vec, std::string filename) {
 		std::ofstream outfile;
 		outfile.open(filename);
-		for (auto const &item : vec) {
-			outfile << item << "\n";
+		for (int i = 0; i < (int)vec.size(); i++) {
+			outfile << vec[i] << "\n";
 		}
 		outfile.close();
 	}
@@ -254,14 +350,14 @@ namespace KMC_Lattice {
 	void outputVectorToFile(std::vector<std::pair<T, T>>& vec, std::string filename) {
 		std::ofstream outfile;
 		outfile.open(filename);
-		for (auto const &item : vec) {
-			outfile << item.first << "," << item.second << "\n";
+		for (int i = 0; i < (int)vec.size(); i++) {
+			outfile << vec[i].first << "," << vec[i].second << "\n";
 		}
 		outfile.close();
 	}
 
 	//! \brief This template function efficienctly removes the duplicate entries from an input vector.
-	//! \details This algorithm allows efficient removal of duplicate vector objects when > or < comparison operators do not exist.
+	//! \details This algorithm allow efficient removal of duplicate vector objects when > or < comparison operators do not exist.
 	//! \param vec is the input vector to be operated on.
 	template<typename T>
 	void removeDuplicates(std::vector<T> &vec) {
@@ -285,7 +381,32 @@ namespace KMC_Lattice {
 	//! \return The average of the data set in double format.
 	template<typename T, typename A>
 	double vector_avg(const std::vector<T, A>& data) {
-		return accumulate(data.begin(), data.end(), 0.0) / (double)data.size();
+		double sum = 0;
+		for (auto it = data.begin(); it != data.end(); ++it) {
+			sum += *it;
+		}
+		return sum / data.size();
+	}
+
+	//! \brief This template function calculates and returns the median value when given a vector of numerical datatypes.
+	//! \param data is the vector of numerical data.
+	//! \return The median value in the data set.
+	template<typename T, typename A>
+	double vector_median(std::vector<T, A> data) {
+		if (data.size() % 2 == 0) {
+			const auto median_it1 = data.begin() + data.size() / 2 - 1;
+			const auto median_it2 = data.begin() + data.size() / 2;
+			std::nth_element(data.begin(), median_it1, data.end());
+			T val1 = *median_it1;
+			std::nth_element(data.begin(), median_it2, data.end());
+			T val2 = *median_it2;
+			return (double)(val1 + val2) / 2.0;
+		}
+		else {
+			const auto median_it = data.begin() + data.size() / 2;
+			std::nth_element(data.begin(), median_it, data.end());
+			return *median_it;
+		}
 	}
 
 	//! \brief This template function calculates and returns the standard deviation in double format when given a vector of numerical datatypes.
@@ -293,11 +414,27 @@ namespace KMC_Lattice {
 	//! \return The standard deviation of the data set in double format.
 	template<typename T, typename A>
 	double vector_stdev(const std::vector<T, A>& data) {
+		double sum = 0;
 		double avg = vector_avg(data);
-		double sum = accumulate(data.begin(), data.end(), 0.0, [avg](double& x, const T& element) {
-			return x + (element - avg)*(element - avg);
-		});
-		return sqrt(sum / (double)((int)data.size() - 1));
+		for (auto it = data.begin(); it != data.end(); ++it) {
+			sum += (*it - avg)*(*it - avg);
+		}
+		return sqrt(sum / (data.size() - 1));
+	}
+
+	//! \brief This template function determines which element in the data vector is closest to the median value of the dataset.
+	//! \details if multiple values are equally close, the first one in the vector is selected.
+	//! \param data is the input vector of numerical data.
+	//! \return the integer vector index that indicates the median value.
+	template<typename T, typename A>
+	int vector_which_median(const std::vector<T, A>& data) {
+		double median = vector_median(data);
+		std::vector<double> diff(data.size());
+		for (int i = 0; i < (int)data.size(); i++) {
+			diff[i] = fabs(data[i] - median);
+		}
+		auto it = min_element(diff.begin(), diff.end());
+		return distance(diff.begin(), it);
 	}
 }
 

@@ -15,5 +15,6 @@ var searchData=
   ['settime',['setTime',['../class_k_m_c___lattice_1_1_simulation.html#a596a265370c7d2836ea7d47426b48c29',1,'KMC_Lattice::Simulation']]],
   ['setxyz',['setXYZ',['../struct_k_m_c___lattice_1_1_coords.html#a83148899ff24c3d7e0ec84e791b7d31e',1,'KMC_Lattice::Coords']]],
   ['simulation',['Simulation',['../class_k_m_c___lattice_1_1_simulation.html#a9aefeb9ae9754ccb057735d631f66893',1,'KMC_Lattice::Simulation']]],
-  ['site',['Site',['../class_k_m_c___lattice_1_1_site.html#a3aef6e89bd8a5af5aaa35cb542af4a94',1,'KMC_Lattice::Site']]]
+  ['site',['Site',['../class_k_m_c___lattice_1_1_site.html#a3aef6e89bd8a5af5aaa35cb542af4a94',1,'KMC_Lattice::Site']]],
+  ['str2bool',['str2bool',['../namespace_k_m_c___lattice.html#a82cf4b636d0653f1e68b9035ae63a6f8',1,'KMC_Lattice']]]
 ];

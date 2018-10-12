@@ -24,13 +24,22 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "KMC_Lattice", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", null ],
+        [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -41,7 +50,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-".html"
+"_event_8cpp.html",
+"struct_k_m_c___lattice_1_1_parameters___simulation.html#accecb211f89b76589b4b180bc4dbe609"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
