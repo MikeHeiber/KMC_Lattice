@@ -10,7 +10,7 @@ ifeq ($(lastword $(subst /, ,$(CXX))),pgc++)
 	FLAGS += -O2 -fastsse -Mvect -std=c++11 -Mdalign -Munroll -Mipa=fast -Kieee -m64 -I. -Isrc
 endif
 
-OBJS = src/Event.o src/Lattice.o src/Object.o src/Simulation.o src/Site.o src/Utils.o
+OBJS = src/Event.o src/Lattice.o src/Object.o src/Simulation.o src/Site.o src/Utils.o src/Version.o
 
 all : libKMC.a
 ifndef FLAGS
@@ -36,6 +36,9 @@ src/Site.o : src/Site.cpp src/Site.h
 	mpicxx $(FLAGS) -c $< -o $@
 	
 src/Utils.o : src/Utils.cpp src/Utils.h
+	mpicxx $(FLAGS) -c $< -o $@
+	
+src/Version.o : src/Version.cpp src/Version.h
 	mpicxx $(FLAGS) -c $< -o $@
 
 #

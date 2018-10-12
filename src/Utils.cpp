@@ -10,9 +10,32 @@ using namespace std;
 namespace KMC_Lattice {
 
 	std::vector<std::pair<double, double>> calculateCumulativeHist(const std::vector<std::pair<double, double>>& hist) {
+		// Check for valid input data
+		if ((int)hist.size() == 0) {
+			cout << "Error! Cannot calculate cumulative histogram because the input histogram vector is empty." << endl;
+			throw invalid_argument("Error! Cannot calculate cumulative histogram because the input histogram vector is empty.");
+		}
 		auto result = hist;
 		for (int i = 1; i < (int)hist.size(); i++) {
 			result[i].second = result[i - 1].second + hist[i].second;
+		}
+		return result;
+	}
+
+	std::vector<std::pair<double, double>> calculateDensityHist(const std::vector<std::pair<double, double>>& hist) {
+		// Check for valid input data
+		if ((int)hist.size() == 0) {
+			cout << "Error! Cannot calculate density histogram because input probability histogram is empty." << endl;
+			throw invalid_argument("Error! Cannot calculate density histogram because the input probability histogram is empty.");
+		}
+		if ((int)hist.size() < 2) {
+			cout << "Error! Cannot calculate density histogram because the input probability histogram is too small." << endl;
+			throw invalid_argument("Error! Cannot calculate density histogram because the input probability histogram is too small.");
+		}
+		double bin_size = hist[1].first - hist[0].first;
+		auto result = hist;
+		for (auto& item : result) {
+			item.second /= bin_size;
 		}
 		return result;
 	}

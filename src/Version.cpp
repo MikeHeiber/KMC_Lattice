@@ -9,7 +9,7 @@ using namespace std;
 
 namespace KMC_Lattice {
 
-	Version Current_version("2.0.0-rc.1");
+	Version Current_version("2.0.0-beta.5");
 
 	Version::Version() { }
 

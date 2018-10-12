@@ -80,9 +80,14 @@ namespace KMC_Lattice {
 	static constexpr double Coulomb_constant = 8.987551787e9; // N m^2 C^-2
 
 	//! \brief Calculates the cumulative histogram from the input probability histogram data.
-	//! \param data is the input probability histogram which is a vector of x-y pairs consisting of bin-centered x values and probability y values.
+	//! \param hist is the input probability histogram which is a vector of x-y pairs consisting of bin-centered x values and probability y values.
 	//! \returns A vector of x-y pairs consisting of bin-centered x values and cumulative probability y values.
-	std::vector<std::pair<double, double>> calculateCumulativeHist(const std::vector<std::pair<double, double>>& data);
+	std::vector<std::pair<double, double>> calculateCumulativeHist(const std::vector<std::pair<double, double>>& hist);
+
+	//! \brief Calculates the density histogram from the input probability histogram.
+	//! \param hist is the input probability histogram which is a vector of x-y pairs consisting of bin-centered x values and probability y values.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability density y values.
+	std::vector<std::pair<double, double>> calculateDensityHist(const std::vector<std::pair<double, double>>& hist);
 
 	//! \brief Calculates the histogram for the input integer data vector using the input bin size.
 	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set with the specified bin size.

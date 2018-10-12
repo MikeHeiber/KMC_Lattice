@@ -271,17 +271,19 @@ namespace SimulationTests {
 			indices[i] = event_ptr->getDestCoords().x;
 			times[i] = event_ptr->getExecutionTime();
 		}
-		// Calculate probability distribution of indices and times
-		auto times_hist = calculateProbabilityHist(times, 1000);
+		// Calculate probability hist of indices and times
+		auto prob_hist = calculateProbabilityHist(times, 1000);
+		// Calculate the discrete prob dist
+		auto prob_dist = calculateDensityHist(prob_hist);
 		// Test probability distribution of indices
 		for (int i = 0; i < 10; i++) {
 			int count = count_if(indices.begin(), indices.end(), [i](int element) {return element == i; });
 			EXPECT_NEAR(1.0 / 10.0, (double)count / (double)indices.size(), 2e-3);
 		}
-		// Test probability distribution of times
-		EXPECT_NEAR(1.0, integrateData(times_hist), 2e-2);
-		EXPECT_NEAR(1e7, times_hist[0].second, 2e5);
-		auto it = find_if(times_hist.begin(), times_hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-7; });
+		// Test probability dist of times
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-2);
+		EXPECT_NEAR(1e7, prob_dist[0].second, 2e5);
+		auto it = find_if(prob_dist.begin(), prob_dist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-7; });
 		it--;
 		EXPECT_NEAR(1e7 / 2.7182818284590, (*it).second, 2e5);
 		// Test average wait time
@@ -518,34 +520,34 @@ namespace UtilsTests {
 		EXPECT_EQ(3, hist[2].second);
 		EXPECT_EQ(1, hist[3].second);
 		EXPECT_EQ(2, hist[4].second);
-		// Caclulate the probability hist using the hist
-		auto prob = calculateProbabilityHist(hist);
+		// Calculate the probability hist using the hist
+		auto prob_hist = calculateProbabilityHist(hist);
 		// Check behavior if the hist is empty
 		hist.clear();
 		EXPECT_THROW(calculateProbabilityHist(hist), invalid_argument);
-		// Check prob size
-		EXPECT_EQ(5, (int)prob.size());
+		// Check prob_hist size
+		EXPECT_EQ(5, (int)prob_hist.size());
 		// Check prob values
-		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[0].second);
-		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[1].second);
-		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[2].second);
-		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob[3].second);
-		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[4].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[0].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[1].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[2].second);
+		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob_hist[3].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[4].second);
 		// Check that the prob hist sums to 1
-		auto cum_hist = calculateCumulativeHist(prob);
+		auto cum_hist = calculateCumulativeHist(prob_hist);
 		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
 		// Calculate the prob hist directly from the data vector
-		prob = calculateProbabilityHist(data, 1);
+		prob_hist = calculateProbabilityHist(data, 1);
 		// Check prob size
-		EXPECT_EQ(5, (int)prob.size());
+		EXPECT_EQ(5, (int)prob_hist.size());
 		// Check prob values
-		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[0].second);
-		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[1].second);
-		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob[2].second);
-		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob[3].second);
-		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob[4].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[0].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[1].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[2].second);
+		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob_hist[3].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[4].second);
 		// Check that the prob hist sums to 1
-		cum_hist = calculateCumulativeHist(prob);
+		cum_hist = calculateCumulativeHist(prob_hist);
 		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
 		// Check behavior how larger bin size
 		// Create sample data
@@ -579,40 +581,60 @@ namespace UtilsTests {
 			data[i] = dist(gen);
 		}
 		// Calculate histogram with 9 bins
-		auto prob = calculateProbabilityHist(data, 10);
+		auto prob_hist = calculateProbabilityHist(data, 10);
 		// Check for the correct number of bins
-		EXPECT_EQ(10, (int)prob.size());
+		EXPECT_EQ(10, (int)prob_hist.size());
 		// Check several random values from the uniform probability hist
 		uniform_int_distribution<> dist2(0, 9);
-		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
-		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
-		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
 		// Check that the prob hist sums to 1
-		auto cum_hist = calculateCumulativeHist(prob);
+		auto cum_hist = calculateCumulativeHist(prob_hist);
 		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
-		// Calculate histogram with a bin size of 10.0
-		prob = calculateProbabilityHist(data, 10.0);
+		// Calculate histogram with 100 bins
+		prob_hist = calculateProbabilityHist(data, 1000);
 		// Check for the correct number of bins
-		EXPECT_EQ(10, (int)prob.size());
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		auto prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-3);
+		// Calculate histogram with a bin size of 10.0
+		prob_hist = calculateProbabilityHist(data, 10.0);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob_hist.size());
 		// Check several random values from the uniform probability hist
-		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
-		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
-		EXPECT_NEAR(10.0 / 100.0, prob[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
 		// Check that the prob hist sums to 1
-		cum_hist = calculateCumulativeHist(prob);
+		cum_hist = calculateCumulativeHist(prob_hist);
 		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with a bin size of 0.1
+		prob_hist = calculateProbabilityHist(data, 0.1);
+		// Check for the correct number of bins
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-3);
 		// Clear data vector
 		data.clear();
 		// Check that empty double data vectors throw an exception
 		EXPECT_THROW(calculateProbabilityHist(data, 10.0), invalid_argument);
 		EXPECT_THROW(calculateProbabilityHist(data, 5);, invalid_argument);
 		EXPECT_THROW(calculateProbabilityHist(data, 1.0, 5), invalid_argument);
+		// Check that calculation on empty histogram vectors throw an exception
+		vector<pair<double,double>> hist;
+		EXPECT_THROW(calculateDensityHist(hist), invalid_argument);
+		EXPECT_THROW(calculateCumulativeHist(hist), invalid_argument);
 		// Check behavior on a test dataset
 		data = { 0.0, 1.0, 2.0, 3.0, 4.0 };
-		prob = calculateProbabilityHist(data, 10);
-		EXPECT_EQ(5, (int)prob.size());
-		prob = calculateProbabilityHist(data, 0.1);
-		EXPECT_EQ(5, (int)prob.size());
+		prob_hist = calculateProbabilityHist(data, 10);
+		EXPECT_EQ(5, (int)prob_hist.size());
+		prob_hist = calculateProbabilityHist(data, 0.1);
+		EXPECT_EQ(5, (int)prob_hist.size());
 	}
 	
 	TEST(UtilsTests, ExponentialDOSTests) {
@@ -620,16 +642,18 @@ namespace UtilsTests {
 		vector<double> data((int)2e7, 0.0);
 		createExponentialDOSVector(data, 0.0, 0.1, gen);
 		auto hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		auto prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		vector<double> prob;
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		for_each(prob_dist.begin(),prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		double peak = *max_element(prob.begin(), prob.end());
 		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
 		createExponentialDOSVector(data, 0.0, 0.05, gen);
 		hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		prob.clear();
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		peak = *max_element(prob.begin(), prob.end());
 		EXPECT_NEAR(0.5*(1.0 / 0.05), peak, 1e-2*peak);
 	}
@@ -641,16 +665,18 @@ namespace UtilsTests {
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
 		EXPECT_NEAR(0.15, vector_stdev(data), 1e-4);
 		auto hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
-		double peak = hist[499].second;
+		auto prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
+		double peak = prob_dist[499].second;
 		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
 		createGaussianDOSVector(data, 0.0, 0.05, gen);
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
 		EXPECT_NEAR(0.05, vector_stdev(data), 1e-4);
 		hist = calculateProbabilityHist(data, 0.005);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		vector<double> prob;
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		peak = *max_element(prob.begin(), prob.end());
 		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.05, 2)), peak, 1e-1*peak);
 	}
@@ -1198,9 +1224,10 @@ namespace EventTests {
 		// Calculate probability distribution of calculated times
 		auto hist = calculateProbabilityHist(times, 1000);
 		// Test probability distribution
-		EXPECT_NEAR(1.0, integrateData(hist), 2e-2);
-		EXPECT_NEAR(1e9, hist[0].second, 2e7);
-		auto it = find_if(hist.begin(), hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-9; });
+		auto prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-2);
+		EXPECT_NEAR(1e9, prob_dist[0].second, 2e7);
+		auto it = find_if(prob_dist.begin(), prob_dist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-9; });
 		it--;
 		EXPECT_NEAR(1e9 / 2.7182818284590, (*it).second, 2e7);
 		// Test average wait time
@@ -1213,9 +1240,10 @@ namespace EventTests {
 		// Calculate probability distribution of calculated times
 		hist = calculateProbabilityHist(times, 1000);
 		// Test probability distribution
-		EXPECT_NEAR(1.0, integrateData(hist), 2e-2);
-		EXPECT_NEAR(1e12, hist[0].second, 2e10);
-		it = find_if(hist.begin(), hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-12; });
+		prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-2);
+		EXPECT_NEAR(1e12, prob_dist[0].second, 2e10);
+		it = find_if(prob_dist.begin(), prob_dist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-12; });
 		it--;
 		EXPECT_NEAR(1e12 / 2.7182818284590, (*it).second, 2e10);
 		// Test average wait time
@@ -1320,7 +1348,7 @@ namespace VersionTests {
 		EXPECT_EQ(ver10, ver4);
 	}
 
-	TEST(VersionTests, GetVersionStrTssts) {
+	TEST(VersionTests, GetVersionStrTests) {
 		string version_str = "1.0.0-beta.1";
 		Version ver1(version_str);
 		EXPECT_EQ(version_str, ver1.getVersionStr());
