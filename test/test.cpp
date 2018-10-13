@@ -377,7 +377,7 @@ namespace SimulationTests {
 		double displacement = vector_avg(sim.displacement_data);
 		double dim = 3.0;
 		double expected_val = sqrt(2.0 * sim.N_steps / dim)*(tgamma((dim + 1.0) / 2.0) / tgamma(dim / 2.0));
-		EXPECT_NEAR(expected_val, displacement, 2e-2*expected_val);
+		EXPECT_NEAR(expected_val, displacement, 3e-2*expected_val);
 	}
 
 	TEST_F(SimulationTest, 2DRandomWalkTests) {
@@ -399,7 +399,7 @@ namespace SimulationTests {
 		double displacement2D = vector_avg(sim2D.displacement_data);
 		double dim = 2.0;
 		double expected_val = sqrt(2.0 * sim2D.N_steps / dim)*(tgamma((dim + 1.0) / 2.0) / tgamma(dim / 2.0));
-		EXPECT_NEAR(expected_val, displacement2D, 2e-2*expected_val);
+		EXPECT_NEAR(expected_val, displacement2D, 3e-2*expected_val);
 	}
 
 	TEST_F(SimulationTest, 1DRandomWalkTests) {
@@ -421,7 +421,7 @@ namespace SimulationTests {
 		double displacement1D = vector_avg(sim1D.displacement_data);
 		double dim = 1.0;
 		double expected_val = sqrt(2.0 * sim1D.N_steps / dim)*(tgamma((dim + 1.0) / 2.0) / tgamma(dim / 2.0));
-		EXPECT_NEAR(expected_val, displacement1D, 2e-2*expected_val);
+		EXPECT_NEAR(expected_val, displacement1D, 3e-2*expected_val);
 	}
 
 	TEST_F(SimulationTest, AlgorithmTests) {
@@ -1337,14 +1337,20 @@ namespace VersionTests {
 		EXPECT_LT(ver1, ver3);
 		EXPECT_GT(ver3, ver2);
 		// Check different prerelease names
+		// compare beta and alpha
 		Version ver4("1.0.0-beta.1");
 		EXPECT_NE(ver4, ver1);
 		EXPECT_GT(ver4, ver1);
 		EXPECT_LT(ver1, ver4);
+		// compare beta and rc
 		Version ver5("1.0.0-rc.1");
 		EXPECT_NE(ver4, ver5);
 		EXPECT_LT(ver4, ver5);
 		EXPECT_GT(ver5, ver4);
+		// compare alpha and rc
+		EXPECT_NE(ver1, ver5);
+		EXPECT_GT(ver5, ver1);
+		EXPECT_LT(ver1, ver5);
 		// Check different major numbers
 		Version ver6("2.0.0-alpha.1");
 		EXPECT_NE(ver6, ver1);
