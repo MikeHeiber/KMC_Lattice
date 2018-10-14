@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Michael C. Heiber
+// Copyright (c) 2017-2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -6,10 +6,10 @@
 #include "gtest/gtest.h"
 #include "Simulation.h"
 #include "Utils.h"
-
+#include "Version.h"
 
 using namespace std;
-using namespace Utils;
+using namespace KMC_Lattice;
 
 // Simple derived Simulation class
 class TestSim : public Simulation {
@@ -79,20 +79,24 @@ public:
 			setObjectEvent(object_ptr, &(*move_event_it));
 		}
 	}
-	
-	bool checkErrorMessageFunctions(string msg_in){
+
+	bool checkErrorMessageFunctions(string msg_in) {
 		setErrorMessage(msg_in);
 		string msg_out = getErrorMessage();
-		return msg_in.compare(msg_out)==0;
+		return msg_in.compare(msg_out) == 0;
 	}
 
 	bool checkFinished() const {
 		return (getN_objects_created() == N_tests);
 	}
 
+	Event* determinePathway(const vector<Event*>& possible_events) {
+		return Simulation::determinePathway(possible_events);
+	}
+
 	Coords executeCreationEvent() {
 		Coords coords_dest = coords_creation;
-		if(lattice.isOccupied(coords_dest)) {
+		if (lattice.isOccupied(coords_dest)) {
 			coords_dest = lattice.chooseRandomUnoccupiedNeighbor(coords_dest);
 		}
 		if (coords_dest.x != -1) {
@@ -120,7 +124,7 @@ public:
 	bool executeNextEvent() {
 		// Check if any objects are finished
 		for (auto& item : objects) {
-			if (move_counts[item.getTag()]==N_steps) {
+			if (move_counts[item.getTag()] == N_steps) {
 				displacement_data.push_back(item.calculateDisplacement());
 				executeTerminationEvent(&item);
 				break;
@@ -180,6 +184,19 @@ public:
 	Coords getRandomCoords() {
 		return lattice.generateRandomCoords();
 	}
+
+	void removeEvent(Event* event_ptr) {
+		Simulation::removeEvent(event_ptr);
+	}
+
+	void removeObject(Object* object_ptr) {
+		Simulation::removeObject(object_ptr);
+	}
+
+	void resetErrorStatus() {
+		Error_found = false;
+		error_msg = "";
+	}
 };
 
 namespace SimulationTests {
@@ -221,6 +238,58 @@ namespace SimulationTests {
 		EXPECT_DOUBLE_EQ(params_base.Length*params_base.Width*params_base.Height*1e-21, sim.getVolume());
 	}
 
+	TEST_F(SimulationTest, RemoveEventObjectTests) {
+		EXPECT_FALSE(sim.getErrorStatus());
+		Event event1;
+		sim.removeEvent(&event1);
+		EXPECT_TRUE(sim.getErrorStatus());
+		sim.resetErrorStatus();
+		Object object1;
+		sim.removeObject(&object1);
+		EXPECT_TRUE(sim.getErrorStatus());
+		sim.resetErrorStatus();
+	}
+
+	TEST_F(SimulationTest, BKL_determinePathwayTests) {
+		// Construct list of events and event pointers that all have the same rate constant
+		Event event1(&sim);
+		vector<Event> events(10, event1);
+		vector<Event*> event_ptrs;
+		Coords coords_dest;
+		for (int i = 0; i < (int)events.size(); i++) {
+			coords_dest = { i,i,i };
+			events[i].setDestCoords(coords_dest);
+			events[i].setRateConstant(1e6);
+			event_ptrs.push_back(&events[i]);
+		}
+		Event* event_ptr;
+		// Generate collection of chosen event indices and wait times using BKL algorithm
+		vector<int> indices((int)2e7);
+		vector<double> times((int)2e7);
+		for (int i = 0; i < (int)times.size(); i++) {
+			event_ptr = sim.determinePathway(event_ptrs);
+			indices[i] = event_ptr->getDestCoords().x;
+			times[i] = event_ptr->getExecutionTime();
+		}
+		// Calculate probability hist of indices and times
+		auto prob_hist = calculateProbabilityHist(times, 1000);
+		// Calculate the discrete prob dist
+		auto prob_dist = calculateDensityHist(prob_hist);
+		// Test probability distribution of indices
+		for (int i = 0; i < 10; i++) {
+			int count = count_if(indices.begin(), indices.end(), [i](int element) {return element == i; });
+			EXPECT_NEAR(1.0 / 10.0, (double)count / (double)indices.size(), 2e-3);
+		}
+		// Test probability dist of times
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-2);
+		EXPECT_NEAR(1e7, prob_dist[0].second, 2e5);
+		auto it = find_if(prob_dist.begin(), prob_dist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-7; });
+		it--;
+		EXPECT_NEAR(1e7 / 2.7182818284590, (*it).second, 2e5);
+		// Test average wait time
+		EXPECT_NEAR(vector_avg(times), 1e-7, 2e-9);
+	}
+
 	TEST_F(SimulationTest, EventExecutionTests) {
 		EXPECT_EQ(0, (int)sim.objects.size());
 		EXPECT_EQ(1, sim.getN_events());
@@ -232,20 +301,20 @@ namespace SimulationTests {
 		EXPECT_FALSE(sim.checkFinished());
 		// Check objects and events
 		auto object_ptrs = sim.getAllObjectPtrs();
-		for(int i=0; i<(int)sim.objects.size(); i++){
+		for (int i = 0; i < (int)sim.objects.size(); i++) {
 			auto it = sim.objects.begin();
-			advance(it,i);
-			EXPECT_TRUE(&(*it)==object_ptrs[i]);
+			advance(it, i);
+			EXPECT_TRUE(&(*it) == object_ptrs[i]);
 		}
 		auto event_ptrs = sim.getAllEventPtrs();
-		for(int i=0; i<(int)event_ptrs.size(); i++){
-			if(i==0){
-				EXPECT_TRUE(&sim.event_creation==event_ptrs[i]);
+		for (int i = 0; i < (int)event_ptrs.size(); i++) {
+			if (i == 0) {
+				EXPECT_TRUE(&sim.event_creation == event_ptrs[i]);
 			}
-			else{
+			else {
 				auto it = sim.events_move.begin();
-				advance(it,i-1);
-				EXPECT_TRUE(&(*it)==event_ptrs[i]);
+				advance(it, i - 1);
+				EXPECT_TRUE(&(*it) == event_ptrs[i]);
 			}
 		}
 		// Check event destination coords
@@ -285,13 +354,13 @@ namespace SimulationTests {
 		while (!sim2.checkFinished()) {
 			if (sim2.event_previous_type.compare("Creation") == 0) {
 				creation_coords.push_back(sim2.objects.back().getCoords());
-				EXPECT_TRUE(sim2.coords_creation==creation_coords.back());
+				EXPECT_TRUE(sim2.coords_creation == creation_coords.back());
 				sim2.coords_creation = sim2.getRandomCoords();
 			}
 			Coords coords_i = creation_coords[sim2.objects.front().getTag()];
 			Coords coords = sim2.objects.front().getCoords();
 			displacement = sim2.objects.front().calculateDisplacement();
-			EXPECT_DOUBLE_EQ(sqrt((coords.x-coords_i.x)*(coords.x-coords_i.x) + (coords.y-coords_i.y)*(coords.y-coords_i.y) + (coords.z-coords_i.z)*(coords.z-coords_i.z)), displacement);
+			EXPECT_DOUBLE_EQ(sqrt((coords.x - coords_i.x)*(coords.x - coords_i.x) + (coords.y - coords_i.y)*(coords.y - coords_i.y) + (coords.z - coords_i.z)*(coords.z - coords_i.z)), displacement);
 			EXPECT_TRUE(sim2.executeNextEvent());
 		}
 	}
@@ -308,7 +377,7 @@ namespace SimulationTests {
 		double displacement = vector_avg(sim.displacement_data);
 		double dim = 3.0;
 		double expected_val = sqrt(2.0 * sim.N_steps / dim)*(tgamma((dim + 1.0) / 2.0) / tgamma(dim / 2.0));
-		EXPECT_NEAR(expected_val, displacement, 2e-2*expected_val);
+		EXPECT_NEAR(expected_val, displacement, 3e-2*expected_val);
 	}
 
 	TEST_F(SimulationTest, 2DRandomWalkTests) {
@@ -330,7 +399,7 @@ namespace SimulationTests {
 		double displacement2D = vector_avg(sim2D.displacement_data);
 		double dim = 2.0;
 		double expected_val = sqrt(2.0 * sim2D.N_steps / dim)*(tgamma((dim + 1.0) / 2.0) / tgamma(dim / 2.0));
-		EXPECT_NEAR(expected_val, displacement2D, 2e-2*expected_val);
+		EXPECT_NEAR(expected_val, displacement2D, 3e-2*expected_val);
 	}
 
 	TEST_F(SimulationTest, 1DRandomWalkTests) {
@@ -352,7 +421,7 @@ namespace SimulationTests {
 		double displacement1D = vector_avg(sim1D.displacement_data);
 		double dim = 1.0;
 		double expected_val = sqrt(2.0 * sim1D.N_steps / dim)*(tgamma((dim + 1.0) / 2.0) / tgamma(dim / 2.0));
-		EXPECT_NEAR(expected_val, displacement1D, 2e-2*expected_val);
+		EXPECT_NEAR(expected_val, displacement1D, 3e-2*expected_val);
 	}
 
 	TEST_F(SimulationTest, AlgorithmTests) {
@@ -407,7 +476,7 @@ namespace SimulationTests {
 		EXPECT_NEAR(displacement1, displacement3, 5e-2*displacement1);
 		EXPECT_NEAR(displacement2, displacement3, 5e-2*displacement2);
 	}
-	
+
 	TEST_F(SimulationTest, ErrorMessageTests) {
 		EXPECT_TRUE(sim.checkErrorMessageFunctions("Error!"));
 		EXPECT_TRUE(sim.checkErrorMessageFunctions("Error! There is a problem."));
@@ -429,56 +498,165 @@ namespace UtilsTests {
 		EXPECT_TRUE(coords == coords2);
 	}
 
+	TEST(UtilsTests, CalculateHistTests) {
+		// Check behavior for an empty data set
+		vector<int> data;
+		EXPECT_THROW(calculateHist(data, 1), invalid_argument);
+		// Create sample data
+		data = { 0,0,2,1,2,4,3,1,0,4,2 };
+		// Calculate the histogram
+		auto hist = calculateHist(data, 1);
+		// Check hist size
+		EXPECT_EQ(5, (int)hist.size());
+		// Check hist bins
+		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
+		EXPECT_DOUBLE_EQ(1.0, hist[1].first);
+		EXPECT_DOUBLE_EQ(2.0, hist[2].first);
+		EXPECT_DOUBLE_EQ(3.0, hist[3].first);
+		EXPECT_DOUBLE_EQ(4.0, hist[4].first);
+		// Check hist values
+		EXPECT_EQ(3, hist[0].second);
+		EXPECT_EQ(2, hist[1].second);
+		EXPECT_EQ(3, hist[2].second);
+		EXPECT_EQ(1, hist[3].second);
+		EXPECT_EQ(2, hist[4].second);
+		// Calculate the probability hist using the hist
+		auto prob_hist = calculateProbabilityHist(hist);
+		// Check behavior if the hist is empty
+		hist.clear();
+		EXPECT_THROW(calculateProbabilityHist(hist), invalid_argument);
+		// Check prob_hist size
+		EXPECT_EQ(5, (int)prob_hist.size());
+		// Check prob values
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[0].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[1].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[2].second);
+		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob_hist[3].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[4].second);
+		// Check that the prob hist sums to 1
+		auto cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate the prob hist directly from the data vector
+		prob_hist = calculateProbabilityHist(data, 1);
+		// Check prob size
+		EXPECT_EQ(5, (int)prob_hist.size());
+		// Check prob values
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[0].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[1].second);
+		EXPECT_DOUBLE_EQ(3.0 / 11.0, prob_hist[2].second);
+		EXPECT_DOUBLE_EQ(1.0 / 11.0, prob_hist[3].second);
+		EXPECT_DOUBLE_EQ(2.0 / 11.0, prob_hist[4].second);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Check behavior how larger bin size
+		// Create sample data
+		data = { 0,0,2,1,2,4,3,1,0,4,2,5 };
+		// Calculate the histogram
+		hist = calculateHist(data, 2);
+		// Check hist size
+		EXPECT_EQ(3, (int)hist.size());
+		// Check hist bins
+		EXPECT_DOUBLE_EQ(0.5, hist[0].first);
+		EXPECT_DOUBLE_EQ(2.5, hist[1].first);
+		EXPECT_DOUBLE_EQ(4.5, hist[2].first);
+		// Check hist values
+		EXPECT_EQ(5, hist[0].second);
+		EXPECT_EQ(4, hist[1].second);
+		EXPECT_EQ(3, hist[2].second);
+		// Check behavior with invalid bin size
+		EXPECT_THROW(calculateHist(data, 0), invalid_argument);
+		EXPECT_THROW(calculateHist(data, -1), invalid_argument);
+	}
+
 	TEST(UtilsTests, CalculateProbabilityHistTests) {
+		vector<int> int_data;
+		// Test with empty int data set that exception is thrown
+		EXPECT_THROW(calculateProbabilityHist(int_data, 5), invalid_argument);
+		// Generate a set of data from a uniform real distribution
 		mt19937_64 gen(std::random_device{}());
 		uniform_real_distribution<> dist(0, 100);
-		vector<double> data((int)1e7);
+		vector<double> data((int)2e7, 0.0);
 		for (int i = 0; i < (int)data.size(); i++) {
 			data[i] = dist(gen);
 		}
-		auto hist = calculateProbabilityHist(data, 10);
+		// Calculate histogram with 9 bins
+		auto prob_hist = calculateProbabilityHist(data, 10);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob_hist.size());
+		// Check several random values from the uniform probability hist
 		uniform_int_distribution<> dist2(0, 9);
-		EXPECT_EQ(10, (int)hist.size());
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second,1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		hist = calculateProbabilityHist(data, 10.0);
-		EXPECT_EQ(10, (int)hist.size());
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
-		EXPECT_NEAR(1.0 / 100.0, hist[dist2(gen)].second, 1e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		auto cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with 100 bins
+		prob_hist = calculateProbabilityHist(data, 1000);
+		// Check for the correct number of bins
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		auto prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
+		// Calculate histogram with a bin size of 10.0
+		prob_hist = calculateProbabilityHist(data, 10.0);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob_hist.size());
+		// Check several random values from the uniform probability hist
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with a bin size of 0.1
+		prob_hist = calculateProbabilityHist(data, 0.1);
+		// Check for the correct number of bins
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
+		// Clear data vector
 		data.clear();
-		hist = calculateProbabilityHist(data, 10.0);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
-		hist = calculateProbabilityHist(data, 5);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
-		hist = calculateProbabilityHist(data, 1.0, 5);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].first);
-		EXPECT_DOUBLE_EQ(0.0, hist[0].second);
-		data = {0.0, 1.0, 2.0, 3.0, 4.0};
-		hist = calculateProbabilityHist(data, 10);
-		EXPECT_EQ(5, (int)hist.size());
-		hist = calculateProbabilityHist(data, 0.1);
-		EXPECT_EQ(5, (int)hist.size());
+		// Check that empty double data vectors throw an exception
+		EXPECT_THROW(calculateProbabilityHist(data, 10.0), invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data, 5);, invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data, 1.0, 5), invalid_argument);
+		// Check that calculation on empty histogram vectors throw an exception
+		vector<pair<double,double>> hist;
+		EXPECT_THROW(calculateDensityHist(hist), invalid_argument);
+		EXPECT_THROW(calculateCumulativeHist(hist), invalid_argument);
+		// Check that calculation on single entry histogram throws an exception
+		hist.push_back(make_pair(0.0,1.0));
+		EXPECT_THROW(calculateDensityHist(hist), invalid_argument);
+		// Check behavior on a test dataset
+		data = { 0.0, 1.0, 2.0, 3.0, 4.0 };
+		prob_hist = calculateProbabilityHist(data, 10);
+		EXPECT_EQ(5, (int)prob_hist.size());
+		prob_hist = calculateProbabilityHist(data, 0.1);
+		EXPECT_EQ(5, (int)prob_hist.size());
 	}
-
+	
 	TEST(UtilsTests, ExponentialDOSTests) {
 		mt19937_64 gen(std::random_device{}());
 		vector<double> data((int)2e7, 0.0);
 		createExponentialDOSVector(data, 0.0, 0.1, gen);
 		auto hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		auto prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		vector<double> prob;
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		for_each(prob_dist.begin(),prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		double peak = *max_element(prob.begin(), prob.end());
 		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
 		createExponentialDOSVector(data, 0.0, 0.05, gen);
 		hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		prob.clear();
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		peak = *max_element(prob.begin(), prob.end());
 		EXPECT_NEAR(0.5*(1.0 / 0.05), peak, 1e-2*peak);
 	}
@@ -490,42 +668,43 @@ namespace UtilsTests {
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
 		EXPECT_NEAR(0.15, vector_stdev(data), 1e-4);
 		auto hist = calculateProbabilityHist(data, 1000);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
-		double peak = hist[499].second;
+		auto prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
+		double peak = prob_dist[499].second;
 		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
 		createGaussianDOSVector(data, 0.0, 0.05, gen);
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
 		EXPECT_NEAR(0.05, vector_stdev(data), 1e-4);
 		hist = calculateProbabilityHist(data, 0.005);
-		EXPECT_NEAR(1.0, integrateData(hist), 1e-4);
+		prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		vector<double> prob;
-		for_each(hist.begin(), hist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
+		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		peak = *max_element(prob.begin(), prob.end());
 		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.05, 2)), peak, 1e-1*peak);
 	}
 
-	TEST(UtilsTests, ImportBooleanTests) {
-		bool error_status;
-		EXPECT_TRUE(importBooleanParam("true", error_status));
-		EXPECT_TRUE(importBooleanParam(" true  ", error_status));
-		EXPECT_FALSE(importBooleanParam("false	", error_status));
-		EXPECT_FALSE(importBooleanParam("   false", error_status));
-		EXPECT_FALSE(importBooleanParam("blah", error_status));
-		EXPECT_FALSE(importBooleanParam("	blah  ", error_status));
-		EXPECT_TRUE(error_status);
+	TEST(UtilsTests, Str2boolTests) {
+		EXPECT_TRUE(str2bool("true"));
+		EXPECT_TRUE(str2bool(" true  "));
+		EXPECT_FALSE(str2bool("false	"));
+		EXPECT_FALSE(str2bool("   false"));
+		// Check that invalid input strings throw an exception as designed
+		EXPECT_THROW(str2bool("blah"), invalid_argument);
+		EXPECT_THROW(str2bool("	blah  "), invalid_argument);
 	}
 
 	TEST(UtilsTests, IntegrateDataTests) {
-		vector<pair<double, double>> data_vec = { {0.0,0.0},{1.0,1.0},{2.0,2.0},{3.0,3.0} };
+		vector<pair<double, double>> data_vec = { { 0.0,0.0 },{ 1.0,1.0 },{ 2.0,2.0 },{ 3.0,3.0 } };
 		auto area = integrateData(data_vec);
 		EXPECT_DOUBLE_EQ(area, 9.0 / 2.0);
 	}
 
 	TEST(UtilsTests, InterpolateDataTests) {
 		vector<pair<double, double>> data_vec(100);
-		for (int i = 0; i < (int)data_vec.size();i++) {
+		for (int i = 0; i < (int)data_vec.size(); i++) {
 			data_vec[i].first = 0.1*i;
-			data_vec[i].second = exp(-data_vec[i].first/2.85);
+			data_vec[i].second = exp(-data_vec[i].first / 2.85);
 		}
 		EXPECT_NEAR(1 / exp(1), interpolateData(data_vec, 2.85), 1e-4);
 		for (int i = 0; i < (int)data_vec.size(); i++) {
@@ -537,7 +716,7 @@ namespace UtilsTests {
 		// Attempt to interpolate beyond the data range
 		EXPECT_TRUE(std::isnan(interpolateData(data_vec, -1.0)));
 		EXPECT_TRUE(std::isnan(interpolateData(data_vec, 21.0)));
-		
+
 	}
 
 	TEST(UtilsTests, RemoveWhitespaceTests) {
@@ -581,6 +760,22 @@ namespace UtilsTests {
 		EXPECT_DOUBLE_EQ(-2.75, array_avg(double_data, 10));
 		EXPECT_NEAR(1.51382517704875, array_stdev(double_data, 10), 1e-14);
 	}
+	
+	TEST(UtilsTests, RoundTests){
+		// Check round down positive val
+		EXPECT_EQ(1 , round_int(1.1));
+		// Check round up positive val
+		EXPECT_EQ(2 , round_int(1.5));
+		// Check round down to zero
+		EXPECT_EQ(0 , round_int(0.4));
+		// Check round up to zero
+		EXPECT_EQ(0 , round_int(-0.4));
+		// Check round down negative val
+		EXPECT_EQ(-2 , round_int(-1.5));
+		// Check round up negative val
+		EXPECT_EQ(-1 , round_int(-1.1));
+	}
+	
 
 	TEST(UtilsTests, IntPowTests) {
 		EXPECT_DOUBLE_EQ(1.0, intpow(2.5, 0));
@@ -592,6 +787,8 @@ namespace UtilsTests {
 		EXPECT_DOUBLE_EQ(1.048576e-4, intpow(2.5, -10));
 		EXPECT_DOUBLE_EQ(1.0, intpow(15.04564, 0));
 		EXPECT_DOUBLE_EQ(1e-21, intpow(1e-7, 3));
+		// Check integer base to negative power
+		EXPECT_DOUBLE_EQ(0.5, intpow(2, -1));
 	}
 
 	TEST(UtilsTests, RemoveDuplicatesTests) {
@@ -614,11 +811,6 @@ namespace UtilsTests {
 		removeDuplicates(vec3);
 		EXPECT_EQ(4, vec3[1].x);
 		EXPECT_EQ(2, (int)vec3.size());
-		Object object1(0, 1, { 0,0,0 });
-		Object object2(0, 2, { 1,1,1 });
-		vector<Object*> object_ptrs{ &object1, &object1, &object2, &object1, &object2 };
-		removeDuplicates(object_ptrs);
-		EXPECT_EQ(2, (int)object_ptrs.size());
 		vector<int> vec4 = {};
 		removeDuplicates(vec4);
 		EXPECT_EQ(0, (int)vec4.size());
@@ -639,12 +831,16 @@ namespace UtilsTests {
 		}
 		EXPECT_DOUBLE_EQ(5.5, vector_avg(int_data));
 		EXPECT_NEAR(3.02765035409749, vector_stdev(int_data), 1e-14);
+		EXPECT_DOUBLE_EQ(5.5, vector_median(int_data));
+		EXPECT_EQ(4, vector_which_median(int_data));
 		// negative ints
 		for (int i = 0; i < 10; i++) {
 			int_data[i] = -(i + 1);
 		}
 		EXPECT_DOUBLE_EQ(-5.5, vector_avg(int_data));
 		EXPECT_NEAR(3.02765035409749, vector_stdev(int_data), 1e-14);
+		EXPECT_DOUBLE_EQ(-5.5, vector_median(int_data));
+		EXPECT_EQ(4, vector_which_median(int_data));
 		// positive doubles
 		vector<double> double_data;
 		double_data.assign(10, 0);
@@ -653,6 +849,8 @@ namespace UtilsTests {
 		}
 		EXPECT_DOUBLE_EQ(2.75, vector_avg(double_data));
 		EXPECT_NEAR(1.51382517704875, vector_stdev(double_data), 1e-14);
+		EXPECT_DOUBLE_EQ(2.75, vector_median(double_data));
+		EXPECT_EQ(4, vector_which_median(double_data));
 		// negative doubles
 		double_data.assign(10, 0);
 		for (int i = 0; i < 10; i++) {
@@ -660,6 +858,12 @@ namespace UtilsTests {
 		}
 		EXPECT_DOUBLE_EQ(-2.75, vector_avg(double_data));
 		EXPECT_NEAR(1.51382517704875, vector_stdev(double_data), 1e-14);
+		EXPECT_DOUBLE_EQ(-2.75, vector_median(double_data));
+		EXPECT_EQ(4, vector_which_median(double_data));
+		// Check simple odd size vector median
+		vector<double> data = { 3.0, 0.0, 1.0, 5.0, 10.0 };
+		EXPECT_DOUBLE_EQ(3.0, vector_median(data));
+		EXPECT_EQ(0, vector_which_median(data));
 	}
 }
 
@@ -808,19 +1012,19 @@ namespace LatticeTests {
 			EXPECT_EQ(6, (int)site_options.size());
 			for (auto item : site_options) {
 				int count = count_if(data.begin(), data.end(), [item](int element) {return element == item; });
-				EXPECT_NEAR(1.0 / 6.0, (double)count/(double)data.size(), 1e-2);
+				EXPECT_NEAR(1.0 / 6.0, (double)count / (double)data.size(), 1e-2);
 			}
 		}
 		// Check for correct output when all neighbor sites are occupied
-		Coords coords(5,5,5);
-		lattice.setOccupied(Coords(4,5,5));
-		lattice.setOccupied(Coords(6,5,5));
-		lattice.setOccupied(Coords(5,4,5));
-		lattice.setOccupied(Coords(5,6,5));
-		lattice.setOccupied(Coords(5,5,4));
-		lattice.setOccupied(Coords(5,5,6));
+		Coords coords(5, 5, 5);
+		lattice.setOccupied(Coords(4, 5, 5));
+		lattice.setOccupied(Coords(6, 5, 5));
+		lattice.setOccupied(Coords(5, 4, 5));
+		lattice.setOccupied(Coords(5, 6, 5));
+		lattice.setOccupied(Coords(5, 5, 4));
+		lattice.setOccupied(Coords(5, 5, 6));
 		Coords coords_new = lattice.chooseRandomUnoccupiedNeighbor(coords);
-		EXPECT_TRUE(coords_new==Coords(-1,-1,-1));
+		EXPECT_TRUE(coords_new == Coords(-1, -1, -1));
 	}
 
 	TEST_F(LatticeTest, 2DTests) {
@@ -853,7 +1057,7 @@ namespace LatticeTests {
 			EXPECT_EQ(4, (int)site_options.size());
 			for (auto item : site_options) {
 				int count = count_if(data.begin(), data.end(), [item](int element) {return element == item; });
-				EXPECT_NEAR(1.0 / 4.0, (double)count/(double)data.size(), 1e-2);
+				EXPECT_NEAR(1.0 / 4.0, (double)count / (double)data.size(), 1e-2);
 			}
 		}
 	}
@@ -931,6 +1135,12 @@ namespace LatticeTests {
 		coords.setXYZ(5, 5, 5);
 		lattice.setOccupied(coords);
 		EXPECT_TRUE(lattice.isOccupied(coords));
+		stringstream ss1, ss2;
+		auto old_buffer = cout.rdbuf(ss1.rdbuf());
+		lattice.outputLatticeOccupancy();
+		cout.rdbuf(old_buffer);
+		ss2 << "Site " << lattice.getSiteIndex(coords) << " is occupied.\n";
+		EXPECT_EQ(ss1.str(), ss2.str());
 		for (int x = 0; x < lattice.getLength(); x++) {
 			for (int y = 0; y < lattice.getWidth(); y++) {
 				for (int z = 0; z < lattice.getHeight(); z++) {
@@ -977,43 +1187,49 @@ namespace EventTests {
 	protected:
 		Parameters_Simulation params_base;
 		TestSim test_sim;
-		void setUp(){
+		void setUp() {
 			{
-			params_base.Enable_logging = false;
-			params_base.Enable_periodic_x = true;
-			params_base.Enable_periodic_y = true;
-			params_base.Enable_periodic_z = true;
-			params_base.Length = 50;
-			params_base.Width = 50;
-			params_base.Height = 50;
-			params_base.Unit_size = 1.0;
-			params_base.Temperature = 300;
-			params_base.Enable_FRM = false;
-			params_base.Enable_selective_recalc = true;
-			params_base.Recalc_cutoff = 3;
-			params_base.Enable_full_recalc = false;
+				params_base.Enable_logging = false;
+				params_base.Enable_periodic_x = true;
+				params_base.Enable_periodic_y = true;
+				params_base.Enable_periodic_z = true;
+				params_base.Length = 50;
+				params_base.Width = 50;
+				params_base.Height = 50;
+				params_base.Unit_size = 1.0;
+				params_base.Temperature = 300;
+				params_base.Enable_FRM = false;
+				params_base.Enable_selective_recalc = true;
+				params_base.Recalc_cutoff = 3;
+				params_base.Enable_full_recalc = false;
 			}
 			// Initialize TestSim object
 			test_sim.init(params_base);
 		}
 	};
-	
-	TEST_F(EventTest, GeneralEventTests){
+
+	TEST_F(EventTest, GeneralEventTests) {
 		Event event(&test_sim);
-		EXPECT_EQ("Event",event.getEventType());
-		Coords coords1(0,0,0);
+		EXPECT_EQ("Event", event.getEventType());
+		Coords coords1(0, 0, 0);
 		Object object1(0.0, 1, coords1);
 		event.setObjectPtr(&object1);
-		EXPECT_EQ(&object1,event.getObjectPtr());
-		Coords coords2(1,0,0);
+		EXPECT_EQ(&object1, event.getObjectPtr());
+		Coords coords2(1, 0, 0);
 		Object object2(0.0, 2, coords2);
 		event.setObjectTargetPtr(&object2);
-		EXPECT_EQ(&object2,event.getObjectTargetPtr());
+		EXPECT_EQ(&object2, event.getObjectTargetPtr());
 		event.setDestCoords(coords2);
-		EXPECT_EQ(coords2,event.getDestCoords());
+		EXPECT_EQ(coords2, event.getDestCoords());
 		EXPECT_FALSE(event.setExecutionTime(-1.0));
 		EXPECT_TRUE(event.setExecutionTime(1.0));
-		EXPECT_DOUBLE_EQ(1.0,event.getExecutionTime());
+		EXPECT_DOUBLE_EQ(1.0, event.getExecutionTime());
+		// Check initial default value of the rate constant.
+		EXPECT_DOUBLE_EQ(-1.0, event.getRateConstant());
+		// Execute default rate constant function.
+		event.calculateRateConstant(1.0);
+		// Check that the rate constant is correctly assigned.
+		EXPECT_DOUBLE_EQ(1.0, event.getRateConstant());
 	}
 
 	TEST_F(EventTest, CalculateExecutionTimeTests) {
@@ -1027,9 +1243,10 @@ namespace EventTests {
 		// Calculate probability distribution of calculated times
 		auto hist = calculateProbabilityHist(times, 1000);
 		// Test probability distribution
-		EXPECT_NEAR(1.0, integrateData(hist), 2e-2);
-		EXPECT_NEAR(1e9, hist[0].second, 2e7);
-		auto it = find_if(hist.begin(), hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-9; });
+		auto prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-2);
+		EXPECT_NEAR(1e9, prob_dist[0].second, 2e7);
+		auto it = find_if(prob_dist.begin(), prob_dist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-9; });
 		it--;
 		EXPECT_NEAR(1e9 / 2.7182818284590, (*it).second, 2e7);
 		// Test average wait time
@@ -1042,9 +1259,10 @@ namespace EventTests {
 		// Calculate probability distribution of calculated times
 		hist = calculateProbabilityHist(times, 1000);
 		// Test probability distribution
-		EXPECT_NEAR(1.0, integrateData(hist), 2e-2);
-		EXPECT_NEAR(1e12, hist[0].second, 2e10);
-		it = find_if(hist.begin(), hist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-12; });
+		prob_dist = calculateDensityHist(hist);
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-2);
+		EXPECT_NEAR(1e12, prob_dist[0].second, 2e10);
+		it = find_if(prob_dist.begin(), prob_dist.end(), [](pair<double, double>& x_y) {return x_y.first > 1e-12; });
 		it--;
 		EXPECT_NEAR(1e12 / 2.7182818284590, (*it).second, 2e10);
 		// Test average wait time
@@ -1053,23 +1271,23 @@ namespace EventTests {
 }
 
 namespace ObjectTests {
-	
+
 	TEST(ObjectTests, GeneralObjectTests) {
 		// Assume object is created in a 50 x 50 x 50 lattice
-		Coords coords = {0,0,0};
+		Coords coords = { 0,0,0 };
 		Object object1(0.0, 1, coords);
-		EXPECT_EQ("Object",object1.getObjectType());
-		EXPECT_EQ(1,object1.getTag());
-		EXPECT_EQ(coords,object1.getCoords());
-		EXPECT_DOUBLE_EQ(0.0,object1.getCreationTime());
+		EXPECT_EQ("Object", object1.getObjectType());
+		EXPECT_EQ(1, object1.getTag());
+		EXPECT_EQ(coords, object1.getCoords());
+		EXPECT_DOUBLE_EQ(0.0, object1.getCreationTime());
 		// Object-Event tests
 		Event event;
 		list<Event*> event_ptrs;
 		event_ptrs.push_back(&event);
 		object1.setEventIt(event_ptrs.begin());
-		EXPECT_EQ(&event,*(object1.getEventIt()));
+		EXPECT_EQ(&event, *(object1.getEventIt()));
 	}
-	
+
 	TEST(ObjectTests, CalculateDisplacementTests) {
 		// Assume object is created in a 50 x 50 x 50 lattice
 		Object object1(0.0, 1, { 0,0,0 });
@@ -1085,14 +1303,95 @@ namespace ObjectTests {
 		object1.setCoords({ 49,0,49 });
 		object1.incrementDY(50);
 		EXPECT_DOUBLE_EQ(sqrt(2), object1.calculateDisplacement());
-		object1.resetInitialCoords({5,5,5});
+		object1.resetInitialCoords({ 5,5,5 });
 		object1.setCoords({ 4,4,4 });
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
 	}
-	
+
+}
+
+namespace VersionTests {
+
+	TEST(VersionTests, ConstructorTests) {
+		// Check behavior of incorrect formats
+		EXPECT_THROW(Version ver1("blah"), invalid_argument);
+		EXPECT_THROW(Version ver1("v1.0"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.0"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.1-gamma"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.1-alpha"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.1-alpha.0"), invalid_argument);
+		EXPECT_THROW(Version ver1("0.0.0-alpha.1"), invalid_argument);
+		EXPECT_THROW(Version ver1("1.0.0-alpha"), invalid_argument);
+		EXPECT_THROW(Version ver1("-1.0.0-alpha"), invalid_argument);
+	}
+
+	TEST(VersionTests, ComparisonTests) {
+		Version ver1("1.0.0-alpha.1");
+		Version ver2("1.0.0-alpha.1");
+		EXPECT_EQ(ver1, ver2);
+		EXPECT_GE(ver1, ver2);
+		EXPECT_LE(ver1, ver2);
+		// Check different prerelease numbers
+		Version ver3("1.0.0-alpha.2");
+		EXPECT_NE(ver1, ver3);
+		EXPECT_LT(ver1, ver3);
+		EXPECT_GT(ver3, ver2);
+		// Check different prerelease names
+		// compare beta and alpha
+		Version ver4("1.0.0-beta.1");
+		EXPECT_NE(ver4, ver1);
+		EXPECT_GT(ver4, ver1);
+		EXPECT_LT(ver1, ver4);
+		// compare beta and rc
+		Version ver5("1.0.0-rc.1");
+		EXPECT_NE(ver4, ver5);
+		EXPECT_LT(ver4, ver5);
+		EXPECT_GT(ver5, ver4);
+		// compare alpha and rc
+		EXPECT_NE(ver1, ver5);
+		EXPECT_GT(ver5, ver1);
+		EXPECT_LT(ver1, ver5);
+		// Check different major numbers
+		Version ver6("2.0.0-alpha.1");
+		EXPECT_NE(ver6, ver1);
+		EXPECT_GT(ver6, ver1);
+		EXPECT_LT(ver1, ver6);
+		// Check different minor numbers
+		Version ver7("1.1.0-alpha.1");
+		EXPECT_NE(ver7, ver1);
+		EXPECT_GT(ver7, ver1);
+		EXPECT_LT(ver1, ver7);
+		// Check different rev numbers
+		Version ver8("1.0.1-alpha.1");
+		EXPECT_NE(ver8, ver1);
+		EXPECT_GT(ver8, ver1);
+		EXPECT_LT(ver1, ver8);
+		// Check abbreviated version
+		Version ver9("1.0-alpha.1");
+		EXPECT_EQ(ver9, ver1);
+		Version ver10("1.0-beta.1");
+		EXPECT_EQ(ver10, ver4);
+	}
+
+	TEST(VersionTests, GetVersionStrTests) {
+		string version_str = "1.0.0-beta.1";
+		Version ver1(version_str);
+		EXPECT_EQ(version_str, ver1.getVersionStr());
+		stringstream ss1;
+		ss1 << ver1;
+		EXPECT_EQ(version_str, ss1.str());
+		version_str = "2.0.1";
+		Version ver2(version_str);
+		EXPECT_EQ(version_str, ver2.getVersionStr());
+		stringstream ss2;
+		ss2 << ver2;
+		EXPECT_EQ(version_str, ss2.str());
+	}
 }
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);
+	// Redirect cout to NULL to suppress command line output during the tests
+	cout.rdbuf(NULL);
 	return RUN_ALL_TESTS();
 }

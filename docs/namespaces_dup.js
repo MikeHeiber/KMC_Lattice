@@ -1,4 +1,4 @@
 var namespaces_dup =
 [
-    [ "Utils", "namespace_utils.html", null ]
+    [ "KMC_Lattice", "namespace_k_m_c___lattice.html", null ]
 ];

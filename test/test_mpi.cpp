@@ -8,7 +8,7 @@
 #include <mpi.h>
 
 using namespace std;
-using namespace Utils;
+using namespace KMC_Lattice;
 
 namespace MPI_Tests {
 
@@ -21,6 +21,38 @@ namespace MPI_Tests {
 			MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		}
 	};
+	
+	TEST_F(MPI_Test, CalculateProbHistAvgTests) {
+		// Setup unique data vectors on each proc
+		vector<int> data(3);
+		for (int i = 0; i < (int)data.size(); i++) {
+			data[i] = procid + i;
+		}
+		// Calculate the histogram of the data
+		auto hist = calculateHist(data, 1);
+		// Check histogram size
+		EXPECT_EQ(3, (int)hist.size());
+		// Calculate average probability histogram from all procs
+		vector<pair<double, double>> prob;
+		try {
+			prob = MPI_calculateProbHistAvg(hist);
+		}
+		catch (bad_alloc& ba) {
+			cout << procid << ": bad_alloc caught: " << ba.what() << endl;
+		}
+		if (procid == 0) {
+			ASSERT_EQ(6, (int)prob.size());
+			EXPECT_DOUBLE_EQ(1.0 / 12.0, prob[0].second);
+			EXPECT_DOUBLE_EQ(2.0 / 12.0, prob[1].second);
+			EXPECT_DOUBLE_EQ(3.0 / 12.0, prob[2].second);
+			EXPECT_DOUBLE_EQ(3.0 / 12.0, prob[3].second);
+			EXPECT_DOUBLE_EQ(2.0 / 12.0, prob[4].second);
+			EXPECT_DOUBLE_EQ(1.0 / 12.0, prob[5].second);
+		}
+		// Check behavior when the histogram is empty
+		hist.clear();
+		EXPECT_THROW(MPI_calculateProbHistAvg(hist), invalid_argument);
+	}
 
 	TEST_F(MPI_Test, CalculateVectorAvgTests) {
 		// Seteup unique data vectors on each proc
@@ -38,7 +70,7 @@ namespace MPI_Tests {
 	}
 
 	TEST_F(MPI_Test, CalculateVectorSumTests) {
-		// Seteup unique data vectors on each proc
+		// Setup unique data vectors on each proc
 		vector<double> data(3);
 		for (int i = 0; i < (int)data.size(); i++) {
 			data[i] = 3 * procid + i;
@@ -62,9 +94,52 @@ namespace MPI_Tests {
 			EXPECT_EQ(26, data_sum2[2]);
 		}
 	}
+	
+	TEST_F(MPI_Test, GatherValuesTests) {
+		// Collect procid from each proc integers
+		auto data_all = MPI_gatherValues(procid);
+		if (procid == 0) {
+			// Check size of data vector
+			EXPECT_EQ(nproc, (int)data_all.size());
+			// check values of data vector
+			for (int i = 0; i < (int)data_all.size(); i++) {
+				EXPECT_EQ(i, data_all[i]);
+			}
+		}
+		// Check behavior of negative ints
+		data_all = MPI_gatherValues(-procid);
+		if (procid == 0) {
+			// Check size of data vector
+			EXPECT_EQ(nproc, (int)data_all.size());
+			// check values of data vector
+			for (int i = 0; i < (int)data_all.size(); i++) {
+				EXPECT_EQ(-i, data_all[i]);
+			}
+		}
+		// Collect procid from each proc as doubles
+		auto data_all2 = MPI_gatherValues((double)procid);
+		if (procid == 0) {
+			// Check size of data vector
+			EXPECT_EQ(nproc, (int)data_all2.size());
+			// check values of data vector
+			for (int i = 0; i < (int)data_all2.size(); i++) {
+				EXPECT_DOUBLE_EQ((double)i, data_all2[i]);
+			}
+		}
+		// Check behavior of negative doubles
+		data_all2 = MPI_gatherValues((double)-procid);
+		if (procid == 0) {
+			// Check size of data vector
+			EXPECT_EQ(nproc, (int)data_all2.size());
+			// check values of data vector
+			for (int i = 0; i < (int)data_all2.size(); i++) {
+				EXPECT_DOUBLE_EQ((double)-i, data_all2[i]);
+			}
+		}
+	}
 
 	TEST_F(MPI_Test, GatherVectorsTests) {
-		// Seteup unique data vectors on each proc
+		// Setup unique data vectors on each proc
 		vector<double> data(3);
 		for (int i = 0; i < (int)data.size(); i++) {
 			data[i] = 3 * procid + i;

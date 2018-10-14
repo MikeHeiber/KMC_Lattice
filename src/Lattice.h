@@ -1,45 +1,47 @@
-// Copyright (c) 2018 Michael C. Heiber
+// Copyright (c) 2017-2018 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software package.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
 
-#ifndef LATTICE_H
-#define LATTICE_H
+#ifndef KMC_LATTICE_LATTICE_H
+#define KMC_LATTICE_LATTICE_H
 
 #include "Utils.h"
 #include "Site.h"
 #include <functional>
 #include <stdexcept>
 
-//! \brief This struct contains all of the main input parameters needed by the Lattice class.
-//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
-//! \author Michael C. Heiber
-//! \date 2018
-struct Parameters_Lattice{
-	//! Determines whether the x-direction periodic boundaries will be enabled. 
-	bool Enable_periodic_x;
-	//! Determines whether the y-direction periodic boundaries will be enabled. 
-	bool Enable_periodic_y;
-	//! Determines whether the z-direction periodic boundaries will be enabled. 
-	bool Enable_periodic_z;
-	//! Defines the desired x-direction size of the lattice.
-	int Length;
-	//! Defines the desired y-direction size of the lattice.
-	int Width;
-	//! Defines the desired z-direction size of the lattice.
-	int Height;
-	//! Defines the desired lattice unit size, which is used to convert lattice units into real space units.
-	double Unit_size; // nm
-};
+namespace KMC_Lattice {
 
-//! \brief This class contains the properties of a three-dimensional lattice and the functions needed to interact with it.
-//! \details The class makes use of the Parameters_Lattice struct to load the neccessary input parameters, the Coords struct
-//! to record the Cartesian coordinates of each lattice site, and the Site class to assign properties to each site.
-//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
-//! \author Michael C. Heiber
-//! \date 2018
-class Lattice{
-    public:
+	//! \brief This struct contains all of the main input parameters needed by the Lattice class.
+	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
+	//! \author Michael C. Heiber
+	//! \date 2018
+	struct Parameters_Lattice {
+		//! Determines whether the x-direction periodic boundaries will be enabled. 
+		bool Enable_periodic_x;
+		//! Determines whether the y-direction periodic boundaries will be enabled. 
+		bool Enable_periodic_y;
+		//! Determines whether the z-direction periodic boundaries will be enabled. 
+		bool Enable_periodic_z;
+		//! Defines the desired x-direction size of the lattice.
+		int Length;
+		//! Defines the desired y-direction size of the lattice.
+		int Width;
+		//! Defines the desired z-direction size of the lattice.
+		int Height;
+		//! Defines the desired lattice unit size, which is used to convert lattice units into real space units.
+		double Unit_size; // nm
+	};
+
+	//! \brief This class contains the properties of a three-dimensional lattice and the functions needed to interact with it.
+	//! \details The class makes use of the Parameters_Lattice struct to load the neccessary input parameters, the Coords struct
+	//! to record the Cartesian coordinates of each lattice site, and the Site class to assign properties to each site.
+	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
+	//! \author Michael C. Heiber
+	//! \date 2018
+	class Lattice {
+	public:
 		//! \brief Default constructor that creates an empty Lattice object.
 		//! \warning An empty lattice object should not be used until initialized using the init function.
 		Lattice();
@@ -48,7 +50,7 @@ class Lattice{
 		//! \param params is a Parameters_Lattice struct that contains all of the required
 		//! parameters to initialize the Lattice object. 
 		//! \param generator_ptr is a pointer to a Mersenne twister number generator.
-        void init(const Parameters_Lattice& params, std::mt19937_64* generator_ptr);
+		void init(const Parameters_Lattice& params, std::mt19937_64* generator_ptr);
 
 		//! \brief Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).
 		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
@@ -228,9 +230,9 @@ class Lattice{
 		//! \return false to indicate an error when the sizes of the input site pointer vector and the member site pointer vector are not equal.
 		//! \return true when no error occurs.
 		bool setSitePointers(const std::vector<Site*>& input_ptrs);
-    protected:
+	protected:
 
-    private:
+	private:
 		bool Enable_periodic_x;
 		bool Enable_periodic_y;
 		bool Enable_periodic_z;
@@ -240,6 +242,8 @@ class Lattice{
 		double Unit_size; // nm
 		std::vector<Site*> site_ptrs;
 		std::mt19937_64* gen_ptr;
-};
+	};
 
-#endif // LATTICE_H
+}
+
+#endif // KMC_LATTICE_LATTICE_H

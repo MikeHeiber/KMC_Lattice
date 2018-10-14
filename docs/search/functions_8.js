@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['object',['Object',['../class_object.html#a40860402e64d8008fb42329df7097cdb',1,'Object::Object()'],['../class_object.html#aff050a622272cc7667251c7315f09fd7',1,'Object::Object(const double time, const int tag_num, const Coords &amp;start_coords)']]],
-  ['operator_21_3d',['operator!=',['../struct_coords.html#aaea2c566feec4e4bf56b27a34568be76',1,'Coords']]],
-  ['operator_3d_3d',['operator==',['../struct_coords.html#ad3347f6568814df1a2b98b3cd0b78632',1,'Coords']]],
-  ['outputlatticeoccupancy',['outputLatticeOccupancy',['../class_lattice.html#aa1f65735ecbd750ec04b6413b4d47316',1,'Lattice']]],
-  ['outputvectortofile',['outputVectorToFile',['../namespace_utils.html#ab76081fb0fa0e9e1633b1b2255db4164',1,'Utils::outputVectorToFile(std::vector&lt; T &gt; &amp;vec, std::string filename)'],['../namespace_utils.html#a652ab00e72bce852c2b9798ff3e1a60b',1,'Utils::outputVectorToFile(std::vector&lt; std::pair&lt; T, T &gt;&gt; &amp;vec, std::string filename)']]]
+  ['moveobject',['moveObject',['../class_k_m_c___lattice_1_1_simulation.html#ae2d007aefb505664a914f6a82767bf77',1,'KMC_Lattice::Simulation']]],
+  ['mpi_5fcalculateprobhistavg',['MPI_calculateProbHistAvg',['../namespace_k_m_c___lattice.html#acb87c0ce18e46b80e482ab257345f70c',1,'KMC_Lattice']]],
+  ['mpi_5fcalculatevectoravg',['MPI_calculateVectorAvg',['../namespace_k_m_c___lattice.html#ad022d008e8635c1285b9b2ca300bd5b6',1,'KMC_Lattice']]],
+  ['mpi_5fcalculatevectorsum',['MPI_calculateVectorSum',['../namespace_k_m_c___lattice.html#aa1b88bbdb7d17543f266c0ec41bfc3b8',1,'KMC_Lattice::MPI_calculateVectorSum(const std::vector&lt; double &gt; &amp;input_vector)'],['../namespace_k_m_c___lattice.html#aafd5796fdd773483e11f6b3e0a954821',1,'KMC_Lattice::MPI_calculateVectorSum(const std::vector&lt; int &gt; &amp;input_vector)']]],
+  ['mpi_5fgathervalues',['MPI_gatherValues',['../namespace_k_m_c___lattice.html#a6b3edfa485575cfb88a6fac4ebec2ee8',1,'KMC_Lattice::MPI_gatherValues(const int input_val)'],['../namespace_k_m_c___lattice.html#add2e9d9c5fa55962da8329cae7787a61',1,'KMC_Lattice::MPI_gatherValues(const double input_val)']]],
+  ['mpi_5fgathervectors',['MPI_gatherVectors',['../namespace_k_m_c___lattice.html#a4d250b1fe5dc4ca3bc72babcede6c664',1,'KMC_Lattice::MPI_gatherVectors(const std::vector&lt; double &gt; &amp;input_vector)'],['../namespace_k_m_c___lattice.html#a2446260a5a686ab9d49f0a765f79bb72',1,'KMC_Lattice::MPI_gatherVectors(const std::vector&lt; int &gt; &amp;input_vector)']]]
 ];
