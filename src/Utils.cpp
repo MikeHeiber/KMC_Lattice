@@ -235,11 +235,8 @@ namespace KMC_Lattice {
 
 	double interpolateData(const std::vector<std::pair<double, double>>& data, const double x_val) {
 		for (int i = 1; i < (int)data.size(); i++) {
-			if (data[i - 1].first < x_val && data[i].first > x_val) {
+			if (data[i - 1].first <= x_val && data[i].first >= x_val) {
 				return data[i - 1].second + ((data[i].second - data[i - 1].second) / (data[i].first - data[i - 1].first))*(x_val - data[i - 1].first);
-			}
-			if (abs(data[i].first - x_val) < 1e-6) {
-				return data[i].second;
 			}
 		}
 		cout << "Warning! The input x-value lies outside the range of the input data set." << endl;
