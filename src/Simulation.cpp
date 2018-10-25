@@ -26,6 +26,7 @@ namespace KMC_Lattice {
 		Enable_selective_recalc = params.Enable_selective_recalc;
 		Recalc_cutoff = params.Recalc_cutoff;
 		Enable_full_recalc = params.Enable_full_recalc;
+		Recalc_cutoff_sq_lat = (int)((Recalc_cutoff / params.Unit_size)*(Recalc_cutoff / params.Unit_size));
 		// Lattice Parameters
 		Parameters_Lattice params_lattice;
 		params_lattice.Enable_periodic_x = params.Enable_periodic_x;
@@ -124,10 +125,9 @@ namespace KMC_Lattice {
 	}
 
 	vector<Object*> Simulation::findRecalcNeighbors(const Coords& coords) const {
-		const static int recalc_cutoff_sq_lat = (int)((Recalc_cutoff / lattice.getUnitSize())*(Recalc_cutoff / lattice.getUnitSize()));
 		vector<Object*> neighbor_ptrs(object_ptrs.size());
 		auto it = copy_if(object_ptrs.begin(), object_ptrs.end(), neighbor_ptrs.begin(), [this, &coords](Object* element) {
-			return lattice.calculateLatticeDistanceSquared(coords, element->getCoords()) <= recalc_cutoff_sq_lat;
+			return lattice.calculateLatticeDistanceSquared(coords, element->getCoords()) <= Recalc_cutoff_sq_lat;
 		});
 		neighbor_ptrs.resize(std::distance(neighbor_ptrs.begin(), it));
 		return neighbor_ptrs;

@@ -225,6 +225,7 @@ namespace KMC_Lattice {
 		bool Enable_selective_recalc;
 		int Recalc_cutoff;
 		bool Enable_full_recalc;
+		int Recalc_cutoff_sq_lat;
 		// Data Structures
 		std::list<Object*> object_ptrs;
 		std::list<Event*> event_ptrs;
