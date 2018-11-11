@@ -68,7 +68,7 @@ namespace KMC_Lattice {
 
 	list<Event*>::const_iterator Simulation::chooseNextEvent() {
 		return min_element(event_ptrs.begin(), event_ptrs.end(), [](Event* a, Event* b) {
-			return (a != nullptr && b != nullptr) && (a->getExecutionTime() < b->getExecutionTime());
+			return (a != nullptr && b == nullptr) || ((a != nullptr && b != nullptr) && (a->getExecutionTime() < b->getExecutionTime()));
 		});
 	}
 
