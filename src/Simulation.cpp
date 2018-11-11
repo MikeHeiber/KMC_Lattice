@@ -233,7 +233,7 @@ namespace KMC_Lattice {
 			// Clear occupancy of site
 			lattice.clearOccupancy(object_ptr->getCoords());
 			// Delete the corresponding Event pointer
-			removeEvent(*object_ptr->getEventIt());
+			event_ptrs.erase(object_ptr->getEventIt());
 			// Delete the Object pointer
 			object_ptrs.erase(it);
 		}
