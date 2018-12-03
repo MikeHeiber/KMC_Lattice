@@ -31,11 +31,11 @@ namespace KMC_Lattice {
 		case 0:
 			return sqrt((coords_current.x + dx - coords_initial.x)*(coords_current.x + dx - coords_initial.x) + (coords_current.y + dy - coords_initial.y)*(coords_current.y + dy - coords_initial.y) + (coords_current.z + dz - coords_initial.z)*(coords_current.z + dz - coords_initial.z));
 		case 1:
-			return (coords_current.x + dx - coords_initial.x);
+			return abs(coords_current.x + dx - coords_initial.x);
 		case 2:
-			return (coords_current.y + dy - coords_initial.y);
+			return abs(coords_current.y + dy - coords_initial.y);
 		case 3:
-			return (coords_current.z + dz - coords_initial.z);
+			return abs(coords_current.z + dz - coords_initial.z);
 		default:
 			throw invalid_argument("Error! Specified direction input parameter is invalid.");
 		}
