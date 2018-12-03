@@ -38,7 +38,10 @@ namespace KMC_Lattice {
 		//! \brief Calculates the displacement of the object from its starting coordinates in lattice units.
 		//! \details The function accounts for when periodic boundaries are crossed to determine the real 
 		//! displacement distance.
-		double calculateDisplacement() const;
+		//! \param direction is an optional parameter that specifies whether the displacement only along a particular cardinal direction should be calculated.
+		//! When direction is not set, the default three-dimensional displacement is calculated, but when set to 1, 2, or 3, the function calculates the displacement
+		//! only in the x-, y-, and z-directions, respectively.
+		double calculateDisplacement(const int direction = 0) const;
 
 		//! \brief Gets the current coordinates of the Object.
 		//! \returns a Coords struct that represents the coordinates of the object.

@@ -146,12 +146,29 @@ namespace KMC_Lattice {
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
 	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937_64& gen);
 
+	//! \brief Creates a vector of floats that has a custom asymmetric distribution with an exponential tail.
+	//! \details The created distribution is Gaussian in the positive direction relative to the mode and exponential in 
+	//! the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy
+	//! chosen for the exponential side, so that the distribution function is continuous.
+	//! \param data is the data vector where the random numbers will be placed, which must be preallocated to the desired size.
+	//! \param mode is the value of the peak of the distribution.
+	//! \param urbach_energy is the parameter that detemines the shape of the exponential tail side of the distribution.
+	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
+	void createExponentialDOSVector(std::vector<float>& data, const double mode, const double urbach_energy, std::mt19937_64& gen);
+
 	//! \brief Creates a vector of doubles that has a Gaussian distribution.
 	//! \param data is the data vector where the numbers will be placed, which must be preallocated to the desired size.
 	//! \param mean is the position of the peak and center of the distribution.
 	//! \param stdev is the standard deviation of the distribution, which defines the width of the peak.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
 	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937_64& gen);
+
+	//! \brief Creates a vector of floats that has a Gaussian distribution.
+	//! \param data is the data vector where the numbers will be placed, which must be preallocated to the desired size.
+	//! \param mean is the position of the peak and center of the distribution.
+	//! \param stdev is the standard deviation of the distribution, which defines the width of the peak.
+	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
+	void createGaussianDOSVector(std::vector<float>& data, const double mean, const double stdev, std::mt19937_64& gen);
 
 	//! \brief Numerically integrates a vector of x-y data using the trapezoid rule.
 	//! \warning The function assumes that the data is sorted by the x values.

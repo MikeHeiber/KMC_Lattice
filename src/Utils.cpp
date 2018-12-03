@@ -217,8 +217,33 @@ namespace KMC_Lattice {
 		}
 	}
 
+	void createExponentialDOSVector(std::vector<float>& data, const double mode, const double urbach_energy, std::mt19937_64& gen) {
+		exponential_distribution<float> dist_exp(1.0 / urbach_energy);
+		auto rand_exp = bind(dist_exp, ref(gen));
+		normal_distribution<float> dist_gaus(0, 2.0*urbach_energy / sqrt(2.0 * Pi));
+		auto rand_gaus = bind(dist_gaus, ref(gen));
+		float energy;
+		for (auto &item : data) {
+			energy = rand_gaus();
+			if (energy > 0) {
+				item = mode + energy;
+			}
+			else {
+				item = mode - rand_exp();
+			}
+		}
+	}
+
 	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937_64& gen) {
 		normal_distribution<double> dist(mean, stdev);
+		auto rand_gaus = bind(dist, ref(gen));
+		for (auto &item : data) {
+			item = rand_gaus();
+		}
+	}
+
+	void createGaussianDOSVector(std::vector<float>& data, const double mean, const double stdev, std::mt19937_64& gen) {
+		normal_distribution<float> dist(mean, stdev);
 		auto rand_gaus = bind(dist, ref(gen));
 		for (auto &item : data) {
 			item = rand_gaus();

@@ -642,6 +642,7 @@ namespace UtilsTests {
 	
 	TEST(UtilsTests, ExponentialDOSTests) {
 		mt19937_64 gen(std::random_device{}());
+		// Check double version
 		vector<double> data((int)2e7, 0.0);
 		createExponentialDOSVector(data, 0.0, 0.1, gen);
 		auto hist = calculateProbabilityHist(data, 1000);
@@ -651,19 +652,23 @@ namespace UtilsTests {
 		for_each(prob_dist.begin(),prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		double peak = *max_element(prob.begin(), prob.end());
 		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
-		createExponentialDOSVector(data, 0.0, 0.05, gen);
-		hist = calculateProbabilityHist(data, 1000);
+		// Check float version
+		vector<float> data_float((int)2e7, 0.0);
+		createExponentialDOSVector(data_float, 0.0, 0.1, gen);
+		vector<double> data_double(data_float.begin(), data_float.end());
+		hist = calculateProbabilityHist(data_double, 1000);
 		prob_dist = calculateDensityHist(hist);
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
-		prob.clear();
+		prob.resize(0);
 		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
 		peak = *max_element(prob.begin(), prob.end());
-		EXPECT_NEAR(0.5*(1.0 / 0.05), peak, 1e-2*peak);
+		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
 	}
 
 	TEST(UtilsTests, GaussianDOSTests) {
 		mt19937_64 gen(std::random_device{}());
-		vector<double> data((int)3e7, 0.0);
+		// Check double version
+		vector<double> data((int)5e7, 0.0);
 		createGaussianDOSVector(data, 0.0, 0.15, gen);
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
 		EXPECT_NEAR(0.15, vector_stdev(data), 1e-4);
@@ -672,16 +677,17 @@ namespace UtilsTests {
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		double peak = prob_dist[499].second;
 		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
-		createGaussianDOSVector(data, 0.0, 0.05, gen);
-		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
-		EXPECT_NEAR(0.05, vector_stdev(data), 1e-4);
-		hist = calculateProbabilityHist(data, 0.005);
+		// Check float version
+		vector<float> data_float((int)5e7, 0.0);
+		createGaussianDOSVector(data_float, 0.0, 0.15, gen);
+		EXPECT_NEAR(0.0, vector_avg(data_float), 1e-4);
+		EXPECT_NEAR(0.15, vector_stdev(data_float), 1e-4);
+		vector<double> data_double(data_float.begin(), data_float.end());
+		hist = calculateProbabilityHist(data_double, 1000);
 		prob_dist = calculateDensityHist(hist);
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
-		vector<double> prob;
-		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
-		peak = *max_element(prob.begin(), prob.end());
-		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.05, 2)), peak, 1e-1*peak);
+		peak = prob_dist[499].second;
+		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
 	}
 
 	TEST(UtilsTests, Str2boolTests) {
@@ -1293,19 +1299,41 @@ namespace ObjectTests {
 		Object object1(0.0, 1, { 0,0,0 });
 		object1.setCoords({ 0,0,5 });
 		EXPECT_DOUBLE_EQ(5.0, object1.calculateDisplacement());
+		EXPECT_DOUBLE_EQ(5.0, object1.calculateDisplacement(0));
+		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(2));
+		EXPECT_DOUBLE_EQ(5.0, object1.calculateDisplacement(3));
 		object1.setCoords({ 0,0,49 });
 		object1.incrementDZ(-50);
 		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement());
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(0));
+		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(2));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
 		object1.setCoords({ 49,49,49 });
 		object1.incrementDX(-50);
 		object1.incrementDY(-50);
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
+		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement(0));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(2));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
 		object1.setCoords({ 49,0,49 });
 		object1.incrementDY(50);
 		EXPECT_DOUBLE_EQ(sqrt(2), object1.calculateDisplacement());
+		EXPECT_DOUBLE_EQ(sqrt(2), object1.calculateDisplacement(0));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(2));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
 		object1.resetInitialCoords({ 5,5,5 });
 		object1.setCoords({ 4,4,4 });
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
+		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement(0));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(2));
+		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
+		// Check invalid direction parameter usage
+		EXPECT_THROW(object1.calculateDisplacement(4), invalid_argument);
 	}
 
 }
