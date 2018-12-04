@@ -576,10 +576,8 @@ namespace UtilsTests {
 		// Generate a set of data from a uniform real distribution
 		mt19937_64 gen(std::random_device{}());
 		uniform_real_distribution<> dist(0, 100);
-		vector<double> data((int)2e7, 0.0);
-		for (int i = 0; i < (int)data.size(); i++) {
-			data[i] = dist(gen);
-		}
+		vector<double> data((int)2e7);
+		generate(data.begin(), data.end(), [&]() { return dist(gen); });
 		// Calculate histogram with 9 bins
 		auto prob_hist = calculateProbabilityHist(data, 10);
 		// Check for the correct number of bins
@@ -622,10 +620,8 @@ namespace UtilsTests {
 		//
 		// Check behavior of float data
 		//
-		vector<float> data_float((int)2e7, 0.0f);
-		for (int i = 0; i < (int)data.size(); i++) {
-			data_float[i] = dist(gen);
-		}
+		vector<float> data_float((int)2e7);
+		generate(data_float.begin(), data_float.end(), [&]() { return dist(gen); });
 		// Calculate histogram with 9 bins
 		prob_hist = calculateProbabilityHist(data_float, 10);
 		// Check for the correct number of bins

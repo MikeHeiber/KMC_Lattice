@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Utils (calculateProbabilityHist) - Float versions of several calculateProbabilityHist functions
 - Utils (createExponentialDOSVector) - Float version of the createExponentialDOSVector function to allow the user to conserve memory
 - Utils (createGaussianDOSVector) - Float version of the createExponentialDOSVector function to allow the user to conserve memory
+- test.cpp (CalculateProbabilityHistTests) - Tests of the float versions of calculateProbabilityHist
 - test.cpp (ExponentialDOSTests) - Test of the float version of the createExponentialDOSVector
 - test.cpp (GaussianDOSTests) - Test of the float version of the createGaussianDOSVector
 - test.cpp (ObjectTests) - Tests of the new calculateDisplacement function behavior
@@ -28,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Utils (createExponentialDOSVector) - Refactored code to make selection of the Gaussian side or the exponential side of the dist more simple
 - Utils (MPI_*) - Refactored functions by replacing for loops with copy, assign, and accumulate functions to make code more concise
 - test.cpp (main) - Re-enabled command line output during the tests to make it easier to see when errors occur
+- test.cpp (CalculateProbabilityHistTests) - refactored tests to use the generate function for filling a vector with random numbers
 
 ### Fixed
 - Event - Corrected the copyright years in the Doxygen documentation block for the class
