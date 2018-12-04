@@ -713,6 +713,12 @@ namespace UtilsTests {
 			data_vec[i].second = exp(-data_vec[i].first / 2.85);
 		}
 		EXPECT_NEAR(1 / exp(1), interpolateData(data_vec, 2.85), 1e-4);
+		// Test with a small lifetime and nonlinear x-vals
+		for (int i = 0; i < (int)data_vec.size(); i++) {
+			data_vec[i].first = pow(10, log10(1e-12) + i * 0.1);
+			data_vec[i].second = exp(-data_vec[i].first / 1e-10);
+		}
+		EXPECT_NEAR(1 / exp(1), interpolateData(data_vec, 1e-10), 1e-4);
 		for (int i = 0; i < (int)data_vec.size(); i++) {
 			data_vec[i].first = 0.2*i;
 			data_vec[i].second = 2.5*data_vec[i].first - 5.0;
