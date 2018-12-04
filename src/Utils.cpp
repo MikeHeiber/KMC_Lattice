@@ -401,9 +401,7 @@ namespace KMC_Lattice {
 		int data_size = (int)input_vector.size();
 		// Copt the input data into an array
 		double* data = new double[data_size];
-		for (int i = 0; i < (int)input_vector.size(); i++) {
-			data[i] = input_vector[i];
-		}
+		copy(input_vector.begin(), input_vector.end(), data);
 		// Allocate array memory for the sum data
 		double* sum = new double[data_size];
 		// Calculate the sum of all of the input vectors
@@ -411,10 +409,7 @@ namespace KMC_Lattice {
 		// Copy the data from the sum array into the final data vector
 		vector<double> output_vector;
 		if (procid == 0) {
-			output_vector.reserve(data_size);
-			for (int i = 0; i < data_size; i++) {
-				output_vector.push_back(sum[i]);
-			}
+			output_vector.assign(sum, sum + data_size);
 		}
 		// Cleanup allocated memory
 		delete[] data;
@@ -430,9 +425,7 @@ namespace KMC_Lattice {
 		int data_size = (int)input_vector.size();
 		// Copy the input data to an array
 		int* data = new int[data_size];
-		for (int i = 0; i < (int)input_vector.size(); i++) {
-			data[i] = input_vector[i];
-		}
+		copy(input_vector.begin(), input_vector.end(), data);
 		// Allocate array memory for the sum data
 		int* sum = new int[data_size];
 		// Calculate the sum of all of the input vectors
@@ -440,10 +433,7 @@ namespace KMC_Lattice {
 		// Copy the data from the sum array into the final data vector
 		vector<int> output_vector;
 		if (procid == 0) {
-			output_vector.reserve(data_size);
-			for (int i = 0; i < data_size; i++) {
-				output_vector.push_back(sum[i]);
-			}
+			output_vector.assign(sum, sum + data_size);
 		}
 		// Cleanup allocated memory
 		delete[] data;
@@ -464,10 +454,7 @@ namespace KMC_Lattice {
 		// Copy the data from the array into the final data vector
 		vector<int> output_vector;
 		if (procid == 0) {
-			output_vector.reserve(nproc);
-			for (int i = 0; i < nproc; i++) {
-				output_vector.push_back(data[i]);
-			}
+			output_vector.assign(data, data + nproc);
 		}
 		// Cleanup allocated memory
 		delete[] data;
@@ -487,10 +474,7 @@ namespace KMC_Lattice {
 		// Copy the data from the array into the final data vector
 		vector<double> output_vector;
 		if (procid == 0) {
-			output_vector.reserve(nproc);
-			for (int i = 0; i < nproc; i++) {
-				output_vector.push_back(data[i]);
-			}
+			output_vector.assign(data, data + nproc);
 		}
 		// Cleanup allocated memory
 		delete[] data;
@@ -512,9 +496,7 @@ namespace KMC_Lattice {
 		int data_count = 0;
 		double* data_all = NULL;
 		if (procid == 0) {
-			for (int i = 0; i < nproc; i++) {
-				data_count += data_sizes[i];
-			}
+			data_count = accumulate(data_sizes, data_sizes + nproc, 0);
 			data_displacement[0] = 0;
 			for (int i = 1; i < nproc; i++) {
 				data_displacement[i] = data_displacement[i - 1] + data_sizes[i - 1];
@@ -524,18 +506,13 @@ namespace KMC_Lattice {
 		}
 		// Copy input data into an array
 		double* data = new double[data_size];
-		for (int i = 0; i < (int)input_vector.size(); i++) {
-			data[i] = input_vector[i];
-		}
+		copy(input_vector.begin(), input_vector.end(), data);
 		// Gather data arrays from all procs into the data_all array on proc 0
 		MPI_Gatherv(data, data_size, MPI_DOUBLE, data_all, data_sizes, data_displacement, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 		// Copy data from data_all array into the output data vector
 		vector<double> output_vector;
 		if (procid == 0) {
-			output_vector.reserve(data_count);
-			for (int i = 0; i < data_count; i++) {
-				output_vector.push_back(data_all[i]);
-			}
+			output_vector.assign(data_all, data_all + data_count);
 		}
 		// Cleanup allocated memory
 		delete[] data;
@@ -560,9 +537,7 @@ namespace KMC_Lattice {
 		int data_count = 0;
 		int* data_all = NULL;
 		if (procid == 0) {
-			for (int i = 0; i < nproc; i++) {
-				data_count += data_sizes[i];
-			}
+			data_count = accumulate(data_sizes, data_sizes + nproc, 0);
 			data_displacement[0] = 0;
 			for (int i = 1; i < nproc; i++) {
 				data_displacement[i] = data_displacement[i - 1] + data_sizes[i - 1];
@@ -572,18 +547,13 @@ namespace KMC_Lattice {
 		}
 		// Copy input data into an array
 		int* data = new int[data_size];
-		for (int i = 0; i < (int)input_vector.size(); i++) {
-			data[i] = input_vector[i];
-		}
+		copy(input_vector.begin(), input_vector.end(), data);
 		// Gather data arrays from all procs into the data_all array on proc 0
 		MPI_Gatherv(data, data_size, MPI_INT, data_all, data_sizes, data_displacement, MPI_INT, 0, MPI_COMM_WORLD);
 		// Copy data from data_all array into the output data vector
 		vector<int> output_vector;
 		if (procid == 0) {
-			output_vector.reserve(data_count);
-			for (int i = 0; i < data_count; i++) {
-				output_vector.push_back(data_all[i]);
-			}
+			output_vector.assign(data_all, data_all + data_count);
 		}
 		// Cleanup allocated memory
 		delete[] data;
