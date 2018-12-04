@@ -438,7 +438,7 @@ namespace SimulationTests {
 		params_base.Width = 200;
 		params_base.Height = 200;
 		sim.init(params_base);
-		sim.N_tests = 1000;
+		sim.N_tests = 2000;
 		sim.N_steps = 1000;
 		sim.k_move = 1000;
 		while (!sim.checkFinished()) {
@@ -451,7 +451,7 @@ namespace SimulationTests {
 		params_base.Enable_selective_recalc = false;
 		params_base.Enable_full_recalc = false;
 		sim.init(params_base);
-		sim.N_tests = 1000;
+		sim.N_tests = 2000;
 		sim.N_steps = 1000;
 		sim.k_move = 1000;
 		while (!sim.checkFinished()) {
@@ -464,7 +464,7 @@ namespace SimulationTests {
 		params_base.Enable_selective_recalc = false;
 		params_base.Enable_full_recalc = true;
 		sim.init(params_base);
-		sim.N_tests = 1000;
+		sim.N_tests = 2000;
 		sim.N_steps = 1000;
 		sim.k_move = 1000;
 		while (!sim.checkFinished()) {
@@ -655,8 +655,7 @@ namespace UtilsTests {
 		// Check float version
 		vector<float> data_float((int)2e7, 0.0);
 		createExponentialDOSVector(data_float, 0.0, 0.1, gen);
-		vector<double> data_double(data_float.begin(), data_float.end());
-		hist = calculateProbabilityHist(data_double, 1000);
+		hist = calculateProbabilityHist(data_float, 1000);
 		prob_dist = calculateDensityHist(hist);
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		prob.resize(0);
@@ -682,8 +681,7 @@ namespace UtilsTests {
 		createGaussianDOSVector(data_float, 0.0, 0.15, gen);
 		EXPECT_NEAR(0.0, vector_avg(data_float), 1e-4);
 		EXPECT_NEAR(0.15, vector_stdev(data_float), 1e-4);
-		vector<double> data_double(data_float.begin(), data_float.end());
-		hist = calculateProbabilityHist(data_double, 1000);
+		hist = calculateProbabilityHist(data_float, 1000);
 		prob_dist = calculateDensityHist(hist);
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		peak = prob_dist[499].second;
@@ -1426,6 +1424,6 @@ namespace VersionTests {
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);
 	// Redirect cout to NULL to suppress command line output during the tests
-	cout.rdbuf(NULL);
+	//cout.rdbuf(NULL);
 	return RUN_ALL_TESTS();
 }

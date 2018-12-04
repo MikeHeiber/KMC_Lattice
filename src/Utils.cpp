@@ -147,6 +147,27 @@ namespace KMC_Lattice {
 		return calculateProbabilityHist(data, bin_size, num_bins);
 	}
 
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<float>& data, int num_bins) {
+		// Check for valid input data
+		if ((int)data.size() == 0) {
+			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
+			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
+		}
+		// Determine data range
+		float min_val = *min_element(data.begin(), data.end());
+		float max_val = *max_element(data.begin(), data.end());
+		// Limit the number of bins to the number of data entries
+		if (num_bins > (int)data.size()) {
+			num_bins = (int)data.size();
+		}
+		// Extend the range a little bit to ensure all data fits in the range
+		min_val -= 1e-12*abs(min_val);
+		max_val += 1e-12*abs(max_val);
+		// Determine bin size
+		double bin_size = (max_val - min_val) / num_bins;
+		return calculateProbabilityHist(data, bin_size, num_bins);
+	}
+
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, double bin_size) {
 		// Check for valid input data
 		if ((int)data.size() == 0) {
@@ -200,37 +221,65 @@ namespace KMC_Lattice {
 		return hist;
 	}
 
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<float>& data, const double bin_size, const int num_bins) {
+		// Check for valid input data
+		if ((int)data.size() == 0) {
+			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
+			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
+		}
+		// Determine the starting bin position
+		float min_val = *min_element(data.begin(), data.end());
+		// Extend the range a little bit to ensure all data fits in the range
+		min_val -= 1e-12*abs(min_val);
+		// Calculate bin-centered x values
+		vector<pair<double, double>> hist(num_bins, make_pair(0.0, 0.0));
+		for (int i = 0; i < num_bins; i++) {
+			hist[i].first = min_val + 0.5*bin_size + bin_size * i;
+		}
+		// Calculate histogram
+		vector<int> counts(num_bins, 0);
+		int index;
+		for (int i = 0; i < (int)data.size(); i++) {
+			index = (int)floor((data[i] - min_val) / bin_size);
+			counts[index]++;
+		}
+		// total counts
+		int total_counts = accumulate(counts.begin(), counts.end(), 0);
+		// Normalized histogram to get probability
+		for (int i = 0; i < num_bins; i++) {
+			hist[i].second = (double)counts[i] / (double)(total_counts);
+		}
+		return hist;
+	}
+
 	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937_64& gen) {
 		exponential_distribution<double> dist_exp(1.0 / urbach_energy);
 		auto rand_exp = bind(dist_exp, ref(gen));
-		normal_distribution<double> dist_gaus(0, 2.0*urbach_energy / sqrt(2.0 * Pi));
+		normal_distribution<double> dist_gaus(0.0, 2.0*urbach_energy / sqrt(2.0 * Pi));
 		auto rand_gaus = bind(dist_gaus, ref(gen));
-		double energy;
 		for (auto &item : data) {
-			energy = rand_gaus();
-			if (energy > 0) {
-				item = mode + energy;
+			double energy = rand_gaus();
+			if (energy < 0) {
+				energy = -rand_exp();
 			}
-			else {
-				item = mode - rand_exp();
-			}
+			item = mode + energy;
 		}
 	}
 
 	void createExponentialDOSVector(std::vector<float>& data, const double mode, const double urbach_energy, std::mt19937_64& gen) {
 		exponential_distribution<float> dist_exp(1.0 / urbach_energy);
 		auto rand_exp = bind(dist_exp, ref(gen));
-		normal_distribution<float> dist_gaus(0, 2.0*urbach_energy / sqrt(2.0 * Pi));
+		normal_distribution<float> dist_gaus(0.0, 2.0*urbach_energy / sqrt(2.0 * Pi));
 		auto rand_gaus = bind(dist_gaus, ref(gen));
-		float energy;
 		for (auto &item : data) {
-			energy = rand_gaus();
-			if (energy > 0) {
-				item = mode + energy;
+			float energy = rand_gaus();
+			if (energy < 0) {
+				energy = -rand_exp();
+				while (isinf(energy)) {
+					energy = -rand_exp();
+				}
 			}
-			else {
-				item = mode - rand_exp();
-			}
+			item = mode + energy;
 		}
 	}
 
