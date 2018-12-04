@@ -127,13 +127,21 @@ namespace KMC_Lattice {
 	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<float>& data, int num_bins);
 
-	//! \brief Calculates the probability histogram for the input data vector using the input bin size.
+	//! \brief Calculates the probability histogram for the input double data vector using the input bin size.
 	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. 
 	//! with the specified bin spacing. The function outputs bin-centered x values and probability y values in a x-y pair vector.
 	//! \param data is the input data vector.
 	//! \param bin_size is the desired bin size.
 	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, double bin_size);
+
+	//! \brief Calculates the probability histogram for the input float data vector using the input bin size.
+	//! \details Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. 
+	//! with the specified bin spacing. The function outputs bin-centered x values and probability y values in a x-y pair vector.
+	//! \param data is the input data vector.
+	//! \param bin_size is the desired bin size.
+	//! \returns A vector of x-y pairs consisting of bin-centered x values and probability y values.
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<float>& data, double bin_size);
 
 	//! \brief Calculates the probability histogram for the input double data vector using the input bin size and input number of bins.
 	//! \details Linearly spaced bins are automatically created starting from the minimum value of the data set. The function

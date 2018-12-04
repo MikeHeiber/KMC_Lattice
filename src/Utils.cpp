@@ -190,6 +190,28 @@ namespace KMC_Lattice {
 		return calculateProbabilityHist(data, bin_size, num_bins);
 	}
 
+	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<float>& data, double bin_size) {
+		// Check for valid input data
+		if ((int)data.size() == 0) {
+			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
+			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
+		}
+		// Determine data range
+		float min_val = *min_element(data.begin(), data.end());
+		float max_val = *max_element(data.begin(), data.end());
+		// Extend the range a little bit to ensure all data fits in the range
+		min_val -= 1e-12*abs(min_val);
+		max_val += 1e-12*abs(max_val);
+		// Determine number of bins
+		int num_bins = (int)ceil((max_val - min_val) / bin_size);
+		// Limit the number of bins to the number of data entries
+		if (num_bins > (int)data.size()) {
+			num_bins = (int)data.size();
+			bin_size = (max_val - min_val) / (double)num_bins;
+		}
+		return calculateProbabilityHist(data, bin_size, num_bins);
+	}
+
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, const double bin_size, const int num_bins) {
 		// Check for valid input data
 		if ((int)data.size() == 0) {
