@@ -17,9 +17,10 @@ For further reading about kinetic Monte Carlo simulations, nice overviews of the
 ## Current Status
 
 The current release is KMC_Lattice [![GitHub (pre-)release](https://img.shields.io/github/release/MikeHeiber/KMC_Lattice/all.svg?style=flat-square)](https://github.com/MikeHeiber/KMC_Lattice/releases).
-Most major planned features that are to be included in v2.0 are now implemented and have undergone preliminary testing. 
-However, this software tool is still under development, and as such, there may still be bugs that need to be squashed. 
-Please report any bugs or submit feature requests in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
+All major planned features that are to be included in v2.0 are now implemented and have undergone significant testing. 
+Please report any remaining bugs or submit feature requests for future releases in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
+
+To keep track of upcoming changes or review prior changes to the codebase, please see the [Changelog](./CHANGELOG.md).
 
 #### Continuous Integration and Testing Status:
 
@@ -39,8 +40,9 @@ Code is being tested using [googletest](https://github.com/google/googletest) wi
 
 ## Contact
 
-If you would like to contribute to the development of this project or would like some help in building an efficient KMC simulation tool for your specific scientific problem, please contact me (heiber@mailaps.org) to discuss a collaboration. 
-You can check out my KMC research and other work on [Researchgate](https://www.researchgate.net/profile/Michael_Heiber).
+If you would like to contribute to the development of this project, please see the [contributing instructions](./CONTRIBUTING.md).
+If you would like some help in using or customizing the tool for your research, please contact me (heiber@mailaps.org) to discuss a collaboration. 
+You can check out my research using this tool and other work on [Researchgate](https://www.researchgate.net/profile/Michael_Heiber).
 
 ## How to try KMC_Lattice?
 
