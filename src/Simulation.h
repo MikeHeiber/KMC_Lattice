@@ -25,7 +25,7 @@ namespace KMC_Lattice {
 	//! \brief This struct contains all of the main input parameters needed by the Simulation class.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	struct Parameters_Simulation {
 		//! Determines whether logging to a logfile during the simulation will be enabled or not.
 		bool Enable_logging;
@@ -62,7 +62,7 @@ namespace KMC_Lattice {
 	//! \details This abstract base class must be extended using a derived simulation class.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	class Simulation {
 	public:
 		//! Default virtual destructor needed by the base class.

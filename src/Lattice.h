@@ -16,7 +16,7 @@ namespace KMC_Lattice {
 	//! \brief This struct contains all of the main input parameters needed by the Lattice class.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	struct Parameters_Lattice {
 		//! Determines whether the x-direction periodic boundaries will be enabled. 
 		bool Enable_periodic_x;
@@ -39,7 +39,7 @@ namespace KMC_Lattice {
 	//! to record the Cartesian coordinates of each lattice site, and the Site class to assign properties to each site.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	class Lattice {
 	public:
 		//! \brief Default constructor that creates an empty Lattice object.
