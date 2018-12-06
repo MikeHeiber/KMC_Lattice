@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sim_5fptr',['sim_ptr',['../class_k_m_c___lattice_1_1_event.html#ad930fb3e106af7dd05990517aafeb511',1,'KMC_Lattice::Event']]]
+  ['params_5flattice',['Params_lattice',['../class_k_m_c___lattice_1_1_parameters___simulation.html#ab9594dc6761965f5004136beeb515b07',1,'KMC_Lattice::Parameters_Simulation']]]
 ];

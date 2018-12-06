@@ -1,0 +1,26 @@
+var NAVTREEINDEX1 =
+{
+"functions_rela.html":[5,2,3],
+"functions_vars.html":[5,2,2],
+"index.html":[],
+"md__c_h_a_n_g_e_l_o_g.html":[0],
+"md__c_o_d_e__o_f__c_o_n_d_u_c_t.html":[1],
+"md__c_o_n_t_r_i_b_u_t_i_n_g.html":[2],
+"md__r_e_a_d_m_e.html":[3],
+"namespace_k_m_c___lattice.html":[4,0,0],
+"namespace_k_m_c___lattice.html":[5,0,0],
+"namespacemembers.html":[4,1,0],
+"namespacemembers_func.html":[4,1,1],
+"namespacemembers_vars.html":[4,1,2],
+"namespaces.html":[4,0],
+"pages.html":[],
+"struct_k_m_c___lattice_1_1_coords.html":[5,0,0,0],
+"struct_k_m_c___lattice_1_1_coords.html#a0bafb80f33d6084e34ad3388956c5bbd":[5,0,0,0,7],
+"struct_k_m_c___lattice_1_1_coords.html#a7be10a627d73f242e512052a36d71adc":[5,0,0,0,6],
+"struct_k_m_c___lattice_1_1_coords.html#a83148899ff24c3d7e0ec84e791b7d31e":[5,0,0,0,4],
+"struct_k_m_c___lattice_1_1_coords.html#ab7a6291b7d6205f7abcd60f46ac0d8ef":[5,0,0,0,0],
+"struct_k_m_c___lattice_1_1_coords.html#ab91b5b1f00ca29ce289e30931d473647":[5,0,0,0,2],
+"struct_k_m_c___lattice_1_1_coords.html#abec56fc21cc8eb52ee8079c450588dbe":[5,0,0,0,3],
+"struct_k_m_c___lattice_1_1_coords.html#ad3b49c299dfc357acd58cecb8ccbf914":[5,0,0,0,5],
+"struct_k_m_c___lattice_1_1_coords.html#aed7503369631f615276b58aa17d1aa5e":[5,0,0,0,1]
+};
