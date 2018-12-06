@@ -772,8 +772,14 @@ namespace UtilsTests {
 		// Check that calculation on single entry histogram throws an exception
 		hist.push_back(make_pair(0.0, 1.0));
 		EXPECT_THROW(calculateDensityHist(hist), invalid_argument);
-		// Check behavior on a test dataset
+		// Check when there are less double data entries than bins
 		data = { 0.0, 1.0, 2.0, 3.0, 4.0 };
+		prob_hist = calculateProbabilityHist(data, 10);
+		EXPECT_EQ(5, (int)prob_hist.size());
+		prob_hist = calculateProbabilityHist(data, 0.1);
+		EXPECT_EQ(5, (int)prob_hist.size());
+		// Check when there are less float data entries than bins
+		data_float = { 0.0, 1.0, 2.0, 3.0, 4.0 };
 		prob_hist = calculateProbabilityHist(data, 10);
 		EXPECT_EQ(5, (int)prob_hist.size());
 		prob_hist = calculateProbabilityHist(data, 0.1);
