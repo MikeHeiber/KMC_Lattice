@@ -50,9 +50,13 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate histogram because bin size is less than 1." << endl;
 			throw invalid_argument("Error! Cannot calculate histogram because bin size is less than 1.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](int val) { return !isfinite((float)val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine the starting bin position
-		int min_val = *min_element(data.begin(), data.end());
-		int max_val = *max_element(data.begin(), data.end());
+		int min_val = *min_element(data_filtered.begin(), data_filtered.end());
+		int max_val = *max_element(data_filtered.begin(), data_filtered.end());
 		// Determine number of bins
 		int num_bins = (int)((double)(max_val - min_val + 1) / (double)bin_size);
 		// Calculate bins
@@ -66,9 +70,8 @@ namespace KMC_Lattice {
 			}
 		}
 		// Calculate histogram
-		int index;
-		for (int i = 0; i < (int)data.size(); i++) {
-			index = (data[i] - min_val) / bin_size;
+		for (int i = 0; i < (int)data_filtered.size(); i++) {
+			int index = (data_filtered[i] - min_val) / bin_size;
 			hist[index].second++;
 		}
 		return hist;
@@ -100,9 +103,13 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
 			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](int val) { return !isfinite((float)val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine the starting bin position
-		int min_val = *min_element(data.begin(), data.end());
-		int max_val = *max_element(data.begin(), data.end());
+		int min_val = *min_element(data_filtered.begin(), data_filtered.end());
+		int max_val = *max_element(data_filtered.begin(), data_filtered.end());
 		// Determine number of bins
 		int num_bins = (int)((double)(max_val - min_val + 1) / (double)bin_size);
 		// Calculate bins
@@ -113,8 +120,8 @@ namespace KMC_Lattice {
 		// Calculate histogram
 		vector<int> counts(num_bins, 0);
 		int index;
-		for (int i = 0; i < (int)data.size(); i++) {
-			index = (data[i] - min_val) / bin_size;
+		for (int i = 0; i < (int)data_filtered.size(); i++) {
+			index = (data_filtered[i] - min_val) / bin_size;
 			counts[index]++;
 		}
 		// total counts
@@ -132,19 +139,23 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
 			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](double val) { return !isfinite(val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine data range
-		double min_val = *min_element(data.begin(), data.end());
-		double max_val = *max_element(data.begin(), data.end());
+		double min_val = *min_element(data_filtered.begin(), data_filtered.end());
+		double max_val = *max_element(data_filtered.begin(), data_filtered.end());
 		// Limit the number of bins to the number of data entries
-		if (num_bins > (int)data.size()) {
-			num_bins = (int)data.size();
+		if (num_bins > (int)data_filtered.size()) {
+			num_bins = (int)data_filtered.size();
 		}
 		// Extend the range a little bit to ensure all data fits in the range
 		min_val -= 1e-12*abs(min_val);
 		max_val += 1e-12*abs(max_val);
 		// Determine bin size
 		double bin_size = (max_val - min_val) / num_bins;
-		return calculateProbabilityHist(data, bin_size, num_bins);
+		return calculateProbabilityHist(data_filtered, bin_size, num_bins);
 	}
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<float>& data, int num_bins) {
@@ -153,19 +164,23 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
 			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](float val) { return !isfinite(val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine data range
-		float min_val = *min_element(data.begin(), data.end());
-		float max_val = *max_element(data.begin(), data.end());
+		float min_val = *min_element(data_filtered.begin(), data_filtered.end());
+		float max_val = *max_element(data_filtered.begin(), data_filtered.end());
 		// Limit the number of bins to the number of data entries
-		if (num_bins > (int)data.size()) {
-			num_bins = (int)data.size();
+		if (num_bins > (int)data_filtered.size()) {
+			num_bins = (int)data_filtered.size();
 		}
 		// Extend the range a little bit to ensure all data fits in the range
-		min_val -= 1e-12*abs(min_val);
-		max_val += 1e-12*abs(max_val);
+		min_val -= 1e-12f*abs(min_val);
+		max_val += 1e-12f*abs(max_val);
 		// Determine bin size
 		double bin_size = (max_val - min_val) / num_bins;
-		return calculateProbabilityHist(data, bin_size, num_bins);
+		return calculateProbabilityHist(data_filtered, bin_size, num_bins);
 	}
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, double bin_size) {
@@ -174,20 +189,24 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
 			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](double val) { return !isfinite(val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine data range
-		double min_val = *min_element(data.begin(), data.end());
-		double max_val = *max_element(data.begin(), data.end());
+		double min_val = *min_element(data_filtered.begin(), data_filtered.end());
+		double max_val = *max_element(data_filtered.begin(), data_filtered.end());
 		// Extend the range a little bit to ensure all data fits in the range
 		min_val -= 1e-12*abs(min_val);
 		max_val += 1e-12*abs(max_val);
 		// Determine number of bins
 		int num_bins = (int)ceil((max_val - min_val) / bin_size);
 		// Limit the number of bins to the number of data entries
-		if (num_bins > (int)data.size()) {
-			num_bins = (int)data.size();
+		if (num_bins > (int)data_filtered.size()) {
+			num_bins = (int)data_filtered.size();
 			bin_size = (max_val - min_val) / (double)num_bins;
 		}
-		return calculateProbabilityHist(data, bin_size, num_bins);
+		return calculateProbabilityHist(data_filtered, bin_size, num_bins);
 	}
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<float>& data, double bin_size) {
@@ -196,20 +215,24 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
 			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](float val) { return !isfinite(val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine data range
-		float min_val = *min_element(data.begin(), data.end());
-		float max_val = *max_element(data.begin(), data.end());
+		double min_val = *min_element(data_filtered.begin(), data_filtered.end());
+		double max_val = *max_element(data_filtered.begin(), data_filtered.end());
 		// Extend the range a little bit to ensure all data fits in the range
-		min_val -= 1e-12*abs(min_val);
-		max_val += 1e-12*abs(max_val);
+		min_val -= 1e-12f*abs(min_val);
+		max_val += 1e-12f*abs(max_val);
 		// Determine number of bins
 		int num_bins = (int)ceil((max_val - min_val) / bin_size);
 		// Limit the number of bins to the number of data entries
-		if (num_bins > (int)data.size()) {
-			num_bins = (int)data.size();
+		if (num_bins > (int)data_filtered.size()) {
+			num_bins = (int)data_filtered.size();
 			bin_size = (max_val - min_val) / (double)num_bins;
 		}
-		return calculateProbabilityHist(data, bin_size, num_bins);
+		return calculateProbabilityHist(data_filtered, bin_size, num_bins);
 	}
 
 	std::vector<std::pair<double, double>> calculateProbabilityHist(const std::vector<double>& data, const double bin_size, const int num_bins) {
@@ -218,8 +241,12 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
 			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](double val) { return !isfinite(val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine the starting bin position
-		double min_val = *min_element(data.begin(), data.end());
+		double min_val = *min_element(data_filtered.begin(), data_filtered.end());
 		// Extend the range a little bit to ensure all data fits in the range
 		min_val -= 1e-12*abs(min_val);
 		// Calculate bin-centered x values
@@ -229,16 +256,17 @@ namespace KMC_Lattice {
 		}
 		// Calculate histogram
 		vector<int> counts(num_bins, 0);
-		int index;
-		for (int i = 0; i < (int)data.size(); i++) {
-			index = (int)floor((data[i] - min_val) / bin_size);
+		for (int i = 0; i < (int)data_filtered.size(); i++) {
+			int index = (int)floor((data_filtered[i] - min_val) / bin_size);
+			// Check for rare rounding error that calculates the index as num_bins
+			if (index == num_bins) {
+				index--;
+			}
 			counts[index]++;
 		}
-		// total counts
-		int total_counts = accumulate(counts.begin(), counts.end(), 0);
 		// Normalized histogram to get probability
 		for (int i = 0; i < num_bins; i++) {
-			hist[i].second = (double)counts[i] / (double)(total_counts);
+			hist[i].second = (double)counts[i] / (double)data_filtered.size();
 		}
 		return hist;
 	}
@@ -249,10 +277,14 @@ namespace KMC_Lattice {
 			cout << "Error! Cannot calculate probability histogram because the input data vector is empty." << endl;
 			throw invalid_argument("Error! Cannot calculate probability histogram because the input data vector is empty.");
 		}
+		// Remove any invalid data from the vector
+		auto data_filtered = data;
+		auto it = remove_if(data_filtered.begin(), data_filtered.end(), [](float val) { return !isfinite(val); });
+		data_filtered.erase(it, data_filtered.end());
 		// Determine the starting bin position
-		float min_val = *min_element(data.begin(), data.end());
+		double min_val = *min_element(data_filtered.begin(), data_filtered.end());
 		// Extend the range a little bit to ensure all data fits in the range
-		min_val -= 1e-12*abs(min_val);
+		min_val -= 1e-12f*abs(min_val);
 		// Calculate bin-centered x values
 		vector<pair<double, double>> hist(num_bins, make_pair(0.0, 0.0));
 		for (int i = 0; i < num_bins; i++) {
@@ -260,16 +292,17 @@ namespace KMC_Lattice {
 		}
 		// Calculate histogram
 		vector<int> counts(num_bins, 0);
-		int index;
-		for (int i = 0; i < (int)data.size(); i++) {
-			index = (int)floor((data[i] - min_val) / bin_size);
+		for (int i = 0; i < (int)data_filtered.size(); i++) {
+			int index = (int)floor(((double)data_filtered[i] - min_val) / bin_size);
+			// Check for rare rounding error that calculates the index as num_bins
+			if (index == num_bins) {
+				index--;
+			}
 			counts[index]++;
 		}
-		// total counts
-		int total_counts = accumulate(counts.begin(), counts.end(), 0);
 		// Normalized histogram to get probability
 		for (int i = 0; i < num_bins; i++) {
-			hist[i].second = (double)counts[i] / (double)(total_counts);
+			hist[i].second = (double)counts[i] / (double)data_filtered.size();
 		}
 		return hist;
 	}
@@ -289,9 +322,9 @@ namespace KMC_Lattice {
 	}
 
 	void createExponentialDOSVector(std::vector<float>& data, const double mode, const double urbach_energy, std::mt19937_64& gen) {
-		exponential_distribution<float> dist_exp(1.0 / urbach_energy);
+		exponential_distribution<float> dist_exp(1.0f / (float)urbach_energy);
 		auto rand_exp = bind(dist_exp, ref(gen));
-		normal_distribution<float> dist_gaus(0.0, 2.0*urbach_energy / sqrt(2.0 * Pi));
+		normal_distribution<float> dist_gaus(0.0f, 2.0f*(float)urbach_energy / sqrt(2.0f * (float)Pi));
 		auto rand_gaus = bind(dist_gaus, ref(gen));
 		for (auto &item : data) {
 			float energy = rand_gaus();
@@ -301,24 +334,20 @@ namespace KMC_Lattice {
 					energy = -rand_exp();
 				}
 			}
-			item = mode + energy;
+			item = (float)mode + energy;
 		}
 	}
 
 	void createGaussianDOSVector(std::vector<double>& data, const double mean, const double stdev, std::mt19937_64& gen) {
 		normal_distribution<double> dist(mean, stdev);
 		auto rand_gaus = bind(dist, ref(gen));
-		for (auto &item : data) {
-			item = rand_gaus();
-		}
+		generate(data.begin(), data.end(), rand_gaus);
 	}
 
 	void createGaussianDOSVector(std::vector<float>& data, const double mean, const double stdev, std::mt19937_64& gen) {
-		normal_distribution<float> dist(mean, stdev);
+		normal_distribution<float> dist((float)mean, (float)stdev);
 		auto rand_gaus = bind(dist, ref(gen));
-		for (auto &item : data) {
-			item = rand_gaus();
-		}
+		generate(data.begin(), data.end(), rand_gaus);
 	}
 
 	double integrateData(const std::vector<std::pair<double, double>>& data) {

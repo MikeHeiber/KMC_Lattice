@@ -57,7 +57,7 @@ namespace KMC_Lattice {
 		std::ofstream* Logfile;
 	};
 
-	//! \brief This abstract base class contains the basic properties of a KMC simulation and the functions needed
+	//! \brief This abstract base class contains the basic properties of a KMC simulation and the functions needed 
 	//! to interact with it.
 	//! \details This abstract base class must be extended using a derived simulation class.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
@@ -72,10 +72,10 @@ namespace KMC_Lattice {
 		//! \warning An empty Simulation object should not be used until the init function has been called.
 		Simulation();
 
-		//! \brief Initializes the Simulation object using the provided Parameters_Simulation struct containing
+		//! \brief Initializes the Simulation object using the provided Parameters_Simulation struct containing 
 		//! the input parameters.
 		//! \param params is a Parameters_Simulation struct that contains all of the required
-		//! parameters to initialize the Simulation object.
+		//! parameters to initialize the Simulation object. 
 		//! \param id is the processor ID number for the processor that is running the simulation.
 		void init(const Parameters_Simulation& params, const int id);
 
@@ -111,7 +111,7 @@ namespace KMC_Lattice {
 		long int getN_objects_created() const;
 
 		//! \brief Gets the processor ID number for the processor that is running the simulation.
-		//! \details This is primarly used with MPI to differentiate between different simualtions running on
+		//! \details This is primarly used with MPI to differentiate between different simualtions running on 
 		//! different cores.
 		int getId() const;
 
@@ -187,16 +187,16 @@ namespace KMC_Lattice {
 		void moveObject(Object* object_ptr, const Coords& coords_dest);
 
 		//! \brief Removes an Event pointer from the event list.
-		//! \details The Event objects are allocated and maintained by the derived Simulation class and only the Event
+		//! \details The Event objects are allocated and maintained by the derived Simulation class and only the Event 
 		//! pointers are stored in the base class. Removing the Event pointer does not delete the Event from the derived
 		//! class, it only prevents the event from being executed in future simulation iterations.
 		//! \param event_ptr is the Event pointer to be removed from the simulation.
 		void removeEvent(Event* event_ptr);
 
 		//! \brief Removes the Object pointer from the base simulation class.
-		//! \details The Object objects are allocated and maintained by the derived Simulation class and only the Object
+		//! \details The Object objects are allocated and maintained by the derived Simulation class and only the Object 
 		//! pointers are stored in the base class. Removing the Object pointer does not delete the Object from the derived
-		//! class.  This function also calls the removeEvent function to remove the Event pointer associated with the
+		//! class.  This function also calls the removeEvent function to remove the Event pointer associated with the 
 		//! Object and also communites with the Lattice object to clear the occupancy of the Site where the Object was located.
 		//! \param object_ptr is the Object pointer to be removed from the simulation.
 		void removeObject(Object* object_ptr);
@@ -235,7 +235,7 @@ namespace KMC_Lattice {
 		long int N_events_executed = 0;
 		// Functions
 
-		//! \brief Constructs and returns a vector of pointers to all Object objects near the input coordinates within
+		//! \brief Constructs and returns a vector of pointers to all Object objects near the input coordinates within 
 		//! the Recalc_cutoff radius.
 		//! \param coords is the Coords struct that designates the input coordinates.
 		//! \return a vector of Object pointers.

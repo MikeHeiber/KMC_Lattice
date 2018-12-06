@@ -476,7 +476,7 @@ namespace KMC_Lattice {
 			diff[i] = fabs(data[i] - median);
 		}
 		auto it = min_element(diff.begin(), diff.end());
-		return distance(diff.begin(), it);
+		return (int)distance(diff.begin(), it);
 	}
 }
 

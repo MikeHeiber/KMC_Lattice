@@ -164,7 +164,7 @@ namespace KMC_Lattice {
 	}
 
 	int Simulation::getN_events() const {
-		return count_if(event_ptrs.begin(), event_ptrs.end(), [](Event* element) {
+		return (int)count_if(event_ptrs.begin(), event_ptrs.end(), [](Event* element) {
 			return (element != nullptr && element->getExecutionTime() > 0);
 		});
 	}

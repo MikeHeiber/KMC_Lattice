@@ -277,7 +277,7 @@ namespace SimulationTests {
 		auto prob_dist = calculateDensityHist(prob_hist);
 		// Test probability distribution of indices
 		for (int i = 0; i < 10; i++) {
-			int count = count_if(indices.begin(), indices.end(), [i](int element) {return element == i; });
+			int count = (int)count_if(indices.begin(), indices.end(), [i](int element) {return element == i; });
 			EXPECT_NEAR(1.0 / 10.0, (double)count / (double)indices.size(), 2e-3);
 		}
 		// Test probability dist of times
@@ -328,7 +328,7 @@ namespace SimulationTests {
 			removeDuplicates(site_options);
 			EXPECT_EQ(6, (int)site_options.size());
 			for (auto item : site_options) {
-				int count = count_if(data.begin(), data.end(), [item](Coords element) {return element == item; });
+				int count = (int)count_if(data.begin(), data.end(), [item](Coords element) {return element == item; });
 				EXPECT_NEAR(1.0 / 6.0, (double)count / (double)data.size(), 2e-2);
 			}
 			EXPECT_TRUE(sim.executeNextEvent());
@@ -575,10 +575,10 @@ namespace UtilsTests {
 		EXPECT_THROW(calculateProbabilityHist(int_data, 5), invalid_argument);
 		// Generate a set of data from a uniform real distribution
 		mt19937_64 gen(std::random_device{}());
-		uniform_real_distribution<> dist(0, 100);
-		vector<double> data((int)2e7);
+		uniform_real_distribution<double> dist(0, 100);
+		vector<double> data((int)3e7);
 		generate(data.begin(), data.end(), [&]() { return dist(gen); });
-		// Calculate histogram with 9 bins
+		// Calculate histogram with 10 bins
 		auto prob_hist = calculateProbabilityHist(data, 10);
 		// Check for the correct number of bins
 		EXPECT_EQ(10, (int)prob_hist.size());
@@ -590,7 +590,7 @@ namespace UtilsTests {
 		// Check that the prob hist sums to 1
 		auto cum_hist = calculateCumulativeHist(prob_hist);
 		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
-		// Calculate histogram with 100 bins
+		// Calculate histogram with 1000 bins
 		prob_hist = calculateProbabilityHist(data, 1000);
 		// Check for the correct number of bins
 		EXPECT_EQ(1000, (int)prob_hist.size());
@@ -618,11 +618,65 @@ namespace UtilsTests {
 		// Check that the prob dist integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
 		//
+		// Check that the double versions still work when there is invalid data in the vector
+		//
+		data.push_back(NAN);
+		data.push_back(INFINITY);
+		// Calculate histogram with 10 bins
+		prob_hist = calculateProbabilityHist(data, 10);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob_hist.size());
+		// Check several random values from the uniform probability hist
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with 1000 bins
+		prob_hist = calculateProbabilityHist(data, 1000);
+		// Check for the correct number of bins
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
+		// Calculate histogram with a bin size of 10.0
+		prob_hist = calculateProbabilityHist(data, 10.0);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob_hist.size());
+		// Check several random values from the uniform probability hist
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with a bin size of 0.1
+		prob_hist = calculateProbabilityHist(data, 0.1);
+		// Check for the correct number of bins
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
+		//
+		// Check that empty double data vectors throw an exception
+		//
+		// Clear data vector
+		data.clear();
+		// Check that empty double data vectors throw an exception
+		EXPECT_THROW(calculateProbabilityHist(data, 10.0), invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data, 5), invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data, 1.0, 5), invalid_argument);
+		// Deallocate data vector
+		vector<double>().swap(data);
+		//
 		// Check behavior of float data
 		//
-		vector<float> data_float((int)2e7);
-		generate(data_float.begin(), data_float.end(), [&]() { return dist(gen); });
-		// Calculate histogram with 9 bins
+		vector<float> data_float((int)3e7);
+		generate(data_float.begin(), data_float.end(), [&]() { return (float)dist(gen); });
+		// Calculate histogram with 10 bins
 		prob_hist = calculateProbabilityHist(data_float, 10);
 		// Check for the correct number of bins
 		EXPECT_EQ(10, (int)prob_hist.size());
@@ -633,7 +687,7 @@ namespace UtilsTests {
 		// Check that the prob hist sums to 1
 		cum_hist = calculateCumulativeHist(prob_hist);
 		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
-		// Calculate histogram with 100 bins
+		// Calculate histogram with 1000 bins
 		prob_hist = calculateProbabilityHist(data_float, 1000);
 		// Check for the correct number of bins
 		EXPECT_EQ(1000, (int)prob_hist.size());
@@ -660,12 +714,57 @@ namespace UtilsTests {
 		prob_dist = calculateDensityHist(prob_hist);
 		// Check that the prob dist integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
-		// Clear data vector
-		data.clear();
-		// Check that empty double data vectors throw an exception
-		EXPECT_THROW(calculateProbabilityHist(data, 10.0), invalid_argument);
-		EXPECT_THROW(calculateProbabilityHist(data, 5), invalid_argument);
-		EXPECT_THROW(calculateProbabilityHist(data, 1.0, 5), invalid_argument);
+		//
+		// Check that the float verions still work when there is invalid data in the vector
+		//
+		data_float.push_back(NAN);
+		data.push_back(INFINITY);
+		// Calculate histogram with 10 bins
+		prob_hist = calculateProbabilityHist(data_float, 10);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob_hist.size());
+		// Check several random values from the uniform probability hist
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with 1000 bins
+		prob_hist = calculateProbabilityHist(data_float, 1000);
+		// Check for the correct number of bins
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
+		// Calculate histogram with a bin size of 10.0
+		prob_hist = calculateProbabilityHist(data_float, 10.0);
+		// Check for the correct number of bins
+		EXPECT_EQ(10, (int)prob_hist.size());
+		// Check several random values from the uniform probability hist
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		EXPECT_NEAR(10.0 / 100.0, prob_hist[dist2(gen)].second, 2.5e-4);
+		// Check that the prob hist sums to 1
+		cum_hist = calculateCumulativeHist(prob_hist);
+		EXPECT_DOUBLE_EQ(1.0, cum_hist.back().second);
+		// Calculate histogram with a bin size of 0.1
+		prob_hist = calculateProbabilityHist(data_float, 0.1);
+		// Check for the correct number of bins
+		EXPECT_EQ(1000, (int)prob_hist.size());
+		// Calculate the discrete prob dist
+		prob_dist = calculateDensityHist(prob_hist);
+		// Check that the prob dist integrates to 1
+		EXPECT_NEAR(1.0, integrateData(prob_dist), 2e-3);
+		//
+		// Check that empty float data vectors throw an exception
+		//
+		// Clear float data vector
+		data_float.clear();
+		EXPECT_THROW(calculateProbabilityHist(data_float, 10.0), invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data_float, 5), invalid_argument);
+		EXPECT_THROW(calculateProbabilityHist(data_float, 1.0, 5), invalid_argument);
 		// Check that calculation on empty histogram vectors throw an exception
 		vector<pair<double, double>> hist;
 		EXPECT_THROW(calculateDensityHist(hist), invalid_argument);
@@ -679,12 +778,6 @@ namespace UtilsTests {
 		EXPECT_EQ(5, (int)prob_hist.size());
 		prob_hist = calculateProbabilityHist(data, 0.1);
 		EXPECT_EQ(5, (int)prob_hist.size());
-		// Check that empty float data vectors throw an exception
-		// Clear float data vector
-		data_float.clear();
-		EXPECT_THROW(calculateProbabilityHist(data_float, 10.0), invalid_argument);
-		EXPECT_THROW(calculateProbabilityHist(data_float, 5), invalid_argument);
-		EXPECT_THROW(calculateProbabilityHist(data_float, 1.0, 5), invalid_argument);
 	}
 
 	TEST(UtilsTests, ExponentialDOSTests) {
@@ -1068,7 +1161,7 @@ namespace LatticeTests {
 			removeDuplicates(site_options);
 			EXPECT_EQ(6, (int)site_options.size());
 			for (auto item : site_options) {
-				int count = count_if(data.begin(), data.end(), [item](int element) {return element == item; });
+				int count = (int)count_if(data.begin(), data.end(), [item](int element) {return element == item; });
 				EXPECT_NEAR(1.0 / 6.0, (double)count / (double)data.size(), 1e-2);
 			}
 		}
@@ -1113,7 +1206,7 @@ namespace LatticeTests {
 			removeDuplicates(site_options);
 			EXPECT_EQ(4, (int)site_options.size());
 			for (auto item : site_options) {
-				int count = count_if(data.begin(), data.end(), [item](int element) {return element == item; });
+				int count = (int)count_if(data.begin(), data.end(), [item](int element) {return element == item; });
 				EXPECT_NEAR(1.0 / 4.0, (double)count / (double)data.size(), 1e-2);
 			}
 		}
@@ -1148,7 +1241,7 @@ namespace LatticeTests {
 			removeDuplicates(site_options);
 			EXPECT_EQ(2, (int)site_options.size());
 			for (auto item : site_options) {
-				int count = count_if(data.begin(), data.end(), [item](int element) {return element == item; });
+				int count = (int)count_if(data.begin(), data.end(), [item](int element) {return element == item; });
 				EXPECT_NEAR(1.0 / 2.0, (double)count / (double)data.size(), 1e-2);
 			}
 		}
