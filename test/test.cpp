@@ -208,13 +208,13 @@ namespace SimulationTests {
 		void SetUp() {
 			{
 				params_base.Enable_logging = false;
-				params_base.Enable_periodic_x = true;
-				params_base.Enable_periodic_y = true;
-				params_base.Enable_periodic_z = true;
-				params_base.Length = 200;
-				params_base.Width = 200;
-				params_base.Height = 200;
-				params_base.Unit_size = 1.0;
+				params_base.Params_lattice.Enable_periodic_x = true;
+				params_base.Params_lattice.Enable_periodic_y = true;
+				params_base.Params_lattice.Enable_periodic_z = true;
+				params_base.Params_lattice.Length = 200;
+				params_base.Params_lattice.Width = 200;
+				params_base.Params_lattice.Height = 200;
+				params_base.Params_lattice.Unit_size = 1.0;
 				params_base.Temperature = 300;
 				params_base.Enable_FRM = false;
 				params_base.Enable_selective_recalc = true;
@@ -230,12 +230,52 @@ namespace SimulationTests {
 		}
 	};
 
+	TEST_F(SimulationTest, CheckParameters) {
+		// Check for invalid lattice params
+		auto params = params_base;
+		params.Params_lattice.Height = 0;
+		EXPECT_FALSE(params.checkParameters());
+		// Check for invalid temp
+		params = params_base;
+		params.Temperature = 0;
+		EXPECT_FALSE(params.checkParameters());
+		// Check for valid selection of KMC algorithm
+		// Check for multiple KMC algorithms enabled
+		params = params_base;
+		params.Enable_FRM = true;
+		params.Enable_selective_recalc = true;
+		params.Enable_full_recalc = false;
+		EXPECT_FALSE(params.checkParameters());
+		params.Enable_FRM = true;
+		params.Enable_selective_recalc = false;
+		params.Enable_full_recalc = true;
+		EXPECT_FALSE(params.checkParameters());
+		params.Enable_FRM = false;
+		params.Enable_selective_recalc = true;
+		params.Enable_full_recalc = true;
+		EXPECT_FALSE(params.checkParameters());
+		// Check for no KMC algorithm specified
+		params.Enable_FRM = false;
+		params.Enable_selective_recalc = false;
+		params.Enable_full_recalc = false;
+		EXPECT_FALSE(params.checkParameters());
+		// Check recalculation radius when using the selective recalc method
+		params = params_base;
+		params.Enable_selective_recalc = true;
+		params.Recalc_cutoff = 0;
+		EXPECT_FALSE(params.checkParameters());
+	}
+
 	TEST_F(SimulationTest, SetupTests) {
 		EXPECT_EQ(0, sim.getId());
 		EXPECT_FALSE(sim.isLoggingEnabled());
 		EXPECT_DOUBLE_EQ(0.0, sim.getTime());
 		EXPECT_EQ(300, sim.getTemp());
-		EXPECT_DOUBLE_EQ(params_base.Length*params_base.Width*params_base.Height*1e-21, sim.getVolume());
+		EXPECT_DOUBLE_EQ(params_base.Params_lattice.Length*params_base.Params_lattice.Width*params_base.Params_lattice.Height*1e-21, sim.getVolume());
+		// Check that Simulation initialization with invalid parameters throws an exception
+		auto params = params_base;
+		params.Temperature = 0;
+		EXPECT_THROW(sim.init(params), invalid_argument);
 	}
 
 	TEST_F(SimulationTest, RemoveEventObjectTests) {
@@ -336,12 +376,12 @@ namespace SimulationTests {
 	}
 
 	TEST_F(SimulationTest, DisplacementTests) {
-		params_base.Enable_periodic_x = false;
-		params_base.Enable_periodic_y = false;
-		params_base.Enable_periodic_z = false;
-		params_base.Length = 100;
-		params_base.Width = 100;
-		params_base.Height = 100;
+		params_base.Params_lattice.Enable_periodic_x = false;
+		params_base.Params_lattice.Enable_periodic_y = false;
+		params_base.Params_lattice.Enable_periodic_z = false;
+		params_base.Params_lattice.Length = 100;
+		params_base.Params_lattice.Width = 100;
+		params_base.Params_lattice.Height = 100;
 		TestSim sim2;
 		sim2.init(params_base);
 		sim2.coords_creation = sim2.getRandomCoords();
@@ -382,12 +422,12 @@ namespace SimulationTests {
 
 	TEST_F(SimulationTest, 2DRandomWalkTests) {
 		// 2D
-		params_base.Enable_periodic_x = true;
-		params_base.Enable_periodic_y = true;
-		params_base.Enable_periodic_z = false;
-		params_base.Length = 200;
-		params_base.Width = 200;
-		params_base.Height = 1;
+		params_base.Params_lattice.Enable_periodic_x = true;
+		params_base.Params_lattice.Enable_periodic_y = true;
+		params_base.Params_lattice.Enable_periodic_z = false;
+		params_base.Params_lattice.Length = 200;
+		params_base.Params_lattice.Width = 200;
+		params_base.Params_lattice.Height = 1;
 		TestSim sim2D;
 		sim2D.init(params_base);
 		sim2D.N_tests = 10000;
@@ -404,12 +444,12 @@ namespace SimulationTests {
 
 	TEST_F(SimulationTest, 1DRandomWalkTests) {
 		// 1D
-		params_base.Enable_periodic_x = true;
-		params_base.Enable_periodic_y = false;
-		params_base.Enable_periodic_z = false;
-		params_base.Length = 200;
-		params_base.Width = 1;
-		params_base.Height = 1;
+		params_base.Params_lattice.Enable_periodic_x = true;
+		params_base.Params_lattice.Enable_periodic_y = false;
+		params_base.Params_lattice.Enable_periodic_z = false;
+		params_base.Params_lattice.Length = 200;
+		params_base.Params_lattice.Width = 1;
+		params_base.Params_lattice.Height = 1;
 		TestSim sim1D;
 		sim1D.init(params_base);
 		sim1D.N_tests = 10000;
@@ -431,12 +471,12 @@ namespace SimulationTests {
 		params_base.Enable_selective_recalc = true;
 		params_base.Recalc_cutoff = 3;
 		params_base.Enable_full_recalc = false;
-		params_base.Enable_periodic_x = true;
-		params_base.Enable_periodic_y = true;
-		params_base.Enable_periodic_z = true;
-		params_base.Length = 200;
-		params_base.Width = 200;
-		params_base.Height = 200;
+		params_base.Params_lattice.Enable_periodic_x = true;
+		params_base.Params_lattice.Enable_periodic_y = true;
+		params_base.Params_lattice.Enable_periodic_z = true;
+		params_base.Params_lattice.Length = 200;
+		params_base.Params_lattice.Width = 200;
+		params_base.Params_lattice.Height = 200;
 		sim.init(params_base);
 		sim.N_tests = 2000;
 		sim.N_steps = 1000;
@@ -1054,13 +1094,29 @@ namespace LatticeTests {
 		}
 	};
 
+	TEST_F(LatticeTest, CheckParameters) {
+		// Check for invalid lattice dimensions
+		auto params = params_lattice;
+		params.Height = 0;
+		EXPECT_FALSE(params.checkParameters());
+		// Check for invalid unit size
+		params = params_lattice;
+		params.Unit_size = 0;
+		EXPECT_FALSE(params.checkParameters());
+	}
+
 	TEST_F(LatticeTest, InitializationTests) {
+		// Check that SetUp creates a lattice with the proper dimensions and unit size
 		EXPECT_EQ(50, lattice.getLength());
 		EXPECT_EQ(50, lattice.getWidth());
 		EXPECT_EQ(50, lattice.getHeight());
 		EXPECT_DOUBLE_EQ(1.0, lattice.getUnitSize());
 		EXPECT_EQ((long int)50 * 50 * 50, lattice.getNumSites());
 		EXPECT_DOUBLE_EQ(125000e-21, lattice.getVolume());
+		// Check that initialization with invalid parameters throws an exception
+		auto params = params_lattice;
+		params.Height = 0;
+		EXPECT_THROW(lattice.init(params, &gen), invalid_argument);
 	}
 
 	TEST_F(LatticeTest, CalculateDestCoordsTests) {
@@ -1346,13 +1402,13 @@ namespace EventTests {
 		void setUp() {
 			{
 				params_base.Enable_logging = false;
-				params_base.Enable_periodic_x = true;
-				params_base.Enable_periodic_y = true;
-				params_base.Enable_periodic_z = true;
-				params_base.Length = 50;
-				params_base.Width = 50;
-				params_base.Height = 50;
-				params_base.Unit_size = 1.0;
+				params_base.Params_lattice.Enable_periodic_x = true;
+				params_base.Params_lattice.Enable_periodic_y = true;
+				params_base.Params_lattice.Enable_periodic_z = true;
+				params_base.Params_lattice.Length = 50;
+				params_base.Params_lattice.Width = 50;
+				params_base.Params_lattice.Height = 50;
+				params_base.Params_lattice.Unit_size = 1.0;
 				params_base.Temperature = 300;
 				params_base.Enable_FRM = false;
 				params_base.Enable_selective_recalc = true;

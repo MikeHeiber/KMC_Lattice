@@ -6,13 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-## [v2.0.0-rc.1] - 2018-12-04 - Release Candidate 1
+## [v2.0.0-rc.1] - 2018-12-07 - Release Candidate 1
 
 ### Added
 - CONTRIBUTING.md - New file with instructions for how others can contribute to the project
 - README.md - Link to new CONTRIBUTING file
 - CHANGELOG.md - New file detailing the changes for each release
 - README.md - Link to new CHANGELOG file
+- README.md - More detailed instructions for building and testing KMC_Lattice
 - Object (calculateDisplacement) - New optional direction parameter that allows users to tell the function to calculate the displacement along a specific Cartesian direction
 - Simulation (getN_events) - Cast return of count_if function to int to prevent compiler warning
 - Utils (calculateProbabilityHist) - Float versions of several calculateProbabilityHist functions
@@ -35,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Doxyfile - Updated the version number to v2.0.0-rc.1
 - docs - Generated updated Doxygen documentation
+- Parameters_Lattice - Refactored struct into a new class
 - test.cpp (AlgorithmTests) - Increased N_tests to gather more statistics and reduce likelihood of test failure
 - Utils (createExponentialDOSVector) - Refactored code to make selection of the Gaussian side or the exponential side of the dist more simple
 - Utils (createGaussianDOSVector) - Refactored code to use generate function for filling the output data vector

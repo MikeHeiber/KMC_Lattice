@@ -58,32 +58,57 @@ If you wish, you can also install MPI on your own personal workstation and then 
 - MPICH, http://www.mpich.org/
 - MVAPICH, http://mvapich.cse.ohio-state.edu/
 
-Once you have an MPI library installed, to build the KMC_Lattice library, copy the KMC_Lattice directory to your machine, set it as your working directory, and run `make`. 
-Compilation flags have been set for the GCC and PGI compilers.  If you are using another compiler, you may need to edit the makefile and define your own compiler options.
-However, before you use the KMC_Lattice library, you should test it on your own hardware using the unit and system tests provided. 
-Build the testing executable by running `make test`. 
-Once the test build is complete, run `./test/KMC_Lattice_tests.exe`.
+Once you have an MPI library installed, to build KMC_Lattice, first copy the KMC_Lattice directory to your machine.  On Linux this can be done using the command,
+
+```git clone --recurse-submodules https://github.com/MikeHeiber/KMC_Lattice```
+
+Then set KMC_Lattice as your working directory,
+
+```cd KMC_Lattice```
+
+and finally build the software package with the default makefile.
+
+```make```
+
+In the default makefile, compilation flags have been set for the GCC and PGI compilers.  If you are using another compiler, you will need to edit the makefile and define your own compiler options.
+Once the normal build is successful, you should test KMC_Lattice on your own hardware using the unit and system tests provided before you use the tool. 
+Build the testing executable by running
+
+```make test```
+
+Once the test build is complete, run the test executables.
+
+```./test/KMC_Lattice_tests.exe```
+
+and
+
+```mpiexeec -n 4 ./test/KMC_Lattice_MPI_tests.exe```
+
 Please report any build or testing errors in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
 
 ## Package Contents
-
-Object class - This base class can be extended to represent any entity that one would like to simulate. 
-It could represent an electron, atom, molecule, organism, etc. depending on the application. 
-The Object class contains the fundamental properties and back-end operations that any given entity simulation would require.
-
-Lattice class - This class implements a lattice, its boundary conditions, and keeps track of its occupancy.
 
 Event class - This base class can be extended to represent any process/mechanism/transition that one would like to simulate. 
 It could represent a hopping motion event, a reaction event, etc. depending on the application. 
 Typically, derived events are associated with a particular derived object. 
 The Event class contains the fundamental properties and back-end operations that any given state transition would require.
 
-Site class - This base class can be extended to represent the lattice sites that make up the simulation medium/environment. 
-Added site properties can be used to implement interactions between the simulation environment and the objects, which then affect the events. 
-For example, site energies can be assigned to derived site classes to account for inhomogeneous systems.
+Lattice class - This class implements a lattice, its boundary conditions, and keeps track of its occupancy.
+
+Object class - This base class can be extended to represent any entity that one would like to simulate. 
+It could represent an electron, atom, molecule, organism, etc. depending on the application. 
+The Object class contains the fundamental properties and back-end operations that any given entity simulation would require.
+
+Parameters_Lattice class - This class contains all of the parameters needed to construct a Lattice object.
+
+Parameters_Simulation class - This class contains all of the parameters needed to construct a Simulation object.
 
 Simulation class - This base class can be extended to manage all derived objects and their associated events. 
 The Simulation class contains the fundamental properties and back-end operations that most simulations would require.
+
+Site class - This base class can be extended to represent the lattice sites that make up the simulation medium/environment. 
+Added site properties can be used to implement interactions between the simulation environment and the objects, which then affect the events. 
+For example, site energies can be assigned to derived site classes to account for inhomogeneous systems.
 
 Utils - This file contains a number of useful utility functions, scientific constants, etc. that can then be used throughout the software package.
 
