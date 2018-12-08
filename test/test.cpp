@@ -863,25 +863,37 @@ namespace UtilsTests {
 	TEST(UtilsTests, GaussianDOSTests) {
 		mt19937_64 gen(std::random_device{}());
 		// Check double version
-		vector<double> data((int)5e7, 0.0);
+		vector<double> data((int)6e7, 0.0);
 		createGaussianDOSVector(data, 0.0, 0.15, gen);
+		// Check avg of data
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
+		// Check stdev of data
 		EXPECT_NEAR(0.15, vector_stdev(data), 1e-4);
+		// Calculate probability density histogram
 		auto hist = calculateProbabilityHist(data, 1000);
 		auto prob_dist = calculateDensityHist(hist);
+		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
+		// Check the Gaussian probablity density histogram peak height
 		double peak = prob_dist[499].second;
-		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
+		double expected_peak = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
+		EXPECT_NEAR(expected_peak, peak, 1e-1*expected_peak);
 		// Check float version
-		vector<float> data_float((int)5e7, 0.0);
+		vector<float> data_float((int)6e7, 0.0);
 		createGaussianDOSVector(data_float, 0.0, 0.15, gen);
+		// Check avg of data
 		EXPECT_NEAR(0.0, vector_avg(data_float), 1e-4);
+		// Check stdev of data
 		EXPECT_NEAR(0.15, vector_stdev(data_float), 1e-4);
+		// Calculate probability density histogram
 		hist = calculateProbabilityHist(data_float, 1000);
 		prob_dist = calculateDensityHist(hist);
+		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
+		// Check the Gaussian probablity density histogram peak height
 		peak = prob_dist[499].second;
-		EXPECT_NEAR(1.0 / sqrt(2.0*Pi*intpow(0.15, 2)), peak, 1e-1*peak);
+		expected_peak = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
+		EXPECT_NEAR(expected_peak, peak, 1e-1*expected_peak);
 	}
 
 	TEST(UtilsTests, Str2boolTests) {
