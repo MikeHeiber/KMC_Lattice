@@ -264,6 +264,16 @@ namespace SimulationTests {
 		params.Enable_selective_recalc = true;
 		params.Recalc_cutoff = 0;
 		EXPECT_FALSE(params.checkParameters());
+		// Check for missing logfile when logging is enabled
+		params = params_base;
+		params.Enable_logging = true;
+		EXPECT_FALSE(params.checkParameters());
+		// Check for invalid logging file when logging is enabled
+		params = params_base;
+		params.Enable_logging = true;
+		ofstream outfile;
+		params.Logfile = &outfile;
+		EXPECT_FALSE(params.checkParameters());
 	}
 
 	TEST_F(SimulationTest, SetupTests) {

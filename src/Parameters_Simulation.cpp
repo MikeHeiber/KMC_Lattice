@@ -47,6 +47,10 @@ namespace KMC_Lattice {
 			cout << "Error! The event recalculation cutoff radius must be greater than zero." << endl;
 			return false;
 		}
+		if (Enable_logging && Logfile == nullptr) {
+			cout << "Error! The logfile filestream has not been set." << endl;
+			return false;
+		}
 		if (Enable_logging && !(Logfile->good() && Logfile->is_open() ) ){
 			cout << "Error! The logfile filestream is not open or has an error." << endl;
 			return false;

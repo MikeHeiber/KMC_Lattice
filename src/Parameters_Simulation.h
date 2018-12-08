@@ -33,7 +33,7 @@ namespace KMC_Lattice {
 		//! Determines whether the full recalculation method will be used or not.
 		bool Enable_full_recalc;
 		//! Defines the desired output file stream pointer to the logfile.
-		std::ofstream* Logfile;
+		std::ofstream* Logfile = nullptr;
 
 		// Functions
 		//! Default virtual destructor.
