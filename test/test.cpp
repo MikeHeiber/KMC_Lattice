@@ -847,7 +847,7 @@ namespace UtilsTests {
 		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		// Check the probablity density histogram peak height
-		double peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+		double peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](pair<double,double> a, pair<double, double> b) {
 			return a.second < b.second;
 		})->second;
 		double expected_height = 0.5*(1.0 / 0.1);
@@ -861,7 +861,7 @@ namespace UtilsTests {
 		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		// Check the Gaussian probablity density histogram peak height
-		peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+		peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](pair<double, double> a, pair<double, double> b) {
 			return a.second < b.second;
 		})->second;
 		expected_height = 0.5*(1.0 / 0.1);
@@ -883,7 +883,7 @@ namespace UtilsTests {
 		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		// Check the Gaussian probablity density histogram peak height
-		double peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+		double peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](pair<double, double> a, pair<double, double> b) {
 			return a.second < b.second;
 		})->second;
 		double expected_height = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
@@ -901,7 +901,7 @@ namespace UtilsTests {
 		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		// Check the Gaussian probablity density histogram peak height
-		peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+		peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](pair<double, double> a, pair<double, double> b) {
 			return a.second < b.second;
 		})->second;
 		expected_height = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
