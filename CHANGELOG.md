@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-## [v2.0.0-rc.1] - 2018-12-07 - Release Candidate 1
+## [v2.0.0-rc.1] - 2018-12-08 - Release Candidate 1
 
 ### Added
 - CONTRIBUTING.md - New file with instructions for how others can contribute to the project
