@@ -841,29 +841,37 @@ namespace UtilsTests {
 		// Check double version
 		vector<double> data((int)2e7, 0.0);
 		createExponentialDOSVector(data, 0.0, 0.1, gen);
+		// Calculate probability density histogram
 		auto hist = calculateProbabilityHist(data, 1000);
 		auto prob_dist = calculateDensityHist(hist);
+		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
-		vector<double> prob;
-		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
-		double peak = *max_element(prob.begin(), prob.end());
-		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
+		// Check the probablity density histogram peak height
+		double peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+			return a.second < b.second;
+		})->second;
+		double expected_height = 0.5*(1.0 / 0.1);
+		EXPECT_NEAR(expected_height, peak_height, 1e-2*expected_height);
 		// Check float version
 		vector<float> data_float((int)2e7, 0.0);
 		createExponentialDOSVector(data_float, 0.0, 0.1, gen);
+		// Calculate probability density histogram
 		hist = calculateProbabilityHist(data_float, 1000);
 		prob_dist = calculateDensityHist(hist);
+		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
-		prob.resize(0);
-		for_each(prob_dist.begin(), prob_dist.end(), [&prob](pair<double, double>& x_y) {prob.push_back(x_y.second); });
-		peak = *max_element(prob.begin(), prob.end());
-		EXPECT_NEAR(0.5*(1.0 / 0.1), peak, 1e-2*peak);
+		// Check the Gaussian probablity density histogram peak height
+		peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+			return a.second < b.second;
+		})->second;
+		expected_height = 0.5*(1.0 / 0.1);
+		EXPECT_NEAR(expected_height, peak_height, 1e-2*expected_height);
 	}
 
 	TEST(UtilsTests, GaussianDOSTests) {
 		mt19937_64 gen(std::random_device{}());
 		// Check double version
-		vector<double> data((int)6e7, 0.0);
+		vector<double> data((int)2e7, 0.0);
 		createGaussianDOSVector(data, 0.0, 0.15, gen);
 		// Check avg of data
 		EXPECT_NEAR(0.0, vector_avg(data), 1e-4);
@@ -875,11 +883,13 @@ namespace UtilsTests {
 		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		// Check the Gaussian probablity density histogram peak height
-		double peak = prob_dist[499].second;
-		double expected_peak = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
-		EXPECT_NEAR(expected_peak, peak, 1e-1*expected_peak);
+		double peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+			return a.second < b.second;
+		})->second;
+		double expected_height = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
+		EXPECT_NEAR(expected_height, peak_height, 1e-2*expected_height);
 		// Check float version
-		vector<float> data_float((int)6e7, 0.0);
+		vector<float> data_float((int)2e7, 0.0);
 		createGaussianDOSVector(data_float, 0.0, 0.15, gen);
 		// Check avg of data
 		EXPECT_NEAR(0.0, vector_avg(data_float), 1e-4);
@@ -891,9 +901,11 @@ namespace UtilsTests {
 		// Check that the probability density histogram integrates to 1
 		EXPECT_NEAR(1.0, integrateData(prob_dist), 1e-4);
 		// Check the Gaussian probablity density histogram peak height
-		peak = prob_dist[499].second;
-		expected_peak = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
-		EXPECT_NEAR(expected_peak, peak, 1e-1*expected_peak);
+		peak_height = max_element(prob_dist.begin(), prob_dist.end(), [](const auto& a, const auto& b) {
+			return a.second < b.second;
+		})->second;
+		expected_height = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
+		EXPECT_NEAR(expected_height, peak_height, 1e-2*expected_height);
 	}
 
 	TEST(UtilsTests, Str2boolTests) {
