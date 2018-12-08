@@ -887,7 +887,7 @@ namespace UtilsTests {
 			return a.second < b.second;
 		})->second;
 		double expected_height = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
-		EXPECT_NEAR(expected_height, peak_height, 1e-2*expected_height);
+		EXPECT_NEAR(expected_height, peak_height, 2e-2*expected_height);
 		// Check float version
 		vector<float> data_float((int)2e7, 0.0);
 		createGaussianDOSVector(data_float, 0.0, 0.15, gen);
@@ -905,7 +905,7 @@ namespace UtilsTests {
 			return a.second < b.second;
 		})->second;
 		expected_height = 1.0 / sqrt(2.0*Pi*intpow(0.15, 2));
-		EXPECT_NEAR(expected_height, peak_height, 1e-2*expected_height);
+		EXPECT_NEAR(expected_height, peak_height, 2e-2*expected_height);
 	}
 
 	TEST(UtilsTests, Str2boolTests) {
