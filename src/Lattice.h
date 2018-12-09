@@ -7,39 +7,19 @@
 #define KMC_LATTICE_LATTICE_H
 
 #include "Utils.h"
+#include "Parameters_Lattice.h"
 #include "Site.h"
 #include <functional>
 #include <stdexcept>
 
 namespace KMC_Lattice {
 
-	//! \brief This struct contains all of the main input parameters needed by the Lattice class.
-	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
-	//! \author Michael C. Heiber
-	//! \date 2018
-	struct Parameters_Lattice {
-		//! Determines whether the x-direction periodic boundaries will be enabled. 
-		bool Enable_periodic_x;
-		//! Determines whether the y-direction periodic boundaries will be enabled. 
-		bool Enable_periodic_y;
-		//! Determines whether the z-direction periodic boundaries will be enabled. 
-		bool Enable_periodic_z;
-		//! Defines the desired x-direction size of the lattice.
-		int Length;
-		//! Defines the desired y-direction size of the lattice.
-		int Width;
-		//! Defines the desired z-direction size of the lattice.
-		int Height;
-		//! Defines the desired lattice unit size, which is used to convert lattice units into real space units.
-		double Unit_size; // nm
-	};
-
 	//! \brief This class contains the properties of a three-dimensional lattice and the functions needed to interact with it.
 	//! \details The class makes use of the Parameters_Lattice struct to load the neccessary input parameters, the Coords struct
 	//! to record the Cartesian coordinates of each lattice site, and the Site class to assign properties to each site.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	class Lattice {
 	public:
 		//! \brief Default constructor that creates an empty Lattice object.

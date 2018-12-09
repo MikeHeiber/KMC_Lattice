@@ -9,6 +9,7 @@
 #include "Utils.h"
 #include "Lattice.h"
 #include "Object.h"
+#include "Parameters_Simulation.h"
 #include "Event.h"
 #include <list>
 #include <vector>
@@ -22,47 +23,12 @@
 
 namespace KMC_Lattice {
 
-	//! \brief This struct contains all of the main input parameters needed by the Simulation class.
-	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
-	//! \author Michael C. Heiber
-	//! \date 2018
-	struct Parameters_Simulation {
-		//! Determines whether logging to a logfile during the simulation will be enabled or not.
-		bool Enable_logging;
-		//! Determines whether the x-direction periodic boundary conditions will be enabled or not in the Lattice.
-		bool Enable_periodic_x;
-		//! Determines whether the y-direction periodic boundary conditions will be enabled or not in the Lattice.
-		bool Enable_periodic_y;
-		//! Determines whether the z-direction periodic boundary conditions will be enabled or not in the Lattice.
-		bool Enable_periodic_z;
-		//! Defines the desired x-direction size of the Lattice.
-		int Length;
-		//! Defines the desired y-direction size of the Lattice.
-		int Width;
-		//! Defines the desired z-direction size of the Lattice.
-		int Height;
-		//! Defines the desired resolution of the Lattice in units of nm.
-		double Unit_size;
-		//! Defines the desired temperature of the simulation in Kelvin.
-		int Temperature;
-		//! Determines whether the first reaction method will be used or not.
-		bool Enable_FRM;
-		//! Determines whether the selective recalculation method will be used or not.
-		bool Enable_selective_recalc;
-		//! Defines the desired event recalculation cutoff radius for the simulation in nm.
-		int Recalc_cutoff;
-		//! Determines whether the full recalculation method will be used or not.
-		bool Enable_full_recalc;
-		//! Defines the desired output file stream pointer to the logfile.
-		std::ofstream* Logfile;
-	};
-
 	//! \brief This abstract base class contains the basic properties of a KMC simulation and the functions needed 
 	//! to interact with it.
 	//! \details This abstract base class must be extended using a derived simulation class.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	class Simulation {
 	public:
 		//! Default virtual destructor needed by the base class.

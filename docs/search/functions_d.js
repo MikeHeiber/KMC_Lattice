@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['_7eevent',['~Event',['../class_k_m_c___lattice_1_1_event.html#abbe835876bab01e0aee6089660ffd8b1',1,'KMC_Lattice::Event']]],
-  ['_7eobject',['~Object',['../class_k_m_c___lattice_1_1_object.html#a2f950c46bb2903eda745a8082dee201e',1,'KMC_Lattice::Object']]],
-  ['_7esimulation',['~Simulation',['../class_k_m_c___lattice_1_1_simulation.html#a985507cf5873a307fc3e2d4cf84c6312',1,'KMC_Lattice::Simulation']]],
-  ['_7esite',['~Site',['../class_k_m_c___lattice_1_1_site.html#ac7b4e6c14945259c207dd937f324acc5',1,'KMC_Lattice::Site']]]
+  ['vector_5favg',['vector_avg',['../namespace_k_m_c___lattice.html#ac6e3c50cbe381912063d9a263a1421a8',1,'KMC_Lattice']]],
+  ['vector_5fmedian',['vector_median',['../namespace_k_m_c___lattice.html#a09bbe80a35ef2c48aedb10c350f9281a',1,'KMC_Lattice']]],
+  ['vector_5fstdev',['vector_stdev',['../namespace_k_m_c___lattice.html#a650b567dda3d6dbfc9290ac200af0954',1,'KMC_Lattice']]],
+  ['vector_5fwhich_5fmedian',['vector_which_median',['../namespace_k_m_c___lattice.html#aa5cb31c44a91bf42258b5539fc42563e',1,'KMC_Lattice']]],
+  ['version',['Version',['../class_k_m_c___lattice_1_1_version.html#aef62f8a7aa58c3fe10110378e02198c5',1,'KMC_Lattice::Version::Version()'],['../class_k_m_c___lattice_1_1_version.html#ab35b81c4c6ef53fa58456835e7308fb2',1,'KMC_Lattice::Version::Version(const std::string &amp;version_str)']]]
 ];

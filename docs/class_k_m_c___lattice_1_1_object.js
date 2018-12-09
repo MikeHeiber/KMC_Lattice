@@ -3,7 +3,7 @@ var class_k_m_c___lattice_1_1_object =
     [ "~Object", "class_k_m_c___lattice_1_1_object.html#a2f950c46bb2903eda745a8082dee201e", null ],
     [ "Object", "class_k_m_c___lattice_1_1_object.html#aefef862e9b7d6664f49c0187743dc757", null ],
     [ "Object", "class_k_m_c___lattice_1_1_object.html#a3cc5166f14876fb0a6ceebbdd19d5b40", null ],
-    [ "calculateDisplacement", "class_k_m_c___lattice_1_1_object.html#a5d011f168e873aab55e84add9dd0c8c3", null ],
+    [ "calculateDisplacement", "class_k_m_c___lattice_1_1_object.html#a1831d9ef4058f8605c630cf68fc36b68", null ],
     [ "getCoords", "class_k_m_c___lattice_1_1_object.html#a83a7bab6def0127d9a9a867a5f7f7ca8", null ],
     [ "getCreationTime", "class_k_m_c___lattice_1_1_object.html#a938b0914499c7f609fd9feffe6893783", null ],
     [ "getEventIt", "class_k_m_c___lattice_1_1_object.html#a85b51ab799b2a9ec7ada716a6af7209a", null ],

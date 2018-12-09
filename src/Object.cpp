@@ -26,8 +26,19 @@ namespace KMC_Lattice {
 		coords_initial = start_coords;
 	}
 
-	double Object::calculateDisplacement() const {
-		return sqrt((coords_current.x + dx - coords_initial.x)*(coords_current.x + dx - coords_initial.x) + (coords_current.y + dy - coords_initial.y)*(coords_current.y + dy - coords_initial.y) + (coords_current.z + dz - coords_initial.z)*(coords_current.z + dz - coords_initial.z));
+	double Object::calculateDisplacement(const int direction) const {
+		switch (direction) {
+		case 0:
+			return sqrt((coords_current.x + dx - coords_initial.x)*(coords_current.x + dx - coords_initial.x) + (coords_current.y + dy - coords_initial.y)*(coords_current.y + dy - coords_initial.y) + (coords_current.z + dz - coords_initial.z)*(coords_current.z + dz - coords_initial.z));
+		case 1:
+			return abs(coords_current.x + dx - coords_initial.x);
+		case 2:
+			return abs(coords_current.y + dy - coords_initial.y);
+		case 3:
+			return abs(coords_current.z + dz - coords_initial.z);
+		default:
+			throw invalid_argument("Error! Specified direction input parameter is invalid.");
+		}
 	}
 
 	Coords Object::getCoords() const {
