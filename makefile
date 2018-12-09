@@ -7,10 +7,10 @@ ifeq ($(lastword $(subst /, ,$(CXX))),g++)
 	FLAGS += -Wall -Wextra -O3 -std=c++11 -I. -Isrc
 endif
 ifeq ($(lastword $(subst /, ,$(CXX))),pgc++)
-	FLAGS += -O2 -fastsse -Mvect -std=c++11 -Mdalign -Munroll -Mipa=fast -Kieee -m64 -I. -Isrc
+	FLAGS += -O2 -fastsse -Minform=warn -Mvect -std=c++11 -Mdalign -Munroll -Mipa=fast -Kieee -m64 -I. -Isrc
 endif
 
-OBJS = src/Event.o src/Lattice.o src/Object.o src/Simulation.o src/Site.o src/Utils.o src/Version.o
+OBJS = src/Event.o src/Lattice.o src/Object.o src/Parameters_Lattice.o src/Parameters_Simulation.o src/Simulation.o src/Site.o src/Utils.o src/Version.o
 
 all : libKMC.a
 ifndef FLAGS
@@ -27,6 +27,12 @@ src/Lattice.o : src/Lattice.cpp src/Lattice.h src/Site.h src/Utils.h
 	mpicxx $(FLAGS) -c $< -o $@
 
 src/Object.o : src/Object.cpp src/Object.h src/Utils.h
+	mpicxx $(FLAGS) -c $< -o $@
+
+src/Parameters_Lattice.o : src/Parameters_Lattice.cpp src/Parameters_Lattice.h
+	mpicxx $(FLAGS) -c $< -o $@
+	
+src/Parameters_Simulation.o : src/Parameters_Simulation.cpp src/Parameters_Simulation.h
 	mpicxx $(FLAGS) -c $< -o $@
 
 src/Simulation.o : src/Simulation.cpp src/Simulation.h src/Event.h src/Lattice.h src/Object.h src/Site.h src/Utils.h

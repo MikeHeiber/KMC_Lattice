@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">KMC_Lattice
-   &#160;<span id="projectnumber">v2.0-beta.5</span>
+   &#160;<span id="projectnumber">v2.0.0-rc.1</span>
    </div>
    <div id="projectbrief">A general framework for three-dimensional lattice kinetic Monte Carlo simulations</div>
   </td>
@@ -110,11 +110,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_object.html">Object</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This base class contains the basic properties of a KMC simulation object and the functions needed to interact with it.  <a href="class_k_m_c___lattice_1_1_object.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_k_m_c___lattice_1_1_parameters___lattice.html">Parameters_Lattice</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This struct contains all of the main input parameters needed by the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> class.  <a href="struct_k_m_c___lattice_1_1_parameters___lattice.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_parameters___lattice.html">Parameters_Lattice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class contains all of the main input parameters needed by the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> class.  <a href="class_k_m_c___lattice_1_1_parameters___lattice.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_k_m_c___lattice_1_1_parameters___simulation.html">Parameters_Simulation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This struct contains all of the main input parameters needed by the <a class="el" href="class_k_m_c___lattice_1_1_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> class.  <a href="struct_k_m_c___lattice_1_1_parameters___simulation.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_parameters___simulation.html">Parameters_Simulation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class contains all of the main input parameters needed by the <a class="el" href="class_k_m_c___lattice_1_1_simulation.html" title="This abstract base class contains the basic properties of a KMC simulation and the functions needed t...">Simulation</a> class.  <a href="class_k_m_c___lattice_1_1_parameters___simulation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_simulation.html">Simulation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This abstract base class contains the basic properties of a KMC simulation and the functions needed to interact with it.  <a href="class_k_m_c___lattice_1_1_simulation.html#details">More...</a><br /></td></tr>
@@ -146,18 +146,33 @@ Functions</h2></td></tr>
 <tr class="memitem:a051fca5d8418abdc2189d1751a093561"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a051fca5d8418abdc2189d1751a093561">calculateProbabilityHist</a> (const std::vector&lt; double &gt; &amp;data, int num_bins)</td></tr>
 <tr class="memdesc:a051fca5d8418abdc2189d1751a093561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input double data vector using the input number of bins.  <a href="#a051fca5d8418abdc2189d1751a093561">More...</a><br /></td></tr>
 <tr class="separator:a051fca5d8418abdc2189d1751a093561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52cf3ac9ea9dafde2c32b724f0cedc9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#ac52cf3ac9ea9dafde2c32b724f0cedc9">calculateProbabilityHist</a> (const std::vector&lt; float &gt; &amp;data, int num_bins)</td></tr>
+<tr class="memdesc:ac52cf3ac9ea9dafde2c32b724f0cedc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input float data vector using the input number of bins.  <a href="#ac52cf3ac9ea9dafde2c32b724f0cedc9">More...</a><br /></td></tr>
+<tr class="separator:ac52cf3ac9ea9dafde2c32b724f0cedc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dce0ac44cb8f91ab6ecaf6d40ed25f9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a4dce0ac44cb8f91ab6ecaf6d40ed25f9">calculateProbabilityHist</a> (const std::vector&lt; double &gt; &amp;data, double bin_size)</td></tr>
-<tr class="memdesc:a4dce0ac44cb8f91ab6ecaf6d40ed25f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size.  <a href="#a4dce0ac44cb8f91ab6ecaf6d40ed25f9">More...</a><br /></td></tr>
+<tr class="memdesc:a4dce0ac44cb8f91ab6ecaf6d40ed25f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input double data vector using the input bin size.  <a href="#a4dce0ac44cb8f91ab6ecaf6d40ed25f9">More...</a><br /></td></tr>
 <tr class="separator:a4dce0ac44cb8f91ab6ecaf6d40ed25f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c914a7aceae31c54b678dddd04ea84"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a38c914a7aceae31c54b678dddd04ea84">calculateProbabilityHist</a> (const std::vector&lt; float &gt; &amp;data, double bin_size)</td></tr>
+<tr class="memdesc:a38c914a7aceae31c54b678dddd04ea84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input float data vector using the input bin size.  <a href="#a38c914a7aceae31c54b678dddd04ea84">More...</a><br /></td></tr>
+<tr class="separator:a38c914a7aceae31c54b678dddd04ea84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e38c07261ec4b14f0c60020e56d9493"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a0e38c07261ec4b14f0c60020e56d9493">calculateProbabilityHist</a> (const std::vector&lt; double &gt; &amp;data, const double bin_size, const int num_bins)</td></tr>
-<tr class="memdesc:a0e38c07261ec4b14f0c60020e56d9493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input data vector using the input bin size and input number of bins.  <a href="#a0e38c07261ec4b14f0c60020e56d9493">More...</a><br /></td></tr>
+<tr class="memdesc:a0e38c07261ec4b14f0c60020e56d9493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input double data vector using the input bin size and input number of bins.  <a href="#a0e38c07261ec4b14f0c60020e56d9493">More...</a><br /></td></tr>
 <tr class="separator:a0e38c07261ec4b14f0c60020e56d9493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cfdace4de266128171220d8814d1adb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a2cfdace4de266128171220d8814d1adb">calculateProbabilityHist</a> (const std::vector&lt; float &gt; &amp;data, const double bin_size, const int num_bins)</td></tr>
+<tr class="memdesc:a2cfdace4de266128171220d8814d1adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the probability histogram for the input float data vector using the input bin size and input number of bins.  <a href="#a2cfdace4de266128171220d8814d1adb">More...</a><br /></td></tr>
+<tr class="separator:a2cfdace4de266128171220d8814d1adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad56deb6fcc363eed85073043ff129297"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#ad56deb6fcc363eed85073043ff129297">createExponentialDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mode, const double urbach_energy, std::mt19937_64 &amp;gen)</td></tr>
 <tr class="memdesc:ad56deb6fcc363eed85073043ff129297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.  <a href="#ad56deb6fcc363eed85073043ff129297">More...</a><br /></td></tr>
 <tr class="separator:ad56deb6fcc363eed85073043ff129297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34ace7172f1130a049e6069ba6d403fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a34ace7172f1130a049e6069ba6d403fc">createExponentialDOSVector</a> (std::vector&lt; float &gt; &amp;data, const double mode, const double urbach_energy, std::mt19937_64 &amp;gen)</td></tr>
+<tr class="memdesc:a34ace7172f1130a049e6069ba6d403fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of floats that has a custom asymmetric distribution with an exponential tail.  <a href="#a34ace7172f1130a049e6069ba6d403fc">More...</a><br /></td></tr>
+<tr class="separator:a34ace7172f1130a049e6069ba6d403fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58a253f2ce23a5a608d582a06e67d852"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a58a253f2ce23a5a608d582a06e67d852">createGaussianDOSVector</a> (std::vector&lt; double &gt; &amp;data, const double mean, const double stdev, std::mt19937_64 &amp;gen)</td></tr>
 <tr class="memdesc:a58a253f2ce23a5a608d582a06e67d852"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of doubles that has a Gaussian distribution.  <a href="#a58a253f2ce23a5a608d582a06e67d852">More...</a><br /></td></tr>
 <tr class="separator:a58a253f2ce23a5a608d582a06e67d852"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a224863c8dd449fa501d07c5b0cfc07a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a224863c8dd449fa501d07c5b0cfc07a1">createGaussianDOSVector</a> (std::vector&lt; float &gt; &amp;data, const double mean, const double stdev, std::mt19937_64 &amp;gen)</td></tr>
+<tr class="memdesc:a224863c8dd449fa501d07c5b0cfc07a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vector of floats that has a Gaussian distribution.  <a href="#a224863c8dd449fa501d07c5b0cfc07a1">More...</a><br /></td></tr>
+<tr class="separator:a224863c8dd449fa501d07c5b0cfc07a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b0f0e2e47c9dbe650e4f736c80883c3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a0b0f0e2e47c9dbe650e4f736c80883c3">integrateData</a> (const std::vector&lt; std::pair&lt; double, double &gt;&gt; &amp;data)</td></tr>
 <tr class="memdesc:a0b0f0e2e47c9dbe650e4f736c80883c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numerically integrates a vector of x-y data using the trapezoid rule.  <a href="#a0b0f0e2e47c9dbe650e4f736c80883c3">More...</a><br /></td></tr>
 <tr class="separator:a0b0f0e2e47c9dbe650e4f736c80883c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -509,7 +524,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="addc79e61f39b75c10f5d9ac3cfc65d6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addc79e61f39b75c10f5d9ac3cfc65d6d">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#addc79e61f39b75c10f5d9ac3cfc65d6d">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -536,7 +551,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ae9b5963ba2a0bfe3cd50adbb95738e8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9b5963ba2a0bfe3cd50adbb95738e8c">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9b5963ba2a0bfe3cd50adbb95738e8c">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -574,7 +589,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a051fca5d8418abdc2189d1751a093561"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a051fca5d8418abdc2189d1751a093561">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a051fca5d8418abdc2189d1751a093561">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -611,8 +626,46 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ac52cf3ac9ea9dafde2c32b724f0cedc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac52cf3ac9ea9dafde2c32b724f0cedc9">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; double, double &gt; &gt; KMC_Lattice::calculateProbabilityHist </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_bins</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the probability histogram for the input float data vector using the input number of bins. </p>
+<p>Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">num_bins</td><td>is the desired number of bins. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of x-y pairs consisting of bin-centered x values and probability y values. </dd></dl>
+
+</div>
+</div>
 <a id="a4dce0ac44cb8f91ab6ecaf6d40ed25f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dce0ac44cb8f91ab6ecaf6d40ed25f9">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dce0ac44cb8f91ab6ecaf6d40ed25f9">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -637,7 +690,45 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Calculates the probability histogram for the input data vector using the input bin size. </p>
+<p>Calculates the probability histogram for the input double data vector using the input bin size. </p>
+<p>Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. with the specified bin spacing. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">bin_size</td><td>is the desired bin size. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of x-y pairs consisting of bin-centered x values and probability y values. </dd></dl>
+
+</div>
+</div>
+<a id="a38c914a7aceae31c54b678dddd04ea84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c914a7aceae31c54b678dddd04ea84">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; double, double &gt; &gt; KMC_Lattice::calculateProbabilityHist </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>bin_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the probability histogram for the input float data vector using the input bin size. </p>
 <p>Linearly spaced bins are automatically created from the minimum value to the maximum value of the data set. with the specified bin spacing. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
@@ -650,7 +741,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a0e38c07261ec4b14f0c60020e56d9493"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e38c07261ec4b14f0c60020e56d9493">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e38c07261ec4b14f0c60020e56d9493">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -681,7 +772,52 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Calculates the probability histogram for the input data vector using the input bin size and input number of bins. </p>
+<p>Calculates the probability histogram for the input double data vector using the input bin size and input number of bins. </p>
+<p>Linearly spaced bins are automatically created starting from the minimum value of the data set. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
+    <tr><td class="paramname">num_bins</td><td>is the number of bins that will be created. </td></tr>
+    <tr><td class="paramname">bin_size</td><td>is the input bin size. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of x-y pairs consisting of bin-centered x values and probability y values. </dd></dl>
+
+</div>
+</div>
+<a id="a2cfdace4de266128171220d8814d1adb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cfdace4de266128171220d8814d1adb">&#9670;&nbsp;</a></span>calculateProbabilityHist() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; double, double &gt; &gt; KMC_Lattice::calculateProbabilityHist </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>bin_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>num_bins</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the probability histogram for the input float data vector using the input bin size and input number of bins. </p>
 <p>Linearly spaced bins are automatically created starting from the minimum value of the data set. The function outputs bin-centered x values and probability y values in a x-y pair vector. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>is the input data vector. </td></tr>
@@ -695,7 +831,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ad56deb6fcc363eed85073043ff129297"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad56deb6fcc363eed85073043ff129297">&#9670;&nbsp;</a></span>createExponentialDOSVector()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad56deb6fcc363eed85073043ff129297">&#9670;&nbsp;</a></span>createExponentialDOSVector() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -745,8 +881,59 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a34ace7172f1130a049e6069ba6d403fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34ace7172f1130a049e6069ba6d403fc">&#9670;&nbsp;</a></span>createExponentialDOSVector() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void KMC_Lattice::createExponentialDOSVector </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>urbach_energy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::mt19937_64 &amp;&#160;</td>
+          <td class="paramname"><em>gen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vector of floats that has a custom asymmetric distribution with an exponential tail. </p>
+<p>The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy chosen for the exponential side, so that the distribution function is continuous. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the data vector where the random numbers will be placed, which must be preallocated to the desired size. </td></tr>
+    <tr><td class="paramname">mode</td><td>is the value of the peak of the distribution. </td></tr>
+    <tr><td class="paramname">urbach_energy</td><td>is the parameter that detemines the shape of the exponential tail side of the distribution. </td></tr>
+    <tr><td class="paramname">gen</td><td>is a Mersenne twister random number generator used to randomly draw numbers from the distribution. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a58a253f2ce23a5a608d582a06e67d852"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58a253f2ce23a5a608d582a06e67d852">&#9670;&nbsp;</a></span>createGaussianDOSVector()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a253f2ce23a5a608d582a06e67d852">&#9670;&nbsp;</a></span>createGaussianDOSVector() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -784,6 +971,57 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Creates a vector of doubles that has a Gaussian distribution. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>is the data vector where the numbers will be placed, which must be preallocated to the desired size. </td></tr>
+    <tr><td class="paramname">mean</td><td>is the position of the peak and center of the distribution. </td></tr>
+    <tr><td class="paramname">stdev</td><td>is the standard deviation of the distribution, which defines the width of the peak. </td></tr>
+    <tr><td class="paramname">gen</td><td>is a Mersenne twister random number generator used to randomly draw numbers from the distribution. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a224863c8dd449fa501d07c5b0cfc07a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a224863c8dd449fa501d07c5b0cfc07a1">&#9670;&nbsp;</a></span>createGaussianDOSVector() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void KMC_Lattice::createGaussianDOSVector </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>mean</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>stdev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::mt19937_64 &amp;&#160;</td>
+          <td class="paramname"><em>gen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vector of floats that has a Gaussian distribution. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>is the data vector where the numbers will be placed, which must be preallocated to the desired size. </td></tr>

@@ -16,7 +16,7 @@ namespace KMC_Lattice {
 	//! This class is designed to for sites to have single occupancy, but multiple occupancy could potentially be implemented in a derived class.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2018
+	//! \date 2017-2018
 	class Site {
 	public:
 		//! Default virtual destructor needed by the base class.

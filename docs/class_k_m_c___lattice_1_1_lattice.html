@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">KMC_Lattice
-   &#160;<span id="projectnumber">v2.0-beta.5</span>
+   &#160;<span id="projectnumber">v2.0.0-rc.1</span>
    </div>
    <div id="projectbrief">A general framework for three-dimensional lattice kinetic Monte Carlo simulations</div>
   </td>
@@ -105,8 +105,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad3016e30705074f892074751f82e4c40"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_lattice.html#ad3016e30705074f892074751f82e4c40">Lattice</a> ()</td></tr>
 <tr class="memdesc:ad3016e30705074f892074751f82e4c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor that creates an empty <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object.  <a href="#ad3016e30705074f892074751f82e4c40">More...</a><br /></td></tr>
 <tr class="separator:ad3016e30705074f892074751f82e4c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a531bae8387401b9e5f5a1080ba07e541"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_lattice.html#a531bae8387401b9e5f5a1080ba07e541">init</a> (const <a class="el" href="struct_k_m_c___lattice_1_1_parameters___lattice.html">Parameters_Lattice</a> &amp;params, std::mt19937_64 *generator_ptr)</td></tr>
-<tr class="memdesc:a531bae8387401b9e5f5a1080ba07e541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="struct_k_m_c___lattice_1_1_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> input parameter struct.  <a href="#a531bae8387401b9e5f5a1080ba07e541">More...</a><br /></td></tr>
+<tr class="memitem:a531bae8387401b9e5f5a1080ba07e541"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_lattice.html#a531bae8387401b9e5f5a1080ba07e541">init</a> (const <a class="el" href="class_k_m_c___lattice_1_1_parameters___lattice.html">Parameters_Lattice</a> &amp;params, std::mt19937_64 *generator_ptr)</td></tr>
+<tr class="memdesc:a531bae8387401b9e5f5a1080ba07e541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="class_k_m_c___lattice_1_1_parameters___lattice.html" title="This class contains all of the main input parameters needed by the Lattice class. ...">Parameters_Lattice</a> input parameter struct.  <a href="#a531bae8387401b9e5f5a1080ba07e541">More...</a><br /></td></tr>
 <tr class="separator:a531bae8387401b9e5f5a1080ba07e541"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa58ebee129a3d04d3f0711dba99ad9a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_m_c___lattice_1_1_lattice.html#aa58ebee129a3d04d3f0711dba99ad9a6">calculateDestinationCoords</a> (const <a class="el" href="struct_k_m_c___lattice_1_1_coords.html">Coords</a> &amp;coords_initial, const int i, const int j, const int k, <a class="el" href="struct_k_m_c___lattice_1_1_coords.html">Coords</a> &amp;coords_dest) const</td></tr>
 <tr class="memdesc:aa58ebee129a3d04d3f0711dba99ad9a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).  <a href="#aa58ebee129a3d04d3f0711dba99ad9a6">More...</a><br /></td></tr>
@@ -204,9 +204,9 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class contains the properties of a three-dimensional lattice and the functions needed to interact with it. </p>
-<p>The class makes use of the <a class="el" href="struct_k_m_c___lattice_1_1_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> struct to load the neccessary input parameters, the <a class="el" href="struct_k_m_c___lattice_1_1_coords.html" title="This simple struct contains Cartesian coordinates specified by integers x,y,z. ">Coords</a> struct to record the Cartesian coordinates of each lattice site, and the <a class="el" href="class_k_m_c___lattice_1_1_site.html" title="This base class contains the basic properties of a lattice site and the functions needed to interact ...">Site</a> class to assign properties to each site. </p><dl class="section copyright"><dt>Copyright</dt><dd>MIT License. For more information, see the LICENSE file that accompanies this software package. </dd></dl>
+<p>The class makes use of the <a class="el" href="class_k_m_c___lattice_1_1_parameters___lattice.html" title="This class contains all of the main input parameters needed by the Lattice class. ...">Parameters_Lattice</a> struct to load the neccessary input parameters, the <a class="el" href="struct_k_m_c___lattice_1_1_coords.html" title="This simple struct contains Cartesian coordinates specified by integers x,y,z. ">Coords</a> struct to record the Cartesian coordinates of each lattice site, and the <a class="el" href="class_k_m_c___lattice_1_1_site.html" title="This base class contains the basic properties of a lattice site and the functions needed to interact ...">Site</a> class to assign properties to each site. </p><dl class="section copyright"><dt>Copyright</dt><dd>MIT License. For more information, see the LICENSE file that accompanies this software package. </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Michael C. Heiber </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2018 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2017-2018 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad3016e30705074f892074751f82e4c40"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad3016e30705074f892074751f82e4c40">&#9670;&nbsp;</a></span>Lattice()</h2>
@@ -977,7 +977,7 @@ false if a move event is not possible. </dd></dl>
         <tr>
           <td class="memname">void KMC_Lattice::Lattice::init </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_k_m_c___lattice_1_1_parameters___lattice.html">Parameters_Lattice</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_k_m_c___lattice_1_1_parameters___lattice.html">Parameters_Lattice</a> &amp;&#160;</td>
           <td class="paramname"><em>params</em>, </td>
         </tr>
         <tr>
@@ -994,10 +994,10 @@ false if a move event is not possible. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="struct_k_m_c___lattice_1_1_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> input parameter struct. </p>
+<p>Initializes the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object using the provided <a class="el" href="class_k_m_c___lattice_1_1_parameters___lattice.html" title="This class contains all of the main input parameters needed by the Lattice class. ...">Parameters_Lattice</a> input parameter struct. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">params</td><td>is a <a class="el" href="struct_k_m_c___lattice_1_1_parameters___lattice.html" title="This struct contains all of the main input parameters needed by the Lattice class. ">Parameters_Lattice</a> struct that contains all of the required parameters to initialize the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object. </td></tr>
+    <tr><td class="paramname">params</td><td>is a <a class="el" href="class_k_m_c___lattice_1_1_parameters___lattice.html" title="This class contains all of the main input parameters needed by the Lattice class. ...">Parameters_Lattice</a> struct that contains all of the required parameters to initialize the <a class="el" href="class_k_m_c___lattice_1_1_lattice.html" title="This class contains the properties of a three-dimensional lattice and the functions needed to interac...">Lattice</a> object. </td></tr>
     <tr><td class="paramname">generator_ptr</td><td>is a pointer to a Mersenne twister number generator. </td></tr>
   </table>
   </dd>

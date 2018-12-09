@@ -14,6 +14,9 @@ namespace KMC_Lattice {
 	}
 
 	void Lattice::init(const Parameters_Lattice& params, mt19937_64* generator_ptr) {
+		if (!params.checkParameters()) {
+			throw invalid_argument("Error! Input lattice parameters are invalid");
+		}
 		Enable_periodic_x = params.Enable_periodic_x;
 		Enable_periodic_y = params.Enable_periodic_y;
 		Enable_periodic_z = params.Enable_periodic_z;

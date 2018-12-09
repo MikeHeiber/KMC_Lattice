@@ -18,6 +18,9 @@ namespace KMC_Lattice {
 	}
 
 	void Simulation::init(const Parameters_Simulation& params, const int id) {
+		if (!params.checkParameters()) {
+			throw invalid_argument("Error! Simulation object initialization cannot be completed because the input parameters are invalid.");
+		}
 		Id = id;
 		// General Parameters
 		Enable_logging = params.Enable_logging;
@@ -26,19 +29,10 @@ namespace KMC_Lattice {
 		Enable_selective_recalc = params.Enable_selective_recalc;
 		Recalc_cutoff = params.Recalc_cutoff;
 		Enable_full_recalc = params.Enable_full_recalc;
-		Recalc_cutoff_sq_lat = (int)((Recalc_cutoff / params.Unit_size)*(Recalc_cutoff / params.Unit_size));
-		// Lattice Parameters
-		Parameters_Lattice params_lattice;
-		params_lattice.Enable_periodic_x = params.Enable_periodic_x;
-		params_lattice.Enable_periodic_y = params.Enable_periodic_y;
-		params_lattice.Enable_periodic_z = params.Enable_periodic_z;
-		params_lattice.Length = params.Length;
-		params_lattice.Width = params.Width;
-		params_lattice.Height = params.Height;
-		params_lattice.Unit_size = params.Unit_size;
+		Recalc_cutoff_sq_lat = (int)((Recalc_cutoff / params.Params_lattice.Unit_size)*(Recalc_cutoff / params.Params_lattice.Unit_size));
 		temperature = params.Temperature;
 		// Initialize data structures
-		lattice.init(params_lattice, &generator);
+		lattice.init(params.Params_lattice, &generator);
 		object_ptrs.clear();
 		event_ptrs.clear();
 		generator.seed((int)time(0)*(id + 1));
@@ -164,7 +158,7 @@ namespace KMC_Lattice {
 	}
 
 	int Simulation::getN_events() const {
-		return count_if(event_ptrs.begin(), event_ptrs.end(), [](Event* element) {
+		return (int)count_if(event_ptrs.begin(), event_ptrs.end(), [](Event* element) {
 			return (element != nullptr && element->getExecutionTime() > 0);
 		});
 	}
