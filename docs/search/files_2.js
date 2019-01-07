@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['lattice_2ecpp',['Lattice.cpp',['../_lattice_8cpp.html',1,'']]],
-  ['lattice_2eh',['Lattice.h',['../_lattice_8h.html',1,'']]]
+  ['object_2ecpp',['Object.cpp',['../_object_8cpp.html',1,'']]],
+  ['object_2eh',['Object.h',['../_object_8h.html',1,'']]]
 ];

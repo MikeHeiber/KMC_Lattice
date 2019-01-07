@@ -32,5 +32,5 @@ var class_k_m_c___lattice_1_1_lattice =
     [ "isZPeriodic", "class_k_m_c___lattice_1_1_lattice.html#a79fae509280d6f703dec5d59c086dda0", null ],
     [ "outputLatticeOccupancy", "class_k_m_c___lattice_1_1_lattice.html#acc394a30675bfa03199da97c94f0249a", null ],
     [ "setOccupied", "class_k_m_c___lattice_1_1_lattice.html#a5e2a62237aac0ba2658ddcae22216e3b", null ],
-    [ "setSitePointers", "class_k_m_c___lattice_1_1_lattice.html#abd39b446616db550dfc790f55fd9b3e4", null ]
+    [ "setSitePointers", "class_k_m_c___lattice_1_1_lattice.html#a9b6dd5aaf6c33051740302a681a6bb2e", null ]
 ];

@@ -6,7 +6,7 @@ var class_k_m_c___lattice_1_1_simulation =
     [ "addObject", "class_k_m_c___lattice_1_1_simulation.html#a799a9759dca73725830f90a6da726145", null ],
     [ "checkFinished", "class_k_m_c___lattice_1_1_simulation.html#ab052ca6b08f8ab0fb7fd6c6cdacd13c4", null ],
     [ "chooseNextEvent", "class_k_m_c___lattice_1_1_simulation.html#a6ccfc03c32dc356fb9fd5445afa89230", null ],
-    [ "determinePathway", "class_k_m_c___lattice_1_1_simulation.html#ab2267c906304d4fa9e1fb7922f03e599", null ],
+    [ "determinePathway", "class_k_m_c___lattice_1_1_simulation.html#a4d1a70ac5ba52d66bac63bd04a049953", null ],
     [ "executeNextEvent", "class_k_m_c___lattice_1_1_simulation.html#aad20795467f58e08d0a645365b5204d4", null ],
     [ "findRecalcObjects", "class_k_m_c___lattice_1_1_simulation.html#a2a52c0dfc5351a1022256815656b5b28", null ],
     [ "getAllEventPtrs", "class_k_m_c___lattice_1_1_simulation.html#ae6d674579eba48ac3b97f16f4dc3c949", null ],

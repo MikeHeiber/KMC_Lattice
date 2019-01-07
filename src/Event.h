@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 Michael C. Heiber
+// Copyright (c) 2017-2019 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -22,7 +22,7 @@ namespace KMC_Lattice {
 	//! base class is intended to be extended to create classes that represent specific types of events. 
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2017-2018
+	//! \date 2017-2019
 	class Event {
 	public:
 		//! Default virtual destructor needed by the base class.

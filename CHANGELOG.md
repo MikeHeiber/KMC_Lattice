@@ -17,9 +17,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README.md - Section heading for the API documentation, citation instructions, and acknowledgements
 - papers/v2_paper/paper.md - Initial draft of v2.0 JOSS paper text
 - papers/v2_paper/paper.bib - Initial draft of v2.0 JOSS paper references
+- .gitignore - Ignore statements for Visual Studio project files
 
 ### Changed
-- README.md - Rearragned sections and moved the build instructions to the end of the usage instructions sections
+- Many files - Copyright statement to show years 2017-2019
+- README.md - Rearranged sections and moved the build instructions to the end of the usage instructions sections
+- Version.cpp - Version string to v2.0.0
+- Doxyfile - project version number to v2.0.0 and brief project description
+- docs - Re-generated documentation using latest Doxygen v1.8.15
+
+### Removed
+- docs - Repository markdown files from the documentation build
 
 ## [v2.0.0-rc.1] - 2018-12-11 - Release Candidate 1
 
@@ -46,7 +54,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - test.cpp (GaussianDOSTests) - Test of the float version of the createGaussianDOSVector
 - test.cpp (LatticeTests) - Cast return of count_if functions to int to prevent compiler warning
 - test.cpp (ObjectTests) - Tests of the new calculateDisplacement function behavior
-
 
 ### Changed
 - Doxyfile - Updated the version number to v2.0.0-rc.1
