@@ -129,7 +129,7 @@ Please report any build or testing errors in the [Issues](https://github.com/Mik
 
 ## Citing this Work
 
-If you find KMC_Lattice to be helpful for your research, please the forthcoming publication...
+If you find KMC_Lattice to be helpful for your research, please cite the forthcoming publication...
 
 ## Acknowledgments
 
