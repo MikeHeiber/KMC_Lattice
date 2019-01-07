@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0.0-rc.2] - 2019-01-07 - Release Candidate 2
+
+### Added
+- README.md - Information about the BKL algorithm and the Gillespie first-reaction method implemented in the tools with link to the original papers
+- README.md - Information about and link to the KMC_Lattice_example repo
+- README.md - Major features list
+- README.md - Section heading for the API documentation, citation instructions, and acknowledgements
+- papers/v2_paper/paper.md - Initial draft of v2.0 JOSS paper text
+- papers/v2_paper/paper.bib - Initial draft of v2.0 JOSS paper references
+
+### Changed
+- README.md - Rearragned sections and moved the build instructions to the end of the usage instructions sections
+
 ## [v2.0.0-rc.1] - 2018-12-11 - Release Candidate 1
 
 ### Added
