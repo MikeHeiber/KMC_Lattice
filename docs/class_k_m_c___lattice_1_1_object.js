@@ -14,5 +14,5 @@ var class_k_m_c___lattice_1_1_object =
     [ "incrementDZ", "class_k_m_c___lattice_1_1_object.html#a3d2c9e1ec9c369bd99d65d3b56d7329d", null ],
     [ "resetInitialCoords", "class_k_m_c___lattice_1_1_object.html#ac36b584f43f8f72b454031c760327b24", null ],
     [ "setCoords", "class_k_m_c___lattice_1_1_object.html#aa4d5125d7d975837065fe7be0240a20f", null ],
-    [ "setEventIt", "class_k_m_c___lattice_1_1_object.html#aa3e6079b9465fa4cc971e86dffb18a9d", null ]
+    [ "setEventIt", "class_k_m_c___lattice_1_1_object.html#a24dadfaed3fd64461c17f8fb8bcab84a", null ]
 ];
