@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- .gitignore - Ignore statement for the Visual Studio x64 build directory
+
+### Fixed
+- test.cpp - Copyright years in the Doxygen documentation block
+- test_mpi.cpp - Copyright years in the Doxygen documentation block
+
 ## [v2.0.0-rc.2] - 2019-01-07 - Release Candidate 2
 
 ### Added
@@ -69,8 +76,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - test.cpp (CalculateProbabilityHistTests) - Refactored tests to use the generate function for filling a vector with random numbers
 
 ### Fixed
-- Event - Corrected the copyright years in the Doxygen documentation block for the class
-- Lattice - Corrected the copyright years in the Doxygen documentation block for the class
-- Object - Corrected the copyright years in the Doxygen documentation block for the class
-- Simulation - Corrected the copyright years in the Doxygen documentation block for the class
-- Site - Corrected the copyright years in the Doxygen documentation block for the class
+- Event - Copyright years in the Doxygen documentation block for the class
+- Lattice - Copyright years in the Doxygen documentation block for the class
+- Object - Copyright years in the Doxygen documentation block for the class
+- Simulation - Copyright years in the Doxygen documentation block for the class
+- Site - Copyright years in the Doxygen documentation block for the class
