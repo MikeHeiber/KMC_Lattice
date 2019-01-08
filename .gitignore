@@ -31,4 +31,5 @@
 # Visual Studio files
 *.vcxproj*
 .vs*
+x64*
 *.sln
