@@ -10,10 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - .gitignore - Ignore statement for the Visual Studio x64 build directory
+- paper.bib - Missing refrence info to several of the book chapter bibtex entries
 
 ### Fixed
 - test.cpp - Copyright years in the Doxygen documentation block
 - test_mpi.cpp - Copyright years in the Doxygen documentation block
+- paper.md - Typos and formatting issues
+- paper.bib - Formatting problems in bibtex entries
 
 ## [v2.0.0-rc.2] - 2019-01-07 - Release Candidate 2
 
