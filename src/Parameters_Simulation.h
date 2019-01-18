@@ -21,17 +21,17 @@ namespace KMC_Lattice {
 		// Member variables
 		Parameters_Lattice Params_lattice;
 		//! Determines whether logging to a logfile during the simulation will be enabled or not.
-		bool Enable_logging;
+		bool Enable_logging = false;
 		//! Defines the desired temperature of the simulation in Kelvin.
-		int Temperature;
+		int Temperature = 0;
 		//! Determines whether the first reaction method will be used or not.
-		bool Enable_FRM;
+		bool Enable_FRM = false;
 		//! Determines whether the selective recalculation method will be used or not.
-		bool Enable_selective_recalc;
+		bool Enable_selective_recalc = false;
 		//! Defines the desired event recalculation cutoff radius for the simulation in nm.
-		int Recalc_cutoff;
+		int Recalc_cutoff = 0;
 		//! Determines whether the full recalculation method will be used or not.
-		bool Enable_full_recalc;
+		bool Enable_full_recalc = false;
 		//! Defines the desired output file stream pointer to the logfile.
 		std::ofstream* Logfile = nullptr;
 

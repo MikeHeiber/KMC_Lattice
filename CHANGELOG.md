@@ -10,7 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - .gitignore - Ignore statement for the Visual Studio x64 build directory
-- paper.bib - Missing refrence info to several of the book chapter bibtex entries
+- paper.bib - Missing reference info to several of the book chapter bibtex entries
+- Parameters_Lattice - Default values for all parameters
+- Parameters_Simulation - Default values for all parameters
+- test.cpp (SimulationTest) - Test that default parameters object has invalid parameters
+- test.cpp (LatticeTest) - Test that default parameters object has invalid parameters
 
 ### Fixed
 - test.cpp - Copyright years in the Doxygen documentation block
