@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - test.cpp (LatticeTest) - Test that default parameters object has invalid parameters
 
 ### Fixed
+- docs - Several spelling mistakes and typos in the documentation
 - test.cpp - Copyright years in the Doxygen documentation block
 - test_mpi.cpp - Copyright years in the Doxygen documentation block
 - paper.md - Typos and formatting issues
@@ -78,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Utils (createGaussianDOSVector) - Refactored code to use generate function for filling the output data vector
 - Utils (MPI_*) - Refactored functions by replacing for loops with copy, assign, and accumulate functions to make code more concise
 - test.cpp (main) - Re-enabled command line output during the tests to make it easier to see when errors occur
-- test.cpp (CalculateProbabilityHistTests) - Replaced generic unform_real_distribution by specifying use of the double version
+- test.cpp (CalculateProbabilityHistTests) - Replaced generic uniform_real_distribution by specifying use of the double version
 - test.cpp (CalculateProbabilityHistTests) - Increasing the number of entries in the data vectors to increase statistical accuracy and reduce likelihood of test failure
 - test.cpp (CalculateProbabilityHistTests) - Refactored tests to use the generate function for filling a vector with random numbers
 

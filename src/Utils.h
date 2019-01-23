@@ -163,21 +163,21 @@ namespace KMC_Lattice {
 
 	//! \brief Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail.
 	//! \details The created distribution is Gaussian in the positive direction relative to the mode and exponential in 
-	//! the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy
+	//! the negative direction. On the Gaussian side, the standard deviation is calculated relative to the Urbach energy
 	//! chosen for the exponential side, so that the distribution function is continuous.
 	//! \param data is the data vector where the random numbers will be placed, which must be preallocated to the desired size.
 	//! \param mode is the value of the peak of the distribution.
-	//! \param urbach_energy is the parameter that detemines the shape of the exponential tail side of the distribution.
+	//! \param urbach_energy is the parameter that determines the shape of the exponential tail side of the distribution.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
 	void createExponentialDOSVector(std::vector<double>& data, const double mode, const double urbach_energy, std::mt19937_64& gen);
 
 	//! \brief Creates a vector of floats that has a custom asymmetric distribution with an exponential tail.
 	//! \details The created distribution is Gaussian in the positive direction relative to the mode and exponential in 
-	//! the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy
+	//! the negative direction. On the Gaussian side, the standard deviation is calculated relative to the Urbach energy
 	//! chosen for the exponential side, so that the distribution function is continuous.
 	//! \param data is the data vector where the random numbers will be placed, which must be preallocated to the desired size.
 	//! \param mode is the value of the peak of the distribution.
-	//! \param urbach_energy is the parameter that detemines the shape of the exponential tail side of the distribution.
+	//! \param urbach_energy is the parameter that determines the shape of the exponential tail side of the distribution.
 	//! \param gen is a Mersenne twister random number generator used to randomly draw numbers from the distribution.
 	void createExponentialDOSVector(std::vector<float>& data, const double mode, const double urbach_energy, std::mt19937_64& gen);
 
@@ -210,7 +210,7 @@ namespace KMC_Lattice {
 
 	//! \brief Uses MPI to calculate the average probability histogram from separate histograms coming from different processors.
 	//! \details Each processor calls this function and sends an input histogram. Each input histogram must have the same bin size.  
-	//! Upon function return, processor 0 receives the average probabiliy histogram and all of the other processors receive an empty probability histogram.
+	//! Upon function return, processor 0 receives the average probability histogram and all of the other processors receive an empty probability histogram.
 	//! \param input_hist is the input histogram data from the processor calling the function.
 	//! \return A pair vector that is the average probability histogram of all input histograms from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.
@@ -273,7 +273,7 @@ namespace KMC_Lattice {
 	//! \return An empty vector when called on other processors.
 	std::vector<int> MPI_gatherVectors(const std::vector<int>& input_vector);
 
-	//! \brief Removes all spaces and ta characters in a string.
+	//! \brief Removes all spaces and tab characters in a string.
 	//! \param str is the input string
 	//! \returns a new string that will have the whitespace removed.
 	std::string removeWhitespace(const std::string& str);
@@ -287,7 +287,7 @@ namespace KMC_Lattice {
 	//! Throws an invalid_argument exception if the input string is not "true" or "false".
 	//! \param input is the input string.
 	//! \return true if the input string is "true".
-	//! \return flase if the input string is "flase".
+	//! \return false if the input string is "false".
 	bool str2bool(const std::string& input);
 
 	// Template functions
@@ -398,7 +398,7 @@ namespace KMC_Lattice {
 		outfile.close();
 	}
 
-	//! \brief This template function efficienctly removes the duplicate entries from an input vector.
+	//! \brief This template function efficiently removes the duplicate entries from an input vector.
 	//! \details This algorithm allow efficient removal of duplicate vector objects when > or < comparison operators do not exist.
 	//! \param vec is the input vector to be operated on.
 	template<typename T>

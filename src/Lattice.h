@@ -15,7 +15,7 @@
 namespace KMC_Lattice {
 
 	//! \brief This class contains the properties of a three-dimensional lattice and the functions needed to interact with it.
-	//! \details The class makes use of the Parameters_Lattice struct to load the neccessary input parameters, the Coords struct
+	//! \details The class makes use of the Parameters_Lattice struct to load the necessary input parameters, the Coords struct
 	//! to record the Cartesian coordinates of each lattice site, and the Site class to assign properties to each site.
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
@@ -34,9 +34,9 @@ namespace KMC_Lattice {
 
 		//! \brief Calculates the destination coordinates when given the starting coordinates and the displacement vector (i,j,k).
 		//! \details When the starting coordinates are near one or more of the lattice boundaries and periodic boundary conditions are enabled,
-		//! the function detemines the destination coordinates across the periodic boundary and assigns the calculated Coords struct to the input
+		//! the function determines the destination coordinates across the periodic boundary and assigns the calculated Coords struct to the input
 		//! coords_dest argument.
-		//! \param coords_initial is the Coords struct tht designates the starting coordinates.
+		//! \param coords_initial is the Coords struct that designates the starting coordinates.
 		//! \param i is the displacement in the x-direction.
 		//! \param j is the displacement in the y-direction.
 		//! \param k is the displacement in the z-direction.
@@ -179,7 +179,7 @@ namespace KMC_Lattice {
 
 		//! \brief Checks whether the site located at the input coordinates is occupied or not.
 		//! \param coords is a Coords struct that represents the input coordinates.
-		//! \return true if the specificed site is occupied
+		//! \return true if the specified site is occupied
 		//! \return false if the specified site is unoccupied
 		bool isOccupied(const Coords& coords) const;
 

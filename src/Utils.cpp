@@ -404,7 +404,7 @@ namespace KMC_Lattice {
 		}
 		// Add up the counts from all processors
 		auto counts_sum = MPI_calculateVectorSum(counts);
-		// Create output probablilty histogram
+		// Create output probability histogram
 		vector<pair<double, double>> prob_hist;
 		if (procid == 0) {
 			prob_hist.reserve(final_size);
@@ -450,7 +450,7 @@ namespace KMC_Lattice {
 		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		// Get the size of the input data
 		int data_size = (int)input_vector.size();
-		// Copt the input data into an array
+		// Copy the input data into an array
 		double* data = new double[data_size];
 		copy(input_vector.begin(), input_vector.end(), data);
 		// Allocate array memory for the sum data

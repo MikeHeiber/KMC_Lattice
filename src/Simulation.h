@@ -53,7 +53,7 @@ namespace KMC_Lattice {
 
 		//! \brief Executes the next event in the simulation.
 		//! \details This is a pure virtual function in the base class that must be defined by any derived class.
-		//! \return true if the next event is succesfully executed.
+		//! \return true if the next event is successfully executed.
 		//! \return false if execution of the next event is unsuccessful.
 		virtual bool executeNextEvent() = 0;
 
@@ -77,7 +77,7 @@ namespace KMC_Lattice {
 		long int getN_objects_created() const;
 
 		//! \brief Gets the processor ID number for the processor that is running the simulation.
-		//! \details This is primarly used with MPI to differentiate between different simualtions running on 
+		//! \details This is primarily used with MPI to differentiate between different simulations running on 
 		//! different cores.
 		int getId() const;
 
@@ -163,7 +163,7 @@ namespace KMC_Lattice {
 		//! \details The Object objects are allocated and maintained by the derived Simulation class and only the Object 
 		//! pointers are stored in the base class. Removing the Object pointer does not delete the Object from the derived
 		//! class.  This function also calls the removeEvent function to remove the Event pointer associated with the 
-		//! Object and also communites with the Lattice object to clear the occupancy of the Site where the Object was located.
+		//! Object and also communities with the Lattice object to clear the occupancy of the Site where the Object was located.
 		//! \param object_ptr is the Object pointer to be removed from the simulation.
 		void removeObject(Object* object_ptr);
 
