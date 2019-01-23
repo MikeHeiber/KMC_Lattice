@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 Michael C. Heiber
+// Copyright (c) 2017-2019 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -231,8 +231,11 @@ namespace SimulationTests {
 	};
 
 	TEST_F(SimulationTest, CheckParameters) {
+		// Check for invalid default parameters object
+		Parameters_Simulation params;
+		EXPECT_FALSE(params.checkParameters());
 		// Check for invalid lattice params
-		auto params = params_base;
+		params = params_base;
 		params.Params_lattice.Height = 0;
 		EXPECT_FALSE(params.checkParameters());
 		// Check for invalid temp
@@ -1129,8 +1132,11 @@ namespace LatticeTests {
 	};
 
 	TEST_F(LatticeTest, CheckParameters) {
+		// Check for invalid default params object
+		Parameters_Lattice params;
+		EXPECT_FALSE(params.checkParameters());
 		// Check for invalid lattice dimensions
-		auto params = params_lattice;
+		params = params_lattice;
 		params.Height = 0;
 		EXPECT_FALSE(params.checkParameters());
 		// Check for invalid unit size

@@ -18,19 +18,19 @@ namespace KMC_Lattice {
 	public:
 		// Member variables
 		//! Determines whether the x-direction periodic boundaries will be enabled. 
-		bool Enable_periodic_x;
+		bool Enable_periodic_x = true;
 		//! Determines whether the y-direction periodic boundaries will be enabled. 
-		bool Enable_periodic_y;
+		bool Enable_periodic_y = true;
 		//! Determines whether the z-direction periodic boundaries will be enabled. 
-		bool Enable_periodic_z;
+		bool Enable_periodic_z = true;
 		//! Defines the desired x-direction size of the lattice.
-		int Length;
+		int Length = 0;
 		//! Defines the desired y-direction size of the lattice.
-		int Width;
+		int Width = 0;
 		//! Defines the desired z-direction size of the lattice.
-		int Height;
+		int Height = 0;
 		//! Defines the desired lattice unit size, which is used to convert lattice units into real space units.
-		double Unit_size; // nm
+		double Unit_size = 0.0; // nm
 
 		// Functions
 		//! Default virtual destructor.

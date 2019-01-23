@@ -31,7 +31,7 @@ namespace KMC_Lattice {
 		//! The default constructor that creates an empty Event object.
 		Event();
 
-		//! Constructor that creates an empty Event object pre-initilized with the Simulation pointer.
+		//! Constructor that creates an empty Event object pre-initialized with the Simulation pointer.
 		//! \param sim_ptr is a pointer to the Simulation object that the Event is associated with.
 		Event(Simulation* sim_ptr);
 
@@ -80,7 +80,7 @@ namespace KMC_Lattice {
 		//! \return the stored rate constant of the event in units of inverse seconds.
 		double getRateConstant() const;
 
-		//! \brief Sets the desination coordinates of the event.
+		//! \brief Sets the destination coordinates of the event.
 		//! \param coords is the Coords struct that designates the input coordinates.
 		void setDestCoords(const Coords& coords);
 
@@ -104,7 +104,7 @@ namespace KMC_Lattice {
 
 	protected:
 		// Variables
-		//! \brief Points to the Simulation object that the Event is asociated with.
+		//! \brief Points to the Simulation object that the Event is associated with.
 		//! \details The pointer is used to access the current time in the simulation and the random number generator.
 		Simulation* sim_ptr = nullptr;
 

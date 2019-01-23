@@ -204,7 +204,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2446260a5a686ab9d49f0a765f79bb72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses MPI to gather vectors from separate processors to build one big vector containing all of the data.  <a href="#a2446260a5a686ab9d49f0a765f79bb72">More...</a><br /></td></tr>
 <tr class="separator:a2446260a5a686ab9d49f0a765f79bb72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a142c78315f934d0d4a046faa564621ee"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a142c78315f934d0d4a046faa564621ee">removeWhitespace</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a142c78315f934d0d4a046faa564621ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all spaces and ta characters in a string.  <a href="#a142c78315f934d0d4a046faa564621ee">More...</a><br /></td></tr>
+<tr class="memdesc:a142c78315f934d0d4a046faa564621ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all spaces and tab characters in a string.  <a href="#a142c78315f934d0d4a046faa564621ee">More...</a><br /></td></tr>
 <tr class="separator:a142c78315f934d0d4a046faa564621ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a106d596e3fdd800dd2bc451ab3a0cc92"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a106d596e3fdd800dd2bc451ab3a0cc92">round_int</a> (const double num)</td></tr>
 <tr class="memdesc:a106d596e3fdd800dd2bc451ab3a0cc92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rounds the input double value to the nearest integer value.  <a href="#a106d596e3fdd800dd2bc451ab3a0cc92">More...</a><br /></td></tr>
@@ -242,7 +242,7 @@ Functions</h2></td></tr>
 <tr class="separator:a99e4511b3bf639f465a6a5ab4511f266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5855f0270f9168564452bdc258c0c24c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a5855f0270f9168564452bdc258c0c24c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#a5855f0270f9168564452bdc258c0c24c">removeDuplicates</a> (std::vector&lt; T &gt; &amp;vec)</td></tr>
-<tr class="memdesc:a5855f0270f9168564452bdc258c0c24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function efficienctly removes the duplicate entries from an input vector.  <a href="#a5855f0270f9168564452bdc258c0c24c">More...</a><br /></td></tr>
+<tr class="memdesc:a5855f0270f9168564452bdc258c0c24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This template function efficiently removes the duplicate entries from an input vector.  <a href="#a5855f0270f9168564452bdc258c0c24c">More...</a><br /></td></tr>
 <tr class="separator:a5855f0270f9168564452bdc258c0c24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6e3c50cbe381912063d9a263a1421a8"><td class="memTemplParams" colspan="2">template&lt;typename T , typename A &gt; </td></tr>
 <tr class="memitem:ac6e3c50cbe381912063d9a263a1421a8"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_k_m_c___lattice.html#ac6e3c50cbe381912063d9a263a1421a8">vector_avg</a> (const std::vector&lt; T, A &gt; &amp;data)</td></tr>
@@ -869,11 +869,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Creates a vector of doubles that has a custom asymmetric distribution with an exponential tail. </p>
-<p>The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy chosen for the exponential side, so that the distribution function is continuous. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the Urbach energy chosen for the exponential side, so that the distribution function is continuous. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>is the data vector where the random numbers will be placed, which must be preallocated to the desired size. </td></tr>
     <tr><td class="paramname">mode</td><td>is the value of the peak of the distribution. </td></tr>
-    <tr><td class="paramname">urbach_energy</td><td>is the parameter that detemines the shape of the exponential tail side of the distribution. </td></tr>
+    <tr><td class="paramname">urbach_energy</td><td>is the parameter that determines the shape of the exponential tail side of the distribution. </td></tr>
     <tr><td class="paramname">gen</td><td>is a Mersenne twister random number generator used to randomly draw numbers from the distribution. </td></tr>
   </table>
   </dd>
@@ -920,11 +920,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Creates a vector of floats that has a custom asymmetric distribution with an exponential tail. </p>
-<p>The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the urbach energy chosen for the exponential side, so that the distribution function is continuous. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The created distribution is Gaussian in the positive direction relative to the mode and exponential in the negative direction. On the Gaussian side, the standard deviation is calculated relative to the Urbach energy chosen for the exponential side, so that the distribution function is continuous. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>is the data vector where the random numbers will be placed, which must be preallocated to the desired size. </td></tr>
     <tr><td class="paramname">mode</td><td>is the value of the peak of the distribution. </td></tr>
-    <tr><td class="paramname">urbach_energy</td><td>is the parameter that detemines the shape of the exponential tail side of the distribution. </td></tr>
+    <tr><td class="paramname">urbach_energy</td><td>is the parameter that determines the shape of the exponential tail side of the distribution. </td></tr>
     <tr><td class="paramname">gen</td><td>is a Mersenne twister random number generator used to randomly draw numbers from the distribution. </td></tr>
   </table>
   </dd>
@@ -1159,7 +1159,7 @@ template&lt;typename T &gt; </div>
 
 <p>Uses MPI to calculate the average probability histogram from separate histograms coming from different processors. </p>
 <p>Each processor calls this function and sends an input histogram. Each input histogram must have the same bin size.</p>
-<p>Upon function return, processor 0 receives the average probabiliy histogram and all of the other processors receive an empty probability histogram. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Upon function return, processor 0 receives the average probability histogram and all of the other processors receive an empty probability histogram. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input_hist</td><td>is the input histogram data from the processor calling the function. </td></tr>
   </table>
@@ -1500,7 +1500,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>This template function efficienctly removes the duplicate entries from an input vector. </p>
+<p>This template function efficiently removes the duplicate entries from an input vector. </p>
 <p>This algorithm allow efficient removal of duplicate vector objects when &gt; or &lt; comparison operators do not exist. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vec</td><td>is the input vector to be operated on. </td></tr>
@@ -1526,7 +1526,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Removes all spaces and ta characters in a string. </p>
+<p>Removes all spaces and tab characters in a string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>is the input string </td></tr>
@@ -1589,7 +1589,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the input string is "true". </dd>
 <dd>
-flase if the input string is "flase". </dd></dl>
+false if the input string is "false". </dd></dl>
 
 </div>
 </div>

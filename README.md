@@ -1,4 +1,4 @@
-# KMC_Lattice
+# KMC_Lattice 
 
 ## General Information
 
@@ -25,8 +25,7 @@ For further reading about kinetic Monte Carlo simulations, nice overviews of the
 
 ## Current Status
 
-The current release is KMC_Lattice [![GitHub (pre-)release](https://img.shields.io/github/release/MikeHeiber/KMC_Lattice/all.svg?style=flat-square)](https://github.com/MikeHeiber/KMC_Lattice/releases).
-All major planned features that are to be included in v2.0 are now implemented and have undergone significant testing. 
+The latest stable release is KMC_Lattice v2.0.0.
 Please report any remaining bugs or submit feature requests for future releases in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
 
 To keep track of upcoming changes or review prior changes to the codebase, please see the [Changelog](./CHANGELOG.md).
@@ -133,4 +132,4 @@ If you find KMC_Lattice to be helpful for your research, please cite the forthco
 
 ## Acknowledgments
 
-Development of v2.0 is supported by financial assistance award 70NANB14H012 from U.S. Department of Commerce, National Institute of Standards and Technology as part of the Center for Hierarchical Materials Design (CHiMaD).
+Development of v2.0.0 was supported by financial assistance award 70NANB14H012 from U.S. Department of Commerce, National Institute of Standards and Technology as part of the Center for Hierarchical Materials Design (CHiMaD).
