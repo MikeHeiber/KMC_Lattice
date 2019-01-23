@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-## [Unreleased]
+## [v2.0.0] - 2019-01-22
 
 ### Added
 - .gitignore - Ignore statement for the Visual Studio x64 build directory
@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Parameters_Simulation - Default values for all parameters
 - test.cpp (SimulationTest) - Test that default parameters object has invalid parameters
 - test.cpp (LatticeTest) - Test that default parameters object has invalid parameters
+
+### Changed
+- README.md - Current status to note release of stable v2.0.0
 
 ### Fixed
 - docs - Several spelling mistakes and typos in the documentation
