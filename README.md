@@ -25,7 +25,7 @@ For further reading about kinetic Monte Carlo simulations, nice overviews of the
 
 ## Current Status
 
-The latest stable release is KMC_Lattice v2.0.0.
+The latest stable release is KMC_Lattice v2.0.1.
 Please report any remaining bugs or submit feature requests for future releases in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
 
 To keep track of upcoming changes or review prior changes to the codebase, please see the [Changelog](./CHANGELOG.md).

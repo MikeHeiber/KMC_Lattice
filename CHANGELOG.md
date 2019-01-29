@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Version - Updated current version string to v2.0.1
 - Doxyfile - Updated documentation version to v2.0.1
 - docs - Updated Doxygen documentation for v2.0.1
+- README - Updated information about latest stable release to v2.0.1
 
 ### Fixed
 - CHANGELOG - v2.0.0 release date
