@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Version - Updated current version string to v2.0.1
+- Doxyfile - Updated documentation version to v2.0.1
 - docs - Updated Doxygen documentation for v2.0.1
 
 ### Fixed
