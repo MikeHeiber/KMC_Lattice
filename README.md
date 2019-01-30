@@ -128,8 +128,10 @@ Please report any build or testing errors in the [Issues](https://github.com/Mik
 
 ## Citing this Work
 
-If you find KMC_Lattice to be helpful for your research, please cite the forthcoming publication...
+If you find KMC_Lattice to be helpful for your research, please cite:
+
+[M. C. Heiber, J. Open Source Software **4**, 1168 (2019).](https://doi.org/10.21105/joss.01168) [[ResearchGate]](https://www.researchgate.net/publication/330720811_KMC_Lattice_v20_An_Object-Oriented_C_Library_for_Custom_Kinetic_Monte_Carlo_Simulations)
 
 ## Acknowledgments
 
-Development of v2.0.0 was supported by financial assistance award 70NANB14H012 from U.S. Department of Commerce, National Institute of Standards and Technology as part of the Center for Hierarchical Materials Design (CHiMaD).
+Development of v2.0 was supported by financial assistance award 70NANB14H012 from U.S. Department of Commerce, National Institute of Standards and Technology as part of the Center for Hierarchical Materials Design (CHiMaD).
