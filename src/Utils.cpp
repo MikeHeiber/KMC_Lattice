@@ -368,16 +368,107 @@ namespace KMC_Lattice {
 		return NAN;
 	}
 
-	std::vector<std::pair<double, double>> MPI_calculateProbHistAvg(const std::vector<std::pair<double, int>>& input_hist) {
-		if ((int)input_hist.size() < 2) {
-			throw invalid_argument("Unable to calculate the average probability histogram because the input histogram must have more than one bin.");
-		}
+	std::vector<std::pair<double, double>> MPI_calculatePairVectorAvg(const std::vector<std::pair<double, double>>& input_vector) {
 		int procid;
 		int nproc;
 		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		MPI_Comm_size(MPI_COMM_WORLD, &nproc);
+		// Compare histogram sizes coming from each proc
+		int vec_size = (int)input_vector.size();
+		// Allocate array memory for the incoming data
+		int* vec_sizes_array = new int[nproc]();
+		// Gather all of the histogram sizes into the array on each proc
+		MPI_Allgather(&vec_size, 1, MPI_INT, vec_sizes_array, 1, MPI_INT, MPI_COMM_WORLD);
+		// Convert dynamic array into stl vector
+		vector<int> vec_sizes(vec_sizes_array, vec_sizes_array + nproc);
+		delete[] vec_sizes_array;
+		// If any of the histograms have less than 2 bins, throw an exception
+		if (*min_element(vec_sizes.begin(), vec_sizes.end()) < 2) {
+			throw invalid_argument("Unable to calculate the average pair vector because not all input pairs vector have more than one bin.");
+		}
+		// Determine the bin size
+		double bin_size = input_vector[1].first - input_vector[0].first;
+		// Compare bin sizes coming from each proc
+		// Allocate array memory for the incoming data
+		double* bin_sizes_array = new double[nproc];
+		// Gather all of the bin sizes into the array on each proc
+		MPI_Allgather(&bin_size, 1, MPI_DOUBLE, bin_sizes_array, 1, MPI_DOUBLE, MPI_COMM_WORLD);
+		// Convert dynamic array into stl vector
+		vector<double> bin_sizes(bin_sizes_array, bin_sizes_array + nproc);
+		delete[] bin_sizes_array;
+		// Throw exception if bin size is not the same on all procs
+		if (abs(*max_element(bin_sizes.begin(), bin_sizes.end()) - *min_element(bin_sizes.begin(), bin_sizes.end()) > 1e-6*bin_size)) {
+			throw invalid_argument("Unable to calculate the average pair vector because the input pair vector does not have the same bin size on all procs.");
+		}
+		// Determine the smallest bin and largest bin
+		double min_bin = input_vector[0].first;
+		double max_bin = input_vector.back().first;
+		// Gather all of the min and max bins from each proc into vectors
+		auto min_bins = MPI_gatherValues(min_bin);
+		auto max_bins = MPI_gatherValues(max_bin);
+		// Determine the overall smallest and largest bin in the set
+		double smallest_bin;
+		double largest_bin;
+		if (procid == 0) {
+			smallest_bin = *min_element(min_bins.begin(), min_bins.end());
+			largest_bin = *max_element(max_bins.begin(), max_bins.end());
+		}
+		// Broadcast the smallest and largest bins to all procs
+		MPI_Bcast(&smallest_bin, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+		MPI_Bcast(&largest_bin, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+		int final_size = round_int((largest_bin - smallest_bin) / bin_size) + 1;
+		// Create y_sum vector with the same size as the final average pair vector
+		vector<double> y_vals(final_size, 0.0);
+		// Separate out the y data from the input vector into appropriate bins
+		for (int i = 0; i < (int)input_vector.size(); i++) {
+			int bin_index = (int)floor((input_vector[i].first - smallest_bin) / bin_size);
+			y_vals[bin_index] = input_vector[i].second;
+		}
+		// Add up the counts from all processors
+		auto y_vals_sum = MPI_calculateVectorSum(y_vals);
+		// Create output probability histogram
+		vector<pair<double, double>> vector_avg;
+		if (procid == 0) {
+			vector_avg.resize(final_size);
+			for (int i = 0; i < (int)final_size; i++) {
+				vector_avg[i] = make_pair(smallest_bin + bin_size * i, y_vals_sum[i] / nproc);
+			}
+		}
+		return vector_avg;
+	}
+
+	std::vector<std::pair<double, double>> MPI_calculateProbHistAvg(const std::vector<std::pair<double, int>>& input_hist) {
+		int procid;
+		int nproc;
+		MPI_Comm_rank(MPI_COMM_WORLD, &procid);
+		MPI_Comm_size(MPI_COMM_WORLD, &nproc);
+		// Compare histogram sizes coming from each proc
+		int hist_size = (int)input_hist.size();
+		// Allocate array memory for the incoming data
+		int* hist_sizes_array = new int[nproc]();
+		// Gather all of the histogram sizes into the array on each proc
+		MPI_Allgather(&hist_size, 1, MPI_INT, hist_sizes_array, 1, MPI_INT, MPI_COMM_WORLD);
+		// Convert dynamic array into stl vector
+		vector<int> hist_sizes(hist_sizes_array, hist_sizes_array + nproc);
+		delete[] hist_sizes_array;
+		// If any of the histograms have less than 2 bins, throw an exception
+		if (*min_element(hist_sizes.begin(), hist_sizes.end()) < 2) {
+			throw invalid_argument("Unable to calculate the average probability histogram because not all input histograms have more than one bin.");
+		}
 		// Determine the bin size
 		double bin_size = input_hist[1].first - input_hist[0].first;
+		// Compare bin sizes coming from each proc
+		// Allocate array memory for the incoming data
+		double* bin_sizes_array = new double[nproc];
+		// Gather all of the bin sizes into the array on each proc
+		MPI_Allgather(&bin_size, 1, MPI_DOUBLE, bin_sizes_array, 1, MPI_DOUBLE, MPI_COMM_WORLD);
+		// Convert dynamic array into stl vector
+		vector<double> bin_sizes(bin_sizes_array, bin_sizes_array + nproc);
+		delete[] bin_sizes_array;
+		// Throw exception if bin size is not the same on all procs
+		if (abs(*max_element(bin_sizes.begin(), bin_sizes.end()) - *min_element(bin_sizes.begin(), bin_sizes.end()) > 1e-6*bin_size)) {
+			throw invalid_argument("Unable to calculate the average pair vector because the input pair vector does not have the same bin size on all procs.");
+		}
 		// Determine the smallest bin and largest bin
 		double min_bin = input_hist[0].first;
 		double max_bin = input_hist.back().first;
@@ -394,9 +485,9 @@ namespace KMC_Lattice {
 		// Broadcast the smallest and largest bins to all procs
 		MPI_Bcast(&smallest_bin, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 		MPI_Bcast(&largest_bin, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-		int final_size = (int)ceil((largest_bin - smallest_bin) / bin_size) + 1;
+		int final_size = round_int((largest_bin - smallest_bin) / bin_size) + 1;
 		// Create counts vector with the same size as the final prob hist
-		vector<int> counts(final_size);
+		vector<int> counts(final_size, 0);
 		// Separate out the counts data from the input histograms into appropriate bins
 		for (int i = 0; i < (int)input_hist.size(); i++) {
 			int bin_index = (int)floor((input_hist[i].first - smallest_bin) / bin_size);
