@@ -21,7 +21,73 @@ namespace MPI_Tests {
 			MPI_Comm_rank(MPI_COMM_WORLD, &procid);
 		}
 	};
-	
+
+	TEST_F(MPI_Test, CalculatePairVectorAvgTests) {
+		// Setup unique data pair vectors on each proc
+		vector<pair<double, double>> data(3);
+		for (int i = 0; i < (int)data.size(); i++) {
+			if (procid == 0) {
+				data[i] = make_pair(0.0 + i, 1.0);
+			}
+			else {
+				data[i] = make_pair(0.0 + i, 2.0);
+			}
+		}
+		// Calculate average pair vector over all procs
+		vector<pair<double, double>> data_avg;
+		try {
+			data_avg = MPI_calculatePairVectorAvg(data);
+		}
+		catch (bad_alloc& ba) {
+			cout << procid << ": bad_alloc caught: " << ba.what() << endl;
+		}
+		if (procid == 0) {
+			ASSERT_EQ(3, (int)data_avg.size());
+			EXPECT_DOUBLE_EQ((1.0+2.0*(nproc-1))/(double)nproc, data_avg[0].second);
+		}
+		// Check that the final data_avg range is extended
+		// Setup histograms so that proc 0 has a different range than all of the other procs
+		data.clear();
+		if (procid == 0) {
+			data.push_back(make_pair(0.0, 1.0));
+			data.push_back(make_pair(1.0, 1.0));
+		}
+		else {
+			data.push_back(make_pair(1.0, 1.0));
+			data.push_back(make_pair(2.0, 1.0));
+			data.push_back(make_pair(3.0, 1.0));
+		}
+		try {
+			data_avg = MPI_calculatePairVectorAvg(data);
+		}
+		catch (bad_alloc& ba) {
+			cout << procid << ": bad_alloc caught: " << ba.what() << endl;
+		}
+		if (procid == 0) {
+			ASSERT_EQ(4, (int)data_avg.size());
+			EXPECT_DOUBLE_EQ(1.0 / (double)nproc, data_avg[0].second);
+			EXPECT_DOUBLE_EQ(1.0*nproc / (double)nproc, data_avg[1].second);
+		}
+		// Check behavior when the data pair vector is empty
+		data.clear();
+		EXPECT_THROW(MPI_calculatePairVectorAvg(data), invalid_argument);
+		// Check behavior when the data pair vector has only one entry
+		data.push_back(make_pair(0.0, 1.0));
+		EXPECT_THROW(MPI_calculatePairVectorAvg(data), invalid_argument);
+		// Check behavior when the data pair vector on different procs have different bin size
+		data.clear();
+		// Setup data pair vectors so that proc 0 has a different bin size than all of the other procs
+		if (procid == 0) {
+			data.push_back(make_pair(0.0, 1.0));
+			data.push_back(make_pair(3.0, 1.0));
+		}
+		else {
+			data.push_back(make_pair(0.0, 1.0));
+			data.push_back(make_pair(1.0, 1.0));
+		}
+		EXPECT_THROW(MPI_calculatePairVectorAvg(data), invalid_argument);
+	}
+
 	TEST_F(MPI_Test, CalculateProbHistAvgTests) {
 		// Setup unique data vectors on each proc
 		vector<int> data(3);
@@ -41,21 +107,57 @@ namespace MPI_Tests {
 			cout << procid << ": bad_alloc caught: " << ba.what() << endl;
 		}
 		if (procid == 0) {
-			ASSERT_EQ(6, (int)prob.size());
-			EXPECT_DOUBLE_EQ(1.0 / 12.0, prob[0].second);
+			ASSERT_EQ(3 + nproc - 1, (int)prob.size());
+			EXPECT_DOUBLE_EQ(1.0 / (3.0*nproc), prob[0].second);
 			EXPECT_DOUBLE_EQ(2.0 / 12.0, prob[1].second);
 			EXPECT_DOUBLE_EQ(3.0 / 12.0, prob[2].second);
 			EXPECT_DOUBLE_EQ(3.0 / 12.0, prob[3].second);
 			EXPECT_DOUBLE_EQ(2.0 / 12.0, prob[4].second);
 			EXPECT_DOUBLE_EQ(1.0 / 12.0, prob[5].second);
 		}
+		// Check that the final histogram range is extended
+		// Setup histograms so that proc 0 has a different range than all of the other procs
+		hist.clear();
+		if (procid == 0) {
+			hist.push_back(make_pair(0.0, 1));
+			hist.push_back(make_pair(1.0, 1));
+		}
+		else {
+			hist.push_back(make_pair(1.0, 1));
+			hist.push_back(make_pair(2.0, 1));
+			hist.push_back(make_pair(3.0, 1));
+		}
+		try {
+			prob = MPI_calculateProbHistAvg(hist);
+		}
+		catch (bad_alloc& ba) {
+			cout << procid << ": bad_alloc caught: " << ba.what() << endl;
+		}
+		if (procid == 0) {
+			ASSERT_EQ(4, (int)prob.size());
+		}
 		// Check behavior when the histogram is empty
 		hist.clear();
+		EXPECT_THROW(MPI_calculateProbHistAvg(hist), invalid_argument);
+		// Check behavior when the histogram has only one entry
+		hist.push_back(make_pair(0.0, 1));
+		EXPECT_THROW(MPI_calculateProbHistAvg(hist), invalid_argument);
+		// Check behavior when the histograms on different procs have different bin size
+		hist.clear();
+		// Setup histograms so that proc 0 has a different bin size than all of the other procs
+		if (procid == 0) {
+			hist.push_back(make_pair(0.0, 1));
+			hist.push_back(make_pair(3.0, 1));
+		}
+		else {
+			hist.push_back(make_pair(0.0, 1));
+			hist.push_back(make_pair(1.0, 1));
+		}
 		EXPECT_THROW(MPI_calculateProbHistAvg(hist), invalid_argument);
 	}
 
 	TEST_F(MPI_Test, CalculateVectorAvgTests) {
-		// Seteup unique data vectors on each proc
+		// Setup unique data vectors on each proc
 		vector<double> data(3);
 		for (int i = 0; i < (int)data.size(); i++) {
 			data[i] = 3 * procid + i;
@@ -94,7 +196,7 @@ namespace MPI_Tests {
 			EXPECT_EQ(26, data_sum2[2]);
 		}
 	}
-	
+
 	TEST_F(MPI_Test, GatherValuesTests) {
 		// Collect procid from each proc integers
 		auto data_all = MPI_gatherValues(procid);

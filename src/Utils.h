@@ -208,9 +208,26 @@ namespace KMC_Lattice {
 	//! \return the interpolated y-value when the input x-value lies within the range of the input data.
 	double interpolateData(const std::vector<std::pair<double, double>>& data, const double x_val);
 
+	//! \brief Uses MPI to calculate the average pair vector distribution from separate pair vectors coming from different processors.
+	//! \details Each processor calls this function and sends an input pair vector distribution. 
+	//! Each pair vector entry represents an x-y data pair, where x is the centered bin position and y is the distribution value for that bin.
+	//! Each input pair vector distribution can have a different range, but they must have the same bin size. 
+	//! Beyond the range of the input pair vector, the y distribution values are assumed to be zero.
+	//! Upon function return, processor 0 receives the average pair vector and all of the other processors receive an empty pair vector.
+	//! The range of the final pair vector is automatically sized to contain the data from of all input pair vectors.
+	//! \warning This function will throw an invalid_argument exception if any of the input pair vectors have less than two entries 
+	//! \warning This function will throw an invaid_argument exception if all of the input pair vectors do not have the same bin size.
+	//! \param input_vector is the input pair vector data from the processor calling the function.
+	//! \return A pair vector that is the average of all input histograms from each processor, when called on processor 0.
+	//! \return An empty vector when called on other processors.
+	std::vector<std::pair<double, double>> MPI_calculatePairVectorAvg(const std::vector<std::pair<double, double>>& input_vector);
+
 	//! \brief Uses MPI to calculate the average probability histogram from separate histograms coming from different processors.
 	//! \details Each processor calls this function and sends an input histogram. Each input histogram must have the same bin size.  
 	//! Upon function return, processor 0 receives the average probability histogram and all of the other processors receive an empty probability histogram.
+	//! The range of the final pair vector is automatically sized to contain the data from of all input pair vectors.
+	//! \warning This function will throw an invalid_argument exception if any of the input histograms have less than two entries 
+	//! \warning This function will throw an invaid_argument exception if all of the input histograms do not have the same bin size.
 	//! \param input_hist is the input histogram data from the processor calling the function.
 	//! \return A pair vector that is the average probability histogram of all input histograms from each processor, when called on processor 0.
 	//! \return An empty vector when called on other processors.

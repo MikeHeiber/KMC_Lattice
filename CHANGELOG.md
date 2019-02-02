@@ -9,15 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- README - Added citation info and links for the joss paper
+- README - Citation info and links for the JOSS paper
+- .gitignore - Statement to ignore the packages directory created by MS Visual Studio
+- Utils (MPI_calculatePairVectorAvg) - new function for calculating the average of x-y distribution data
+- test_mpi.cpp (CalculatePairVectorAvgTests) - new test case with units tests for the Utils::MPI_calculatePairVectorAvg function
+- test_mpi.cpp (CalculateProbabilityHistTests) - new units tests to check for the output histogram range and to check exception throwing when input histograms are too small or have different bin sizes
+
+### Changed
+- Doxyfile - Documentation version to v2.0.1-beta.1
+- docs - Updated Doxygen documentation for v2.0.1-beta.1
+- Utils (MPI_calculateProbHistAvg) - Updated function to throw invalid_argument exception on all processors if the input histogram on any proc is too small or if bin sizes do not match
+- Version - Current version string to v2.1.0-beta.1
 
 ## [v2.0.1] - 2019-01-29
 
 ### Changed
-- Version - Updated current version string to v2.0.1
-- Doxyfile - Updated documentation version to v2.0.1
+- Version - Current version string to v2.0.1
+- Doxyfile - Documentation version to v2.0.1
 - docs - Updated Doxygen documentation for v2.0.1
-- README - Updated information about latest stable release to v2.0.1
+- README - Information about latest stable release to v2.0.1
 
 ### Fixed
 - CHANGELOG - v2.0.0 release date
