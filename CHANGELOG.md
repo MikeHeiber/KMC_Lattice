@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.1.0-beta.1] - 2019-02-10 - MPI Calculate Pair Vector Average Update
+
 ### Added
 - README - Citation info and links for the JOSS paper
 - .gitignore - Statement to ignore the packages directory created by MS Visual Studio
@@ -16,12 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - test_mpi.cpp (CalculateProbabilityHistTests) - new units tests to check for the output histogram range and to check exception throwing when input histograms are too small or have different bin sizes
 
 ### Changed
-- Doxyfile - Documentation version to v2.0.1-beta.1
-- docs - Updated Doxygen documentation for v2.0.1-beta.1
+- Doxyfile - Documentation version to v2.1.0-beta.1
+- docs - Updated Doxygen documentation for v2.1.0-beta.1
 - Utils (MPI_calculateProbHistAvg) - Updated function to throw invalid_argument exception on all processors if the input histogram on any proc is too small or if bin sizes do not match
 - Version - Current version string to v2.1.0-beta.1
 
-## [v2.0.1] - 2019-01-29
+## [v2.0.1] - 2019-01-29 - JOSS Paper Correction
 
 ### Changed
 - Version - Current version string to v2.0.1
@@ -33,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CHANGELOG - v2.0.0 release date
 - papers/v2_paper/paper.md - Fixed typo
 
-## [v2.0.0] - 2019-01-23
+## [v2.0.0] - 2019-01-23 - First Stable Release
 
 ### Added
 - .gitignore - Ignore statement for the Visual Studio x64 build directory
