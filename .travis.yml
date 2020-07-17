@@ -18,17 +18,7 @@ matrix:
       dist: xenial
       compiler: gcc
       env:
-        - OPTIONS="GCC_VERSION=5 && MPI=mpich && TARGET=test"
-    - os: linux
-      dist: xenial
-      compiler: gcc
-      env:
         - OPTIONS="GCC_VERSION=5 && MPI=openmpi && TARGET=test"
-    - os: linux
-      dist: xenial
-      compiler: gcc
-      env:
-        - OPTIONS="GCC_VERSION=6 && MPI=mpich && TARGET=test"
     - os: linux
       dist: xenial
       compiler: gcc
@@ -38,17 +28,7 @@ matrix:
       dist: xenial
       compiler: gcc
       env:
-        - OPTIONS="GCC_VERSION=7 && MPI=mpich && TARGET=test"
-    - os: linux
-      dist: xenial
-      compiler: gcc
-      env:
         - OPTIONS="GCC_VERSION=7 && MPI=openmpi && TARGET=test"
-    - os: linux
-      dist: xenial
-      compiler: gcc
-      env:
-        - OPTIONS="GCC_VERSION=8 && MPI=mpich && TARGET=test"
     - os: linux
       dist: xenial
       compiler: gcc
@@ -58,14 +38,34 @@ matrix:
       dist: xenial
       compiler: gcc
       env:
-        - OPTIONS="GCC_VERSION=9 && MPI=mpich && TARGET=test"
+        - OPTIONS="GCC_VERSION=9 && MPI=openmpi && TARGET=test"
+    - os: linux
+      dist: trusty
+      compiler: gcc
+      env:
+        - OPTIONS="GCC_VERSION=4.8 && MPI=mpich && TARGET=test"
     - os: linux
       dist: xenial
       compiler: gcc
       env:
-        - OPTIONS="GCC_VERSION=9 && MPI=openmpi && TARGET=test"
+        - OPTIONS="GCC_VERSION=5.4 && MPI=mpich && TARGET=test"
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      env:
+        - OPTIONS="GCC_VERSION=7.4 && MPI=mpich && TARGET=test"
+    - os: linux
+      dist: trusty
+      compiler: clang
+      env:
+        - OPTIONS="MPI=openmpi && TARGET=test"
     - os: linux
       dist: xenial
+      compiler: clang
+      env:
+        - OPTIONS="MPI=openmpi && TARGET=test"
+    - os: linux
+      dist: trusty
       compiler: clang
       env:
         - OPTIONS="MPI=mpich && TARGET=test"
@@ -73,7 +73,7 @@ matrix:
       dist: xenial
       compiler: clang
       env:
-        - OPTIONS="MPI=openmpi && TARGET=test"
+        - OPTIONS="MPI=mpich && TARGET=test"
 
 before_install:
     - eval "${OPTIONS}"
