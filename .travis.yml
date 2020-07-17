@@ -40,11 +40,6 @@ matrix:
       env:
         - OPTIONS="GCC_VERSION=9 && MPI=openmpi && TARGET=test"
     - os: linux
-      dist: trusty
-      compiler: gcc
-      env:
-        - OPTIONS="GCC_VERSION=4.8 && MPI=mpich && TARGET=test"
-    - os: linux
       dist: xenial
       compiler: gcc
       env:
@@ -55,20 +50,10 @@ matrix:
       env:
         - OPTIONS="GCC_VERSION=7.4 && MPI=mpich && TARGET=test"
     - os: linux
-      dist: trusty
-      compiler: clang
-      env:
-        - OPTIONS="MPI=openmpi && TARGET=test"
-    - os: linux
       dist: xenial
       compiler: clang
       env:
         - OPTIONS="MPI=openmpi && TARGET=test"
-    - os: linux
-      dist: trusty
-      compiler: clang
-      env:
-        - OPTIONS="MPI=mpich && TARGET=test"
     - os: linux
       dist: xenial
       compiler: clang
