@@ -3,7 +3,7 @@
 # For more information, see the LICENSE file that accompanies this software.
 # The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
 
-COMPILER := $(shell mpicxx --show | awk '{print $$1}')
+COMPILER := $(shell mpicxx -show | awk '{print $$1}')
 $(info COMPILER is $(COMPILER))
 ifeq ($(COMPILER), g++)
 	FLAGS += -Wall -Wextra -O3 -std=c++11 -I. -Isrc -IKMC_Lattice/src
