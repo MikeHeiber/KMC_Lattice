@@ -77,7 +77,7 @@ matrix:
 
 before_install:
     - eval "${OPTIONS}"
-    - if [[ "$TRAVIS_COMPILER" = gcc ]]; then
+    - if [ $TRAVIS_COMPILER = gcc ]; then
     -   sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
     -   sudo apt-get update -qq
     -   sudo apt-get install -qq gcc-$GCC_VERSION g++-$GCC_VERSION -y
@@ -85,7 +85,7 @@ before_install:
     -   sudo update-alternatives --config gcc
     -   gcc --version
     - fi
-    - if [[ "$TRAVIS_COMPILER" = clang ]]; then
+    - if [ $TRAVIS_COMPILER = clang ]; then
     -   sudo apt install clang -y
     -   export OMPI_CXX=clang++
     -   export CXX=clang++
