@@ -7,7 +7,7 @@
 language: cpp
 sudo: required
 
-jobs:
+matrix:
     include:
         - os: linux
           dist: xenial
