@@ -43,12 +43,12 @@ matrix:
       dist: xenial
       compiler: gcc
       env:
-        - OPTIONS="GCC_VERSION=5.4 && MPI=mpich && TARGET=test"
+        - OPTIONS="GCC_VERSION=5.4.0 && MPI=mpich && TARGET=test"
     - os: linux
       dist: bionic
       compiler: gcc
       env:
-        - OPTIONS="GCC_VERSION=7.4 && MPI=mpich && TARGET=test"
+        - OPTIONS="GCC_VERSION=7.4.0 && MPI=mpich && TARGET=test"
     - os: linux
       dist: xenial
       compiler: clang
