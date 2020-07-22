@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 Michael C. Heiber
+// Copyright (c) 2017-2020 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software package.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -9,7 +9,7 @@ using namespace std;
 
 namespace KMC_Lattice {
 
-	Version Current_version("2.1.0-beta.1");
+	Version Current_version("2.1.0");
 
 	Version::Version() { }
 
