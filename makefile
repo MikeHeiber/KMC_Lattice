@@ -1,13 +1,18 @@
-# Copyright (c) 2017-2019 Michael C. Heiber
+# Copyright (c) 2017-2020 Michael C. Heiber
 # This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 # For more information, see the LICENSE file that accompanies this software.
 # The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
 
-ifeq ($(lastword $(subst /, ,$(CXX))),g++)
-	FLAGS += -Wall -Wextra -O3 -std=c++11 -I. -Isrc
+COMPILER := $(shell mpicxx -show | awk '{print $$1}')
+$(info COMPILER is $(COMPILER))
+ifeq ($(COMPILER), g++)
+	FLAGS += -Wall -Wextra -O3 -std=c++11 -I. -Isrc -IKMC_Lattice/src
 endif
-ifeq ($(lastword $(subst /, ,$(CXX))),pgc++)
-	FLAGS += -O2 -fastsse -Minform=warn -Mvect -std=c++11 -Mdalign -Munroll -Mipa=fast -Kieee -m64 -I. -Isrc
+ifeq ($(COMPILER), clang++)
+	FLAGS += -Wall -Wextra -O3 -std=c++11 -I. -Isrc -IKMC_Lattice/src
+	endif
+ifeq ($(COMPILER), pgc++)
+	FLAGS += -O2 -Minform=warn -fastsse -Mvect -std=c++11 -Mdalign -Munroll -Mipa=fast -Kieee -m64 -I. -Isrc -IKMC_Lattice/src
 endif
 
 OBJS = src/Event.o src/Lattice.o src/Object.o src/Parameters_Lattice.o src/Parameters_Simulation.o src/Simulation.o src/Site.o src/Utils.o src/Version.o
@@ -58,10 +63,13 @@ GTEST_DIR = googletest/googletest
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
-ifeq ($(lastword $(subst /, ,$(CXX))),g++)
+ifeq ($(COMPILER), g++)
 	GTEST_FLAGS = -isystem $(GTEST_DIR)/include -pthread
 endif
-ifeq ($(lastword $(subst /, ,$(CXX))),pgc++)
+ifeq ($(COMPILER), clang++)
+	GTEST_FLAGS = -isystem $(GTEST_DIR)/include -pthread
+endif
+ifeq ($(COMPILER), pgc++)
 	GTEST_FLAGS = -I$(GTEST_DIR)/include
 endif
 

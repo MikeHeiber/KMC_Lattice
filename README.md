@@ -25,14 +25,14 @@ For further reading about kinetic Monte Carlo simulations, nice overviews of the
 
 ## Current Status
 
-The latest stable release is KMC_Lattice v2.0.1.
+The latest stable release is KMC_Lattice v2.1.0.
 Please report any remaining bugs or submit feature requests for future releases in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
 
 To keep track of upcoming changes or review prior changes to the codebase, please see the [Changelog](./CHANGELOG.md).
 
 #### Continuous Integration and Testing Status:
 
-KMC_Lattice is currently being tested on [Ubuntu](https://www.ubuntu.com/) v14.04 with the [GCC compiler](https://gcc.gnu.org/) (versions 4.7, 4.8, 4.9, 5, 6, 7, and 8) and on both [Open MPI](http://www.open-mpi.org/) v1.6.5 and [MPICH](http://www.mpich.org/) v3.04 using [Travis CI](https://travis-ci.com/).
+KMC_Lattice is currently being tested on [Ubuntu](https://www.ubuntu.com/) (v16.04 and v18.04) with the [GCC compiler](https://gcc.gnu.org/) (v5, v6, v7, v8, and v9) the [clang compiler](https://clang.llvm.org/) (v7) and on both [Open MPI](http://www.open-mpi.org/) (v1.10.2) and [MPICH](http://www.mpich.org/) (v3.2 and v3.3) using [Travis CI](https://travis-ci.com/).
 
 | Branch | Status |
 | :------: | ------ |
@@ -91,14 +91,13 @@ Detailed API documentation for these classes and the entire KMC_Lattice package 
 This software tool uses [Message Passing Interface (MPI)](https://computing.llnl.gov/tutorials/mpi/) to utilize parallel computing power. 
 As a result, using KMC_Lattice requires that an MPI library is pre-installed on your system, and the final KMC_Lattice library must be built on your specific system. 
 Contact your HPC admin to determine the protocols for building MPI applications on your specific HPC system. 
-In many cases, the HPC system and environment will already be configured for you, and the package comes with a default makefile that can be used with the [GCC compiler](https://gcc.gnu.org/) or the [PGI compiler](https://www.pgroup.com/). 
+In many cases, the HPC system and environment will already be configured for you, and the package comes with a default makefile that can be used with the [GCC compiler](https://gcc.gnu.org/), the [PGI compiler](https://www.pgroup.com/), or the [clang compiler](https://clang.llvm.org/). 
 
 If you wish, you can also install MPI on your own personal workstation and then build the KMC_Lattice library there as well. For development and preliminary simulation tests, sometimes it is more efficient to run on your own workstation instead of an HPC system. More information about common MPI packages can be found here:
 - Open MPI, http://www.open-mpi.org/
 - MPICH, http://www.mpich.org/
-- MVAPICH, http://mvapich.cse.ohio-state.edu/
 
-Once you have an MPI library installed, to build KMC_Lattice, first copy the KMC_Lattice directory to your machine.  On Linux this can be done using the command,
+Once you have a compiler and an MPI library installed, to build KMC_Lattice, first copy the KMC_Lattice directory to your machine.  On Linux this can be done using the command,
 
 ```git clone --recurse-submodules https://github.com/MikeHeiber/KMC_Lattice```
 
@@ -110,7 +109,7 @@ and finally build the software package with the default makefile.
 
 ```make```
 
-In the default makefile, compilation flags have been set for the GCC and PGI compilers.  If you are using another compiler, you will need to edit the makefile and define your own compiler options.
+In the default makefile, compilation flags have been set for the GCC, PGI, and clang compilers.  If you are using another compiler, you will need to edit the makefile and define your own compiler options.
 Once the normal build is successful, you should test KMC_Lattice on your own hardware using the unit and system tests provided before you use the tool. 
 Build the testing executable by running
 
@@ -122,7 +121,7 @@ Once the test build is complete, run the test executables.
 
 and
 
-```mpiexeec -n 4 ./test/KMC_Lattice_MPI_tests.exe```
+```mpiexec -n 4 ./test/KMC_Lattice_MPI_tests.exe```
 
 Please report any build or testing errors in the [Issues](https://github.com/MikeHeiber/KMC_Lattice/issues) section. 
 
