@@ -8,10 +8,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.1.0] - 2020-07-22 - Build Update
+
+### Added
+- .travis.yml - Test builds for GCC 9
+- .travis.yml - Test builds for clang 7
+- makefile - detection of clang compiler and setting the compiler flags
+- README.md - Information about clang compiler support
+
+### Changed
+- .travis.yml - Copyright years up 2020
+- .travis.yml - Test build OS from Ubuntu trusty to Ubuntu xenial and bionic
+- docs - Updated Doxygen documentation for v2.1.0 using Doxygen v1.8.18
+- Doxyfile - Project version to v2.1.0 and other adjustments for Doxygen version v1.8.18
+- LICENSE - Copyright years up 2020
+- makefile - Copyright years up 2020
+- makefile - Updated how the underlying compiler is detected now using 'mpicxx -show'
+- README.md - Latest stable release version to v2.1.0
+- README.md - Updated description of testing configurations
+- Version - Copyright years up 2020
+- Version - Current version string to v2.1.0
+
+### Removed
+- .travis.yml - Test builds for GCC 4.7, 4.8, and 4.9
+- .travis.yml - Test builds for mpich with GCC 6 and 8
+- README.md - Mention of MVAPICH MPI package
+
+### Fixed
+- README.md - Typo in test command
+
 ## [v2.1.0-beta.1] - 2019-02-10 - MPI Calculate Pair Vector Average Update
 
 ### Added
-- README - Citation info and links for the JOSS paper
+- README.md - Citation info and links for the JOSS paper
 - .gitignore - Statement to ignore the packages directory created by MS Visual Studio
 - Utils (MPI_calculatePairVectorAvg) - new function for calculating the average of x-y distribution data
 - test_mpi.cpp (CalculatePairVectorAvgTests) - new test case with units tests for the Utils::MPI_calculatePairVectorAvg function
@@ -29,10 +58,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Version - Current version string to v2.0.1
 - Doxyfile - Documentation version to v2.0.1
 - docs - Updated Doxygen documentation for v2.0.1
-- README - Information about latest stable release to v2.0.1
+- README.md - Information about latest stable release to v2.0.1
 
 ### Fixed
-- CHANGELOG - v2.0.0 release date
+- CHANGELOG.md - v2.0.0 release date
 - papers/v2_paper/paper.md - Fixed typo
 
 ## [v2.0.0] - 2019-01-23 - First Stable Release
