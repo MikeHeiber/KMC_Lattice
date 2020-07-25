@@ -72,12 +72,6 @@ before_install:
           g++ --version
         fi
       fi
-    - |
-      if [ $TRAVIS_COMPILER == clang ]; then
-        sudo apt install clang -y
-        export OMPI_CXX=clang++
-        export CXX=clang++
-      fi
     - if [[ "$MPI" = mpich ]]; then sudo apt-get -y install -qq mpich libmpich-dev; fi
     - if [[ "$MPI" = openmpi ]]; then sudo apt-get -y install -qq openmpi-bin libopenmpi-dev; fi
     - if [[ "$TARGET" = test_coverage ]]; then pip install --user cpp-coveralls; fi
