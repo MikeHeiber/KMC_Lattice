@@ -5,7 +5,7 @@
 
 COMPILER := $(shell mpicxx -show | awk '{print $$1}')
 $(info COMPILER is $(COMPILER))
-ifeq ($(COMPILER), g++)
+ifeq ($(shell echo $(COMPILER) | head -c 3), g++) 
 	FLAGS += -Wall -Wextra -O3 -std=c++11 -I. -Isrc -IKMC_Lattice/src
 endif
 ifeq ($(COMPILER), clang++)
