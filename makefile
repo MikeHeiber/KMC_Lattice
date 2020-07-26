@@ -5,7 +5,7 @@
 
 COMPILER := $(shell mpicxx -show | awk '{print $$1}')
 $(info COMPILER is $(COMPILER))
-ifeq ($(shell echo $(COMPILER) | head -c 3), g++) 
+ifeq ($(shell echo $(COMPILER) | head -c 3), g++)
 	FLAGS += -Wall -Wextra -O3 -std=c++11 -I. -Isrc -IKMC_Lattice/src
 endif
 ifeq ($(COMPILER), clang++)
@@ -63,7 +63,7 @@ GTEST_DIR = googletest/googletest
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
-ifeq ($(COMPILER), g++)
+ifeq ($(shell echo $(COMPILER) | head -c 3), g++)
 	GTEST_FLAGS = -isystem $(GTEST_DIR)/include -pthread
 endif
 ifeq ($(COMPILER), clang++)
