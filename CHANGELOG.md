@@ -8,17 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v2.1.0] - 2020-07-22 - Build Update
+## [v2.1.0] - 2020-07-25 - Build Update
 
 ### Added
 - .travis.yml - Test builds for GCC 9
 - .travis.yml - Test builds for clang 7
-- makefile - detection of clang compiler and setting the compiler flags
+- makefile - Detection of versioned g++ compilers
+- makefile - Detection of clang compiler and setting the compiler flags
 - README.md - Information about clang compiler support
 
 ### Changed
 - .travis.yml - Copyright years up 2020
 - .travis.yml - Test build OS from Ubuntu trusty to Ubuntu xenial and bionic
+- .travis.yml - Simplified how GCC versions are installed and configured
 - docs - Updated Doxygen documentation for v2.1.0 using Doxygen v1.8.18
 - Doxyfile - Project version to v2.1.0 and other adjustments for Doxygen version v1.8.18
 - LICENSE - Copyright years up 2020
