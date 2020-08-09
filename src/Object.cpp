@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 Michael C. Heiber
+// Copyright (c) 2017-2020 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -31,11 +31,11 @@ namespace KMC_Lattice {
 		case 0:
 			return sqrt((coords_current.x + dx - coords_initial.x)*(coords_current.x + dx - coords_initial.x) + (coords_current.y + dy - coords_initial.y)*(coords_current.y + dy - coords_initial.y) + (coords_current.z + dz - coords_initial.z)*(coords_current.z + dz - coords_initial.z));
 		case 1:
-			return abs(coords_current.x + dx - coords_initial.x);
+			return coords_current.x + dx - coords_initial.x;
 		case 2:
-			return abs(coords_current.y + dy - coords_initial.y);
+			return coords_current.y + dy - coords_initial.y;
 		case 3:
-			return abs(coords_current.z + dz - coords_initial.z);
+			return coords_current.z + dz - coords_initial.z;
 		default:
 			throw invalid_argument("Error! Specified direction input parameter is invalid.");
 		}

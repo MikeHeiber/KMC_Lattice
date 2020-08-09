@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 Michael C. Heiber
+// Copyright (c) 2017-2020 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -1555,29 +1555,29 @@ namespace ObjectTests {
 		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(0));
 		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(1));
 		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(2));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(3));
 		object1.setCoords({ 49,49,49 });
 		object1.incrementDX(-50);
 		object1.incrementDY(-50);
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement(0));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(1));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(2));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(2));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(3));
 		object1.setCoords({ 49,0,49 });
 		object1.incrementDY(50);
 		EXPECT_DOUBLE_EQ(sqrt(2), object1.calculateDisplacement());
 		EXPECT_DOUBLE_EQ(sqrt(2), object1.calculateDisplacement(0));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(1));
 		EXPECT_DOUBLE_EQ(0.0, object1.calculateDisplacement(2));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(3));
 		object1.resetInitialCoords({ 5,5,5 });
 		object1.setCoords({ 4,4,4 });
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement());
 		EXPECT_DOUBLE_EQ(sqrt(3), object1.calculateDisplacement(0));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(1));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(2));
-		EXPECT_DOUBLE_EQ(1.0, object1.calculateDisplacement(3));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(1));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(2));
+		EXPECT_DOUBLE_EQ(-1.0, object1.calculateDisplacement(3));
 		// Check invalid direction parameter usage
 		EXPECT_THROW(object1.calculateDisplacement(4), invalid_argument);
 	}
