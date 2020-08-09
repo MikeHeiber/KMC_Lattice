@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v2.1.0] - 2020-07-25 - Build Update
+## [v2.1.0] - 2020-08-09 - Build and Bugfix Update
 
 ### Added
 - .travis.yml - Test builds for GCC 9
@@ -18,17 +18,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README.md - Information about clang compiler support
 
 ### Changed
-- .travis.yml - Copyright years up 2020
+- .travis.yml - Copyright years up to 2020
 - .travis.yml - Test build OS from Ubuntu trusty to Ubuntu xenial and bionic
 - .travis.yml - Simplified how GCC versions are installed and configured
 - docs - Updated Doxygen documentation for v2.1.0 using Doxygen v1.8.18
 - Doxyfile - Project version to v2.1.0 and other adjustments for Doxygen version v1.8.18
-- LICENSE - Copyright years up 2020
-- makefile - Copyright years up 2020
+- LICENSE - Copyright years up to 2020
+- makefile - Copyright years up to 2020
 - makefile - Updated how the underlying compiler is detected now using 'mpicxx -show'
+- Object - Copyright years up to 2020
+- Object - Updated calculateDisplacement method to calculate net displacement when specifying a direction instead of the absolute displacement
 - README.md - Latest stable release version to v2.1.0
 - README.md - Updated description of testing configurations
-- Version - Copyright years up 2020
+- test.cpp (CalculateDisplacementTests) - Updated tests to check for negative net displacement when specifying a direction
+- Version - Copyright years up to 2020
 - Version - Current version string to v2.1.0
 
 ### Removed

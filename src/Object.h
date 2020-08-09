@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 Michael C. Heiber
+// Copyright (c) 2017-2020 Michael C. Heiber
 // This source file is part of the KMC_Lattice project, which is subject to the MIT License.
 // For more information, see the LICENSE file that accompanies this software.
 // The KMC_Lattice project can be found on Github at https://github.com/MikeHeiber/KMC_Lattice
@@ -20,7 +20,7 @@ namespace KMC_Lattice {
 	//! base class is intended to be extended to create classes that represent specific types of objects. 
 	//! \copyright MIT License.  For more information, see the LICENSE file that accompanies this software package.
 	//! \author Michael C. Heiber
-	//! \date 2017-2019
+	//! \date 2017-2020
 	class Object {
 	public:
 		//! Default virtual destructor needed by the base class.
@@ -35,11 +35,11 @@ namespace KMC_Lattice {
 		//! \param start_coords is the Coords struct that defines the starting coordinates of the Object.
 		Object(const double time, const int tag_num, const Coords& start_coords);
 
-		//! \brief Calculates the absolute displacement of the object from its starting coordinates in lattice units.
+		//! \brief Calculates the displacement of the object from its starting coordinates in lattice units.
 		//! \details The function accounts for when periodic boundaries are crossed to determine the real 
 		//! displacement distance.
 		//! \param direction is an optional parameter that specifies whether the displacement only along a particular Cartesian direction should be calculated.
-		//! When direction is not set, the default three-dimensional displacement is calculated, but when set to 1, 2, or 3, the function calculates the displacement
+		//! When direction is not set, the default three-dimensional absolute displacement is calculated, but when set to 1, 2, or 3, the function calculates the net displacement
 		//! only in the x-, y-, and z-directions, respectively.
 		double calculateDisplacement(const int direction = 0) const;
 
