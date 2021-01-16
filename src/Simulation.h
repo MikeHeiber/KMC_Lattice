@@ -43,7 +43,7 @@ namespace KMC_Lattice {
 		//! \param params is a Parameters_Simulation struct that contains all of the required
 		//! parameters to initialize the Simulation object. 
 		//! \param id is the processor ID number for the processor that is running the simulation.
-		void init(const Parameters_Simulation& params, const int id);
+		void init(const Parameters_Simulation& params, const int id, const int rand_seed);
 
 		//! \brief Checks whether or not the simulation has finished.
 		//! \details This is a pure virtual function in the base class that must be defined by any derived class.

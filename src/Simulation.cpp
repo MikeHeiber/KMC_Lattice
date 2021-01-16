@@ -17,7 +17,7 @@ namespace KMC_Lattice {
 
 	}
 
-	void Simulation::init(const Parameters_Simulation& params, const int id) {
+	void Simulation::init(const Parameters_Simulation& params, const int id, const int rand_seed) {
 		if (!params.checkParameters()) {
 			throw invalid_argument("Error! Simulation object initialization cannot be completed because the input parameters are invalid.");
 		}
@@ -35,7 +35,7 @@ namespace KMC_Lattice {
 		lattice.init(params.Params_lattice, &generator);
 		object_ptrs.clear();
 		event_ptrs.clear();
-		generator.seed((int)time(0)*(id + 1));
+		generator.seed((int)time(0)*(id + 1)*(rand_seed + 1));
 		// Output files
 		Logfile = params.Logfile;
 	}
